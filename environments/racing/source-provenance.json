@@ -1,0 +1,32 @@
+{
+  "selected_checkpoint": "lane-commit-v14, an early selected hybrid checkpoint; not latest development",
+  "files": {
+    "run.py": "0ba7ee0283781b4cb567d37e7f8213f06c76b200874c8067603f052a0fc0db78",
+    "live.py": "ba3d38f1a4fca5d38d63be8f6e082889dbaefc48977691cc8b20b9747626dad6",
+    "waypoints.py": "645785f3eec086526214253544cce9ee182d5a939e91ee65819923e50e4ef906",
+    "lane.py": "76798b23171aa68c90bb92641514c7a5f16f36306c3f6806d21a3e3b500c967e",
+    "test_contracts.py": "1d5ab567f6a2e85cd6fbcc7026f355533e1003745de9aa668d5a95fa9c29cd9c",
+    "test_stream.py": "b4c4b38cd22a425c8e14fe0e91149cdb04c500fbed9e64bfc54779ec0a5e4db1",
+    "test_lane.py": "887f2879ae4aa34abdbadbf321e27829e5c70efefb52fd5954cead54e3c2bc31",
+    "explained_api.py": {
+      "original": "1620ad27f2685929e40e90769eabef417c7862ad88c5979fa581f2c1031bb34c",
+      "packaged": "da9f6321c3be708f7e5436cb89014331fe437f048823c84ea10d19005c9946e1",
+      "change": "only standalone import root relocation"
+    },
+    "live_explained.py": {
+      "original": "d8c3bcbe614ad8522e29a0ba5c04bfc9d3c3a783ef506788394acdb7fa18d7e9",
+      "packaged": "94970fc464cdb19c740e43c671a5c290774ffdf8c8b25d5b1a2af5ffdd78527c",
+      "change": "only standalone import root relocation"
+    },
+    "test_explained.py": {
+      "original": "5d5883559acdc71d3d808978884edb0f58515bda90759243f68d300b4f27f17a",
+      "packaged": "d0fe82fc9a5446b3adad5f368b7b9c2aeebefd1605ed6034c04596a36c888ad3",
+      "change": "only standalone import root relocation"
+    }
+  },
+  "environment_repository": "https://github.com/CHIGUI0/roboolympics",
+  "environment_commit": "da1f787f775ea6524d698c0b063157ded4c0fef9",
+  "no_new_paid_calls_for_packaging": true,
+  "historical_subscription_images_omitted": true,
+  "current_subscription_image_detail": "auto"
+}

@@ -1,0 +1,22 @@
+{
+  "source_run": "/tmp/robot-racing-research/results/api-live-lane-summary-1x-s304-v1",
+  "fps": 20,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "broadcast_camera_render_resolution": [
+    600,
+    400
+  ],
+  "frames": 1781,
+  "trajectory_replay_matches": true,
+  "state_sha": "f3e25ebb1dd76e2aaae0e1c0fa66989177448312fdb7a33b158365c4cc6f6427",
+  "actual_response_packets": 137,
+  "applied_decision_changes": 117,
+  "all_displayed_summaries_from_actual_response": true,
+  "input_image_hashes_verified": true,
+  "no_new_model_calls_for_rendering": true,
+  "review_waits_omitted": true,
+  "won": true
+}

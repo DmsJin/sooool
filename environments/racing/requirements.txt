@@ -1,0 +1,6 @@
+# Actual tested local Python 3.12 replay/HTTP driver stack; separate from root uv.
+mujoco==3.3.7
+numpy==2.5.4
+scipy==1.18.1
+Pillow==12.3.0
+requests==2.34.2

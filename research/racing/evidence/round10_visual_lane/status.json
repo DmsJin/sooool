@@ -1,0 +1,353 @@
+{
+  "finished": 3,
+  "total": 3,
+  "episodes": [
+    {
+      "id": "visual-lane-1x-s121",
+      "returncode": 0,
+      "condition": {
+        "id": "visual-lane-1x-s121",
+        "variant": "metric",
+        "slowdown": 1,
+        "control": "lane",
+        "cadence": 0.6,
+        "chunk": 1,
+        "history": 2,
+        "workers": 3,
+        "seed": 121
+      },
+      "status": "complete",
+      "api_cost_usd": 0,
+      "auth": "chatgpt",
+      "control": "lane",
+      "seed": 121,
+      "level": 1,
+      "slowdown": 1.0,
+      "winner": "A",
+      "won": true,
+      "scores": {
+        "A": {
+          "heats_won": 2,
+          "warnings": 0,
+          "checkpoints": 32,
+          "laps": 2,
+          "obstacle_crashes": 0
+        },
+        "opponent": {
+          "heats_won": 0,
+          "warnings": 0,
+          "checkpoints": 23,
+          "laps": 0,
+          "obstacle_crashes": 0
+        }
+      },
+      "steps": 5684,
+      "digest": "8087d4a6c42e7d044ecdd2e96d625b7aebb0236c354ebd593bb11c0d06b14bee",
+      "game_seconds": 56.84,
+      "calls": 96,
+      "drops": 0,
+      "invalid_output_count": 0,
+      "peak_virtual_inflight": 4,
+      "mean_action_age_game_s": 1.7308550185873606,
+      "wall_seconds": 465.7271355270059,
+      "heat_results": [
+        {
+          "heat": 1,
+          "winner": "A",
+          "decided_by": "finish",
+          "heat_time": 29.16,
+          "winner_finish_time": 29.1508,
+          "grid": {
+            "A": "outer",
+            "B": "inner"
+          },
+          "cars": {
+            "A": {
+              "checkpoints": 16,
+              "finish_time": 29.1508,
+              "obstacle_crashes": 0
+            },
+            "B": {
+              "checkpoints": 12,
+              "finish_time": null,
+              "obstacle_crashes": 0
+            }
+          },
+          "crashes": []
+        },
+        {
+          "heat": 2,
+          "winner": "A",
+          "decided_by": "finish",
+          "heat_time": 27.68,
+          "winner_finish_time": 27.6726,
+          "grid": {
+            "A": "inner",
+            "B": "outer"
+          },
+          "cars": {
+            "A": {
+              "checkpoints": 16,
+              "finish_time": 27.6726,
+              "obstacle_crashes": 0
+            },
+            "B": {
+              "checkpoints": 11,
+              "finish_time": null,
+              "obstacle_crashes": 0
+            }
+          },
+          "crashes": []
+        }
+      ],
+      "replay_matches": true
+    },
+    {
+      "id": "visual-lane-1x-s101",
+      "returncode": 0,
+      "condition": {
+        "id": "visual-lane-1x-s101",
+        "variant": "metric",
+        "slowdown": 1,
+        "control": "lane",
+        "cadence": 0.6,
+        "chunk": 1,
+        "history": 2,
+        "workers": 3,
+        "seed": 101
+      },
+      "status": "complete",
+      "api_cost_usd": 0,
+      "auth": "chatgpt",
+      "control": "lane",
+      "seed": 101,
+      "level": 1,
+      "slowdown": 1.0,
+      "winner": "A",
+      "won": true,
+      "scores": {
+        "A": {
+          "heats_won": 2,
+          "warnings": 0,
+          "checkpoints": 32,
+          "laps": 2,
+          "obstacle_crashes": 0
+        },
+        "opponent": {
+          "heats_won": 0,
+          "warnings": 0,
+          "checkpoints": 21,
+          "laps": 0,
+          "obstacle_crashes": 0
+        }
+      },
+      "steps": 5382,
+      "digest": "2fc26bb5eb6d7fbf902347ceab8c4bcca344de6b7597c7075483e420546d5689",
+      "game_seconds": 53.82,
+      "calls": 91,
+      "drops": 0,
+      "invalid_output_count": 0,
+      "peak_virtual_inflight": 4,
+      "mean_action_age_game_s": 1.7550390625,
+      "wall_seconds": 481.23699835001025,
+      "heat_results": [
+        {
+          "heat": 1,
+          "winner": "A",
+          "decided_by": "finish",
+          "heat_time": 27.33,
+          "winner_finish_time": 27.3252,
+          "grid": {
+            "A": "outer",
+            "B": "inner"
+          },
+          "cars": {
+            "A": {
+              "checkpoints": 16,
+              "finish_time": 27.3252,
+              "obstacle_crashes": 0
+            },
+            "B": {
+              "checkpoints": 11,
+              "finish_time": null,
+              "obstacle_crashes": 0
+            }
+          },
+          "crashes": []
+        },
+        {
+          "heat": 2,
+          "winner": "A",
+          "decided_by": "finish",
+          "heat_time": 26.49,
+          "winner_finish_time": 26.4832,
+          "grid": {
+            "A": "inner",
+            "B": "outer"
+          },
+          "cars": {
+            "A": {
+              "checkpoints": 16,
+              "finish_time": 26.4832,
+              "obstacle_crashes": 0
+            },
+            "B": {
+              "checkpoints": 10,
+              "finish_time": null,
+              "obstacle_crashes": 0
+            }
+          },
+          "crashes": []
+        }
+      ],
+      "replay_matches": true
+    },
+    {
+      "id": "visual-lane-1x-s111",
+      "returncode": 0,
+      "condition": {
+        "id": "visual-lane-1x-s111",
+        "variant": "metric",
+        "slowdown": 1,
+        "control": "lane",
+        "cadence": 0.6,
+        "chunk": 1,
+        "history": 2,
+        "workers": 3,
+        "seed": 111
+      },
+      "status": "complete",
+      "api_cost_usd": 0,
+      "auth": "chatgpt",
+      "control": "lane",
+      "seed": 111,
+      "level": 1,
+      "slowdown": 1.0,
+      "winner": "opponent",
+      "won": false,
+      "scores": {
+        "A": {
+          "heats_won": 1,
+          "warnings": 3,
+          "checkpoints": 33,
+          "laps": 1,
+          "obstacle_crashes": 0
+        },
+        "opponent": {
+          "heats_won": 1,
+          "warnings": 0,
+          "checkpoints": 29,
+          "laps": 1,
+          "obstacle_crashes": 0
+        }
+      },
+      "steps": 6931,
+      "digest": "a18348dfdb20a8a21d0dc6066ba35922415098995eef9cdd3df155b65221bce5",
+      "game_seconds": 69.31,
+      "calls": 117,
+      "drops": 0,
+      "invalid_output_count": 0,
+      "peak_virtual_inflight": 4,
+      "mean_action_age_game_s": 1.731446540880503,
+      "wall_seconds": 653.9926604689972,
+      "heat_results": [
+        {
+          "heat": 1,
+          "winner": "B",
+          "decided_by": "finish",
+          "heat_time": 35.68,
+          "winner_finish_time": 35.6746,
+          "grid": {
+            "A": "outer",
+            "B": "inner"
+          },
+          "cars": {
+            "A": {
+              "checkpoints": 15,
+              "finish_time": null,
+              "obstacle_crashes": 0
+            },
+            "B": {
+              "checkpoints": 16,
+              "finish_time": 35.6746,
+              "obstacle_crashes": 0
+            }
+          },
+          "crashes": [
+            {
+              "t": 7.27,
+              "at_fault": "A",
+              "kind": "impact",
+              "rule": "drove_into",
+              "other": "B"
+            },
+            {
+              "t": 28.63,
+              "at_fault": "A",
+              "kind": "impact",
+              "rule": "drove_into",
+              "other": "B"
+            }
+          ]
+        },
+        {
+          "heat": 2,
+          "winner": "A",
+          "decided_by": "finish",
+          "heat_time": 27.91,
+          "winner_finish_time": 27.9001,
+          "grid": {
+            "A": "inner",
+            "B": "outer"
+          },
+          "cars": {
+            "A": {
+              "checkpoints": 16,
+              "finish_time": 27.9001,
+              "obstacle_crashes": 0
+            },
+            "B": {
+              "checkpoints": 11,
+              "finish_time": null,
+              "obstacle_crashes": 0
+            }
+          },
+          "crashes": []
+        },
+        {
+          "heat": 3,
+          "winner": "B",
+          "decided_by": "disqualification",
+          "heat_time": 5.72,
+          "winner_finish_time": null,
+          "grid": {
+            "A": "outer",
+            "B": "inner"
+          },
+          "cars": {
+            "A": {
+              "checkpoints": 2,
+              "finish_time": null,
+              "obstacle_crashes": 0
+            },
+            "B": {
+              "checkpoints": 2,
+              "finish_time": null,
+              "obstacle_crashes": 0
+            }
+          },
+          "crashes": [
+            {
+              "t": 5.72,
+              "at_fault": "A",
+              "kind": "impact",
+              "rule": "drove_into",
+              "other": "B"
+            }
+          ]
+        }
+      ],
+      "replay_matches": true
+    }
+  ]
+}

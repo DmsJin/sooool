@@ -1,0 +1,21 @@
+{
+  "root_tests_passed": 14,
+  "racing_contract_tests_passed": 15,
+  "real_HTTP_preflight": "research/racing/evidence/relocation-free-http-check/evaluation_record.json",
+  "actual_recorded_API_packets_rechecked": 137,
+  "corrupt_image_rejected": true,
+  "preflight_cannot_be_API_acceptance": true,
+  "copied_source_hashes_verified": true,
+  "relative_document_links_verified": true,
+  "new_API_calls": 0,
+  "new_subscription_calls": 0,
+  "paid_cost_usd": 0,
+  "limitations": "Free migration preflight does not revalidate model gameplay; historical API evidence retained separately.",
+  "tested_racing_dependencies": {
+    "mujoco": "3.3.7",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "Pillow": "12.3.0",
+    "requests": "2.34.2"
+  }
+}

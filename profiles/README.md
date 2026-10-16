@@ -13,3 +13,7 @@ Asterix's earlier 1/8-speed `sol-ultrafast-v*` directories include `profile.json
 Touhou's newer `profile-control-tracking-safe-intercept-v2-transport-v1.json` transports serial legal-action marginals into historical race timing. It is included as a modeled profile with its declared limitations, rather than substituted into the older simulation recipe that produced the reference comparisons.
 
 `artifacts/calibration-inputs.tar.gz` contains Rhythm's raw native-v17 request source and Touhou's tracking serial inputs/measurements. Asterix's original 596 source requests are included in `artifacts/asterix-calibration-requests.tar.gz`; both source file hashes were checked against the empirical profile. No fresh API latency measurement is implied by these exports.
+
+## Racing
+
+`racing/profile.json` and `measurements.jsonl` preserve the 32 strictly serial paid API measurements used for early development. Minimum 0.984s, median 1.350s, P95 2.258s. This measured one-frame direct steering, not the selected two-frame lane-goal workload or concurrent traffic; its use in current simulations is explicitly a historical proxy. `scripts/racing.py profile` measures selected-policy recorded inputs serially and saves a new profile without overwriting this reference. See [Racing](../docs/racing.md).

@@ -1,0 +1,22 @@
+{
+  "ranges": [
+    {
+      "heat": 1,
+      "start_frame": 0,
+      "end_frame": 760
+    },
+    {
+      "heat": 2,
+      "start_frame": 760,
+      "end_frame": 1223
+    },
+    {
+      "heat": 3,
+      "start_frame": 1223,
+      "end_frame": 1781
+    }
+  ],
+  "fps": 20,
+  "total_frames": 1781,
+  "state_sha": "f3e25ebb1dd76e2aaae0e1c0fa66989177448312fdb7a33b158365c4cc6f6427"
+}

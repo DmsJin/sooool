@@ -1,12 +1,28 @@
 # SOL realtime games
 
-Run frozen visual `gpt-6.1-sol / low` policies with measured API latency profiles. This repository includes Rhythm (DFJK), Touhou/Kaguya, and Atari Asterix. PingPong and Racing source snapshots are preserved under `research/in-progress/`; they remain outside this portable validation release.
+Run frozen visual `gpt-6.1-sol / low` policies with measured API latency profiles. This repository includes Rhythm (DFJK), Touhou/Kaguya, and Atari Asterix. Racing now exposes the selected early lane-commit policy with explicit simulator development and real-time API evaluation. PingPong remains a research snapshot under `research/in-progress/`.
 
-Large archives and videos live on the optional `codex/evidence` branch of this same repository. `main` contains everything needed to run simulations. Use a shallow clone of `main` for the smallest download; materialize selected evidence only when needed.
+The featured Racing video is included on `main`; large historical archives and other videos live on the optional `codex/evidence` branch of this same repository. `main` contains everything needed to run simulations. Use a shallow clone of `main` for the smallest download; materialize selected evidence only when needed.
+
+## Racing: SOL develops, then evaluates in real time
+
+[Start with the Racing workflow](docs/racing.md) and [the evidence-linked iteration record](research/racing/EVALUATION.md). SOL changes prompts/control representation, tests delayed closed-loop decisions in simulation, inspects failures, freezes a candidate, and transfers it to continuously advancing API gameplay.
+
+The selected **early lane-commit-v14** checkpoint won seed304 **2:0** using real `gpt-6.1-sol / low / ultrafast` API decisions. The English-summary video variant won a separate **2:1** retake. GPT selects speed, stripe-relative offset and lookahead; a coded 5 Hz visual tracker supplies steering and bend speed limiting. These are hybrid Level 1 results, not direct GPT steering. Historical subscription groups used numeric camera features but omitted image contents; that input limitation is preserved in the record.
+
+```bash
+# Use the separate Racing environment/dependencies described in docs/racing.md.
+python scripts/racing.py simulate --output runs/racing-dev101 --seed 101
+# Real-time eval requires process-only credentials and an explicit capped ledger.
+python scripts/racing.py eval --output runs/racing-api304 --seed 304 \
+  --budget-ledger runs/racing-budget.json --stage-cap-usd 10
+```
+
+[Watch/download: seed304, edited win → loss → win](artifacts/videos/racing-seed304-win-loss-win.mp4). Original heat IDs, clock and score remain visible; actual API explanations and actions stay synchronized. [How to track an evaluation](research/racing/RECORDS.md) defines hypotheses, full cohorts, replay checks, costs and promotion gates. Later development branches are outside this selected lineage.
 
 ## Today’s research checkpoint
 
-The [2026-10-16 update](docs/update-2026-10-16.md) adds Rhythm v21/streaming, Touhou feedback studies, Asterix food-sequence candidates, and PingPong/Racing direct-action research. Sources, profiles, selected summaries and redacted discussions are preserved; large records/videos remain optional. Asterix selects V28; the other default recipes retain their previous configurations.
+The [2026-10-16 update](docs/update-2026-10-16.md) adds Rhythm v21/streaming, Touhou feedback studies, Asterix food-sequence candidates, and PingPong research and archived Racing material (superseded by the selected Racing workflow). Sources, profiles, selected summaries and redacted discussions are preserved; large records/videos remain optional. Asterix selects V28; the other default recipes retain their previous configurations.
 
 ## Start with profile simulation
 
@@ -46,6 +62,7 @@ These are individual subscription/profile simulations, not new paid real-time AP
 |---|---|---|---|
 | Rhythm | v19 lean, literal model-authored timestamps + visual calibration memory | 179 measured joint RTT/frame-age/transport rows; 140ms cadence, 12 slots | 52-note development chart; full combo was not established in historical v19 runs |
 | Touhou | `tracking_dodge_safe_intercept_v2` | historical four-candidate readiness/terminal joint cohorts | historical latency from another prompt; development simulation, not newly calibrated concurrent latency |
+| Racing | lane-commit-v14, hybrid lane goals | 32 serial API delays used as historical proxy; 0.6s cadence, eight pending slots | External read-only environment; exact-workload recalibration needed; real API seed304 verified |
 | Asterix | V28 + atomic HopControllerV3 | 596 empirical capture-to-complete samples, 12 raw FPS (5× slowdown) | default horizon is 3600 raw frames; V28 development evidence covers 1200 frames, not native-speed success |
 
 Asterix V28 is the selected default. Its prompt, system instructions and provenance live under `policies/asterix/v28/`. The explicit `recipes/asterix-v28.json` alias selects the same configuration.

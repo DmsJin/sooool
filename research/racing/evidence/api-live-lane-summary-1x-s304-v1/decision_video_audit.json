@@ -1,0 +1,1949 @@
+{
+  "actual_seed": 304,
+  "actual_model": "gpt-6.1-sol",
+  "requested_effort": "low",
+  "verified_service_tier": "ultrafast",
+  "cadence_seconds": 0.6,
+  "history_images": 2,
+  "actual_input_image_detail": "low",
+  "same_lane_controller_bytes_as_original_win": true,
+  "same_minimal_system_as_original_win": true,
+  "new_behavior": "same-response public English summary preceding original lane goal",
+  "actual_calls": 137,
+  "score": [
+    2,
+    1
+  ],
+  "physics_game_seconds": 85.97,
+  "physics_wall_seconds": 85.9788546859927,
+  "canonical_valid_trial": true,
+  "independent_canonical_replay_matches": true,
+  "all_heat_wins_by_normal_finish": true,
+  "budget_before_upper_usd": 21.391185,
+  "budget_after_upper_usd": 25.292247,
+  "new_charge_upper_usd": 3.901062,
+  "video_rendering_additional_model_calls": 0,
+  "not_hidden_chain_of_thought": true,
+  "summaries_rewritten_after_game": false,
+  "docs_reference": "https://developers.openai.com/api/docs/guides/streaming-responses",
+  "packets": [
+    {
+      "seq": 0,
+      "summary": "Clear road ahead with a gentle bend; accelerate while holding the initial outer lane for a safe pass.",
+      "action": [
+        [
+          3.6,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "da9353a3efedd7afa8b4502e91adaa694f7c4778c52ccb831a5bc85c192c62c3",
+      "published_seconds": null,
+      "full_response_seconds": 1.4219047290098388
+    },
+    {
+      "seq": 1,
+      "summary": "Clear road ahead with a gentle bend; accelerate while maintaining the outer right lane for a safe pass.",
+      "action": [
+        [
+          3.6,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "a09121ccfc1998dfb18f8317adba64102a3ff5d90b6b4376b3885e3bb3146700",
+      "published_seconds": 1.4287496879987884,
+      "full_response_seconds": 1.5064198159961961
+    },
+    {
+      "seq": 2,
+      "summary": "Road ahead is clear, with the opponent on the left. Accelerate while holding the outer right lane for a safe pass.",
+      "action": [
+        [
+          3.6,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "cf1ed3919db5a95b57df41ff5c718f396263c0135aabecfbae7726a4334527d9",
+      "published_seconds": 0.9077463900030125,
+      "full_response_seconds": 1.0061710639856756
+    },
+    {
+      "seq": 3,
+      "summary": "The opponent is ahead on the left, with clear road in the outer lane. Accelerate while maintaining the outer offset.",
+      "action": [
+        [
+          3.6,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "dcf923fe60153b1f679a17d4866da17bc4a05f38ea5e541c468c80dd1643029a",
+      "published_seconds": 1.1832614660088439,
+      "full_response_seconds": 1.2486244860047009
+    },
+    {
+      "seq": 4,
+      "summary": "Opponent is ahead on the left; road ahead is clear. Accelerate while maintaining the outer right lane for a safe pass.",
+      "action": [
+        [
+          3.6,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "8ba42f584a991255c4b02436802c0da22ef1df0f941a22cb5c61777d6f95a18c",
+      "published_seconds": 0.9976460149919149,
+      "full_response_seconds": 1.0488992879982106
+    },
+    {
+      "seq": 5,
+      "summary": "The opponent is ahead on the left as the road bends right. Maintain the outer right lane and accelerate past without crossing lanes.",
+      "action": [
+        [
+          3.6,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "bea28ba1cf5cb005540cd563ae05c5fac4b17dae85e8b8ce6935317084385db2",
+      "published_seconds": 1.0810179319814779,
+      "full_response_seconds": 1.135707484005252
+    },
+    {
+      "seq": 6,
+      "summary": "The opponent is alongside on the left, with clear road ahead. Hold the outer right lane and accelerate through the bend.",
+      "action": [
+        [
+          3.6,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "945596f74a727ded12e2925f69f3692dbc299f4808728f1bdaa29b059e2e0795",
+      "published_seconds": 1.0349662989901844,
+      "full_response_seconds": 1.1068272789998446
+    },
+    {
+      "seq": 7,
+      "summary": "The road bends left with no visible magenta obstacles. Maintain the outer right lane and continue briskly without crossing the opponent\u2019s lane.",
+      "action": [
+        [
+          3.3,
+          -0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "2b2a4cf01f12023e4af49663a67be160261b7143e12164e19a0facdb670056ea",
+      "published_seconds": 1.0109793130250182,
+      "full_response_seconds": 1.0921906610019505
+    },
+    {
+      "seq": 8,
+      "summary": "The road ahead is clear as the bend opens; maintain the outer right lane and accelerate without crossing the centre stripe.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "88bf173f33dd45002f27720a97a2b979aec5415e7d6e3fce3940fa15d86abcac",
+      "published_seconds": 0.9299976059992332,
+      "full_response_seconds": 1.0210480719979387
+    },
+    {
+      "seq": 9,
+      "summary": "Road ahead is clear through the bend; maintain the outer right lane and continue at racing speed.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "f9ecf423a38093ba5d1c0f86a9a703c146f65f6322dabd861de345840207faba",
+      "published_seconds": 0.9408534440153744,
+      "full_response_seconds": 1.0447189279948361
+    },
+    {
+      "seq": 10,
+      "summary": "Road is clear through the bend. Maintain the outer right lane and carry speed without crossing toward the opponent.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "573c182ab1a61b3c0bf8cbe1d525bdc6308d39932f974f512eba5ff9e1a9e20a",
+      "published_seconds": 1.0176891320152208,
+      "full_response_seconds": 1.087190542020835
+    },
+    {
+      "seq": 11,
+      "summary": "Clear road curves left with no visible obstacles; maintain the outer lane and strong pace through the bend.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "1da54415dbb976d320c61e77f7ca1f4178cbdd3681b66d5f5fd85ac3ad604e25",
+      "published_seconds": 0.8728039549896494,
+      "full_response_seconds": 0.9456802339991555
+    },
+    {
+      "seq": 12,
+      "summary": "Clear left bend with no visible obstacles or cars; maintain the outer right lane and carry speed through the turn.",
+      "action": [
+        [
+          3.4,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "799494a29d6b0714de48bf888003db794113ddf37fa886946ac36a3746b00b26",
+      "published_seconds": 0.8503720090084244,
+      "full_response_seconds": 0.9090863890014589
+    },
+    {
+      "seq": 13,
+      "summary": "Clear left bend with no visible obstacles or cars; maintain the outer lane and carry speed through the turn.",
+      "action": [
+        [
+          3.4,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "1b13ef47f52b4269515963f1e4e042dd990e6ed965fd05f7a3aec124b60698ab",
+      "published_seconds": 0.8462772990169469,
+      "full_response_seconds": 0.9416061350202654
+    },
+    {
+      "seq": 14,
+      "summary": "The road ahead is clear and the left bend is opening; maintain the outer lane and accelerate smoothly.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "e0680dac6bb38df2a46232c7fe6ff7df3e6ba27c962b376fd4bfaf17331f9bd8",
+      "published_seconds": 0.8917523419950157,
+      "full_response_seconds": 0.961410010990221
+    },
+    {
+      "seq": 15,
+      "summary": "A magenta obstacle is ahead right of the yellow stripe; move into the clear left lane and maintain racing speed.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "f7e7fcb02766efc4f01cb7476eb5f3edc2708ffaadb5184b9a73ccfa8d1bb789",
+      "published_seconds": 1.2975424690230284,
+      "full_response_seconds": 1.3776147669996135
+    },
+    {
+      "seq": 16,
+      "summary": "A magenta obstacle blocks the right lane ahead; move left of the yellow stripe and hold that lane through the pass.",
+      "action": [
+        [
+          3.2,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "d67ce7b22d142083e84f77d3d81e3c2f0e6606bf060018313d7ddfb682aa6b79",
+      "published_seconds": 1.0153806529997382,
+      "full_response_seconds": 1.0973281109763775
+    },
+    {
+      "seq": 17,
+      "summary": "A magenta obstacle blocks the right lane ahead; slow down and move left of the yellow stripe to pass safely.",
+      "action": [
+        [
+          2.0,
+          0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "a97a26644d618187784ba37b8f293f54db736c475bef8c9fb76d7afca38feea9",
+      "published_seconds": 1.0907783219881821,
+      "full_response_seconds": 1.178621169005055
+    },
+    {
+      "seq": 18,
+      "summary": "The car is stopped after an impact; the road ahead is open, with the magenta obstacle far right. Resume in the clear left lane.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "6ae2aa4225b017ad09de59a1d45ec77a3531263b5997b156eda733b9e00748b8",
+      "published_seconds": 1.0203314340033103,
+      "full_response_seconds": 1.1259109870006796
+    },
+    {
+      "seq": 19,
+      "summary": "The road ahead is clear, with a magenta obstacle far right. Accelerate while maintaining the current safe left offset.",
+      "action": [
+        [
+          3.3,
+          0.44,
+          2.0
+        ]
+      ],
+      "response_sha256": "c7da0c748dc0c14f8a4f8797201863502a639484be86ee5a01c667d4345a3bea",
+      "published_seconds": 1.7392834619968198,
+      "full_response_seconds": 1.8698572519933805
+    },
+    {
+      "seq": 20,
+      "summary": "The road ahead is clear, with a magenta obstacle far right. Maintain the current left-side lane and accelerate smoothly.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "bb49ed751fbf8ce9f79401e7ef098bb2f4591178f056b9984d0b6ae796d93f6b",
+      "published_seconds": 1.1250035559933167,
+      "full_response_seconds": 1.2589913249830715
+    },
+    {
+      "seq": 21,
+      "summary": "The obstacle is behind and the road ahead bends left. Maintain the current safe left offset and accelerate through the clear bend.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "deb62563f524e8665ac2b023636ec17227aa5cb338307c7ba0b43754da88a708",
+      "published_seconds": 1.2686099440034013,
+      "full_response_seconds": 1.4134273520030547
+    },
+    {
+      "seq": 22,
+      "summary": "The road bends left with a distant magenta obstacle on the left; maintain the outer right lane and continue at racing speed.",
+      "action": [
+        [
+          3.4,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "cf2bf35b45ecc9082d9139eb7351eac35e5b766c14524a63db688ef5492a9740",
+      "published_seconds": 1.377408139000181,
+      "full_response_seconds": 1.46311770498869
+    },
+    {
+      "seq": 23,
+      "summary": "Road bends left with a magenta obstacle ahead on the right; maintain a left offset and advance through the bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.6
+        ]
+      ],
+      "response_sha256": "afbb1db552dfba0f1ae9636159ec7160d82465dcc61c13852de6f9750fb23430",
+      "published_seconds": 1.2140769829857163,
+      "full_response_seconds": 1.3003142199886497
+    },
+    {
+      "seq": 24,
+      "summary": "A magenta obstacle is ahead on the right; hold a safe left offset and continue briskly through the gentle bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "876f22fd215081aa721f0ac1310e2f50dca353d9e6be03cd92ef975fcb20852d",
+      "published_seconds": 1.2734248740016483,
+      "full_response_seconds": 1.3540110909962095
+    },
+    {
+      "seq": 25,
+      "summary": "A magenta obstacle is close on the right as the road bends left. Hold a safe left offset and continue through the bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.6
+        ]
+      ],
+      "response_sha256": "b8251c2b34a9517893c006f66740b4074d9ba557c558df97bbab95c51093a720",
+      "published_seconds": 1.1859789970039856,
+      "full_response_seconds": 1.2686227450030856
+    },
+    {
+      "seq": 26,
+      "summary": "The right-side obstacle is now behind and the road bends left. Hold the current left offset and accelerate along the clear lane.",
+      "action": [
+        [
+          3.4,
+          0.19,
+          1.8
+        ]
+      ],
+      "response_sha256": "64212d29ee6a3d29eb43d95b339ba28423623dba15088aa550c60b6852ac409a",
+      "published_seconds": 0.9620980030158535,
+      "full_response_seconds": 1.039665040007094
+    },
+    {
+      "seq": 27,
+      "summary": "Clear road curves left with no visible obstacles or opponent. Hold the current left-side lane and maintain brisk speed through the bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "4da8ddb7bc6a7e9f0143afea54f2f518aeeaaaecb08e636daa6dfe76d567c735",
+      "published_seconds": 1.328157366020605,
+      "full_response_seconds": 1.4190673120028805
+    },
+    {
+      "seq": 28,
+      "summary": "The road bends left with no visible obstacles or cars. Maintain the outer lane and continue briskly through the bend.",
+      "action": [
+        [
+          3.3,
+          -0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "bbbe5d7d9aeedc56e0bdacef0370196404bf8243606feac85d80b78d0c24be9b",
+      "published_seconds": 1.0818143740179949,
+      "full_response_seconds": 1.1538756730151363
+    },
+    {
+      "seq": 29,
+      "summary": "The road ahead is clear and bends right. Maintain the outer lane and accelerate smoothly through the bend.",
+      "action": [
+        [
+          3.4,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "3e2a5278134ba0dff056d13387dcc096bf8c22a4a4a2a32ebc7d21fd4b20424a",
+      "published_seconds": 1.0016904460208025,
+      "full_response_seconds": 1.0697436250047758
+    },
+    {
+      "seq": 30,
+      "summary": "The road bends right with no visible obstacles; maintain the current left-side lane and carry speed through the clear bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "5ea179ac2e9dcb21e28017c4d9e10edc9dbb94ca56e7e5055f6a9a408fb4ca59",
+      "published_seconds": 1.3767858690116554,
+      "full_response_seconds": 1.4706737440137658
+    },
+    {
+      "seq": 31,
+      "summary": "A magenta obstacle sits right of the centre stripe ahead. Move smoothly left to pass it, maintaining speed through the bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "bd730a01712ef2b72c6d1f5529fcfc8cd0e57225ad49582f4495d2c7c257dca7",
+      "published_seconds": 1.3143137780134566,
+      "full_response_seconds": 1.3891193169984035
+    },
+    {
+      "seq": 32,
+      "summary": "A magenta obstacle blocks the right side ahead. Move left of the yellow stripe to pass safely while maintaining speed.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "add110629517da3740b7f0887329afaa25fc54db907665e43f127ebcb97b8635",
+      "published_seconds": 1.1318296559911687,
+      "full_response_seconds": 1.2516283080040012
+    },
+    {
+      "seq": 33,
+      "summary": "A magenta obstacle blocks the right side ahead; pass on its left and maintain that lane through the bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "a529bbb84ae7801f58bd7bbb5b66816baebc3cfa58e80871d871ccc24b51a0a5",
+      "published_seconds": 1.0382182110042777,
+      "full_response_seconds": 1.1028075510112103
+    },
+    {
+      "seq": 34,
+      "summary": "The right-side magenta obstacle is behind; maintain a safe left-of-centre lane through the clear bend and accelerate.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "003c045b009bff31d59479e4a8ace52741813520c04446535e05fcd6f1267706",
+      "published_seconds": 1.4244362119934522,
+      "full_response_seconds": 1.514816726994468
+    },
+    {
+      "seq": 35,
+      "summary": "The road curves left with no visible obstacles or rival. Hold the outer right lane and let the curvature limiter manage speed.",
+      "action": [
+        [
+          3.2,
+          -0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "eaa4f0d6e1a6e516e476e9670c740b9395e8a062190715cfc23819fcbb971a7e",
+      "published_seconds": 1.1254851370176766,
+      "full_response_seconds": 1.2016912260151003
+    },
+    {
+      "seq": 36,
+      "summary": "The road bends left with no visible obstacles or cars. Maintain the outer lane and accelerate through the clear bend.",
+      "action": [
+        [
+          3.3,
+          -0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "fd68a86a7ae291f34943f29899fbe93855a8316010afe5ee699a1d8efccec437",
+      "published_seconds": 1.2060645550081972,
+      "full_response_seconds": 1.2866865929972846
+    },
+    {
+      "seq": 37,
+      "summary": "The road bends left with no visible obstacles or cars. Hold the outer lane and maintain speed through the clear bend.",
+      "action": [
+        [
+          3.3,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "cae82d3e4c787546479a02473f017abb284146a41ac77fbc6c18fa910f814b7d",
+      "published_seconds": 1.0920443930081092,
+      "full_response_seconds": 1.1830228489998262
+    },
+    {
+      "seq": 38,
+      "summary": "The centre stripe has disappeared and the boundary wall is ahead; brake to avoid impact before attempting recovery.",
+      "action": [
+        [
+          0,
+          -0.06,
+          0.7
+        ]
+      ],
+      "response_sha256": "c72ce41ae54f76566a35417ecb2ea265d0c37cca455718032ab85717788f3163",
+      "published_seconds": 1.5001703400048427,
+      "full_response_seconds": 1.5792823579977266
+    },
+    {
+      "seq": 39,
+      "summary": "The car is nearly stopped facing the boundary, with no yellow stripe visible. Reverse briefly to regain road visibility, maintaining the outer offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "cb6dc1ce5753931a198339525b6eb093126224a014f647991e0068c3b348b958",
+      "published_seconds": 1.1119377600261942,
+      "full_response_seconds": 1.2276944820187055
+    },
+    {
+      "seq": 40,
+      "summary": "A red-and-white wall fills the view and the centre stripe is absent; reverse briefly to recover clearance while retaining the outer offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "888aafe0668d2930bdfc7f3101eae089facf161e5ba3a47bffc5ef69d21a0c12",
+      "published_seconds": 1.0463655299972743,
+      "full_response_seconds": 1.1035236519819591
+    },
+    {
+      "seq": 41,
+      "summary": "The car is stationary facing the boundary wall with no centre stripe visible; reverse briefly to regain road visibility, maintaining the outer offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "df465c9c0399f0be7c5114a3bbac4b2181d82549af5de5351f15a7cad2362f55",
+      "published_seconds": 0.9671331020072103,
+      "full_response_seconds": 1.0355524719925597
+    },
+    {
+      "seq": 42,
+      "summary": "The car is stationary facing a close red-white wall with no centre stripe visible; reverse briefly while maintaining the outer-lane offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "10d7e23d4fa60277d28868b8a2bf822d6534b286809e835dd3b61812c9ec1ec2",
+      "published_seconds": 1.0276187029958237,
+      "full_response_seconds": 1.1008703519764822
+    },
+    {
+      "seq": 43,
+      "summary": "The car is stationary facing the boundary wall with no centre stripe visible; reverse briefly to regain space while retaining the outer offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "8d199be8f27cea64bceb09a5c84aa57130cad7c9a420184e3bbc994f8a8797a9",
+      "published_seconds": 0.9587452730047517,
+      "full_response_seconds": 1.0327864620194305
+    },
+    {
+      "seq": 44,
+      "summary": "The car is stationary facing a close boundary wall with no yellow stripe visible; reverse briefly to regain road visibility.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "d6caa06640297e0f86315839c2852eccf11d5c2c73e3b6b0bc0f0f366343f45d",
+      "published_seconds": 1.011293935996946,
+      "full_response_seconds": 1.067073457990773
+    },
+    {
+      "seq": 45,
+      "summary": "The car is stationary facing a nearby wall with no centre stripe visible. Reverse briefly to regain road visibility, preserving the outer offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "079ecfccecf842b90d5a352d5b94a2840b8218bf657d718a44da4fbf43092cca",
+      "published_seconds": 1.0003426960029174,
+      "full_response_seconds": 1.0287218619778287
+    },
+    {
+      "seq": 46,
+      "summary": "The car is stopped facing a nearby boundary wall with no centre stripe visible. Reverse briefly to regain clearance, maintaining the outer offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "b67c90f13ed2b2371eacab30c826aeafbdeccc2b625ef198844904068584004c",
+      "published_seconds": 0.9861080789996777,
+      "full_response_seconds": 1.053991588007193
+    },
+    {
+      "seq": 47,
+      "summary": "The car is stopped facing the boundary wall with no centre stripe visible; reverse briefly to regain road visibility.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "822eb9c2512b94d03cb07f51eb236f5ce64ae148b64436bc3e561742c2146037",
+      "published_seconds": 0.9136915699928068,
+      "full_response_seconds": 0.9690001819981262
+    },
+    {
+      "seq": 48,
+      "summary": "The car is stopped facing a nearby boundary wall with no visible centre stripe; reverse briefly while maintaining the outer lane offset.",
+      "action": [
+        [
+          -1.0,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "326d3e6d4ba625c9f3e401eb9cf0035aad79340a11ee81ee21f484b55d4eed6b",
+      "published_seconds": 1.2079219559964258,
+      "full_response_seconds": 1.2844075339962728
+    },
+    {
+      "seq": 49,
+      "summary": "Stopped facing the boundary wall with no yellow stripe visible; reverse briefly to regain space while preserving the outer lane offset.",
+      "action": [
+        [
+          -1.0,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "23f3a5fb8c40abedd504fd03cbd52d745f42b1fe16227619bbab65878c139ec8",
+      "published_seconds": 0.9639760330028366,
+      "full_response_seconds": 1.0681270670029335
+    },
+    {
+      "seq": 50,
+      "summary": "The car is stopped facing a nearby wall with no centre stripe visible; reverse briefly to regain clearance, retaining the outer-lane offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "fcc9b91d8d4b35f63f9916c07df02282ee0d4dd85c960594a2969d9f5dcf09bf",
+      "published_seconds": 0.8922665249847341,
+      "full_response_seconds": 0.977565640991088
+    },
+    {
+      "seq": 51,
+      "summary": "The car is stopped facing the boundary wall with no centre stripe visible; briefly reverse to regain road visibility.",
+      "action": [
+        [
+          -1.0,
+          -0.38,
+          0.9
+        ]
+      ],
+      "response_sha256": "041cb6a709962351a4d6b98c6d16ec876525581c69eb450dc4f8c7ae396c83d1",
+      "published_seconds": 1.9959481059922837,
+      "full_response_seconds": 2.1009805299981963
+    },
+    {
+      "seq": 52,
+      "summary": "The car is stopped facing the boundary with no centre stripe visible. Reverse briefly to regain road visibility while preserving the outer offset.",
+      "action": [
+        [
+          -1.0,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "de82447d2b80822d473c9c6d4b21a278a9015da73f2afd7e9cbe5a4f49a8b4da",
+      "published_seconds": 1.381816159002483,
+      "full_response_seconds": 1.4651546269888058
+    },
+    {
+      "seq": 53,
+      "summary": "Stopped facing the boundary with no centre stripe visible; briefly reverse to regain road visibility while retaining the outer lane offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "a1259087e60a694ce403d78d232a6aa58d669c9fd77ef044b621a131571a02c5",
+      "published_seconds": 1.1936658689810429,
+      "full_response_seconds": 1.2564355789800175
+    },
+    {
+      "seq": 54,
+      "summary": "Stopped facing the boundary with no yellow stripe visible; briefly reverse to regain road visibility before resuming forward travel.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "b636239a9175ca6018cb702d245ec9fdf91eeaa3520ea0c863ef0289ea6bc2de",
+      "published_seconds": 1.0190022549941204,
+      "full_response_seconds": 1.0559566989832092
+    },
+    {
+      "seq": 55,
+      "summary": "The car is stationary facing a nearby wall with no centre stripe visible; reverse slowly to regain road visibility.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "8382206d470167dbaaa0a0aa4d78b9d6d20fe93e4e6c26825e1f3595e52b68ad",
+      "published_seconds": 1.6622748280060478,
+      "full_response_seconds": 1.7329046269878745
+    },
+    {
+      "seq": 56,
+      "summary": "The car is stationary facing a close boundary wall with no visible centre stripe; reverse briefly to recover space.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "b40e917661ee612423ca20dc81dad9bec13c0af2d9c776d0b3d81aa7d06890dc",
+      "published_seconds": 0.9804981909983326,
+      "full_response_seconds": 1.064475407009013
+    },
+    {
+      "seq": 57,
+      "summary": "The car is stopped facing a nearby boundary wall with no centre stripe visible; reverse briefly to regain room and visibility.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "1f288c36a528a2af97ead420b6e6c10488c82ecd69b0658b5c82206efbbedc1a",
+      "published_seconds": 0.999141378008062,
+      "full_response_seconds": 1.0904204440012109
+    },
+    {
+      "seq": 58,
+      "summary": "The car is stopped facing a nearby boundary wall with no centre stripe visible; reverse briefly to regain space, preserving the outer offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "c7f3f594151ccbfd51d0667f6638ee87057390c240e653958c79ca6476650d94",
+      "published_seconds": 1.066910708002979,
+      "full_response_seconds": 1.1928346090135165
+    },
+    {
+      "seq": 59,
+      "summary": "The car is stopped facing a nearby boundary wall with no yellow stripe visible; reverse briefly to recover clearance, retaining the outer offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "09f56c7ad6401db93f94158fe7dae0c3b57d422f9dd13103f329b3123231eec2",
+      "published_seconds": 1.054307520011207,
+      "full_response_seconds": 1.1324007879884448
+    },
+    {
+      "seq": 60,
+      "summary": "The car is stationary facing a nearby wall, with no centre stripe visible. Reverse slowly to regain road visibility, retaining the outer offset.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.7
+        ]
+      ],
+      "response_sha256": "dfea193e979244ffd6602b9f0c62a5c08aedf724017f4f21fd716909fa9f75c7",
+      "published_seconds": 1.1106840720167384,
+      "full_response_seconds": 1.194469789013965
+    },
+    {
+      "seq": 61,
+      "summary": "The car is stopped facing a nearby boundary wall with no centre stripe visible; reverse briefly to regain road alignment.",
+      "action": [
+        [
+          -0.9,
+          -0.38,
+          0.8
+        ]
+      ],
+      "response_sha256": "8bb38b8a29447dcdb12982f06d1eebff01014e4ac6b3d54e2b734a0cb6c906ff",
+      "published_seconds": 0.9800109309726395,
+      "full_response_seconds": 1.0587917989760172
+    },
+    {
+      "seq": 62,
+      "summary": "Clear road ahead with a gentle bend; accelerate while holding the initial inner lane.",
+      "action": [
+        [
+          3.6,
+          0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "4987d50a5d1bd56aaa39163b8b5d5d612d4a14de3c081010f46dd9498573c651",
+      "published_seconds": 0.7826852209982462,
+      "full_response_seconds": 0.8593921389838215
+    },
+    {
+      "seq": 63,
+      "summary": "Road ahead is clear, with the opponent alongside on the right. Accelerate while holding the inner left lane for a safe pass.",
+      "action": [
+        [
+          3.6,
+          0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "1fbf447a46160b01f8c74f85bc201a0c90505881b13419b1871e0fea016ef928",
+      "published_seconds": 1.3287720190128312,
+      "full_response_seconds": 1.377487932011718
+    },
+    {
+      "seq": 64,
+      "summary": "Clear road ahead with the opponent on the right. Accelerate while maintaining the inner left lane for a safe pass.",
+      "action": [
+        [
+          3.6,
+          0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "98650a23ae19605cefd6192e707d486639927f9ee01d9998bf6ad088caf10407",
+      "published_seconds": 1.2090244970167987,
+      "full_response_seconds": 1.324055479024537
+    },
+    {
+      "seq": 65,
+      "summary": "The opponent is alongside on the right, with clear road ahead bending left. Hold the inner lane and accelerate safely past.",
+      "action": [
+        [
+          3.5,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "6f6941a9230df8aac2acc7c2813c606a481c883e0237039593e827d06ef61b3d",
+      "published_seconds": 1.4336878930043895,
+      "full_response_seconds": 1.5318739880167414
+    },
+    {
+      "seq": 66,
+      "summary": "Road ahead is clear through the bend; maintain the inner left offset and brisk speed without crossing the opponent\u2019s lane.",
+      "action": [
+        [
+          3.5,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "3debc3460232d9b61de20c662d35df95c3750b408c21ab6a4eaca5a35ff2a59a",
+      "published_seconds": 0.982187621993944,
+      "full_response_seconds": 1.051074010989396
+    },
+    {
+      "seq": 67,
+      "summary": "Road ahead is clear through a left bend. Maintain the inner left lane and brisk speed without crossing the opponent\u2019s lane.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "b79c57def8707ed3e562b3a9e84439f5d108d1b8462efb653ce37e032341866e",
+      "published_seconds": 1.1339381489960942,
+      "full_response_seconds": 1.20389883799362
+    },
+    {
+      "seq": 68,
+      "summary": "Road ahead is clear with a gentle bend; maintain the inner left lane and accelerate without crossing the opponent\u2019s lane.",
+      "action": [
+        [
+          3.5,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "1180ddc9287175e0cb9501c3737e7681b9f3831a99278edd2173056f3bd348a8",
+      "published_seconds": 0.8894118250173051,
+      "full_response_seconds": 0.9760387320129666
+    },
+    {
+      "seq": 69,
+      "summary": "Road ahead is clear through the bend; maintain the inner left lane and accelerate without crossing the opponent\u2019s lane.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "a7e9f3e1d347ef213ca028cbe11c3fbb1338c324d018f5e01588eaa2cb9bfc3e",
+      "published_seconds": 0.9157046919863205,
+      "full_response_seconds": 0.9901385800039861
+    },
+    {
+      "seq": 70,
+      "summary": "Road ahead is clear through the bend; maintain the inner lane and brisk speed without crossing the opponent\u2019s line.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "96e4598ff4607ea9534bd99d10f417f2f1a7d8d366b23fa17e12f66350b6f662",
+      "published_seconds": 0.9521211259998381,
+      "full_response_seconds": 1.0242100749746896
+    },
+    {
+      "seq": 71,
+      "summary": "The road curves left with no visible obstacles or opponent. Maintain the inner lane and continue briskly through the bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "bb907a38b14e46a7e42b8da56c133a8ebae17c25cd398a0081cc200460de9322",
+      "published_seconds": 1.1632854839845095,
+      "full_response_seconds": 1.2394909319991712
+    },
+    {
+      "seq": 72,
+      "summary": "The road curves left with no visible obstacles or cars. Maintain the inner lane and continue briskly through the bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.6
+        ]
+      ],
+      "response_sha256": "250d434dea9d4a3e5064450ce9a34a767af826a5e152d0b369cba8d2d39ce65e",
+      "published_seconds": 0.9795128219993785,
+      "full_response_seconds": 1.0594855299859773
+    },
+    {
+      "seq": 73,
+      "summary": "Clear left bend with no visible obstacles or rival; maintain the inner lane and accelerate smoothly.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "e8908cb0d2129350896431af1614013ce06d2f8e7e75dc44b0219375e36f8ed5",
+      "published_seconds": 0.8819869259896223,
+      "full_response_seconds": 0.923070419987198
+    },
+    {
+      "seq": 74,
+      "summary": "The bend opens into a clear straight with a distant magenta obstacle on the right; maintain the inner left lane and accelerate.",
+      "action": [
+        [
+          3.5,
+          0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "89cc9f8240bf2078f6718cb20b1f00a32e209f2662f8cc3dafa982a5f2af0fe0",
+      "published_seconds": 1.1697049429931212,
+      "full_response_seconds": 1.2392499729758129
+    },
+    {
+      "seq": 75,
+      "summary": "A magenta obstacle lies ahead on the right. Maintain the inner left lane and continue quickly along the clear road.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "0183cf541e98bfdc025e8dd6677188d60a107eccbf84ea56eec7e4d25c0af0f4",
+      "published_seconds": 1.0990366530022584,
+      "full_response_seconds": 1.1977769089862704
+    },
+    {
+      "seq": 76,
+      "summary": "Magenta obstacle occupies the right side ahead; maintain the inner left lane and pass on its open left side.",
+      "action": [
+        [
+          3.4,
+          0.4,
+          1.8
+        ]
+      ],
+      "response_sha256": "c1d6031cea6a567397f9d740f0dbcf99496f7bd313eae5576baf103950bdc514",
+      "published_seconds": 0.9855844720150344,
+      "full_response_seconds": 1.0697884690016508
+    },
+    {
+      "seq": 77,
+      "summary": "Magenta obstacle is close on the right; maintain the clear left lane and continue past without crossing the stripe.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "cb826a3793e805532c8c25f66640814d98fe99e1350ef6e6b66c355fcf016a25",
+      "published_seconds": 0.9175431609910447,
+      "full_response_seconds": 0.9937743399932515
+    },
+    {
+      "seq": 78,
+      "summary": "The right-side obstacle is behind and the road bends left ahead. Maintain the inner left lane and brisk speed.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "40a85cbf023fd3cf64712187b2f82147ef3cf8bfcc5a13457319e4bf5c3bcb84",
+      "published_seconds": 0.8963133640063461,
+      "full_response_seconds": 1.0039805179985706
+    },
+    {
+      "seq": 79,
+      "summary": "The road bends left with a magenta obstacle ahead on the right; maintain the inner left lane and pass safely.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "9a5da5ad2facb2743b949e3faabb67946edc25dfa180d7bb484800351defbebe",
+      "published_seconds": 1.048235262016533,
+      "full_response_seconds": 1.1214654510258697
+    },
+    {
+      "seq": 80,
+      "summary": "Magenta obstacle sits right of the yellow stripe ahead. Keep the inner left lane and pass safely on its left.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "660e1c65ba5cdfbf39ae9638a07574669cf9528104a751253e8ceb8c1b983f15",
+      "published_seconds": 1.0538493909989484,
+      "full_response_seconds": 1.155740465997951
+    },
+    {
+      "seq": 81,
+      "summary": "A magenta obstacle sits on the right; maintain the inner left lane and pass without crossing toward the opponent.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "6ae66b205d85360244da545d20eab89cf24a7b598c6db4a7779b8795d1e8c871",
+      "published_seconds": 1.1439171180245467,
+      "full_response_seconds": 1.2086412380158436
+    },
+    {
+      "seq": 82,
+      "summary": "The right-side obstacle is behind and the road bends left. Maintain the inner left offset and continue briskly through the clear bend.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "b84c0e2abd65789ef6eb68f7785b7750f1a75e83da9c625fb36559ad9afd83f3",
+      "published_seconds": 1.1930329799943138,
+      "full_response_seconds": 1.2767272369819693
+    },
+    {
+      "seq": 83,
+      "summary": "The road bends left with no visible obstacles or opponent ahead; maintain the inner lane and carry speed smoothly through the bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "0a759dc8aaf3e88f6108fdac53f8b331b4bfd1f84bb89de50aa3edae2c9f7b6f",
+      "published_seconds": 0.9704459639906418,
+      "full_response_seconds": 1.0503743219887838
+    },
+    {
+      "seq": 84,
+      "summary": "The road bends left with no visible obstacles or opponent. Maintain the inner lane and accelerate through the clear bend.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "16f472bafef39099e16f53630b6dd6f0ddfbb2d14f780b24caa3680bede70ae1",
+      "published_seconds": 1.0765683780191466,
+      "full_response_seconds": 1.1408729280228727
+    },
+    {
+      "seq": 85,
+      "summary": "Road ahead is clear through the bend; maintain the inner lane and carry speed while tracking the yellow stripe.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "1db3dc3968e9fbfaf7ef6150a8cc08032f7b4934b7996142cbce206c58ce5198",
+      "published_seconds": 0.8864150570007041,
+      "full_response_seconds": 0.9834801319811959
+    },
+    {
+      "seq": 86,
+      "summary": "Clear road bends right with no visible obstacles. Maintain the inner left offset and follow the bend smoothly.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.6
+        ]
+      ],
+      "response_sha256": "8963ab02af83062a864d2ae602f25c0ee7803071ef487043e03885f23be1e3e1",
+      "published_seconds": 1.03321230399888,
+      "full_response_seconds": 1.1555825760005973
+    },
+    {
+      "seq": 87,
+      "summary": "The road bends right with a magenta obstacle right of the yellow stripe ahead. Hold the inner left lane and continue briskly.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.6
+        ]
+      ],
+      "response_sha256": "f682631a0c84bf04b203e176d3066177ec4592e3cb29b2f9c3cb9970deb6eaa7",
+      "published_seconds": 1.49786299499101,
+      "full_response_seconds": 1.5744554830016568
+    },
+    {
+      "seq": 88,
+      "summary": "A magenta obstacle occupies the right side ahead; move left of the yellow stripe and maintain a smooth, fast line.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "276b25639460c766f357933961b28d81425f7e8b3e39e36618c98147138f20ef",
+      "published_seconds": 1.2264889450161718,
+      "full_response_seconds": 1.3259070510102902
+    },
+    {
+      "seq": 89,
+      "summary": "Magenta obstacle occupies the right side ahead; stay left of the yellow stripe and follow the bend at racing speed.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.6
+        ]
+      ],
+      "response_sha256": "0097218ae69828fc9ed419c380a4781777f799dbf8ce70ecd99354731879ac96",
+      "published_seconds": 2.040312604018254,
+      "full_response_seconds": 2.383608833013568
+    },
+    {
+      "seq": 90,
+      "summary": "The road bends left with no visible obstruction ahead. Maintain the inner left lane and brisk speed through the bend.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "3cfe57e6e5e86c970318ead8ca4b1876f5feae283aacad26040f00fb8f788a56",
+      "published_seconds": 1.5054745539964642,
+      "full_response_seconds": 1.5855878419824876
+    },
+    {
+      "seq": 91,
+      "summary": "The road bends left with no visible obstacles or opponent. Maintain the inner lane and let curvature control moderate speed.",
+      "action": [
+        [
+          3.2,
+          0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "8da0014b88a00de13faee2ebebd75224dbdb1426b3f5376cd840f8b978375274",
+      "published_seconds": 1.1395206190063618,
+      "full_response_seconds": 1.2947532359976321
+    },
+    {
+      "seq": 92,
+      "summary": "Clear road curves left with no visible obstacles or cars; maintain the inner lane and accelerate through the bend.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "991439737269f9b4fc20272d4b57de9ded0e3f6847d4a0398a6080d9f9a67f3a",
+      "published_seconds": 1.232772504008608,
+      "full_response_seconds": 1.3184872720157728
+    },
+    {
+      "seq": 93,
+      "summary": "The road curves left with no visible obstacles or opponent. Maintain the inner lane and accelerate through the clear bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "a9104c9d39a05b5e27b7fcd4660105bf85888bd8ec99e8a95353164c87072f90",
+      "published_seconds": 1.3761781030043494,
+      "full_response_seconds": 1.4614780209958553
+    },
+    {
+      "seq": 94,
+      "summary": "Road ahead is clear and straightening after the left bend; maintain the current left offset and accelerate.",
+      "action": [
+        [
+          3.5,
+          0.21,
+          1.9
+        ]
+      ],
+      "response_sha256": "f156c2218e0dd4f133bef0b7f35e35137146ed5f5c06cf04086a5072fedfc7d3",
+      "published_seconds": 0.9167178419884294,
+      "full_response_seconds": 0.9951220809889492
+    },
+    {
+      "seq": 95,
+      "summary": "Clear straight ahead with no visible obstacles or cars; maintain the inner left lane and accelerate.",
+      "action": [
+        [
+          3.6,
+          0.38,
+          2.2
+        ]
+      ],
+      "response_sha256": "4b32c39404eecd11124100465b4e35816dac36e5ad9ea362c822ef44b672b29b",
+      "published_seconds": 1.053651192021789,
+      "full_response_seconds": 1.144480648013996
+    },
+    {
+      "seq": 96,
+      "summary": "The straight is clear with no visible obstacles or cars; maintain the inner lane and accelerate smoothly.",
+      "action": [
+        [
+          3.6,
+          0.38,
+          2.2
+        ]
+      ],
+      "response_sha256": "5b2c44a5f5c61150bd2307f866cadd21e84ff305ac5165f7898e77bf5a5389bb",
+      "published_seconds": 1.1383637989929412,
+      "full_response_seconds": 1.2447265629889444
+    },
+    {
+      "seq": 97,
+      "summary": "The road ahead is clear with a gentle bend. Maintain the inner left lane and accelerate smoothly.",
+      "action": [
+        [
+          3.5,
+          0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "6e834df7cf86e0261a8e33a2ab93b60657251a7bb942fb00417ee74b8e9f5450",
+      "published_seconds": 1.2766050890204497,
+      "full_response_seconds": 1.3788400730118155
+    },
+    {
+      "seq": 98,
+      "summary": "Road ahead is clear with a gentle bend; accelerate while holding the outer right lane for a safe pass.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "616a13c79d0496ac0075a36a6f8ab7b101d839057243b962f6cb99b49612af02",
+      "published_seconds": 0.870019649999449,
+      "full_response_seconds": 0.9394208189914934
+    },
+    {
+      "seq": 99,
+      "summary": "Road ahead is clear, with the opponent on the left. Accelerate while holding the outer right lane for a safe pass.",
+      "action": [
+        [
+          3.6,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "4dcc235dde346cb9cdea2d134563803a51c4836a7c508c581ba74a404fb20ff7",
+      "published_seconds": 2.1406061599846,
+      "full_response_seconds": 2.2243898769957013
+    },
+    {
+      "seq": 100,
+      "summary": "Clear road ahead with the opponent in the inner lane; accelerate while holding the outer lane for a safe pass.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "d21746f788670db367ccdaff70a9ee456199c196fd4fca46dfefeb89bb2cf900",
+      "published_seconds": 1.59330794098787,
+      "full_response_seconds": 1.6623984120087698
+    },
+    {
+      "seq": 101,
+      "summary": "Opponent remains to the left on a clear bend; maintain the outer right lane and accelerate safely past.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "03f7bdf9072ccb825b13cb880e767cac818a87bf81bc22404e8036464cc2cf05",
+      "published_seconds": 1.358091507019708,
+      "full_response_seconds": 1.4269625870219897
+    },
+    {
+      "seq": 102,
+      "summary": "The road ahead is clear through the bend; maintain the outer right lane and strong pace without crossing the opponent\u2019s lane.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "3508cea789eceb3f6a98db532caac5a817c1a70ac766c94a19aa79b2a3fa2fbe",
+      "published_seconds": 1.204080410010647,
+      "full_response_seconds": 1.2740392690175213
+    },
+    {
+      "seq": 103,
+      "summary": "The road ahead bends left with no visible obstacles; maintain the outer lane and continue briskly without crossing the centre stripe.",
+      "action": [
+        [
+          3.3,
+          -0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "1b78e7f5f8dcfccd582cc1e86a2b10978a0238e55cf51e6a4cadb9ffba90ce56",
+      "published_seconds": 1.497563896002248,
+      "full_response_seconds": 1.560938636015635
+    },
+    {
+      "seq": 104,
+      "summary": "Road ahead is clear as the bend opens. Maintain the outer right lane and accelerate without switching across the opponent.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "26c5e7b44ba0b9cd2186c55a87417443d394363793b1071ccb6dcdbe6889b302",
+      "published_seconds": 1.2689377310161944,
+      "full_response_seconds": 1.3504433289926965
+    },
+    {
+      "seq": 105,
+      "summary": "Road ahead is clear through the bend; maintain the outer right lane and carry speed without crossing toward the opponent.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "6750a31e0b31b64a4f31c42411b1c92e8cc6634fe21206c5855e72898d6873c7",
+      "published_seconds": 0.8970213160209823,
+      "full_response_seconds": 0.9526143980037887
+    },
+    {
+      "seq": 106,
+      "summary": "Road ahead is clear and bends left; maintain the outer right lane and continue briskly without crossing toward the opponent.",
+      "action": [
+        [
+          3.5,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "c7e8bf018f7b0a39265d78cf15091b7ce2e23fa51a60d8d5a149f0c3b00a723c",
+      "published_seconds": 1.4848263369931374,
+      "full_response_seconds": 1.5659044049971271
+    },
+    {
+      "seq": 107,
+      "summary": "The road bends left with no visible obstacles; maintain the outer right lane and follow the curve without switching lanes.",
+      "action": [
+        [
+          3.2,
+          -0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "d7f673e7ebd4c337661e7d84ada631c445a75f151cede096bb6f4b9e01ad092c",
+      "published_seconds": 1.5368925999791827,
+      "full_response_seconds": 1.6187620379787404
+    },
+    {
+      "seq": 108,
+      "summary": "Clear road curves left with no visible obstacles or cars. Maintain the outer lane and carry speed through the bend.",
+      "action": [
+        [
+          3.3,
+          -0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "2de84e333322937371703370fbc1c556feb7612080460d7c87bb48d1f92c96f7",
+      "published_seconds": 0.9936098319885787,
+      "full_response_seconds": 1.0720516110013705
+    },
+    {
+      "seq": 109,
+      "summary": "The road bends left with no visible obstacles or cars. Maintain the outer right lane and carry speed smoothly through the bend.",
+      "action": [
+        [
+          3.4,
+          -0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "f2bc756d5ea15c21c3dd20f317043bd56e7bf81e1b1f563d393add01892e4fdd",
+      "published_seconds": 1.7290801120107062,
+      "full_response_seconds": 1.8227092379820533
+    },
+    {
+      "seq": 110,
+      "summary": "The road bends left with a magenta obstacle ahead on the right. Take the clear left lane and maintain controlled speed.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "0a7c84c4f9e4983f2040f5d2fd29f6b50a90276e95d503568f49820ae472f868",
+      "published_seconds": 1.1748143750010058,
+      "full_response_seconds": 1.2421186449937522
+    },
+    {
+      "seq": 111,
+      "summary": "A magenta obstacle is ahead right of the yellow stripe; move into the clear left lane and maintain brisk speed.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "4bf78031d729c4cdccadac85752e86b1f70a75ea9b915c5973bc8875689ea1f4",
+      "published_seconds": 1.7480609090125654,
+      "full_response_seconds": 1.8365796660073102
+    },
+    {
+      "seq": 112,
+      "summary": "A magenta obstacle blocks the right outer lane ahead; move left of the yellow stripe to pass safely while maintaining speed.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "6f5cd05fdab61825c605e6810dcea35324f80e993f366bf6e13a08f5205a3a3d",
+      "published_seconds": 1.1090700640052091,
+      "full_response_seconds": 1.1950212520023342
+    },
+    {
+      "seq": 113,
+      "summary": "A magenta obstacle occupies the right side ahead; move left of the yellow stripe and slow for safe clearance.",
+      "action": [
+        [
+          2.1,
+          0.45,
+          1.5
+        ]
+      ],
+      "response_sha256": "816b4909518a42f92f8a6fc9aef70e94312bfe1da95cc35f3100abfde2528ed5",
+      "published_seconds": 2.8398480769828893,
+      "full_response_seconds": 3.0062878919998184
+    },
+    {
+      "seq": 114,
+      "summary": "A magenta obstacle occupies the right side ahead; take the clear left lane and hold it while passing.",
+      "action": [
+        [
+          3.2,
+          0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "e348733a74d3232e1656abf2bde30ab2f60f3fd506950e5e179e1888022c3767",
+      "published_seconds": 1.9080379759834614,
+      "full_response_seconds": 2.011053220980102
+    },
+    {
+      "seq": 115,
+      "summary": "The right-side obstacle is behind and the road bends left. Hold the safe left offset and maintain racing speed.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "d0afd3aedb877f71cf90bb34f0b922192ed4065b25aafbb12bcc73d0738613ce",
+      "published_seconds": 1.2377285060065333,
+      "full_response_seconds": 1.3315840420254972
+    },
+    {
+      "seq": 116,
+      "summary": "The road bends left with a distant magenta obstacle outside the bend; maintain a left offset and continue at racing speed.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.7
+        ]
+      ],
+      "response_sha256": "2bc4447634100593a0edc13d96e075ddeef69740350f141f555a4a66da166b95",
+      "published_seconds": 2.0331761179841124,
+      "full_response_seconds": 2.173583697003778
+    },
+    {
+      "seq": 117,
+      "summary": "The road bends left with a magenta obstacle ahead on the right. Take the clear left side and maintain controlled racing speed.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "04d72446cbca689faf8ba96aa33e146d862cc0241be466e3ec0a1c882c3cdee3",
+      "published_seconds": 1.3449976599949878,
+      "full_response_seconds": 1.4405986459751148
+    },
+    {
+      "seq": 118,
+      "summary": "A magenta obstacle blocks the right side ahead; move left of the yellow stripe and hold that lane through the bend.",
+      "action": [
+        [
+          3.2,
+          0.38,
+          1.6
+        ]
+      ],
+      "response_sha256": "6403d02e6bf297b7624613a2ba57d77ad7db47b2e19e863193393902b70c40a0",
+      "published_seconds": 1.1897134329774417,
+      "full_response_seconds": 1.2580855819978751
+    },
+    {
+      "seq": 119,
+      "summary": "The right-side obstacle is behind and the road ahead is clear. Hold the safe left offset and accelerate through the bend.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "f14218210365c7c454609c4a37905a6d9b36c4d5cbb3689170c6015af9ab5057",
+      "published_seconds": 1.6011222809902392,
+      "full_response_seconds": 1.6860897389997263
+    },
+    {
+      "seq": 120,
+      "summary": "The road bends left with no visible obstacles or nearby cars; maintain the current left offset and carry speed smoothly through the bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "3e71aecbff66306e8caeb8f71734727e9ea4898589b4f444af3b1286197c63bb",
+      "published_seconds": 1.534886851994088,
+      "full_response_seconds": 1.584569313999964
+    },
+    {
+      "seq": 121,
+      "summary": "The road bends left with no visible obstacles. Hold the outer right lane and continue briskly without crossing lanes.",
+      "action": [
+        [
+          3.3,
+          -0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "d69719b500949ec9cf19cf10115f82160b115fdc9e69118eecf64dd94d38d57b",
+      "published_seconds": 1.2853630289901048,
+      "full_response_seconds": 1.3802849749918096
+    },
+    {
+      "seq": 122,
+      "summary": "The left bend is clear, with no visible obstacles or cars. Maintain the current left-side lane and accelerate through the open road.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "2906a89db2d1238182a3e6dba0478279eeb0e7abaf4baae983628ad1903530e3",
+      "published_seconds": 1.2644050619855989,
+      "full_response_seconds": 1.977893697010586
+    },
+    {
+      "seq": 123,
+      "summary": "The road ahead is clear through the bend. Maintain the current left-side offset and carry speed without crossing the centre stripe.",
+      "action": [
+        [
+          3.4,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "8d054d6183fde0df47128cff4d3d9342588d1efdf383ac3b3ff498df418ffa6f",
+      "published_seconds": 1.178077944990946,
+      "full_response_seconds": 1.300609717000043
+    },
+    {
+      "seq": 124,
+      "summary": "The road bends right with a distant magenta obstacle on the right; hold a left offset and continue briskly through the clear lane.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.6
+        ]
+      ],
+      "response_sha256": "f014501604b03f1ebf17484ff619caca25e7d74b163c8641f576488c96452d0c",
+      "published_seconds": 1.3935412329738028,
+      "full_response_seconds": 1.4882206999754999
+    },
+    {
+      "seq": 125,
+      "summary": "The road bends right with a magenta obstacle on the right ahead. Move left of the yellow stripe and maintain that safe lane.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.6
+        ]
+      ],
+      "response_sha256": "7273af1dd8836f9fd3016540605f00c3a673ba313adb3f143e79629f82c69fbc",
+      "published_seconds": 1.0912391879828647,
+      "full_response_seconds": 1.132707771990681
+    },
+    {
+      "seq": 126,
+      "summary": "Magenta obstacle lies right of the yellow stripe ahead. Keep left of centre to pass safely through the bend.",
+      "action": [
+        [
+          3.2,
+          0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "c7e269361d9a6ce40762338a5dfdaac38a5ccb9b45b945e391b0331156645bf4",
+      "published_seconds": 2.007832592003979,
+      "full_response_seconds": 2.0773898609913886
+    },
+    {
+      "seq": 127,
+      "summary": "A magenta obstacle occupies the right side ahead. Hold a safe left offset to pass it while maintaining speed.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "32662efeb976bacfe20f1d1e612ef47dbe1d46f13410b00f076c346414a589f0",
+      "published_seconds": 1.4456220749998465,
+      "full_response_seconds": 1.5568285380140878
+    },
+    {
+      "seq": 128,
+      "summary": "The right-side obstacle is behind and the road bends left. Maintain the current safe lane and continue briskly through the bend.",
+      "action": [
+        [
+          3.3,
+          0.064,
+          1.7
+        ]
+      ],
+      "response_sha256": "b2e1e4a0c08c6e589159357fea38a62d8dab4b1bd6355951672b0866a1c6bdda",
+      "published_seconds": 1.4448168269882444,
+      "full_response_seconds": 1.545911660999991
+    },
+    {
+      "seq": 129,
+      "summary": "The road bends left with no visible obstacles or opponent. Maintain the current left-side offset and carry speed through the bend.",
+      "action": [
+        [
+          3.3,
+          0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "b6f2b3ad10334ff4955adf12a29e7f6673e641471d3438c6c8a25807595ff4b6",
+      "published_seconds": 1.4017558220075443,
+      "full_response_seconds": 1.5222568940080237
+    },
+    {
+      "seq": 130,
+      "summary": "The road bends left with no visible obstacles or cars; maintain the outer lane and let curvature control moderate speed.",
+      "action": [
+        [
+          3.2,
+          -0.38,
+          1.5
+        ]
+      ],
+      "response_sha256": "3fbef4763e832acc1a8bd72666690b7da1b7722b18551e7a0a9bdd52864ef7e8",
+      "published_seconds": 1.080850329977693,
+      "full_response_seconds": 1.1881725739804097
+    },
+    {
+      "seq": 131,
+      "summary": "Clear left bend with no visible obstacles or cars; maintain the outer lane and accelerate smoothly through the turn.",
+      "action": [
+        [
+          3.3,
+          -0.38,
+          1.6
+        ]
+      ],
+      "response_sha256": "97dda68fcd20f03b95291f1420cdedda204c774e920666847656338da6ef2346",
+      "published_seconds": 1.2789160899992567,
+      "full_response_seconds": 1.3647966980061028
+    },
+    {
+      "seq": 132,
+      "summary": "The road bends left with no visible obstacles or cars. Maintain the current safe offset and continue briskly through the bend.",
+      "action": [
+        [
+          3.3,
+          0.05,
+          1.5
+        ]
+      ],
+      "response_sha256": "7d59e5b48e49ff79bd6a0310564719b012cd656f0e920cf7bfce15bdb3efe479",
+      "published_seconds": 5.054576332011493,
+      "full_response_seconds": 5.203829089994542
+    },
+    {
+      "seq": 133,
+      "summary": "The left bend opens onto clear road with no visible obstacles or cars; maintain the outer right lane and accelerate.",
+      "action": [
+        [
+          3.4,
+          -0.38,
+          1.8
+        ]
+      ],
+      "response_sha256": "549b24f0cb70e60ce44adefbfb987eda2ffffa932cfb333a2c23678202f14d24",
+      "published_seconds": 1.139472602022579,
+      "full_response_seconds": 1.2174146200122777
+    },
+    {
+      "seq": 134,
+      "summary": "The road ahead is clear and straight. Maintain the outer right lane and accelerate toward the finish.",
+      "action": [
+        [
+          3.6,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "40b04e7d6fa203870ef216456ff2a58c3994594fce00f947ef2d01b37ff21ac7",
+      "published_seconds": 0.9320034020056482,
+      "full_response_seconds": 1.009329030988738
+    },
+    {
+      "seq": 135,
+      "summary": "The road ahead is clear with no visible obstacles or opponent; maintain the outer right lane and accelerate smoothly.",
+      "action": [
+        [
+          3.4,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "b35f0163eb04ebe6df4a1d2ac80b04b3210c2ceea069952ad90d6d310613742d",
+      "published_seconds": 1.1393750020070001,
+      "full_response_seconds": 1.2259051589935552
+    },
+    {
+      "seq": 136,
+      "summary": "Clear straight ahead with a transverse white line visible. Maintain the outer lane and accelerate toward the finish.",
+      "action": [
+        [
+          3.6,
+          -0.38,
+          2.0
+        ]
+      ],
+      "response_sha256": "32646df43b1234c1317ddb9dd31682f59a4becf518429e1ff5549f066dedd8ca",
+      "published_seconds": 1.1984012019820511,
+      "full_response_seconds": 1.297898536984576
+    }
+  ]
+}

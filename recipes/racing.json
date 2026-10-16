@@ -1,0 +1,27 @@
+{
+  "game": "racing",
+  "policy": "lane-commit-v14",
+  "policy_prompt": "policies/racing/lane-commit-v14/prompt.txt",
+  "system": "policies/racing/lane-commit-v14/system.txt",
+  "profile": "profiles/racing/profile.json",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "service_tier_requested": "ultrafast",
+  "args": {
+    "seed": 101,
+    "level": 1,
+    "slowdown": 1,
+    "variant": "metric",
+    "control": "lane",
+    "chunk": 1,
+    "history": 2,
+    "cadence": 0.6,
+    "workers": 3,
+    "capacity": 8,
+    "anchor": "arrival"
+  },
+  "executor": "5Hz coded camera stripe extraction, pure pursuit, curvature speed cap; 3s goal expiry",
+  "default_output": "action-only",
+  "video_variant": "same task plus public English decision_summary before action",
+  "historical_profile_scope": "32 serial direct API one-frame direct-steering calls; proxy timing for this lane workload, not exact concurrent calibration"
+}
