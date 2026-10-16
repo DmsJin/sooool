@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "run": "/home/zihan/papers/latency/.codex-worktrees/sooool-asterix-api-video/runs/asterix-api60-seed5-20261016-r2",
+  "created_at_unix": 1792194653.8002853,
+  "game": "asterix",
+  "mode": "realtime_api",
+  "recipe": {
+    "policy": "v28-direct-serial-english",
+    "profile": "profiles/asterix/latency_v16_actual_5x_512cap.json",
+    "prompt": "policies/asterix/v28/prompt.txt",
+    "task_prefix": "policies/asterix/v28/task-prefix.txt",
+    "output_instructions": "policies/asterix/v28/output-format.txt",
+    "output_format": "action_reason",
+    "system": "policies/asterix/v28/system.txt",
+    "native_workers": 1,
+    "args": {
+      "seeds": [
+        5
+      ],
+      "max_frames": 1200,
+      "episode_workers": 1,
+      "virtual_capacity": 1,
+      "controller": "direct",
+      "quota_stop_percent": 80,
+      "latency_scale": 1.0,
+      "latency_seed_offset": 91
+    },
+    "provider": "openai_api",
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "service_tier": "ultrafast",
+    "max_output_tokens": 512
+  },
+  "manifest_sha256": "ea629d19111c89b839bdc2baabe0e08e16cf20701653cdd04f8b6af794af5d3c",
+  "summary": {
+    "episodes": [
+      {
+        "seed": 5,
+        "score": 0.0,
+        "lives": 3,
+        "frames": 25,
+        "game_seconds": 0.4166666666666667,
+        "reset_noops": 29,
+        "calls": 1,
+        "new_subscription_calls": 0,
+        "replayed_calls": 0,
+        "drops": 6,
+        "peak_inflight": 1,
+        "status": "interrupted",
+        "error": {
+          "type": "RuntimeError",
+          "message": "Terminal response usage missing"
+        },
+        "mode": "realtime",
+        "provider": "openai_api",
+        "paid_api_calls": 1,
+        "environment_wall_seconds": 2.1294846925884485,
+        "virtual_wall_seconds": 2.0833333333333335,
+        "max_frame_lag_seconds": 0.09485095987717311,
+        "limitation": "Actual API response latency at 12 raw FPS."
+      }
+    ],
+    "mode": "realtime",
+    "paid_api_calls": 1
+  },
+  "status": "interrupted",
+  "performance_is_independently_confirmed": false
+}

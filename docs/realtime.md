@@ -46,7 +46,11 @@ costs before sending, settles terminal usage, verifies model/tier, and blocks
 admission on unknown accounting. Interrupted runs retain all evidence and cannot
 be promoted to successful API evaluations. Reused API/accounting source files
 are included in the frozen manifest. Offline transport checks are separate from
-fresh paid validation: the new full API episode has **not yet been run**.
+fresh paid validation: the first API attempt **interrupted after 2.13 actual seconds**
+because terminal usage was missing. One request remains unknown at a conservative
+US$0.27747 reservation; further requests are blocked pending reconciliation.
+[Both attempts and their ledger](../artifacts/asterix/api-validation/20261016/) are retained.
+There is no completed 60-second result.
 The existing README Asterix media remains a historical development replay until
 a new recorded API result replaces it. A rendered replay reconstructs saved
 actions and checks every reward/life; it is not an original screen recording.
