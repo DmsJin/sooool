@@ -1,5 +1,5 @@
 """Rebuild README highlights from the local source paths in the manifest. No model calls."""
-import hashlib
+import argparse
 import json
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
@@ -10,6 +10,8 @@ OUT = ROOT / 'assets/gameplay'
 
 def build(item):
     source = Path(item['source'])
+    if not source.is_absolute():
+        source = ROOT / source
     name = item['game']
     filt = f"fps={item['fps']},"
     if item.get('crop'):
@@ -27,14 +29,17 @@ def build(item):
     # A compact full-colour companion for manual playback and sharing.
     subprocess.run(cmd + ['-vf', filt, '-an', '-c:v', 'libx264', '-crf', '20',
                          '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(OUT / (name + '.mp4'))], check=True)
-    item.update(source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
-                gif_sha256=hashlib.sha256(target.read_bytes()).hexdigest(), bytes=target.stat().st_size)
+    item.update(bytes=target.stat().st_size)
     print(name, target.stat().st_size, flush=True)
     return item
 
 if __name__ == '__main__':
     manifest_path = OUT / 'manifest.json'
     manifest = json.loads(manifest_path.read_text())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--game', choices=[item['game'] for item in manifest['clips']])
+    args = parser.parse_args()
     with ThreadPoolExecutor(max_workers=4) as pool:
-        manifest['clips'] = list(pool.map(build, manifest['clips']))
+        selected = [item for item in manifest['clips'] if args.game is None or item['game'] == args.game]
+        list(pool.map(build, selected))
     manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')

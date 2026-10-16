@@ -27,6 +27,14 @@ Start with `environments/asterix/runner.py` (one shared serial development/evalu
 
 Start with [`racing.md`](racing.md), [`scripts/racing.py`](../scripts/racing.py), [`recipes/racing.json`](../recipes/racing.json), and [`policies/racing/lane-commit-v14`](../policies/racing/lane-commit-v14/). `environments/racing/run.py` owns causal simulation and subscription/API transport; `live.py` owns continuous HTTP evaluation; `lane.py` is the coded visual tracker; `live_explained.py` adds the separately evaluated public-summary output. The iteration record is `research/racing/EVALUATION.md`. External roboolympics supplies the read-only game engine. Duplicate active Racing snapshots have been replaced by redirects.
 
+## PingPong tactical control
+
+The current PingPong entrypoint is [`scripts/tabletennis.py`](../scripts/tabletennis.py),
+with physics/planning in `environments/tabletennis/execution.py`, camera-based
+tactics in `environments/tabletennis/tactics.py`, four-worker scheduling in
+`runner.py` and dual-view export in `replay.py`. Start with
+[`tabletennis.md`](tabletennis.md) and [`artifacts/tabletennis`](../artifacts/tabletennis/README.md).
+
 ## Ignore on first pass
 
 Full discussion tool traces, all historical profiles, old transport probes, legacy policy variants and offline case truth are not needed to run a frozen policy. Retained evidence documents the selected policies and subsequent development. PingPong snapshots under `research/in-progress` are unfinished source records. Racing uses the selected workflow linked above.

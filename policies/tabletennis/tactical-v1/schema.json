@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "policy": {"type": "string", "enum": ["safe_center", "wide_left", "wide_right", "short_center"]},
+    "memory": {"type": "string", "pattern": "^[\\s\\S]{0,1200}$"},
+    "decision_summary": {"type": "string", "pattern": "^[\\s\\S]{1,220}$"}
+  },
+  "required": ["policy", "memory", "decision_summary"],
+  "additionalProperties": false
+}

@@ -12,3 +12,6 @@ auth.json
 /artifacts/videos/*.mp4
 /research/discussions/*/trajectory.jsonl.gz
 /artifacts/*.part*
+
+.runtime-libs/
+.venv-tabletennis/
