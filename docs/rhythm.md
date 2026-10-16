@@ -53,7 +53,9 @@ monotonic clock, pending literal plans, the last 2 raw receipts, recent observed
 RTTs, request version and the frozen model-authored memory. Public calibration
 states receptor y=717 and speed 0.2404px/ms. The memory says image timestamps
 are approximately 50ms later than their content; GPT must account for this in
-its output. It never receives chart notes, audio-clock truth or future delays.
+its output. The formula in the frozen memory is guidance for GPT, not a program
+that the executor evaluates. It never receives chart notes, audio-clock truth
+or future delays. See [the frozen policy notes](../policies/rhythm/v21/README.md).
 
 ```json
 {"v":2,"a":[["k18","k",4804,4954]]}

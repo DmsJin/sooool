@@ -2,11 +2,13 @@
 
 Read [the update report](../../../docs/update-2026-10-16.md) for results, limitations, profile semantics and validation. These are evolving research snapshots; the root recipes are the portable frozen reference.
 
+The Rhythm snapshot includes the retired coordinate-to-time campaign and earlier literal-time experiments. Start with [the current Rhythm case study](../../../docs/rhythm-autoresearch.md) and [workflow](../../../docs/rhythm.md); the selected 17s run is indexed under `artifacts/rhythm/selected/`. A snapshot’s “selected” or “current” wording refers to its original experiment, not the active release.
+
 | Material | Main path |
 |---|---|
-| Rhythm runner/transport/tests | `rhythm/source/` |
-| Rhythm v20/v21 memories | `rhythm/policies/` |
-| Rhythm native and simulation summaries | `rhythm/data/` |
+| Historical Rhythm runner/transport/tests | `rhythm/source/` |
+| Historical Rhythm v20/v21 memories | `rhythm/policies/` |
+| Historical Rhythm native and simulation summaries | `rhythm/data/` |
 | Touhou latest Ubuntu research source | `ubuntu/touhou/latest-source/` |
 | Touhou newer local known-plan feedback source | `touhou/local-source/` |
 | Touhou optimization/visual-policy summaries and profiles | `ubuntu/touhou/study/` |

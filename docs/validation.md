@@ -1,8 +1,10 @@
 # Package validation
 
-Validation is being completed in an isolated Ubuntu directory and new Python virtual environment, using only this repository's runtime and assets. The source machine's suite is not required by the launcher; an explicitly selected native Codex executable supplies the existing ChatGPT login.
+This page retains validation from multiple releases. For the current Rhythm v21 result and portable checks, start at [Selected Rhythm v21 package](#selected-rhythm-v21-package). The older 30-second Rhythm results below belong to an earlier release, not the current 17-second demo.
 
-## Completed cold replays
+Initial validation used an isolated Ubuntu directory and new Python virtual environment with this repository’s runtime and assets. The source machine’s suite is not required by the launcher; an explicitly selected native Codex executable supplies the existing ChatGPT login.
+
+## Historical initial-release cold replays
 
 - Touhou: all 19 applied actions reproduced the exact final engine state of the original 51.05-second API win, with two hits. This is replay of saved API actions, not a new API or policy win.
 - Rhythm: all 215 saved capture times and model delivery events were replayed; the exact evaluator state matched (50 PERFECT, 1 GREAT, 1 MISS, 2 empty presses). Screenshot PNG hashes differed on the new browser/machine and are explicitly not claimed identical. The historical summary's legacy `passed` flag does not meet the current strict full-combo criterion.
@@ -13,9 +15,9 @@ Reports are retained with validation evidence. Those earlier Rhythm/Touhou recor
 
 Six package contracts cover fitted inverse-CDF interpolation/reproducibility, clock conversion, readiness versus terminal capacity, immutable shared cohort inputs and full profile inventories. Existing Rhythm joint-timing tests (3), Asterix timing tests (5), HopControllerV3 tests (6), and Touhou engine tests (8) passed. Local doctor reset ALE and launched Chromium; Ubuntu doctor additionally confirmed a ChatGPT subscription login.
 
-## Fresh subscription simulations
+## Historical initial-release subscription simulations
 
-The final frozen runs use real `gpt-6.1-sol / low` decisions, with imposed historical profile timing. The final Rhythm run completed 30.001 seconds: 50 PERFECT, 1 GREAT, 1 MISS, one empty press, max combo 33; 203 requests, 191 delivered plans, zero provider errors and zero transaction rejections. It matches the historical score of 50,700 but does not meet strict full-combo acceptance.
+The frozen runs from that release use real `gpt-6.1-sol / low` decisions, with imposed historical profile timing. That release’s Rhythm run completed 30.001 seconds: 50 PERFECT, 1 GREAT, 1 MISS, one empty press, max combo 33; 203 requests, 191 delivered plans, zero provider errors and zero transaction rejections. It matches the historical score of 50,700 but does not meet strict full-combo acceptance.
 
 The final Touhou seed-9 run completed as a game loss at 48.8167 game seconds: three hits, no lives/bombs remaining, Boss HP 260; 68 model requests, 16 applied plans, zero invalid actions. This single fresh run does not reproduce the prior development win and does not establish stable success. The failure evidence is retained. Earlier adapter attempts include another loss and are labeled migration diagnostics, not additional fixed-condition trials.
 

@@ -14,7 +14,7 @@ Use the root README and recipes as the runnable interface. Original environment/
 ## Rhythm
 
 Start with [`rhythm.md`](rhythm.md), `runtime/rhythm.py`, `recipes/rhythm.json`
-and `policies/rhythm/v21/`. The simulator's causal event loop is
+and [the frozen policy and calibration](../policies/rhythm/v21/README.md). The simulator's causal event loop is
 `environments/rhythm/experiments/rhythm/model_joint_training.py`; `model_native.py`
 is the continuous API runner; `model_env.py` supplies public pixels/clocks.
 `model_lean_policy.py` validates the selected action format and

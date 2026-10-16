@@ -16,7 +16,7 @@ Source snapshots were copied read-only from existing local/Ubuntu experiment wor
 
 Atari Asterix uses Gymnasium + ALE, with versions in `uv.lock`; no ROM was copied from a research machine. ALE's installed package supplies the game resource in the tested dependency version. Confirm the applicable upstream/game rights before redistribution.
 
-Rhythm and Touhou include pre-existing game frontends/resources from the user's experiment repositories. Rhythm simulation aborts remote audio loading and does not need the song to make timing decisions. Native audio evaluation requires a separately authorized preview resource. Touhou contains pre-existing game art/audio references. No new ownership or public redistribution license is asserted by this package. Preserve original attribution and review media rights before public release.
+Rhythm and Touhou include pre-existing game frontends/resources from the user's experiment repositories. Rhythm simulation uses virtual timing and does not need audio playback for its visual decisions. The selected 17-second preview audio is bundled for native browser/API evaluation; a separately supplied soundtrack is optional and does not automatically align with the retained chart. Touhou contains pre-existing game art/audio references. No new ownership or public redistribution license is asserted by this package. Preserve original attribution and review media rights before public release.
 
 `vendor/latency_bench` contains only the original latency sampler import closure (eight modules), retained to reproduce fitted CDF/temporal semantics. The full coding-agent suite, model weights, auth directories, cloud configuration and unrelated games were not copied.
 

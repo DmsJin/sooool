@@ -14,81 +14,90 @@
       "area": "main",
       "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-lab-model-timing/experiments/rhythm/LATENCY_PROFILE_ABLATION.md",
       "source_sha256": "66e64778cada7eeef4b612e293783a9d65ab2e849b86653844f7b11960d8cac6",
-      "sha256": "66e64778cada7eeef4b612e293783a9d65ab2e849b86653844f7b11960d8cac6",
-      "bytes": 3281,
-      "redacted": false
+      "sha256": "f1a9c23db48b2ad758db435aaade82ede6283da24dd169971b6b01868a40a6ab",
+      "bytes": 3704,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "rhythm/source/MODEL_TIMING_PROTOCOL.md",
       "area": "main",
       "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-lab-model-timing/experiments/rhythm/MODEL_TIMING_PROTOCOL.md",
       "source_sha256": "525c4a851cc9aaf77a54544ac90156573d59e74f0be234f92372435f3635f9ef",
-      "sha256": "525c4a851cc9aaf77a54544ac90156573d59e74f0be234f92372435f3635f9ef",
-      "bytes": 3821,
-      "redacted": false
+      "sha256": "6695149788bcfc74c676ef9cf1b7153ef7c24f48c803876de993a198ff3ceee6",
+      "bytes": 4267,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "rhythm/source/MODEL_TIMING_RESULTS.md",
       "area": "main",
       "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-lab-model-timing/experiments/rhythm/MODEL_TIMING_RESULTS.md",
       "source_sha256": "6d57a290b321b01ff2d94efd46cacf199831bea0c0d4194e19e3b633818f8cca",
-      "sha256": "6d57a290b321b01ff2d94efd46cacf199831bea0c0d4194e19e3b633818f8cca",
-      "bytes": 25730,
-      "redacted": false
+      "sha256": "20381f06b5f23059a740e235d7f5c109168ab6f76bbabf94da089ff98d57ae15",
+      "bytes": 26153,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "rhythm/source/NATIVE20_RECHECK.md",
       "area": "main",
       "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-lab-model-timing/experiments/rhythm/NATIVE20_RECHECK.md",
       "source_sha256": "56d65d6fe964d36eff8bec30f62f5a9560fc17c0cbf2dc72d9c82c60c19d752d",
-      "sha256": "56d65d6fe964d36eff8bec30f62f5a9560fc17c0cbf2dc72d9c82c60c19d752d",
-      "bytes": 4245,
-      "redacted": false
+      "sha256": "67fd0939b2123b63dc649cd0c415b88822b375cad2cb8208b7da8c0f229d4e54",
+      "bytes": 4668,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "rhythm/source/OPTIMIZATION_V21.md",
       "area": "main",
       "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-lab-model-timing/experiments/rhythm/OPTIMIZATION_V21.md",
       "source_sha256": "e0248b0959b6026a91f4a37707cd11b5ceb32d78e49fb0cbce2d85ea0defd310",
-      "sha256": "e0248b0959b6026a91f4a37707cd11b5ceb32d78e49fb0cbce2d85ea0defd310",
-      "bytes": 6601,
-      "redacted": false
+      "sha256": "261791d56562d8623fc2e2fe2d01e2709e156c6f186ff085cfdc25d0ceef52a6",
+      "bytes": 7024,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "rhythm/source/OUTER_PROMPT_AB.md",
       "area": "main",
       "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-lab-model-timing/experiments/rhythm/OUTER_PROMPT_AB.md",
       "source_sha256": "3946b96aff85eca0fc650d26c9fc73c89c3e20dee4167e3639e4ce66ababfcdb",
-      "sha256": "3946b96aff85eca0fc650d26c9fc73c89c3e20dee4167e3639e4ce66ababfcdb",
-      "bytes": 3099,
-      "redacted": false
+      "sha256": "79d0641e9e99cc1e3043bba14a748a6adb8e0a2f7fdacee4ac71f30c71258705",
+      "bytes": 3522,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "rhythm/source/README.md",
       "area": "main",
       "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-lab-model-timing/experiments/rhythm/README.md",
       "source_sha256": "486bae51c54e7234b1368cf11fc369e1b1da674234e9242e117fade062bfe7d4",
-      "sha256": "486bae51c54e7234b1368cf11fc369e1b1da674234e9242e117fade062bfe7d4",
-      "bytes": 3954,
-      "redacted": false
+      "sha256": "03cbdf7db8588c00e97bcd9133c67e14627c88986a752c9898921583d3170cbc",
+      "bytes": 4351,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "rhythm/source/RESULTS.md",
       "area": "main",
       "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-lab-model-timing/experiments/rhythm/RESULTS.md",
       "source_sha256": "aef473f0dd55a1214a6c0fc7afdf6899d8ed36c5f91584ffb06bbc5a85e223b4",
-      "sha256": "aef473f0dd55a1214a6c0fc7afdf6899d8ed36c5f91584ffb06bbc5a85e223b4",
-      "bytes": 8475,
-      "redacted": false
+      "sha256": "86d690088b17a21db653fbfee9d9e14f9ff7e14c36c62052d89f53b275e13948",
+      "bytes": 8872,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "rhythm/source/STREAMING_ACTIONS.md",
       "area": "main",
       "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-lab-model-timing/experiments/rhythm/STREAMING_ACTIONS.md",
       "source_sha256": "9cba0a26b8c20ae8fb1c82979f13e174664e9e27c04d75677f7e7784e0b6336b",
-      "sha256": "9cba0a26b8c20ae8fb1c82979f13e174664e9e27c04d75677f7e7784e0b6336b",
-      "bytes": 4645,
-      "redacted": false
+      "sha256": "44797b983d885a8b53dd1f1b9610d00a9781979975b45d46c00549d6362d1bf1",
+      "bytes": 5068,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "rhythm/source/__init__.py",

@@ -15,5 +15,9 @@ Source paths, conditions and existing historical metadata are retained in [manif
 Rebuild from local originals with `python3 scripts/build_readme_gifs.py` (Python 3 and ffmpeg required). Adjust source paths in the manifest if needed.
 The current PingPong source video is included in the repository; rebuild just its
 preview with `python3 scripts/build_readme_gifs.py --game pingpong`.
+For Rhythm, `--game rhythm` rebuilds only the GIF from the retained complete
+`rhythm.mp4`; it preserves that source video and its audio. The current Rhythm
+policy emits absolute tap timestamps; the retired coordinate-to-time campaign
+is retained only as historical research.
 
 These excerpts contain no frame reordering or speed changes within a clip. The builder samples frames, optionally crops, scales proportionally and converts GIF palettes. PingPong's complete video is rendered offline from every recorded native pose on the measured live wall clock, with the side camera continuously visible. It is not a screen capture. The orange ball ring/trail is an offline visibility aid, including through occlusion. Its latest public summary may describe an older observation; `NEXT` and the actually executing reply are distinct. Racing uses coded steering. Public decision summaries are model-authored outputs, not internal reasoning transcripts.

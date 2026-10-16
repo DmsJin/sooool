@@ -1,3 +1,5 @@
+> **Historical research snapshot — not the active Rhythm workflow.** These results describe earlier experiment conditions. Status statements here predate the selected 17-second, 2.5s-approach API demonstration and do not summarize the current release. Use the [current workflow](../../../../../docs/rhythm.md) and [selected case study](../../../../../docs/rhythm-autoresearch.md). The original report follows unchanged.
+
 # Subscription outer-prompt A/B
 
 Decision: the user selected the minimal outer after reviewing this pilot.

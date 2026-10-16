@@ -1,3 +1,5 @@
+> **Historical research snapshot — not the active Rhythm workflow.** This is the earlier 30-second held-out protocol. The current 17-second policy receives public receptor/speed and screenshot-time calibration; its executor still preserves model-authored absolute tap times. Use the [current workflow](../../../../../docs/rhythm.md) and [selected case study](../../../../../docs/rhythm-autoresearch.md). The original report follows unchanged.
+
 # Model-owned tap timing benchmark
 
 GPT receives full-board screenshots, external monotonic capture brackets, the
