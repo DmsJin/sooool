@@ -12,7 +12,7 @@ Continuous excerpts from existing recordings. Original playback speed is retaine
 
 Source paths, conditions and existing historical metadata are retained in [manifest.json](manifest.json). The new PingPong recording is identified by its repository/run path and source revision. Original game logs and source snapshots remain unchanged.
 
-Rebuild from local originals with `python3 scripts/build_readme_gifs.py` (Python 3 and ffmpeg required). Adjust source paths in the manifest if needed.
+Rebuild from local originals with `python3 scripts/build_readme_gifs.py` (Python 3 and ffmpeg required). The Rhythm, PingPong and Asterix source videos are bundled; Touhou and Racing manifest sources retain historical absolute machine paths, which must be remapped to the matching originals when rebuilding elsewhere. Playback speed means speed relative to each source recording, not a claim that every game runs at native 1×.
 The current PingPong source video is included in the repository; rebuild just its
 preview with `python3 scripts/build_readme_gifs.py --game pingpong`.
 For Rhythm, `--game rhythm` rebuilds only the GIF from the retained complete

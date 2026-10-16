@@ -62,3 +62,12 @@ class ArchiveScope(unittest.TestCase):
 
     def test_racing_refresh_retains_scope_without_changing_exported_message(self):
         self.check_refresh('racing')
+
+    def test_asterix_refresh_retains_scope_without_changing_exported_message(self):
+        self.check_refresh('asterix')
+
+    def test_pingpong_refresh_retains_scope_without_changing_exported_message(self):
+        self.check_refresh('pingpong')
+
+    def test_touhou_refresh_retains_scope_without_changing_exported_message(self):
+        self.check_refresh('touhou')

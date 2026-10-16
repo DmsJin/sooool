@@ -1,5 +1,7 @@
 # SOL researches a realtime Touhou policy
 
+This task uses the repository’s simplified Touhou-inspired Kaguya practice arena with original-game presentation assets, rather than the original commercial game’s engine or exact spell-card patterns. [Environment scope](../environments/touhou/README.md).
+
 The selected controller is **`tracking_dodge_safe_intercept_v2`**, an early checkpoint that earned promotion through a fixed development gate and live API evaluation. The release follows that checkpoint. A larger version number is not the selection criterion.
 
 SOL sees chronological screenshots and its own previously returned controls, then chooses every direction, Z/Shift/X key and duration. The game keeps advancing during API inference. There is no target servo, coded dodge, automatic bomb or prerecorded action script in a live evaluation. `player`, `boss` and `aim_x` are the model's visual estimates for auditing; the executor consumes only `plan`.

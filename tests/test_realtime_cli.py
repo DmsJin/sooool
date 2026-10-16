@@ -47,3 +47,26 @@ class RealtimeCLI(unittest.TestCase):
         with patch.object(sys,'argv',['sol','profile','touhou','--episode','unused','--budget-usd','1']),patch('runtime.touhou_profile.profile',return_value={'complete':True}) as run:
             self.assertIsNone(cli.main())
             run.assert_called_once()
+
+
+class ManifestProvenance(unittest.TestCase):
+    def test_api_and_subscription_runs_do_not_share_a_misleading_transport_label(self):
+        cases = [
+            ('realtime_api', 'paid API', 'wall clock'),
+            ('serial_api_profile', 'paid API', 'no gameplay actions'),
+            ('real_time_subscription', 'subscription', 'wall clock'),
+            ('subscription_with_simulated_profile', 'subscription', 'virtual timing'),
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            with patch.object(cli, 'ROOT', root):
+                for mode, provider, clock in cases:
+                    with self.subTest(mode=mode):
+                        output = root/mode
+                        cli.freeze('rhythm', {}, output, mode=mode)
+                        manifest = json.loads((output/'manifest.json').read_text())
+                        self.assertEqual(manifest['mode'], mode)
+                        self.assertIn(provider, manifest['transport_adapter'])
+                        self.assertIn(clock, manifest['transport_adapter'])
+                        if provider == 'paid API':
+                            self.assertNotIn('app-server', manifest['transport_adapter'])

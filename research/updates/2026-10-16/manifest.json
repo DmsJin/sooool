@@ -950,9 +950,10 @@
       "area": "main",
       "source": "/home/ubuntu/wzh/sooool-direct-action/experiments/sooool/README.md",
       "source_sha256": "a399effd641a721b38386565c5a10646a361a65c88c23a6d847fa6c23439135c",
-      "sha256": "a399effd641a721b38386565c5a10646a361a65c88c23a6d847fa6c23439135c",
-      "bytes": 15823,
-      "redacted": false
+      "sha256": "ff634899e406daea59bd06ddb4a85680746dfac56918b91935567ef096ad0c49",
+      "bytes": 16167,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/pingpong/abort_stroke.py",
@@ -1895,126 +1896,140 @@
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/CONTROL_CONTRACT.md",
       "source_sha256": "c9f4c8218d63fb334445357c3d04d97c6cc2c3aaf48a1013deb75271da0505e1",
-      "sha256": "c9f4c8218d63fb334445357c3d04d97c6cc2c3aaf48a1013deb75271da0505e1",
-      "bytes": 5129,
-      "redacted": false
+      "sha256": "64c303f1ce8f54bcb8d8e7df35280bf7178817ce8b0abff34ec4b2324780f13a",
+      "bytes": 5539,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/DEMO_PRIOR_RESULTS.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/DEMO_PRIOR_RESULTS.md",
       "source_sha256": "a8753e79cf3f59119c578a1fc38c85a287d4e0e090275c80b1d6de1d551e77aa",
-      "sha256": "a8753e79cf3f59119c578a1fc38c85a287d4e0e090275c80b1d6de1d551e77aa",
-      "bytes": 3214,
-      "redacted": false
+      "sha256": "765ffa6fd64eae060aff7c576643b2aaf2c7ef93fce639d679d15b5d896872f1",
+      "bytes": 3624,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/DEVSET_PROTOCOL.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/DEVSET_PROTOCOL.md",
       "source_sha256": "a7a1f5b1a2c4e0e3949cde94052ddfb0be6b09f732e671b99e0506f315243353",
-      "sha256": "a7a1f5b1a2c4e0e3949cde94052ddfb0be6b09f732e671b99e0506f315243353",
-      "bytes": 4894,
-      "redacted": false
+      "sha256": "b9978aa790da21bae5b22070be1906ea340cbef3cc3e8cb2269b07248f955f58",
+      "bytes": 5304,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/EARLY_DELAY_CALIBRATION.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/EARLY_DELAY_CALIBRATION.md",
       "source_sha256": "6367829d9552fbb42f39f209b59feb9bb838db8748b71f4888a94c6009fcb441",
-      "sha256": "6367829d9552fbb42f39f209b59feb9bb838db8748b71f4888a94c6009fcb441",
-      "bytes": 4881,
-      "redacted": false
+      "sha256": "604a8957a22b35cee8b657df5df29c1b5301ada399792d7adc956d5914aa75bf",
+      "bytes": 5291,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/HUMAN_CASE_RESULTS.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/HUMAN_CASE_RESULTS.md",
       "source_sha256": "97bff5e7d94a2d005512f09c673128551602d275b7fc452b7e11b70628b3c1f9",
-      "sha256": "97bff5e7d94a2d005512f09c673128551602d275b7fc452b7e11b70628b3c1f9",
-      "bytes": 2334,
-      "redacted": false
+      "sha256": "ab2a70fe21b471ba86a7c855bdd9387d06b47460fc1c5cd596ed58827c3b5f39",
+      "bytes": 2744,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/NATIVE_BENCHMARK_RESULTS.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/NATIVE_BENCHMARK_RESULTS.md",
       "source_sha256": "0c652265b2bd2b7ffc08b9a14713a967c4433745604d0ed29f7a2f94ac3cf5c4",
-      "sha256": "0c652265b2bd2b7ffc08b9a14713a967c4433745604d0ed29f7a2f94ac3cf5c4",
-      "bytes": 4033,
-      "redacted": false
+      "sha256": "b909391ee6a5c126534bde518c783a76f9883278978e1b82978e9a6ee86a43dc",
+      "bytes": 4443,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/PLAN.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/PLAN.md",
       "source_sha256": "decc1bd439de114e35b59c55d13f61189cc6487ae8c7ef5cb466a57a47ee310e",
-      "sha256": "decc1bd439de114e35b59c55d13f61189cc6487ae8c7ef5cb466a57a47ee310e",
-      "bytes": 15083,
-      "redacted": false
+      "sha256": "2c2c6d8f0c0797dc355606ce2552d43bbfe71c9d8c4a973dd5a92533dd9fc305",
+      "bytes": 15493,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/REALTIME_PROFILE_FIXTURES.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/REALTIME_PROFILE_FIXTURES.md",
       "source_sha256": "b773327828bc052372cf974f4816b127ce2222532a29888037cf97c7dec8c9ff",
-      "sha256": "b773327828bc052372cf974f4816b127ce2222532a29888037cf97c7dec8c9ff",
-      "bytes": 3610,
-      "redacted": false
+      "sha256": "0755ab91ac7d83dfccf475063c40c901f42a26838ab212fa51946e8316145761",
+      "bytes": 4020,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/RESULTS.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/RESULTS.md",
       "source_sha256": "506daca53ff24573e4712c087bebb2cea443a2f9304d04ff350b7cc502491cd7",
-      "sha256": "506daca53ff24573e4712c087bebb2cea443a2f9304d04ff350b7cc502491cd7",
-      "bytes": 7301,
-      "redacted": false
+      "sha256": "a1a32a46da201261b0a8771515184585027bbfc556c373ac791a391459b0ed22",
+      "bytes": 7711,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/TRACKING_BENCHMARK.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/TRACKING_BENCHMARK.md",
       "source_sha256": "be650aa2e9fcf3cbcfdeda860f8319915cfbb525dea91e4509bc54467d1507fa",
-      "sha256": "be650aa2e9fcf3cbcfdeda860f8319915cfbb525dea91e4509bc54467d1507fa",
-      "bytes": 7933,
-      "redacted": false
+      "sha256": "ce281f676a778ea94e7220cf053b205d41ce4eb14750afbf50ac37e333b439f6",
+      "bytes": 8343,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/TRACKING_POLICY_V1.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/TRACKING_POLICY_V1.md",
       "source_sha256": "b119138b305c8f8524bb3ad41484f70c0d69c72920054c74932202b8b39ba28e",
-      "sha256": "b119138b305c8f8524bb3ad41484f70c0d69c72920054c74932202b8b39ba28e",
-      "bytes": 4485,
-      "redacted": false
+      "sha256": "ed279ac500b0b0ff53a23c7a1d3d69eb4e1720345522100eb9b1c8fe40f6a65a",
+      "bytes": 4895,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/TRACKING_POLICY_V2.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/TRACKING_POLICY_V2.md",
       "source_sha256": "af1ee2c632d96dfdcb4b3eb9ec346601d7e3a2ea79ce74563838bdc6f8470b0f",
-      "sha256": "af1ee2c632d96dfdcb4b3eb9ec346601d7e3a2ea79ce74563838bdc6f8470b0f",
-      "bytes": 3306,
-      "redacted": false
+      "sha256": "67b00ba95ddb2e96d0e09be1ed557a120c1dc2007cef0284661191530bab4168",
+      "bytes": 3716,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/TRACKING_STUDY_PROTOCOL.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/TRACKING_STUDY_PROTOCOL.md",
       "source_sha256": "666f69a5c469966ae3d983655a43c4d22d2f5cb5df98eefdda859d5a0b9561a6",
-      "sha256": "666f69a5c469966ae3d983655a43c4d22d2f5cb5df98eefdda859d5a0b9561a6",
-      "bytes": 5101,
-      "redacted": false
+      "sha256": "5f4aa4a0189e86f8df5e9419ca980068a70b07be8d1c554dba02203b6a108247",
+      "bytes": 5511,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/VISUAL_DEVSET.md",
       "area": "main",
       "source": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/src/research/VISUAL_DEVSET.md",
       "source_sha256": "eb2988e5c05731bdd0bc2b795fb24b40ae63a941fb54a6fc843cf5fa9b4d5f6a",
-      "sha256": "eb2988e5c05731bdd0bc2b795fb24b40ae63a941fb54a6fc843cf5fa9b4d5f6a",
-      "bytes": 3959,
-      "redacted": false
+      "sha256": "41ce688e6a8d325baaf61245d05c0e62dbf82b695038fe2b183afc6a77cb6c43",
+      "bytes": 4369,
+      "redacted": false,
+      "packaging_note": "Added historical-scope header; original report body and source_sha256 preserved."
     },
     {
       "path": "ubuntu/touhou/latest-source/__init__.py",

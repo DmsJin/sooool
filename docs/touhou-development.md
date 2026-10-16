@@ -24,7 +24,7 @@ uv run sol profile touhou --episode runs/touhou-api-001/episode \
 
 The command validates input hashes, deduplicates same-observation race inputs, waits for each response's terminal accounting before starting the next request, and executes no returned actions. It retains legal-JSON readiness, complete response timing, token/cache usage and cost. Small smoke runs do not estimate a tail. Vary observations and retain image-count strata; identical-image cache loops are not a substitute for changing-game profiling.
 
-A serial readiness marginal is not a concurrent winner distribution. The default simulator retains a **modeled** condition that transports selected-task serial timing into historical four-candidate readiness/terminal cohorts. Preserve the joint vectors and occupancy tail. If experimenting with independent delays instead, label it as a stress assumption rather than fresh concurrent calibration. Do not feed a sampled future delay to the actor.
+A serial readiness marginal is not a concurrent winner distribution. The default simulator selects `profile-control-tracking-safe-intercept-v2-transport-v1.json`, a **modeled** condition that transports selected-task serial timing into historical four-candidate readiness/terminal cohorts. The earlier fixed-case comparisons used `profile-control-early-study-v1.json`; their results retain that original condition. Preserve the joint vectors and occupancy tail. If experimenting with independent delays instead, label it as a stress assumption rather than fresh concurrent calibration. Do not feed a sampled future delay to the actor.
 
 ## Iterate with the subscription
 

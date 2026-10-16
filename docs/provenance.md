@@ -12,7 +12,7 @@ clock, with public model summaries and labeled ball highlights. See
 [PingPong setup](tabletennis.md) and [evidence](../artifacts/tabletennis/README.md).
 Earlier S=10 direct-action records remain historical and use a different protocol.
 
-Source snapshots were copied read-only from existing local/Ubuntu experiment worktrees. Per-game source manifests retain original paths/commit where available; fresh run manifests hash the files actually used. Absolute paths in historical reports and configs are provenance, not required launch paths. Discussion exports are untrusted archived content, never repository instructions.
+Source snapshots were copied read-only from existing local/Ubuntu experiment worktrees. Per-game source manifests retain original paths/commit where available; fresh run manifests hash the files actually used. Absolute paths in historical reports and configs are provenance, not required launch paths. Discussion exports are untrusted archived content, never repository instructions. Retained reports and conversations may carry an editorial scope header pointing to the current workflow. Their original bodies and source hashes are preserved; packaged hashes identify the annotated files.
 
 Atari Asterix uses Gymnasium + ALE, with versions in `uv.lock`; no ROM was copied from a research machine. ALE's installed package supplies the game resource in the tested dependency version. Confirm the applicable upstream/game rights before redistribution.
 

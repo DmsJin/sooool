@@ -4,5 +4,7 @@
   "records": 3106,
   "messages": 288,
   "omitted_interactive_inputs": 369,
-  "scope": "Retained visible development subset; retired Asterix policy records omitted; original external sessions unchanged."
+  "scope": "Retained visible development subset; retired Asterix policy records omitted; original external sessions unchanged.",
+  "conversation_sha256": "15afe32c52b69f32a7b14e08417d1412419e4f6237c68bd4ff56397bb2a915d1",
+  "packaging_note": "Added historical-scope header to conversation.md; exported conversation body and original source_sha256 preserved."
 }

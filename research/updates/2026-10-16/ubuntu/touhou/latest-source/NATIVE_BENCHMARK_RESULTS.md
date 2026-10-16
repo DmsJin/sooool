@@ -1,3 +1,5 @@
+> **Retained source-harness research record.** This report/protocol describes its original experiment stage. “Current”, “ongoing”, “selected” and acceptance statements below belong to that stage; use the [selected Touhou learning record](../../../../../../docs/touhou-research-record.md) for the released policy, actual API wins and current launcher status. The original report follows unchanged.
+
 # Native wrapper randomized paired benchmark
 
 The valid v2 experiment used eight visual devcases, three repeats each, 24 paired blocks and 72 subscription calls, with at most eight concurrent requests. Each arm occupied each randomized position eight times. All arms used the complete unchanged `tracking_dodge_adaptive` task prompt, original PNGs, identical structured schema and `gpt-6.1-sol/low`; no reasoning-zero override or hard output truncation was applied. Only the native wrapper differed. All 72 returned complete legal outputs.

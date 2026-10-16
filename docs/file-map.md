@@ -1,6 +1,6 @@
 # Read the core first
 
-Use the root README and recipes as the runnable interface. Original environment/research READMEs retain historical commands and absolute paths for provenance.
+Use the root README and recipes as the runnable interface. Environment READMEs describe their manual/native setup; retained research snapshots keep historical commands and absolute paths for provenance. [Current results and conditions](results.md) identifies the active policy and evidence for all six games.
 
 | Purpose | Files |
 |---|---|
@@ -46,4 +46,4 @@ tactics in `environments/tabletennis/tactics.py`, four-worker scheduling in
 
 ## Ignore on first pass
 
-Full discussion tool traces, all historical profiles, old transport probes, legacy policy variants and offline case truth are not needed to run a frozen policy. Retained evidence documents the selected policies and subsequent development. PingPong snapshots under `research/in-progress` are unfinished source records. Racing uses the selected workflow linked above.
+Full discussion tool traces, all historical profiles, old transport probes, legacy policy variants and offline case truth are not needed to run a frozen policy. Retained evidence documents the selected policies and subsequent development. PingPong snapshots under `research/in-progress` are historical source records with their own high-level/direct-action and slowdown conditions; the active release uses the tactical controller linked above. Racing uses the selected workflow linked above.

@@ -1,3 +1,5 @@
+> **Retained source-harness research record.** This report/protocol describes its original experiment stage. “Current”, “ongoing”, “selected” and acceptance statements below belong to that stage; use the [selected Touhou learning record](../../../docs/touhou-research-record.md) for the released policy, actual API wins and current launcher status. The original report follows unchanged.
+
 # Human-prefix visual case comparison
 
 Six fixed observations from the recorded human run were evaluated with three unchanged game-task prompts and two repetitions: 36 native subscription calls total, `gpt-6.1-sol/low`, at most eight concurrent. All 36 returned legal one-action outputs. The public bundle contained original historical screenshots, current held keys `[0,1,1,0]`, clock metadata, no pending plan, and historical control-age median/P95 2.17/2.54s. No future human actions or private labels were uploaded. Actual RPC text, schema and attached image hashes matched for every call.

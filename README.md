@@ -1,8 +1,8 @@
 # Sooool!
 
-**GPT-Sol plays games in real time, agent as policy, frame by frame. The game does not pause while reasoning.**
+**GPT-Sol learns to act under latency. In real-time evaluation, the game keeps moving while the model thinks.**
 
-Sooool! uses an auto-research loop to get GPT-Sol to play real-time games, in both computer use and robotic settings. GPT-Sol sees the  current observation (visual frames), decides what to do, and sends an action. Then it sees what happened and decides the next action again. The environment keeps moving while the model thinks, so a good decision can arrive too late.
+Sooool! uses an auto-research loop to get GPT-Sol to play real-time games, in both computer use and robotic settings. GPT-Sol sees the  current observation (visual frames), decides what to do, and sends an action. Then it sees what happened and decides the next action again. During real-time evaluation the environment keeps moving while the model thinks, so a good decision can arrive too late. Development simulation uses a virtual clock and can wait for model computation.
 
 The gameplay decisions come from GPT-Sol on each turn. The surrounding code handles observations, timing and execution, with each game declaring its control setup below.
 
@@ -26,13 +26,15 @@ You can watch GPT-Sol dodge a screen full of bullets, race a rival, collect food
 
 ## Games
 
+[Current results and execution conditions](docs/results.md) maps each selected policy to its clocks, controls and evidence.
+
 | Game | Job | Demo |
 |---|---|---|
-| **Touhou / Kaguya** | Dodge bullets. Defeat the boss. | Real-time API at 1×. GPT-Sol chooses movement, shooting, focus, bombs and duration. |
+| **Touhou / Kaguya practice arena** | Dodge bullets. Defeat the boss in a simplified Touhou-inspired environment. | Real-time API at 1×. GPT-Sol chooses movement, shooting, focus, bombs and duration. |
 | **Racing** | Find a line. Beat your rival. | Real-time API at 1×. GPT-Sol chooses speed and racing targets; a coded controller supplies steering. [Recorded comparison: GPT 7/7, fixed goals 3/7](research/racing/EVALUATION.md#recorded-gpt-and-no-gpt-comparison). |
 | **Rhythm** | Hit the right key at the right time. | Real-time API at 1×. GPT-Sol chooses each DFJK key and its absolute tap timestamp. [Setup](docs/rhythm.md). |
 | **PingPong** | Serve, return, win the point. | Real-time API at 1×. GPT-Sol selects shot placement; rules handle serving and execution. [Setup](docs/tabletennis.md). |
-| **Badminton** | Place the shot. Recover for the next one. | Tactical goals with native mechanics; real-time API at S3. [Setup and control boundary](docs/badminton.md). |
+| **Badminton** | Place the shot. Recover for the next one. | Tactical goals with native mechanics; actual API at 3× slowdown (S3). [Setup and control boundary](docs/badminton.md). |
 | **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | Historical delay simulation at 5× slowdown, with model actions applied unchanged. |
 
 The GIFs are continuous excerpts at their source playback speed. Racing uses hybrid steering. Touhou, Racing, PingPong and Asterix show original public decision summaries. Rhythm shows original English action-plus-commentary responses; its 17s run has two empty presses and is not a full combo. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
@@ -123,7 +125,7 @@ The selected Touhou policy was trained through repeated play, prompt and memory 
 | `research/` | Development records, comparisons and retained discussions |
 | `artifacts/`, `assets/` | Evidence indexes, videos and README highlights |
 
-[File map](docs/file-map.md) · [Validation](docs/validation.md) · [Timing](docs/timing.md) · [Optional evidence](artifacts/README.md)
+[Current results and conditions](docs/results.md) · [File map](docs/file-map.md) · [Validation](docs/validation.md) · [Timing](docs/timing.md) · [Optional evidence](artifacts/README.md)
 
 Large evidence archives are optional; you can run the source package without downloading them. Public decision summaries are short model-authored outputs, not internal reasoning transcripts. GIFs have no audio; source-video music and editing are documented per artifact.
 

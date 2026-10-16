@@ -1,6 +1,6 @@
 # Package validation
 
-This page retains validation from multiple releases. For the current Rhythm v21 result and portable checks, start at [Selected Rhythm v21 package](#selected-rhythm-v21-package). The older 30-second Rhythm results below belong to an earlier release, not the current 17-second demo.
+This page retains validation from multiple releases. [Current results and conditions](results.md) provides the six-game overview; historical test counts below describe their own source checkpoints. For the current Rhythm v21 result and portable checks, start at [Selected Rhythm v21 package](#selected-rhythm-v21-package). The older 30-second Rhythm results below belong to an earlier release, not the current 17-second demo.
 
 Initial validation used an isolated Ubuntu directory and new Python virtual environment with this repository’s runtime and assets. The source machine’s suite is not required by the launcher; an explicitly selected native Codex executable supplies the existing ChatGPT login.
 

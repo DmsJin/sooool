@@ -1,3 +1,5 @@
+> **Historical PingPong experiment.** This snapshot spans earlier high-level/direct-action and S=10 conditions. Its seeds, scores and “current evidence” are not the active 1× tactical controller. Use the [current PingPong workflow](../../../../../docs/tabletennis.md) and its seed11/seed12 records. The original report follows unchanged.
+
 # sooool
 
 GPT watches robot table tennis and makes online decisions. Development uses

@@ -1,3 +1,5 @@
+> **Retained source-harness research record.** This report/protocol describes its original experiment stage. “Current”, “ongoing”, “selected” and acceptance statements below belong to that stage; use the [selected Touhou learning record](../../../../../../docs/touhou-research-record.md) for the released policy, actual API wins and current launcher status. The original report follows unchanged.
+
 # Sol studies a completed human demonstration
 
 Six real, serial ChatGPT subscription turns used `gpt-6.1-sol/low` and the aggressive native wrapper. No paid API calls, full episodes or policy-file edits were made. The input was 16 unchanged original PNGs, approximately every two game seconds from2..32s, each selected at or before its target and outside spell-intro freezes. They were split3/3/3/3/2/2 into chronological batches.

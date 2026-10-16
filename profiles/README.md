@@ -1,22 +1,18 @@
 # Profile inventory
 
-Badminton uses `badminton/tactical-api-100.json`: the unchanged 100 serial API
-Ultrafast samples from `badminton_tactical_003`. Generation mean 2.006s, P95
-2.862s. The clock excludes token preflight and local accounting. This historical
-profile schedules S2 tactical decisions; subscription simulation itself disables
-Fast and does not measure new API latency. See [Badminton](../docs/badminton.md).
+Badminton’s selected goal-v2 recipes use `badminton/conditional-api-20.json`: 20 serial API Ultrafast end-to-end samples, including request preparation, token preflight and client overhead. Simulation uses these samples at S2 (2× slowdown), with subscription Fast disabled. Actual API evaluation uses its real response timing at S3 (3× slowdown); the profile summary is context, not a delivery schedule. `tactical-api-100.json` is the older tactical-v1 campaign, retained for provenance. See [Badminton](../docs/badminton.md).
 
 Default simulation recipes select one exact profile each; older profiles are archived separately for development provenance.
 
 | Default | Raw representation | Sampling and clock |
 |---|---|---|
 | Rhythm `selected-native-joint.json` | 85 completed selected-v21 API rows: action readiness, frame age, transport overhead and terminal occupancy | Whole-row empirical resampling; continuous virtual seconds; sampled future delays hidden |
-| Touhou `profile-control-early-study-v1.json` | 19 four-candidate joint readiness/terminal cohorts and image-count strata | Whole-vector resampling, at 60 visual-clock frames/s; terminal slots remain occupied |
+| Touhou `profile-control-tracking-safe-intercept-v2-transport-v1.json` | 19 modeled four-candidate readiness/terminal vectors, transporting selected-task serial timing into historical race cohorts | Whole-vector resampling, at 60 visual-clock frames/s; terminal slots remain occupied |
 | Asterix `latency_v16_actual_5x_512cap.json` | 536 valid capture-to-complete delays from the historical V16 API campaign | Empirical IID, `ceil(seconds × 12)` raw frames at 5× slowdown; long tails retained |
 
 Asterix's earlier 1/8-speed `sol-ultrafast-v*` directories include `profile.json`, fitted quantile distribution and temporal burst companions. Their original interpolated inverse-CDF sampler is retained under `vendor/`; they are not silently selected for V28 5× simulation.
 
-Touhou's newer `profile-control-tracking-safe-intercept-v2-transport-v1.json` transports serial legal-action marginals into historical race timing. It is included as a modeled profile with its declared limitations, rather than substituted into the older simulation recipe that produced the reference comparisons.
+Touhou’s default `recipes/touhou.json` selects the transported v2 profile. It is a model of selected-task timing, not a fresh concurrent measurement. `profile-control-early-study-v1.json` retains the earlier empirical development condition used for the original policy comparisons. Those historical scores retain that older profile identity.
 
 Rhythm’s default profile is derived from `artifacts/rhythm/selected/requests.jsonl`, matching the selected 17s, 2.5s-approach experiment. The older native-v17 profile is historical research evidence.
 

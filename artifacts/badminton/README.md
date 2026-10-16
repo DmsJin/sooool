@@ -15,8 +15,10 @@ their absolute contact times. It passes 21 GPU tests and 31 subtests. The comple
 decision; the latest raw provider reply reports `credit_balance_exhausted`.
 Corrected realtime performance remains unmeasured. No policy score gain is claimed.
 
-[Watch the completed diagnostic](../../outputs/sooool_badminton_goal_realtime_001/api-s3-101/index.html)
-and [read the current report](../../outputs/sooool_badminton_goal_realtime_001/REPORT.md).
+The diagnostic video/report are local-only at
+`outputs/sooool_badminton_goal_realtime_001/api-s3-101/index.html` and
+`outputs/sooool_badminton_goal_realtime_001/REPORT.md`; they are not included in
+this checkout. The [compact record](realtime-goal-v2-20261017.json) is available here.
 All new evidence stays separate from the earlier S2/S3 episodes below.
 
 ## S3 realtime API retry: 2026-10-17
@@ -44,7 +46,8 @@ capturing, while the auditor checked the capture first. The corrected auditor
 passes a native regression test and also retains exact S2 replay. The initial
 failure log and corrected auditor source remain with the raw evidence.
 
-[Watch the S3 video with English summaries](../../../outputs/badminton-realtime-20261017/api-s3-101/index.html).
+The S3 video with English summaries is local-only at
+`../outputs/badminton-realtime-20261017/api-s3-101/index.html`, relative to the repository root.
 It preserves the actual S3 duration at 100/3 FPS and uses no new model calls.
 
 ## Actual realtime API: 2026-10-17
@@ -62,8 +65,8 @@ missed the fixed 0.4-second preparation deadline. They returned a mean 0.591 wal
 seconds after that deadline, with a maximum 0.8 seconds. Physics kept advancing.
 This record retains the original S2 episode; the later S3 retry is reported above.
 
-The [S2 video and English decision panel](../../../outputs/badminton-realtime-20261017/api-101/index.html)
-use a verified native replay, 50 FPS and the actual 53.38-second S2 duration.
+The local-only S2 video and English decision panel at
+`../outputs/badminton-realtime-20261017/api-101/index.html` use a verified native replay, 50 FPS and the actual 53.38-second S2 duration.
 Public summaries appear at their recorded intention-acceptance times. Complete
 local records are under `../outputs/badminton-realtime-20261017` relative to the
 repository. Full camera inputs remain in the remote evidence directory named by
@@ -103,8 +106,8 @@ The full repository suite passed 44 tests under Python 3.12. The GPU runtime
 passed 21 relevant tests and 16 subtests under Python 3.11. Existing Touhou code
 requires Python 3.12 syntax and was left unchanged.
 
-The local [video report](../../runs/badminton-validation/gpu/index.html) and raw
-evidence are in ignored `runs/`. Each fresh run retains its actual source
+The local video report at `runs/badminton-validation/gpu/index.html` and raw
+evidence are in ignored `runs/`, not included in this checkout. Each fresh run retains its actual source
 snapshot. Full original camera images and transport records remain on the GPU
 server at `/home/ubuntu/auto-research/lxy/outputs/sooool_badminton_port_001`.
 No policy was promoted.

@@ -15,7 +15,7 @@ The Rhythm snapshot includes the retired coordinate-to-time campaign and earlier
 | Asterix candidate prompts | `asterix/prompts/` |
 | Asterix food-sequence diagnostics and helper scripts | `asterix/food_sequence_iteration/`, `asterix/source/` |
 | Asterix paired complete 20-second summaries | `ubuntu/asterix/full20/` |
-| PingPong current direct-action source/tests | `ubuntu/pingpong/` |
+| Historical PingPong direct-action source/tests | `ubuntu/pingpong/` |
 | Racing selected policy and records | [Racing workflow](../../../docs/racing.md); former snapshot directories redirect there |
 
 All paths are relative to this directory. Local and Ubuntu snapshots are kept separately because other threads were editing concurrently; neither is assumed byte-identical to the other's frozen run source. Run-specific frozen source is retained in evidence when collected.

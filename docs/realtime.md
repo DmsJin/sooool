@@ -4,10 +4,10 @@
 
 `sol eval badminton --budget-usd 20 --env-file /absolute/path/to/.env --output outputs/badminton-api101`
 runs one L1, seed-101 native match. It uses one serial `gpt-6.1-sol / low / ultrafast`
-request and a continuously advancing S3 clock. Camera control and native stroke
+request and a continuously advancing S3 clock. S3 means 3× slowdown: one game second takes three wall seconds. Camera control and native stroke
 planning run off the physics process. Limits, preparation timing, public English
 summaries and verified replay video are described in [Badminton](badminton.md).
-Run `sol preflight badminton` with an explicit output directory before paid use.
+Run `sol preflight badminton` with an explicit output directory before paid use. The completed goal-v2 diagnostic scored 1:11 before the FIFO correction; the corrected current code has not completed an API match because provider credit was exhausted. [The evidence record](../artifacts/badminton/realtime-goal-v2-20261017.json) preserves both conditions.
 
 ## Asterix
 
