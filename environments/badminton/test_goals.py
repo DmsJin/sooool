@@ -71,24 +71,63 @@ class GoalExecutionTests(unittest.TestCase):
         for side in ("left", "right"):
             self.assertGreater(landings[side, "clear"][1] - landings[side, "drop"][1], .6)
 
-    def test_delivery_correction_keeps_the_committed_goal_after_a_new_sol_reply(self):
+    def test_pending_candidate_waits_for_installation_and_keeps_original_goal(self):
+        """A later SOL reply cannot overwrite a pending or installed stroke's goal."""
         fixture = self.cases()
         case = fixture["cases"][0]
         player, _ = self.play(fixture["spec"], case, case["choice"])
-        original_target = player.reference.plan["target"].copy()
-        original_choice = dict(player.reference.plan["goal_choice"])
-        state = dict(case["state"])
-        state["command"] = {"phase": "approach", "contact_in_s": player.reference.plan["t"] - state["step"] / 100,
-                            "pos_error_rehearsed_m": .08, "stroke": "pose not delivered",
-                            "vel_rehearsed": player.reference.plan["vel"].tolist()}
-        opposite = {"side": "left" if original_choice["side"] == "right" else "right", "shot": "clear"}
+        proposed = player.candidates[0]
+        self.assertIsNone(player.reference.plan)
+        opposite = {"side": "left" if case["choice"]["side"] == "right" else "right", "shot": "clear"}
         player.accept({**INTENT, **{key: opposite for key in ("normal", "under_pressure", "opponent_back")}},
-                      8, source_game_time=state["step"] / 100)
+                      8, source_game_time=case["state"]["step"] / 100)
         png = io.BytesIO()
         Image.new("RGB", (1920, 720)).save(png, format="PNG")
-        action = player.act({"state": state, "observation": {
+        action = player.act({"state": case["state"], "observation": {
             "image_png_b64": base64.b64encode(png.getvalue()).decode(), "view_sim_times": []}})
-        self.assertIsNotNone(action, player.feedback)
-        self.assertEqual(player.reference.plan["goal_choice"], original_choice)
-        np.testing.assert_allclose(player.reference.plan["target"], original_target)
-        self.assertEqual(player.selection["intent_id"], 7)
+        self.assertIsNone(action)
+        self.assertEqual(player.feedback["reason"], "awaiting_rehearsal")
+        player.acknowledge({"point": case["state"]["point"], "source_frame": case["state"]["step"],
+                            "status": "installed", "plan": proposed})
+        self.assertEqual(player.reference.plan["goal_choice"], case["choice"])
+        self.assertEqual(player.reference.plan["selection"]["intent_id"], 7)
+
+    def test_rejected_rehearsal_moves_every_candidate_to_a_later_contact(self):
+        """Long-lived regression: alternative stances must respect a rejected contact."""
+        fixture = self.cases()
+        case = fixture["cases"][0]
+        player, _ = self.play(fixture["spec"], case, case["choice"])
+        rejected_contact = min(plan["t"] for plan in player.candidates)
+        player.acknowledge({"point": case["state"]["point"], "source_frame": case["state"]["step"],
+                            "status": "rejected", "earliest_contact": rejected_contact})
+        png = io.BytesIO()
+        Image.new("RGB", (1920, 720)).save(png, format="PNG")
+        action = player.act({"state": case["state"], "observation": {
+            "image_png_b64": base64.b64encode(png.getvalue()).decode(), "view_sim_times": []}})
+        self.assertIsNotNone(action)
+        self.assertTrue(player.candidates)
+        for candidate in player.candidates:
+            self.assertGreaterEqual(candidate["t"], rejected_contact + .10)
+
+    def test_rehearsed_velocity_controls_admission_even_when_stroke_reports_ok(self):
+        """Retain the real low-return failure and a legal middle-contact rehearsal."""
+        from .realtime import assess_delivery
+        from .tactics import _goal
+        fixture = json.loads((Path(__file__).parent / "fixtures/low-reception.json").read_text())
+        case = fixture["case"]
+        player, _ = self.play(fixture["spec"], case, case["choice"])
+        bp = player.bp
+        at, position, velocity, _ = bp.fit(player.reference.obs)
+        times, _, incoming = bp.predict(position, velocity, at)
+        for delivery in case["deliveries"]:
+            with self.subTest(contact=delivery["contact_game_time"]):
+                index = int(np.argmin(abs(times - delivery["contact_game_time"])))
+                plan = {**delivery["command"], "incoming": incoming[index],
+                        "goal_choice": case["choice"], "target": _goal(bp, case["choice"]),
+                        "goal_status": "projected" if delivery["valid"] else "rule_fallback"}
+                result = assess_delivery(plan, delivery["feedback"])
+                self.assertEqual(result["valid"], delivery["valid"], result)
+                if not delivery["valid"]:
+                    self.assertEqual(delivery["feedback"]["stroke"], "ok")
+                    self.assertIn("outgoing_flight", result["reasons"])
+                    self.assertEqual(result["goal_status"], "rule_fallback")

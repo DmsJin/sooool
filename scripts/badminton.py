@@ -25,6 +25,10 @@ def realtime(args, parser):
     from environments.badminton.realtime import run_realtime
     recipe = json.loads((ROOT / "recipes/badminton-realtime.json").read_text())
     config = dict(recipe["args"])
+    config["ledger_path"] = None if args.ledger is None else str(args.ledger.resolve())
+    source = "sol" if args.source is None else args.source
+    if args.command == "profile" and source != "sol":
+        parser.error("profile measures the API; --source rules applies to matches")
     if args.seed is not None:
         config["seed"] = args.seed
     preflight = args.command == "preflight"
@@ -34,7 +38,7 @@ def realtime(args, parser):
         parser.error("eval uses the native match endpoint; --duration is for preflight or simulation")
     budget = None
     key = None
-    if not preflight:
+    if not preflight and source != "rules":
         try:
             budget = Decimal(args.budget_usd)
         except (InvalidOperation, TypeError):
@@ -70,7 +74,8 @@ def realtime(args, parser):
                          check=True, capture_output=True, text=True).stdout.splitlines()
     source_revision = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"],
                                     check=True, capture_output=True, text=True).stdout.strip()
-    manifest = {"game": "badminton", "mode": "realtime_api_preflight" if preflight else "realtime_api",
+    manifest = {"game": "badminton", "mode": "realtime_fixed" if source == "rules" else
+                "realtime_api_preflight" if preflight else "realtime_api", "source": source,
                 "recipe": recipe, "resolved_config": config, "repository_base_revision": source_revision,
                 "environment_revision": revision, "renderer": "egl_gpu", "gpu_device": os.environ["MUJOCO_EGL_DEVICE_ID"],
                 "environment_identity_source": "explicit_pinned_snapshot" if args.environment_revision else "git_checkout",
@@ -78,8 +83,17 @@ def realtime(args, parser):
                 "budget_usd": None if budget is None else str(budget), "source_snapshot": "source_snapshot",
                 "dependencies": {name: importlib.metadata.version(name) for name in ("mujoco", "numpy", "Pillow")}}
     try:
-        result = run_realtime(config, recipe, json.loads((ROOT / recipe["profile"]).read_text()), output,
-                              key=key, budget_usd=budget, preflight=preflight)
+        if args.command == "profile":
+            from environments.badminton.profiling import profile_api
+            if not args.episodes or len(args.episodes) != 1:
+                parser.error("profile requires one --episodes public observation source")
+            manifest["mode"] = "api_profiling"
+            result = profile_api(args.episodes[0], output, recipe, key=key, budget_usd=budget,
+                                 ledger_path=config["ledger_path"])
+        else:
+            profile = ROOT / recipe["profile"] if args.profile is None else args.profile
+            result = run_realtime(config, recipe, json.loads(profile.read_text()), output,
+                                  key=key, budget_usd=budget, preflight=preflight, source=source)
     finally:
         key = None
         if output.exists():
@@ -94,27 +108,35 @@ def realtime(args, parser):
                     destination.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copyfile(ROOT / name, destination)
     print(json.dumps(result, indent=2))
-    return 0 if (result["complete"] or preflight and result["clock_valid"]) else 1
+    return 0 if (args.command == "profile" or result["complete"] or preflight and result["clock_valid"]) else 1
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["simulate", "eval", "preflight", "audit", "report"])
+    parser.add_argument("command", choices=["simulate", "eval", "preflight", "audit", "report", "diagnose", "profile"])
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--source", choices=["rules", "sol", "sol-frozen"])
+    parser.add_argument("--source", choices=["rules", "sol"])
     parser.add_argument("--seed", type=int)
     parser.add_argument("--duration", type=int)
     parser.add_argument("--budget-usd")
+    parser.add_argument("--ledger", type=Path, help="Shared profiling and evaluation budget ledger")
+    parser.add_argument("--profile", type=Path, help="Explicit measured API latency profile")
     parser.add_argument("--env-file", type=Path)
     parser.add_argument("--environment-revision", help="Revision of an explicitly pinned external source snapshot")
-    parser.add_argument("--profile-info", choices=["show", "hide"])
     parser.add_argument("--episodes", nargs="+", type=Path)
     args = parser.parse_args(argv)
     if args.duration is not None and args.duration <= 0:
         parser.error("--duration must be positive")
     os.environ["MUJOCO_GL"] = "egl"
     os.environ["PYOPENGL_PLATFORM"] = "egl"
-    if args.command in {"eval", "preflight"}:
+    if args.command == "diagnose":
+        from environments.badminton.diagnostics import diagnose_receptions
+        if not args.episodes or len(args.episodes) != 1:
+            parser.error("diagnose requires one --episodes source run")
+        result = diagnose_receptions(args.episodes[0], args.output)
+        print(json.dumps(result, indent=2))
+        return 0 if result["complete"] else 1
+    if args.command in {"eval", "preflight", "profile"}:
         return realtime(args, parser)
     if args.command == "simulate" and args.duration not in (None, 10, 60):
         parser.error("Simulation --duration must be 10 or 60 game seconds")
@@ -122,7 +144,7 @@ def main(argv=None):
     if recipe["subscription_service_tier"] != "default":
         parser.error("Badminton subscription simulation requires the default tier with Fast disabled")
     config = dict(recipe["args"])
-    for name in ("source", "seed", "duration", "profile_info"):
+    for name in ("source", "seed", "duration"):
         value = getattr(args, name)
         if value is not None:
             config[name] = value
@@ -152,7 +174,7 @@ def main(argv=None):
         environment_root = Path(os.environ["BADMINTON_ENV_ROOT"]).expanduser().resolve()
         config.update(stop_file=str(output.parent / "STOP"), environment_root=str(environment_root),
                       subscription_service_tier=recipe["subscription_service_tier"])
-        profile = json.loads((ROOT / recipe["profile"]).read_text())
+        profile = json.loads((ROOT / recipe["profile"] if args.profile is None else args.profile).read_text())
         revision = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"],
                                   check=True, capture_output=True, text=True).stdout.strip()
         gpu_inventory = subprocess.run(
@@ -181,13 +203,12 @@ def main(argv=None):
                     shutil.copyfile(ROOT / name, destination)
             try:
                 result = run_episode(config, config["source"], config["seed"], output, config["duration"] * 100,
-                                     profile if config["source"] != "rules" else None,
-                                     profile_info=config["profile_info"] == "show")
+                                     profile if config["source"] != "rules" else None)
             finally:
                 if output.is_dir():
                     shutil.copytree(temp, output / "source_snapshot")
                     (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-        if result["status"] not in {"completed", "screen_completed"}:
+        if result["status"] not in {"completed", "incomplete"} or result["stop_reason"] not in {"native_terminal", "game_time_limit"}:
             print(json.dumps(result, indent=2))
             return 1
     print(json.dumps({k: v for k, v in result.items() if k != "trajectory"}, indent=2))

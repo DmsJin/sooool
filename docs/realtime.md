@@ -2,7 +2,7 @@
 
 ## Badminton: actual realtime API at S3
 
-`sol eval badminton --budget-usd 20 --env-file /absolute/path/to/.env --output outputs/badminton-api101`
+`sol eval badminton --budget-usd 15 --ledger outputs/badminton-budget.json --env-file /absolute/path/to/.env --output outputs/badminton-api101`
 runs one L1, seed-101 native match. It uses one serial `gpt-6.1-sol / low / ultrafast`
 request and a continuously advancing S3 clock. Camera control and native stroke
 planning run off the physics process. Limits, preparation timing, public English

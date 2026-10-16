@@ -10,7 +10,7 @@ _SPEC_KEYS = {
 
 _PRIVATE_KEYS = {
     "seed", "episode_seed", "env_seed", "latency_seed", "random_seed", "truth",
-    "truth_view", "hidden_state", "qpos", "qvel", "path", "wall_mono",
+    "truth_view", "hidden_state", "qpos", "qvel", "path", "wall_mono", "control_ack",
 }
 
 

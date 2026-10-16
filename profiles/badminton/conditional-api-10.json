@@ -1,0 +1,94 @@
+{
+  "action_mode": "conditional_tactical_v1",
+  "source": "api",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "service_tier": "ultrafast",
+  "workers": 1,
+  "capacity": 1,
+  "samples": [
+    {
+      "latency_ms": 1652.8674019791652,
+      "service_ms": 1736.8533819972072,
+      "client_total_ms": 1744.0109409799334,
+      "source_frame": 0,
+      "cost_usd": "0.088716"
+    },
+    {
+      "latency_ms": 2795.839705009712,
+      "service_ms": 2893.6477749957703,
+      "client_total_ms": 2924.1909940028563,
+      "source_frame": 450,
+      "cost_usd": "0.110976"
+    },
+    {
+      "latency_ms": 2107.7677590074018,
+      "service_ms": 2168.056318012532,
+      "client_total_ms": 2211.7261980019975,
+      "source_frame": 900,
+      "cost_usd": "0.113766"
+    },
+    {
+      "latency_ms": 1737.8993599850219,
+      "service_ms": 1782.7930999919772,
+      "client_total_ms": 1820.012841024436,
+      "source_frame": 1340,
+      "cost_usd": "0.131571"
+    },
+    {
+      "latency_ms": 2026.0911399964243,
+      "service_ms": 2078.2918500190135,
+      "client_total_ms": 2117.9964680050034,
+      "source_frame": 1790,
+      "cost_usd": "0.129246"
+    },
+    {
+      "latency_ms": 1887.9763210134115,
+      "service_ms": 1969.3326300184708,
+      "client_total_ms": 1999.7082600020804,
+      "source_frame": 2240,
+      "cost_usd": "0.127176"
+    },
+    {
+      "latency_ms": 1800.1831400033552,
+      "service_ms": 1840.8908109995537,
+      "client_total_ms": 1877.3242699971888,
+      "source_frame": 2690,
+      "cost_usd": "0.132051"
+    },
+    {
+      "latency_ms": 2389.1050269885454,
+      "service_ms": 2445.7976070116274,
+      "client_total_ms": 2492.449426994426,
+      "source_frame": 3130,
+      "cost_usd": "0.128016"
+    },
+    {
+      "latency_ms": 2232.5668680132367,
+      "service_ms": 2308.9356970158406,
+      "client_total_ms": 2339.989157015225,
+      "source_frame": 3580,
+      "cost_usd": "0.130311"
+    },
+    {
+      "latency_ms": 2076.2967279879376,
+      "service_ms": 2100.6794679851737,
+      "client_total_ms": 2178.967599000316,
+      "source_frame": 4030,
+      "cost_usd": "0.139716"
+    }
+  ],
+  "requested_calls": 10,
+  "terminal_calls": 10,
+  "usable_for_simulation": true,
+  "summary": {
+    "unit": "ms",
+    "count": 10,
+    "mean": 2070.659344998421,
+    "p95": 2795.839705009712,
+    "max": 2795.839705009712
+  },
+  "measurement": "same_transport_as_realtime_complete_valid_JSON_and_terminal_service_time",
+  "purpose": "tactical_api_latency_profile",
+  "source_episode": "/home/ubuntu/auto-research/lxy/outputs/sooool_badminton_goal_realtime_002/api-s3-101"
+}
