@@ -66,3 +66,5 @@ Fresh portable validation completed: subscription simulation17s scored25/25 Perf
 Offline validation: 47 root tests and 73 Rhythm contract/streaming/financial tests passed. The shared-ledger symlink test verifies one canonical lock,retained unknown charges and immutable registry IDs.
 
 The portable confirmation used USD1.985646 in known charges. The malformed-credential migration attempt retains USD2.644320 in conservative reservations; it was not silently released. Cumulative experiment commitment is USD77.767684 of the user's USD80 ceiling,including all older uncertain reservations. No further paid test was started.
+
+After merging the latest PingPong main changes, root discovery ran 63 tests successfully (5 skipped) with its separate Numba, SciPy and video dependencies installed. The 73 Rhythm tests also passed. No hosted checks were configured on the PR at submission.
