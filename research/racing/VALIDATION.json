@@ -10,5 +10,12 @@
   "new_API_calls": 0,
   "new_subscription_calls": 0,
   "paid_cost_usd": 0,
-  "limitations": "Free migration preflight does not revalidate model gameplay; historical API evidence retained separately."
+  "limitations": "Free migration preflight does not revalidate model gameplay; historical API evidence retained separately.",
+  "tested_racing_dependencies": {
+    "mujoco": "3.3.7",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "Pillow": "12.3.0",
+    "requests": "2.34.2"
+  }
 }

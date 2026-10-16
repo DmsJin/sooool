@@ -29,8 +29,8 @@
     },
     {
       "path": "environments/racing/requirements.txt",
-      "bytes": 165,
-      "sha256": "fd1bfe4d96a46234c18a9484230e8c97eaae8a1094c71b010a75e4c63169fbe1"
+      "bytes": 156,
+      "sha256": "3a8cba48eaecffb8f7d89b3e8a3cee0ae9b317fe25f6819c600c50990768e0ac"
     },
     {
       "path": "environments/racing/run.py",
@@ -129,8 +129,8 @@
     },
     {
       "path": "research/racing/VALIDATION.json",
-      "bytes": 584,
-      "sha256": "96791460272851772aced99c5631f421d32e45db87e05f4b9b99859ed70a94d5"
+      "bytes": 740,
+      "sha256": "fa7ad6746c9ba9b13aa52fed555b47ce2ec8d7d942415a8c1a69413cdad787a4"
     },
     {
       "path": "research/racing/evidence/api-live-lane-1x-s204-v1/audit.json",

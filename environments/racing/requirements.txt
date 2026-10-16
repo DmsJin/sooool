@@ -1,6 +1,6 @@
-# Tested local replay/driver stack; install separately from the multi-game uv environment.
+# Actual tested local Python 3.12 replay/HTTP driver stack; separate from root uv.
 mujoco==3.3.7
-numpy==1.26.4
-scipy==1.14.1
-Pillow==12.1.1
-requests==2.32.5
+numpy==2.5.4
+scipy==1.18.1
+Pillow==12.3.0
+requests==2.34.2
