@@ -1,0 +1,564 @@
+{
+  "source_revision": "06633f3b911da6bce57e8bd618ac1a0a6907e01d",
+  "source_episode": "sooool_badminton_goal_realtime_002/api-s3-101",
+  "spec": {
+    "match": {
+      "win_points": 11,
+      "two_point_lead_from": 10,
+      "cap_points": 15,
+      "max_hits": 400,
+      "max_points_played": 40,
+      "scoring": "rally point",
+      "opponent_level": 1,
+      "first_player": "A",
+      "first_server": "A",
+      "serves": "you serve the first point; then the winner of each rally serves the next point (a let: the same server); the opponent serves like you, by the rules"
+    },
+    "robot": "franka-panda (held to the real Panda's joint velocity, acceleration, jerk, torque and torque-rate limits) on a 1.0 m pedestal, base on an x-y gantry of ball-screw axes (Festo EGC-185-BS-KF-40P: <= 2 m/s, <= 15 m/s^2, jerk <= 375 m/s^3, 3000 N) + badminton racket (head centre 0.56 m beyond the flange, string bed radius 0.14 m)",
+    "shuttle": {
+      "model": "point mass, gravity 9.81 + quadratic drag: dv/dt = g - K |v| v",
+      "K_per_m": 0.2122,
+      "terminal_speed_mps": 6.8,
+      "bounce": "none: the rally ends when it reaches the floor"
+    },
+    "act": {
+      "lead_steps": 14,
+      "lead_game_s": 0.14,
+      "T_max_s": 5,
+      "pos_range": {
+        "abs_x_max": 2.136,
+        "y_min": -3.68,
+        "y_max": -0.3,
+        "z": [
+          0.2,
+          3
+        ]
+      },
+      "rule": "an act (and none) takes effect 14 control steps after the step at which it arrives (the stroke is planned meanwhile; the reply gives effect_step, the state shows pending_commands, and a command sent before then is refused with HTTP 409); T counts from the effect step"
+    },
+    "court": {
+      "scale_of_bwf": 0.4,
+      "net_top_m": 1.524,
+      "posts_x_m": 1.22,
+      "singles_half_width_m": 1.036,
+      "half_length_m": 2.68,
+      "short_service_line_m": 0.792,
+      "service_court": "between the short service line and the back line, on one side of the centre line x = 0 (lines in)"
+    },
+    "racket": {
+      "gain": 4,
+      "incoming_share": 0.15,
+      "offcentre_loss": 0.3,
+      "radius_m": 0.14,
+      "law": "speed out = gain x max(0, v_head . n) x (1 - offcentre_loss (r / radius)^2) + incoming_share x max(0, -v_in . n), along the face normal n"
+    },
+    "arm_limits": {
+      "body": "franka_panda",
+      "model": "Franka Emika Panda (FER)",
+      "range_rad": [
+        [
+          -2.8973,
+          -1.7628,
+          -2.8973,
+          -3.0718,
+          -2.8973,
+          -0.0175,
+          -2.8973
+        ],
+        [
+          2.8973,
+          1.7628,
+          2.8973,
+          -0.0698,
+          2.8973,
+          3.7525,
+          2.8973
+        ]
+      ],
+      "velocity_rad_s": [
+        2.175,
+        2.175,
+        2.175,
+        2.175,
+        2.61,
+        2.61,
+        2.61
+      ],
+      "acceleration_rad_s2": [
+        15,
+        7.5,
+        10,
+        12.5,
+        15,
+        20,
+        20
+      ],
+      "jerk_rad_s3": [
+        7500,
+        3750,
+        5000,
+        6250,
+        7500,
+        10000,
+        10000
+      ],
+      "torque_nm": [
+        87,
+        87,
+        87,
+        87,
+        12,
+        12,
+        12
+      ],
+      "torque_rate_nm_s": [
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000
+      ]
+    },
+    "velocity_rule": {
+      "setpoint_share_of_velocity_limits": 0.9,
+      "reflex_at_share": 1.05,
+      "reflex_stop_s": 1,
+      "text": "the servo runs the arm's setpoints at 0.9 of the joint velocity limits; a physical arm joint faster than 1.05 x its limit triggers the robot's velocity reflex: the targets are ignored, the arm brakes to rest at the pose of the trigger and the gantry to rest within its limits, for 1 s; then the robot resumes from rest and catches up with its targets within the limits (the stroke under way is lost; final fields velocity_reflexes)"
+    },
+    "base": {
+      "max_speed_mps": 2,
+      "max_accel_mps2": 15,
+      "max_jerk_mps3": 375,
+      "max_force_n": 3000,
+      "home_xy": [
+        0,
+        -1.6
+      ],
+      "range": {
+        "x": [
+          -1.5,
+          1.5
+        ],
+        "y": [
+          -3.5300000000000002,
+          -0.5
+        ]
+      }
+    },
+    "frame": "your own: x to your right, y towards the opponent, z up; your half y < 0, your base's home [0.0, -1.6]",
+    "serve": {
+      "spot_right_court_xy": [
+        0.12,
+        -1.6
+      ],
+      "spot_left_court_xy": [
+        -0.12,
+        -1.6
+      ],
+      "courts": "both robots stand in their right service courts when the server's score is even, else in their left ones (diagonally opposite); the spot is your base's home for the point",
+      "base_tolerance_m": 0.05,
+      "ready_s": 1,
+      "window_s": 3,
+      "toss_z_m": [
+        0.5,
+        1.8
+      ],
+      "toss_reach_m": 1,
+      "toss_height_m": [
+        0,
+        0.5
+      ],
+      "max_contact_z_m": 1.15,
+      "command": "{'type': 'toss', 'pos': [x, y, z], 'height': H}: the shuttle appears at the point when the command takes effect (the same lead as an act) and rises H straight up (0 <= H <= 0.5; 0 or omitted: released from rest); then hit it with an act (it may be sent before the toss)",
+      "phases": "serve.phase: waiting (the receiver is getting ready), open (toss now), tossed, done",
+      "faults": "serve faults are recorded as 'serve_fault:<reason>: ...' (reasons: undue_delay, missed, too_high, not_upwards, net, out, moved); the receiver's base moving early: 'receive_fault:moved: ...'"
+    },
+    "cameras": [
+      {
+        "name": "behind",
+        "position": [
+          0,
+          -7.2937,
+          2.9155
+        ],
+        "forward": [
+          0,
+          0.9848,
+          -0.1736
+        ],
+        "up": [
+          0,
+          0.1736,
+          0.9848
+        ],
+        "fovy_deg": 45,
+        "tile_px": [
+          480,
+          360
+        ],
+        "focal_px": 434.6,
+        "principal_point_px": [
+          240,
+          180
+        ],
+        "image_right": "forward x up"
+      },
+      {
+        "name": "side",
+        "position": [
+          -6.9617,
+          -0.6,
+          2.6317
+        ],
+        "forward": [
+          0.9945,
+          0,
+          -0.1045
+        ],
+        "up": [
+          0.1045,
+          0,
+          0.9945
+        ],
+        "fovy_deg": 45,
+        "tile_px": [
+          480,
+          360
+        ],
+        "focal_px": 434.6,
+        "principal_point_px": [
+          240,
+          180
+        ],
+        "image_right": "forward x up"
+      }
+    ],
+    "image": "2 rows (behind, side) x 4 columns (camera frames 60 ms apart, oldest left); tile 480 x 360",
+    "skill_contract": {
+      "act": {
+        "call": "act(t, pos, normal, vel)",
+        "request": {
+          "t": {
+            "type": "number",
+            "min": 0,
+            "max": 5,
+            "unit": "s",
+            "doc": "contact T s after the act takes effect (0 < T <= 5)"
+          },
+          "pos": {
+            "type": "vector",
+            "len": 3,
+            "unit": "m",
+            "box": [
+              [
+                -2.136,
+                2.136
+              ],
+              [
+                -3.68,
+                -0.3
+              ],
+              [
+                0.2,
+                3
+              ]
+            ],
+            "doc": "racket-head centre at contact: |x| <= 2.136, -3.68 <= y <= -0.3, 0.2 <= z <= 3.0"
+          },
+          "normal": {
+            "type": "vector",
+            "len": 3,
+            "nonzero": true,
+            "doc": "string-face normal at contact (non-zero)"
+          },
+          "vel": {
+            "type": "vector",
+            "len": 3,
+            "unit": "m/s",
+            "max_norm": 8,
+            "doc": "racket-head velocity at contact, |vel| <= 8"
+          },
+          "base": {
+            "type": "vector",
+            "len": 2,
+            "unit": "m",
+            "optional": true,
+            "doc": "optional: where the base stands at contact (your frame; within the base's range); default the forehand stance for pos (the stance formula); the base stays there after the stroke"
+          }
+        },
+        "feasible": "the platform delivers a request within the tolerances when the contact is at least about 0.9 s ahead from the ready pose, 0.65-1.75 m high, within the base's reach in time and the head speed within about 2.2 t - 0.2 m/s along a forward face; otherwise it does its best and says so (FAILURES).",
+        "replaces": "a new act (or none) replaces the stroke under way from its effect step; the swing restarts from the moving arm",
+        "notes": {
+          "stance": "the base's goal for a contact at pos = (x, y, z) is (x, y) - 0.62 r (1, 1) with r = max(0.30, 0.95 - 0.35 |z - 1.333|) m (a forehand: right of and in front of the base), clipped to the gantry's range; the reply's stroke.base_goal gives it. So a serve whose contact is at that offset from the base's spot keeps the base still (it must stay within 5 cm until the serve is hit)",
+          "timing": "an act takes effect act.lead_steps control steps after the step at which it arrives (2 at x20); the plan is made meanwhile from the exact state at that step",
+          "feedback": "the reply: effect_step and the stroke notes (stroke, base, speed_scale, blade_error_m, normal_error_deg, racket_vel_delivered); state.command: contact_in_s, vel_rehearsed, pos_error_rehearsed_m; last_shots",
+          "contact_law": "the shuttle leaves along the face normal at 4 max(0, v_head.n)(1 - 0.3 (r/0.14)^2) + 0.15 max(0, -v_in.n) (spec racket_contact): the player turns the shot it wants into (normal, vel)"
+        }
+      },
+      "toss": {
+        "call": "toss(pos, height)",
+        "request": {
+          "pos": {
+            "type": "vector",
+            "len": 3,
+            "unit": "m",
+            "doc": "your serve's toss (docs/conventions/racket_serve_zh.md): the shuttle appears at this point (your frame) when the command takes effect; 0.5 <= z <= 1.8, within 1.0 m (horizontally) of your base, y <= -0.5; only the server, once per serve, from the step the receiver is ready (state.serve)"
+          },
+          "height": {
+            "type": "number",
+            "min": 0,
+            "max": 0.5,
+            "unit": "m",
+            "optional": true,
+            "doc": "how far it rises straight up from pos (0 <= height <= 0.5; default 0: released from rest)"
+          }
+        },
+        "feasible": "every toss within the ranges and the serve's window is executed exactly",
+        "replaces": "once per serve",
+        "notes": {}
+      }
+    }
+  },
+  "case": {
+    "state": {
+      "score": {
+        "you": 1,
+        "opponent": 1
+      },
+      "point": 3,
+      "ball": "serve",
+      "t_since_played": 0.27,
+      "heard": [
+        {
+          "event": "the opponent served",
+          "t": 0
+        }
+      ],
+      "robot_base_xy": [
+        -0.12,
+        -1.6
+      ],
+      "q_arm": [
+        1.5444,
+        1.3195,
+        -1.3693,
+        -1.7296,
+        -0.0274,
+        1.8111,
+        0.438
+      ],
+      "racket_pos": [
+        0.18,
+        -1,
+        1.15
+      ],
+      "racket_normal": [
+        0,
+        0.97,
+        0.243
+      ],
+      "you_serve": false,
+      "you_receive_serve": true,
+      "serve": {
+        "court": "left",
+        "phase": "done",
+        "tossed_at_step": 1493
+      },
+      "serve_in_s": null,
+      "ball_in_play": true,
+      "ball_state": "coming to you",
+      "last_points": [
+        {
+          "point": 0,
+          "winner": "you",
+          "how": "the opponent's shot hit the net (x=0.64, height 0.69 m)",
+          "score": [
+            1,
+            0
+          ]
+        },
+        {
+          "point": 1,
+          "winner": "opponent",
+          "how": "missed: the shuttle landed in your court at x=0.02, y=-1.49",
+          "score": [
+            1,
+            1
+          ]
+        }
+      ],
+      "last_shots": [
+        {
+          "returned": true,
+          "summary": "the opponent's shot hit the net (x=0.64, height 0.69 m)",
+          "speed_out": null
+        },
+        {
+          "returned": true,
+          "summary": "good: the opponent played it (weak return, a lift)",
+          "speed_out": 4.596
+        },
+        {
+          "returned": false,
+          "summary": "missed: the shuttle landed in your court at x=0.02, y=-1.49",
+          "speed_out": null
+        }
+      ],
+      "opponent_level": 1,
+      "command": "none (the arm returns to / holds the ready pose, the base waits at its last target or move point)",
+      "seat": "A",
+      "world": "running",
+      "step": 1520,
+      "t_sim": 15.2,
+      "done": false,
+      "pending_commands": true
+    },
+    "choice": {
+      "side": "left",
+      "shot": "clear"
+    },
+    "observations": [
+      [
+        15,
+        [
+          0.14479549842568126,
+          0.6442682504671351,
+          1.4386987286293638
+        ]
+      ],
+      [
+        15.02,
+        [
+          0.13479118322931613,
+          0.5672438092903551,
+          1.5231328528019772
+        ]
+      ],
+      [
+        15.04,
+        [
+          0.12272300387056218,
+          0.48696517349011126,
+          1.6127335402015897
+        ]
+      ],
+      [
+        15.08,
+        [
+          0.10610243224866196,
+          0.3498932604349134,
+          1.765174891091813
+        ]
+      ],
+      [
+        15.1,
+        [
+          0.09709158591108655,
+          0.2806603367190759,
+          1.8343333545540523
+        ]
+      ],
+      [
+        15.14,
+        [
+          0.07795298580100614,
+          0.15175559668558966,
+          1.9530204509772549
+        ]
+      ],
+      [
+        15.2,
+        [
+          0.05328505069754662,
+          -0.025644249278440036,
+          2.086084264301264
+        ]
+      ]
+    ],
+    "deliveries": [
+      {
+        "contact_game_time": 16.01,
+        "command": {
+          "type": "act",
+          "t": 0.61,
+          "pos": [
+            -0.2069,
+            -1.9432,
+            0.6678
+          ],
+          "normal": [
+            0.0317,
+            0.4214,
+            0.9063
+          ],
+          "vel": [
+            0.0608,
+            0.807,
+            1.7354
+          ]
+        },
+        "feedback": {
+          "n_swing_steps_available": 61,
+          "k_hit": 1601,
+          "base": "ok",
+          "base_goal": [
+            -0.649,
+            -2.386
+          ],
+          "ik_residual": 0.00009,
+          "speed_scale": 1,
+          "n_swing_steps": 61,
+          "blade_error_m": 0.0091,
+          "normal_error_deg": 1.8,
+          "stroke": "ok",
+          "racket_vel_delivered": [
+            -0.174,
+            -1.038,
+            0.589
+          ],
+          "T_from_now": 0.61
+        },
+        "valid": false
+      },
+      {
+        "contact_game_time": 15.85,
+        "command": {
+          "type": "act",
+          "t": 0.45,
+          "pos": [
+            -0.16734415711055564,
+            -1.6527037124359538,
+            1.3503712997849477
+          ],
+          "normal": [
+            -0.12159596644864742,
+            0.783979555533612,
+            0.6087614290087207
+          ],
+          "vel": [
+            -0.18239394967297112,
+            1.175969333300418,
+            0.913142143513081
+          ],
+          "base": [
+            -0.752574585057222,
+            -2.2379341403826203
+          ]
+        },
+        "feedback": {
+          "blade_error_m": 0.007,
+          "normal_error_deg": 0.35,
+          "stroke": "could not reach the stance in time: 0.22 m short",
+          "racket_vel_delivered": [
+            -0.212,
+            1.251,
+            0.921
+          ]
+        },
+        "valid": true
+      }
+    ]
+  }
+}
