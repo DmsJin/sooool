@@ -1,0 +1,122 @@
+[
+  {
+    "condition": "action_only",
+    "one_request_inflight_verified": true,
+    "new_observation_after_previous_reply": true,
+    "accepted_actions_unchanged": 43,
+    "frames": 1200,
+    "video": {
+      "programs": [],
+      "streams": [
+        {
+          "r_frame_rate": "12/1",
+          "nb_frames": "1200"
+        }
+      ],
+      "format": {
+        "duration": "100.000000"
+      }
+    },
+    "verification": {
+      "seed": 5,
+      "frames": 1200,
+      "verified_request_images": 44,
+      "score": 250.0,
+      "lives": 1,
+      "verification_model_calls": 0,
+      "checkpoints": [
+        {
+          "game_seconds": 5.0,
+          "score": 100.0,
+          "lives": 3
+        },
+        {
+          "game_seconds": 10.0,
+          "score": 100.0,
+          "lives": 2
+        },
+        {
+          "game_seconds": 15.0,
+          "score": 150.0,
+          "lives": 1
+        },
+        {
+          "game_seconds": 20.0,
+          "score": 250.0,
+          "lives": 1
+        }
+      ],
+      "no_row_filtered_commands": true
+    },
+    "quota_before_final_call": {
+      "windows": [
+        {
+          "name": "primary",
+          "used_percent": 68,
+          "window_minutes": 10080
+        }
+      ],
+      "max_used_percent": 68
+    }
+  },
+  {
+    "condition": "english_reason",
+    "one_request_inflight_verified": true,
+    "new_observation_after_previous_reply": true,
+    "accepted_actions_unchanged": 43,
+    "frames": 1200,
+    "video": {
+      "programs": [],
+      "streams": [
+        {
+          "r_frame_rate": "12/1",
+          "nb_frames": "1200"
+        }
+      ],
+      "format": {
+        "duration": "100.000000"
+      }
+    },
+    "verification": {
+      "seed": 5,
+      "frames": 1200,
+      "verified_request_images": 44,
+      "score": 500.0,
+      "lives": 2,
+      "verification_model_calls": 0,
+      "checkpoints": [
+        {
+          "game_seconds": 5.0,
+          "score": 250.0,
+          "lives": 3
+        },
+        {
+          "game_seconds": 10.0,
+          "score": 250.0,
+          "lives": 3
+        },
+        {
+          "game_seconds": 15.0,
+          "score": 350.0,
+          "lives": 2
+        },
+        {
+          "game_seconds": 20.0,
+          "score": 500.0,
+          "lives": 2
+        }
+      ],
+      "no_row_filtered_commands": true
+    },
+    "quota_before_final_call": {
+      "windows": [
+        {
+          "name": "primary",
+          "used_percent": 67,
+          "window_minutes": 10080
+        }
+      ],
+      "max_used_percent": 67
+    }
+  }
+]

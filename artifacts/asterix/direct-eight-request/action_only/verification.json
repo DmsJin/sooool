@@ -1,0 +1,21 @@
+{
+  "seed": 5,
+  "frames": 880,
+  "verified_request_images": 219,
+  "score": 400.0,
+  "lives": 0,
+  "verification_model_calls": 0,
+  "checkpoints": [
+    {
+      "game_seconds": 5.0,
+      "score": 200.0,
+      "lives": 3
+    },
+    {
+      "game_seconds": 10.0,
+      "score": 350.0,
+      "lives": 2
+    }
+  ],
+  "no_row_filtered_commands": true
+}

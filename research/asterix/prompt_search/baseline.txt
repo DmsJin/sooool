@@ -1,1 +1,0 @@
-The player is yellow; white score popups are not targets. Objects move horizontally; UP/DOWN changes rows. Anticipate motion during the response delay and current held action. Intercept nearby safe collectibles, avoid lyres. Once aligned, release vertical motion. Use recent applied actions to maintain a maneuver unless a new hazard requires changing it.

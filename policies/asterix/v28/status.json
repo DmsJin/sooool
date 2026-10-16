@@ -1,22 +1,14 @@
 {
   "status": "selected_default_by_user",
-  "controller": "HopControllerV3",
-  "completed_development_horizon_game_seconds": 20,
-  "completed_development_seeds": [
-    2,
-    5,
-    6
-  ],
-  "scores": [
-    500,
-    550,
-    550
-  ],
-  "lives": [
-    3,
-    3,
-    3
-  ],
-  "long_horizon_and_current_recipe_performance": "not established for this selected prompt/profile combination",
-  "reference": "artifacts/summaries/asterix-v28-development.json"
+  "mode": "historical_profile_simulation",
+  "controller": "DirectActionTransport",
+  "max_inflight": 1,
+  "seed": 5,
+  "game_seconds": 20,
+  "score": 500,
+  "lives": 2,
+  "public_english_rationale": true,
+  "independent_full_game_confirmation": false,
+  "realtime_transfer": "pending fresh portable validation",
+  "reference": "artifacts/asterix/serial-selected/english_reason/verification.json"
 }

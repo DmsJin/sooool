@@ -1,0 +1,16 @@
+{
+  "source": "/home/zihan/papers/latency/.codex-worktrees/asterix-policy-state/experiments/sol_ultrafast/videos/decision-replay/v28-no-v3-serial/english_reason/game-5x.mp4",
+  "duration_seconds": 100.0,
+  "music": "Original procedural arcade composition; generated locally, no external recording.",
+  "audio_loudness_lufs": -24,
+  "visual_edit_region": [
+    0,
+    60,
+    320,
+    420
+  ],
+  "visual_edit": "brightness +0.025, contrast 1.10, saturation 1.30, gamma 1.07",
+  "gameplay_actions_changed": false,
+  "reason_text_changed": false,
+  "new_model_calls": 0
+}

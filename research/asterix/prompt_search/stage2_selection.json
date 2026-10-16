@@ -1,7 +1,0 @@
-{
-  "candidate": "retreat_score_v2",
-  "selection_inputs": "stage1 development cases only",
-  "baseline": 0.4444444444444444,
-  "candidate_agreement": 0.5,
-  "decision": "test provisional candidate on regression cases; no adoption yet"
-}

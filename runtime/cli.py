@@ -28,7 +28,7 @@ def serve(directory):
     try:yield f'http://127.0.0.1:{server.server_port}'
     finally:server.shutdown();server.server_close();thread.join()
 
-def freeze(game,recipe,out):
+def freeze(game,recipe,out,mode="subscription_with_simulated_profile"):
     out.mkdir(parents=True,exist_ok=False)
     sources={}
     for directory in ('environments/'+game,'runtime','policies/'+game,'profiles/'+game):
@@ -39,8 +39,8 @@ def freeze(game,recipe,out):
                 if p.suffix in ('.py','.js','.mjs','.json','.txt','.md','.css','.html','.toml'):
                     target=out/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)
     (out/'manifest.json').write_text(json.dumps({'game':game,'recipe':recipe,'source_sha256':sources,
-        'mode':'subscription_with_simulated_profile','real_time_api_acceptance':False,
-        'transport_adapter':'portable app-server; original gameplay policy and timing retained',
+        'mode':mode,'real_time_api_acceptance':False,
+        'transport_adapter':'portable app-server; frozen recipe and direct visual model actions',
         'created_at_unix':time.time()},indent=2))
 
 def rhythm(recipe,out,a):
@@ -74,41 +74,16 @@ def touhou(recipe,out,a):
 
 def asterix(recipe,out,a):
     sys.path.insert(0,str(ROOT/'environments/asterix'))
-    import simulate_5x as sim
+    from runner import run_recipe
     from runtime.subscription import SubscriptionClient
-    class Pool:
-        def __init__(self,args):
-            self.args=args;self.local=threading.local();self.clients=[];self.lock=threading.Lock();self.stopped=threading.Event()
-            self.pool=cf.ThreadPoolExecutor(max_workers=recipe.get('native_workers',4))
-        def request(self,prompt,images,directory):
-            try:
-                if self.stopped.is_set():raise RuntimeError('Simulation stopped')
-                if not hasattr(self.local,'client'):
-                    with self.lock:
-                        c=SubscriptionClient(output=out/f'worker-{len(self.clients)}',system=(ROOT/recipe['system']).read_text());self.clients.append(c)
-                    self.local.client=c
-                answer,meta=self.local.client.act(prompt,images,directory)
-                if answer.strip() not in list('012345678'):raise ValueError('One integer action required')
-                return {'answer':answer,'chosen':int(answer.strip()),'meta':meta}
-            except BaseException:self.stopped.set();raise
-        def submit(self,*args):return self.pool.submit(self.request,*args)
-        def close(self):
-            self.pool.shutdown(wait=True)
-            for c in self.clients:c.close()
-    sim.NativePool=Pool
-    kw=dict(recipe['args']);kw.update(profile=ROOT/recipe['profile'],strategy=ROOT/recipe['prompt'],minimal_system_file=ROOT/recipe['system'],
-        source=ROOT/'environments/asterix',suite=ROOT/'vendor',output=out/'episodes',replay_root=None,verify_replay=None)
-    if a.seed is not None:kw['seeds']=[a.seed]
-    if a.duration is not None:kw['max_frames']=round(a.duration*60)
-    sim.run(SimpleNamespace(**kw))
-    summary=json.loads((out/'episodes/summary.json').read_text())
-    (out/'summary.json').write_text(json.dumps(summary,indent=2))
-    return summary
+    os.environ['SOL_QUOTA_STOP_PERCENT']=str(min(int(os.environ.get('SOL_QUOTA_STOP_PERCENT','80')),recipe['args']['quota_stop_percent']))
+    return run_recipe(ROOT,recipe,out,a,SubscriptionClient,
+        mode='realtime' if a.command=='eval' else 'simulation')
 
 def doctor(a):
     import importlib.metadata
     checks={'python':sys.version.split()[0],'node':bool(shutil.which('node')),'codex':os.environ.get('SOL_CODEX_BIN')or shutil.which('codex')}
-    for n in ('playwright','ale-py','gymnasium','Pillow'):
+    for n in (('ale-py','gymnasium','Pillow') if a.game=='asterix' else ('playwright','ale-py','gymnasium','Pillow')):
         checks[n]=importlib.metadata.version(n)
     if a.game in ('asterix','all'):
         sys.path.insert(0,str(ROOT/'environments/asterix'));from simulate_5x import make_env
@@ -126,18 +101,28 @@ def main():
     p=argparse.ArgumentParser();sub=p.add_subparsers(dest='command',required=True)
     d=sub.add_parser('doctor');d.add_argument('--game',choices=['all','rhythm','touhou','asterix'],default='all');d.add_argument('--auth',action='store_true');d.add_argument('--browser-executable')
     e=sub.add_parser('simulate');e.add_argument('game',choices=['rhythm','touhou','asterix']);e.add_argument('--output',type=Path);e.add_argument('--seed',type=int);e.add_argument('--duration',type=float);e.add_argument('--browser-executable');e.add_argument('--recipe',type=Path)
+    live=sub.add_parser('eval',help='Continuously advancing real-time subscription evaluation')
+    live.add_argument('game',choices=['asterix']);live.add_argument('--output',type=Path);live.add_argument('--seed',type=int);live.add_argument('--duration',type=float);live.add_argument('--recipe',type=Path)
+    assessment=sub.add_parser('record',help='Append a researcher decision to an existing evaluation')
+    assessment.add_argument('run',type=Path);assessment.add_argument('--decision',choices=['retain','reject','diagnostic'],required=True);assessment.add_argument('--note',required=True)
     a=p.parse_args()
     if a.command=='doctor':return doctor(a)
+    if a.command=='record':
+        from runtime.evaluation import assess
+        print(json.dumps(assess(a.run,a.decision,a.note),indent=2));return
     if a.duration is not None and (not math.isfinite(a.duration) or a.duration<=0 or a.game=='asterix' and round(a.duration*60)<1):
         p.error('--duration must be finite and positive')
     recipe=json.loads((a.recipe or ROOT/'recipes'/f'{a.game}.json').read_text())
     out=(a.output or ROOT/'runs'/f'{a.game}-{time.strftime("%Y%m%dT%H%M%S")}').resolve()
-    freeze(a.game,recipe,out)
+    freeze(a.game,recipe,out,mode='real_time_subscription' if a.command=='eval' else 'subscription_with_simulated_profile')
     (out/'transport').mkdir()
     os.environ['SOL_NATIVE_LOG_ROOT']=str(out/'transport')
     try:result=globals()[a.game](recipe,out,a)
     except BaseException as exc:
         (out/'failure.json').write_text(json.dumps({'type':type(exc).__name__,'message':str(exc)},indent=2));raise
+    finally:
+        from runtime.evaluation import record_run
+        record_run(out)
     print(json.dumps({'output':str(out),'result':result},indent=2))
 
 if __name__=='__main__':main()

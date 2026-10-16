@@ -1,69 +1,71 @@
-# SOL realtime games
+# SOOOOL — visual policy autoresearch
 
-Run frozen visual `gpt-6.1-sol / low` policies with measured API latency profiles. This repository includes Rhythm (DFJK), Touhou/Kaguya, and Atari Asterix. PingPong and Racing source snapshots are preserved under `research/in-progress/`; they remain outside this portable validation release.
+SOL develops visual game policies through a human-guided research loop: inspect failures, propose prompt changes, evaluate frozen candidates, replay the evidence, and keep the configuration that works. Asterix movement comes directly from the model; each game declares its own control semantics. This repository separates **real-time evaluation** from **simulation development** and records how each result was obtained.
 
-Large archives and videos live on the optional `codex/evidence` branch of this same repository. `main` contains everything needed to run simulations. Use a shallow clone of `main` for the smallest download; materialize selected evidence only when needed.
+The selected Asterix demo uses **V28, one request at a time, direct unchanged actions, and brief public English decision summaries**. Its historical profile simulation completed 20 game seconds with 500 points and two lives on seed 5. This is one development trial, not a general success rate or real-time API result.
 
-## Today’s research checkpoint
+[![Asterix: game and model decision summaries](assets/asterix/preview.png)](assets/asterix/v28-serial-english.mp4)
 
-The [2026-10-16 update](docs/update-2026-10-16.md) adds Rhythm v21/streaming, Touhou feedback studies, Asterix food-sequence candidates, and PingPong/Racing direct-action research. Sources, profiles, selected summaries and redacted discussions are preserved; large records/videos remain optional. Asterix selects V28; the other default recipes retain their previous configurations.
+[Watch/download the replay with original arcade music](assets/asterix/v28-serial-english.mp4) · [How SOL iterated to this policy](docs/asterix-autoresearch.md) · [Evaluation record protocol](docs/evaluation-records.md)
 
-## Start with profile simulation
+## Run
 
-Requirements: Linux, Python 3.10–3.12, a Chromium-compatible system, and Codex CLI signed in with a ChatGPT subscription that can run the exact model. The environment and model do not need to run on the original experiment server.
+Linux, Python 3.10–3.12, and a Codex CLI signed in with a ChatGPT subscription supporting the exact model are required. The tested native CLI is 0.162.1. `SOL_CODEX_BIN` selects a standalone executable; `SOL_CODEX_HOME` selects an existing login directory. Credentials are never copied into the repository, and there is no paid API fallback.
 
 ```bash
 uv sync --locked --python 3.12
-uv run playwright install --with-deps chromium
 codex login
-uv run sol doctor --auth
-uv run sol simulate rhythm
-uv run sol simulate touhou
-uv run sol simulate asterix
+uv run sol doctor --game asterix --auth
+
+# Development: historical delay samples schedule model actions in virtual time.
+uv run sol simulate asterix --output runs/asterix-development
+
+# Evaluation: the game clock advances while the model computes.
+uv run sol eval asterix --output runs/asterix-realtime
+
+# Explicit comparison without public English summaries.
+uv run sol simulate asterix --recipe recipes/asterix-action-only.json
+
+# Append the research decision without overwriting prior assessments.
+uv run sol record runs/asterix-development --decision diagnostic \
+  --note "Inspect missed pickups; confirm on additional seeds before promotion."
 ```
 
-These simulations send actual game screenshots/prompts to the subscription model. There is no paid API fallback. The model's actual computation time is recorded separately: the virtual environment waits at a scheduled delivery event, without advancing game time during that wait. Scores from this mode are **not real-time API acceptance**.
+Both Asterix modes use 12 raw FPS, a 5× slowdown, and a default 20-game-second horizon. `--seed` and `--duration` select another condition. Simulation pauses the environment when native computation must finish; evaluation uses actual wall time and subscription latency. Subscription latency is not ultrafast API latency. Both send real screenshots/prompts to SOL. `SOL_QUOTA_STOP_PERCENT` defaults to 80; interruptions preserve partial evidence.
 
-The tested native executable is `codex-cli 0.162.1`; model/schema/config behavior on other CLI versions needs rechecking. `SOL_CODEX_BIN` can select a native Codex executable when the desktop-managed proxy does not provide standalone app-server stdio. `SOL_CODEX_HOME` selects an existing login directory; credentials are never copied into the repository. `SOL_QUOTA_STOP_PERCENT` defaults to 80 and stops before a new turn at that usage. An interrupted episode remains interrupted, rather than being scored as a loss.
+## Read the result with its conditions
 
-Output goes to a new `runs/<game>-<timestamp>/` directory containing source hashes, exact recipe, model inputs/outputs, timing draws, executed actions and summary. Exit status reports execution integrity; game success is recorded separately in `passed`, `won`, or the score/horizon fields. `--output`, `--seed` select an explicit run directory and seed. Asterix `--duration` sets its raw game-time horizon; Rhythm `--duration` is a partial timing diagnostic and does not meet full-chart acceptance. Full default episodes are recommended.
+| Asterix development condition | Action only | Action + English summary |
+|---|---|---|
+| Eight in-flight requests, direct actions | 400 points; died at 14.67s | 200 points; died at 15.53s |
+| One in-flight request, direct actions | 250 points; 20s, one life | **500 points; 20s, two lives** |
 
-The Rhythm and Touhou Gym packages are installed from this workspace by `uv sync`. Touhou’s Python Gym bridge additionally needs Node.js; the browser-based simulation does not. Asterix uses the installed ALE/Gymnasium environment.
+These are single seed-5 trials under historical sampled API delays. Serial requests improved observed survival; action-only scoring declined. They motivate the selected recipe, without establishing a causal concurrency effect. The 26-case prompt comparison and these games are different evidence types. [Raw campaign records](artifacts/asterix/) retain failures, source hashes, applied actions and replay checks.
 
-## Fresh portable validation
+Every new run snapshots its code/recipe and emits `evaluation-record.json`; `sol record` appends retain/reject/diagnostic decisions. [Validation](docs/validation.md) distinguishes historical records, cold replay, fresh portable simulation, and actual-clock trials. [Real-time evaluation](docs/realtime.md) describes the clocks and remaining API transfer work.
 
-| Game | Result from this package |
-|---|---|
-| Rhythm | Complete 30s: 50 PERFECT, 1 GREAT, 1 MISS; zero provider errors; strict full combo not met |
-| Touhou | Complete loss at 48.82 game seconds, Boss HP 260; zero invalid actions; stable wins not reproduced |
-| Asterix V28/Hop3 | Historical development: seeds 2/5/6 completed 20 game seconds, scores 500/550/550, three lives each; longer default-recipe validation pending |
+## Other games
 
-These are individual subscription/profile simulations, not new paid real-time API acceptance. Retained evidence, migration attempts and replay videos are indexed in `artifacts/`. See [validation details](docs/validation.md).
+Rhythm and Touhou keep their existing environments, policies and recipes:
 
-## Frozen configurations
+```bash
+uv run playwright install --with-deps chromium
+uv run sol simulate rhythm
+uv run sol simulate touhou
+```
 
-| Game | Policy | Timing | Important limit |
-|---|---|---|---|
-| Rhythm | v19 lean, literal model-authored timestamps + visual calibration memory | 179 measured joint RTT/frame-age/transport rows; 140ms cadence, 12 slots | 52-note development chart; full combo was not established in historical v19 runs |
-| Touhou | `tracking_dodge_safe_intercept_v2` | historical four-candidate readiness/terminal joint cohorts | historical latency from another prompt; development simulation, not newly calibrated concurrent latency |
-| Asterix | V28 + atomic HopControllerV3 | 596 empirical capture-to-complete samples, 12 raw FPS (5× slowdown) | default horizon is 3600 raw frames; V28 development evidence covers 1200 frames, not native-speed success |
+Rhythm's retained portable simulation scored 50 PERFECT, 1 GREAT, 1 MISS; strict full combo was not met. Touhou's retained portable seed-9 trial ended at 48.82 game seconds with Boss HP 260. These are subscription/profile simulations. Their detailed development and unfinished PingPong/Racing research remain preserved independently.
 
-Asterix V28 is the selected default. Its prompt, system instructions and provenance live under `policies/asterix/v28/`. The explicit `recipes/asterix-v28.json` alias selects the same configuration.
+## Repository map
 
-## Where to read
+- `runtime/`: portable subscription transport, CLI, immutable run records and appended assessments.
+- `environments/asterix/`: pixels/replay, one shared simulation/evaluation loop, and unchanged model-action delivery.
+- `policies/asterix/v28/`, `recipes/`: the selected prompt, output format and exact conditions.
+- `profiles/`: historical empirical delay samples with provenance.
+- `docs/asterix-autoresearch.md`, `research/asterix/`: the selected research path and scored milestones.
+- `artifacts/asterix/`, `assets/asterix/`: public action summaries, replay checks and the selected demonstration.
+- [File map](docs/file-map.md), [development workflow](docs/development.md), [observation contract](docs/observation-contract.md), [source/media provenance](docs/provenance.md).
 
-- `recipes/`: the default executable configurations.
-- `policies/`: frozen prompt/memory/metadata; game-specific controller implementations remain with their environment.
-- `profiles/`: measured samples, fitted CDF companions, historical profiles and provenance.
-- `environments/`: original engines, interfaces, runners and research modules, retained to avoid rewriting validated timing behavior.
-- `runtime/`: portable subscription transport and unified launch/recording entrypoint.
-- `research/discussions/`: exported visible development messages and tool trajectories, redacted; original sources remain untouched.
-- `research/asterix/`: candidate development and annotation reports.
-- `artifacts/`: historical trajectories/videos and fresh validation evidence, labeled by execution mode.
-- [Timing and CDF semantics](docs/timing.md), [development workflow and lessons](docs/development.md), [verification](docs/validation.md), [real-time entrypoints](docs/realtime.md).
+Inactive Asterix candidates, old hop executors and duplicate machine snapshots are available from a fixed historical commit and the optional `codex/evidence` archive. Main carries the focused runnable implementation. See [the research archive](research/asterix/README.md) and [artifact retrieval](artifacts/README.md).
 
-The launcher uses a portable app-server transport in place of the original machine-specific suite/bubblewrap wrapper. The gameplay prompt, executor and profile simulation remain versioned. This transport change must be assessed using fresh runs; historical performance is not automatically inherited.
-
-This is a private research package. Private repository access does not grant an additional license to source code or media. See [source/media provenance](docs/provenance.md) before redistributing media or upstream code.
-
-Private repository: https://github.com/sooool-project/sooool. Both `main` and `codex/evidence` are required to preserve the complete indexed release; shallow-clone `main` and fetch individual evidence entries as needed.
+Private repository: https://github.com/sooool-project/sooool. Private access does not grant an additional license to upstream code or media; read the provenance before redistributing them.

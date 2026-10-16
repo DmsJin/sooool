@@ -1,0 +1,103 @@
+[
+  {
+    "condition": "action_only",
+    "accepted_actions_unchanged": 153,
+    "all_frames_held_until_next_model_action": 880,
+    "verification": {
+      "seed": 5,
+      "frames": 880,
+      "verified_request_images": 219,
+      "score": 400.0,
+      "lives": 0,
+      "verification_model_calls": 0,
+      "checkpoints": [
+        {
+          "game_seconds": 5.0,
+          "score": 200.0,
+          "lives": 3
+        },
+        {
+          "game_seconds": 10.0,
+          "score": 350.0,
+          "lives": 2
+        }
+      ],
+      "no_row_filtered_commands": true
+    },
+    "video": {
+      "programs": [],
+      "streams": [
+        {
+          "r_frame_rate": "12/1",
+          "nb_frames": "880"
+        }
+      ],
+      "format": {
+        "duration": "73.333333"
+      }
+    },
+    "latest_quota_before": {
+      "windows": [
+        {
+          "name": "primary",
+          "used_percent": 67,
+          "window_minutes": 10080
+        }
+      ],
+      "max_used_percent": 67
+    }
+  },
+  {
+    "condition": "english_reason",
+    "accepted_actions_unchanged": 161,
+    "all_frames_held_until_next_model_action": 932,
+    "verification": {
+      "seed": 5,
+      "frames": 932,
+      "verified_request_images": 232,
+      "score": 200.0,
+      "lives": 0,
+      "verification_model_calls": 0,
+      "checkpoints": [
+        {
+          "game_seconds": 5.0,
+          "score": 150.0,
+          "lives": 3
+        },
+        {
+          "game_seconds": 10.0,
+          "score": 200.0,
+          "lives": 2
+        },
+        {
+          "game_seconds": 15.0,
+          "score": 200.0,
+          "lives": 1
+        }
+      ],
+      "no_row_filtered_commands": true
+    },
+    "video": {
+      "programs": [],
+      "streams": [
+        {
+          "r_frame_rate": "12/1",
+          "nb_frames": "932"
+        }
+      ],
+      "format": {
+        "duration": "77.666667"
+      }
+    },
+    "latest_quota_before": {
+      "windows": [
+        {
+          "name": "primary",
+          "used_percent": 67,
+          "window_minutes": 10080
+        }
+      ],
+      "max_used_percent": 67
+    }
+  }
+]

@@ -7,7 +7,7 @@ Validation is being completed in an isolated Ubuntu directory and new Python vir
 - Touhou: all 19 applied actions reproduced the exact final engine state of the original 51.05-second API win, with two hits. This is replay of saved API actions, not a new API or policy win.
 - Rhythm: all 215 saved capture times and model delivery events were replayed; the exact evaluator state matched (50 PERFECT, 1 GREAT, 1 MISS, 2 empty presses). Screenshot PNG hashes differed on the new browser/machine and are explicitly not claimed identical. The historical summary's legacy `passed` flag does not meet the current strict full-combo criterion.
 
-Reports are retained with validation evidence. The original environment engines and policy logic are unchanged. Portable transport adapter repairs and incomplete attempts are preserved separately.
+Reports are retained with validation evidence. Those earlier Rhythm/Touhou records retain their original engines and policies. The selected Asterix runtime has since changed to direct serial actions; its validation is separate below.
 
 ## Tests
 
@@ -26,6 +26,12 @@ The original Rhythm and Touhou Gym packages are now installed through the root u
 
 All fresh evaluations used historical profile simulation and real subscription decisions. No new paid API evaluation was run. The frozen policies were not retuned to hide losses.
 
-## Selected Asterix policy
+## Selected Asterix: direct serial V28
 
-The default is V28 with HopControllerV3. Development runs on seeds 2/5/6 completed 20 game seconds at 5× slowdown, scoring 500/550/550 with three lives each. These historical runs do not establish a 60-second result or a fresh result for the packaged default profile. The default profile remains a historical empirical latency condition, not a measurement of V28.
+The default is V28 with one request, unchanged direct actions and brief public English summaries. Historical seed-5 profile simulation completed 20 game seconds at 500 points/two lives; the action-only comparison scored 250/one life. Both retain raw records under `artifacts/asterix/serial-selected/`. The previous Hop3 three-seed scores are a different execution condition and are not claimed by this release.
+
+The new portable loop passes a whole-trajectory zero-model confirmation using the 44 saved public replies: all 1,200 step actions/rewards/lives and all request screenshot hashes reproduce, at 500 points/two lives. This check ran locally with Python 3.12.3, ALE 0.11.2 and the locked dependencies. It is replay evidence, not a fresh independent performance trial.
+
+The root tests additionally cover an actual-clock loop with a delayed response, no game pause during model waiting, invalid-reply interruption preservation, exact selected task bytes, schema validation and append-only assessment provenance. Real subscription checks are recorded separately under `artifacts/asterix/portable-validation/` as they complete. A short realtime smoke test verifies transport/clock behavior, not 20-second realtime reliability.
+
+The desktop-managed CLI on the local machine timed out at app-server initialization before any model request. The standalone native 0.162.1 executable on the existing Ubuntu experiment host passed subscription authentication. `SOL_CODEX_BIN` must point to a functioning native app-server executable; a matching version string alone is insufficient.

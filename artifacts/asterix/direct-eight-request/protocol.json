@@ -1,0 +1,27 @@
+{
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "low",
+  "wrapper_profile": "minimal",
+  "controller": "DirectActionTransport",
+  "max_native_workers": 8,
+  "virtual_workers_per_episode": 8,
+  "max_frames": 1200,
+  "seed": 5,
+  "latency_scale": 1.0,
+  "latency_seed_offset": 91,
+  "quota_stop_percent": 80,
+  "profile_sha256": "731efae3ef75ce1a379b9ec8b35d5fd5afbf25836c64cdc671ebd11ae3f6539d",
+  "strategy_sha256": "20aa17f707b9a626cf8a7a81bd65d292cdccf3eacaa391f656d1c6619eb26d0b",
+  "adapted_strategy_sha256": "92a42d643be0d08108025d71715c6230c43b3837e0afdd7a3c65eb599192dee9",
+  "paid_api_calls": 0,
+  "mechanics": "Newest completed observation wins; entire action held unchanged until replaced. No hop limit, neutral landing, row filtering, or target/direction chosen by code.",
+  "caveat": "One fresh seed5 trial per output format. Previous V16 valid-response API delays, not native computation time or new-format API latency; no provider-failure simulation.",
+  "source_sha256": {
+    "run_v28_direct_comparison.py": "512f46a11c04001b22eb3a71cc9d416c91c3966c7c4b252154a0846f7eeee5fc",
+    "simulate_5x.py": "4ba05d6bfc389af0277470e38821ef1fda1b4fa1e2397f571a3d972e9f1ca975",
+    "direct_action_transport.py": "52efa15b3a1b43ea27a7eff3c003a47b34dc3fcc460400ef81c8486dfb0674a0",
+    "run_v28_explained.py": "14a9a908fcb43d76581c9adcf630ede12e76cd7c0a5dbe05817f3975a0892d95",
+    "case_subscription_client.py": "7eabf0b7effbeea3529a90fd19e3f45bd9c36beb11a66a653274b09a76f6318a",
+    "verify_food_comparison.py": "cb3a8426617bb6c121b2211d0b56548f5b23ff88a2c1ed07f495dbbc89d25d3b"
+  }
+}

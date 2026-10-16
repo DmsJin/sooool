@@ -1,13 +1,24 @@
-# Real-time API path
+# Real-time evaluation
 
-The current unified `sol simulate` entrypoint uses a ChatGPT subscription and imposed profile timing. It is not the real-time API path.
+## Asterix
 
-Original real-time implementations are preserved:
+```bash
+uv run sol eval asterix --seed 5 --duration 20 --output runs/asterix-realtime
+```
 
-- Rhythm model-owned timing: `environments/rhythm/experiments/rhythm/model_native.py`; prior cropped-coordinate campaign: `realtime_v2.py`. These are distinct policies. A real-time run also needs the authorized preview audio, and continuous native audio/browser clocks.
+This uses actual ChatGPT subscription inference and a continuously advancing 12-raw-FPS clock (5× slowdown). One request is in flight; complete model actions are held unchanged until replaced. Game time continues while the model computes. There is no automatic hop release, neutral landing or row-based filtering. A completed response is applied on the next game tick; the next observation is captured at the next four-frame observation tick.
+
+`sol simulate asterix` uses the same policy/action semantics but samples a historical API delay profile and pauses native computation outside virtual game time. The default 500-point demonstration is profile development evidence. The realtime command measures subscription latency and game performance; it is not a paid ultrafast API calibration or native-speed result.
+
+Each trial retains the exact task, model public output, capture frame, delivery frame, actual capture-to-apply duration, frame lag, applied action, rewards/lives, source snapshot and evaluation record. Interrupted calls preserve partial artifacts; authentication failures cannot fall back to paid API. The default quota stop is 80%. Record retain/reject decisions with `sol record`; see [the recording protocol](evaluation-records.md).
+
+A paid ultrafast API trial requires the user's own secure credentials, explicit per-run spending budget, complete-response and early-action calibration, failure/usage accounting, and fresh real-time validation. The original API research utilities remain available at [the fixed Asterix source checkpoint](https://github.com/sooool-project/sooool/tree/053545c1c27e6beccb80598e7a4d57f80865afc1/research/asterix/realtime-source). This release does not expose an unvalidated paid API launcher or inherit an old budget authorization.
+
+## Other games
+
+Rhythm and Touhou retain their original real-time research paths:
+
+- Rhythm model-owned timing: `environments/rhythm/experiments/rhythm/model_native.py`; prior cropped-coordinate campaign: `realtime_v2.py`. Native audio evaluation additionally needs the authorized audio resource and continuous audio/browser clocks.
 - Touhou: `environments/touhou/research/run_episode.py` with `provider=api`, `mode=realtime`; direct API schema/early-action logic lives in `api_client.py`.
-- Asterix V28 currently uses the profile simulation launcher. Retained budget/profiling utilities are under `research/asterix/realtime-source/`; a portable direct-API driver for the selected policy remains unvalidated.
 
-The original commands have machine-specific dependency/resource and budget-ledger assumptions. They are research source, not yet a validated universal `sol eval` command. Do not reuse an old ledger's budget authorization for a new user. A future portable direct-API launcher must take the user's own process-only credentials and explicit per-run budget, preserve uncertain reservations, and verify the full continuously advancing game path. No paid API call was made during package validation.
-
-Subscription protocol reference: [official Codex app-server documentation](https://learn.chatgpt.com/docs/app-server). The runtime authenticates via an existing ChatGPT sign-in and fails closed on API-only authentication; it never switches to a paid provider.
+Their original commands retain their declared resource and budget assumptions. The new root `sol eval` command currently supports Asterix. Historical and fresh results must remain separately labeled.
