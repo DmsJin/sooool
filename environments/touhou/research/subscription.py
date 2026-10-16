@@ -37,7 +37,8 @@ class SubscriptionClient:
     existing native login directory (override with TOUHOU_CODEX_HOME). Credentials
     stay there and are never copied or included in logs.
     """
-    def __init__(self, suite: Path, output: Path, output_schema: dict | None = None, lean: bool = False, aggressive: bool = False):
+    def __init__(self, suite: Path, output: Path, output_schema: dict | None = None, lean: bool = False, aggressive: bool = False, effort: str = "low"):
+        validate_subscription_effort(effort)
         from .wire_schema import schema_hash
         # Snapshot caller-owned schema so concurrent mutation cannot change a turn.
         output_schema = json.loads(json.dumps(output_schema, allow_nan=False)) if output_schema is not None else None
@@ -208,3 +209,8 @@ class SubscriptionClient:
 
     def close(self):
         self.runner.close()
+
+
+def validate_subscription_effort(effort="low"):
+    if effort != "low":raise ValueError("Selected portable policy requires low effort")
+    return effort

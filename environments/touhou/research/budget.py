@@ -15,7 +15,12 @@ class BudgetError(RuntimeError):
     pass
 
 class BudgetLedger:
-    def __init__(self, path):
+    def __init__(self, path, total_limit=30, admission_limit=27, stage_caps=None):
+        self.total_limit=D(total_limit);self.admission_limit=D(admission_limit)
+        self.stage_caps={k:D(v) for k,v in (STAGE_CAPS if stage_caps is None else stage_caps).items()}
+        values=[self.total_limit,self.admission_limit,*self.stage_caps.values()]
+        if any(not v.is_finite() or v<=0 for v in values) or self.admission_limit>self.total_limit or set(self.stage_caps)!=set(STAGE_CAPS):
+            raise BudgetError("Invalid budget limits")
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -68,7 +73,7 @@ class BudgetLedger:
 
     def reserve(self, stage, worst_usd, metadata=None):
         amount = D(worst_usd)
-        if stage not in STAGE_CAPS or not amount.is_finite() or amount <= 0:
+        if stage not in self.stage_caps or not amount.is_finite() or amount <= 0:
             raise BudgetError("Invalid stage or reservation")
         with self._transaction() as state:
             if state["blocked"]:
@@ -76,7 +81,7 @@ class BudgetLedger:
             entries = list(state["requests"].values())
             total = sum((self._cost(e) for e in entries), D(0))
             stage_total = sum((self._cost(e) for e in entries if e["stage"] == stage), D(0))
-            if total + amount > D(27) or stage_total + amount > STAGE_CAPS[stage]:
+            if total + amount > self.admission_limit or stage_total + amount > self.stage_caps[stage]:
                 raise BudgetError("Budget admission cap exceeded")
             rid = uuid.uuid4().hex
             state["requests"][rid] = {"stage": stage, "status": "inflight", "reserved_usd": str(amount), "created_at": time.time(), "owner_pid": os.getpid(), "owner_start": self._process_identity(os.getpid()), "metadata": metadata or {}}
@@ -95,8 +100,8 @@ class BudgetLedger:
             if amount > D(entry["reserved_usd"]):
                 error = "Actual usage exceeded conservative reservation"
             total = sum((self._cost(e) for e in state["requests"].values()), D(0))
-            if total > D(30):
-                error = "Absolute USD 30 accounting limit exceeded"
+            if total > self.total_limit:
+                error = "Absolute USD " + str(self.total_limit) + " accounting limit exceeded"
             if error:
                 state["blocked"] = error
         if error:

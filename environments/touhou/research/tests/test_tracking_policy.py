@@ -1,4 +1,6 @@
-import subprocess
+import json
+import hashlib
+from pathlib import Path
 import unittest
 from research.policies import make_prompt, STRATEGIES
 from research.tracking_cases import extract_past_memory
@@ -6,12 +8,10 @@ from research.tracking_cases import extract_past_memory
 
 class TrackingPolicyTests(unittest.TestCase):
     def test_historical_prompts_unchanged(self):
-        old={};exec(subprocess.check_output(['git','show','b0a9793:research/policies.py'],text=True),old)
-        observation={'image_frames':[10,40,70],'held':[0,1,1,0]}
-        for candidate in old['STRATEGIES']:
-            for structured in (False,True):
-                config={'structured':structured,'wait_for_move':True,'pixel_controls':True}
-                self.assertEqual(make_prompt(candidate,observation,config,{}),old['make_prompt'](candidate,observation,config,{}))
+        path=Path(__file__).resolve().parents[4]/'policies/touhou/tracking-safe-intercept-v2/fixtures/historical-prompt-hashes.json'
+        for case in json.loads(path.read_text())['cases']:
+            text=make_prompt(case['candidate'],case['observation'],case['config'],{})
+            self.assertEqual(hashlib.sha256(text.encode()).hexdigest(),case['prompt_sha256'])
 
     def test_new_candidates_keep_visual_action_contract(self):
         for candidate in ('tracking_dodge_intercept_hold','tracking_dodge_turn_guard'):

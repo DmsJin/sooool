@@ -28,6 +28,21 @@ class BudgetTests(unittest.TestCase):
     def tearDown(self):
         self.directory.cleanup()
 
+    def test_explicit_limit_reserves_inflight_with_no_extra_padding(self):
+        ledger=BudgetLedger(self.path,total_limit=35,admission_limit=35,
+                            stage_caps={'profile':6,'reprofile':3,'realtime':35})
+        rid=ledger.reserve('realtime',34)
+        ledger.settle(rid,34)
+        ledger.reserve('realtime',1)
+        with self.assertRaises(BudgetError):ledger.reserve('realtime','.01')
+        self.assertEqual(ledger.snapshot()['committed_usd'],'35')
+
+    def test_invalid_limits_fail_before_creating_ledger(self):
+        for values in ({'total_limit':30,'admission_limit':35},
+                       {'total_limit':'NaN'}, {'stage_caps':{'realtime':35}}):
+            with self.assertRaises(BudgetError):BudgetLedger(self.path,**values)
+        self.assertFalse(Path(self.path).exists())
+
     def test_cross_process_stage_cap(self):
         queue = multiprocessing.Queue()
         processes = [multiprocessing.Process(target=reserve_worker, args=(self.path, queue)) for _ in range(12)]

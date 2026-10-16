@@ -1,0 +1,54 @@
+{
+  "synthetic_compatibility_fixture_not_a_gameplay_eval": true,
+  "observation": {
+    "image_frames": [
+      100,
+      120,
+      140
+    ],
+    "held": [
+      0,
+      1,
+      1,
+      0
+    ],
+    "clock": {
+      "intro": 0
+    },
+    "visual_memory": [
+      {
+        "frame": 70,
+        "boss": [
+          350,
+          90
+        ]
+      }
+    ]
+  },
+  "config": {
+    "speed": 1,
+    "chunk_size": 1,
+    "max_duration": 48,
+    "wait_for_move": true,
+    "candidate": "tracking_dodge_safe_intercept_v2",
+    "structured": true,
+    "pixel_controls": true
+  },
+  "profile": {
+    "kind": "modeled_early_prompt_transport",
+    "control_age_kind": "modeled_early_prompt_transport",
+    "version": 1,
+    "k": 4,
+    "not_serial_fastest_api_profile": true,
+    "not_observed_concurrent_profile": true,
+    "latency_metric": "legal_action_s",
+    "apply_overhead_s": 0.08067407849011943,
+    "control_age_p50_s": 2.67027850952747,
+    "control_age_p95_s": 3.142439809944114,
+    "p50_s": 2.2829649630002677,
+    "p95_s": 2.9545806469919618,
+    "delay_definition": "Map same-image historical early legal-action midranks to new serial legal-action durations; preserve capture-to-network and callback-publication residuals plus paired terminal-ready tails.",
+    "actor_context": "Delay statistics below are a declared model for this candidate prompt: its serial API legal-action durations were mapped onto historical concurrent early-action ranks, retaining historical launch/publication residuals and paired terminal tails. These are modeled aggregate ages, not newly measured concurrent performance and not the sampled delay of this request. Single-sample image strata cannot characterize slow tails."
+  },
+  "expected_prompt_sha256": "7a4b4b088156250da29e629829ffc69e73094cd320cc2c75e59a22d3ee8fdb91"
+}

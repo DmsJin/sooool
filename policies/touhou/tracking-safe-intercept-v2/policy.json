@@ -5,9 +5,12 @@
   "effort": "low",
   "weight_training": false,
   "implementation": "environments/touhou/research/policies.py",
-  "implementation_sha256": "f4c5cbc5c1e70b9e383f911f5b688407a54c445bf70b60c0aec951ff3509f131",
+  "implementation_sha256": "82bffc4538f94a5f64c2a598014e922549c2c22d61b12e86ee165408c6021a2f",
+  "strategy_sha256": "5f64e4e77c223ccc7d026f3a60bf62d25dbf8b95fe5e8f898339fd87a2fb5784",
+  "task_fixture_sha256": "7a4b4b088156250da29e629829ffc69e73094cd320cc2c75e59a22d3ee8fdb91",
   "recipe": "recipes/touhou.json",
-  "profile": "profiles/touhou/profile-control-early-study-v1.json",
-  "profile_sha256": "083045439b4e956618032ce42f200033554852f4c1923d074bea71091a248831",
-  "status": "frozen development policy; see docs/validation.md for portable reproduction results"
+  "realtime_recipe": "recipes/touhou-realtime.json",
+  "status": "Selected early v2 gameplay strategy; English public summary is an output format, not a later strategy. See docs/touhou-research-record.md.",
+  "profile": "profiles/touhou/profile-control-tracking-safe-intercept-v2-transport-v1.json",
+  "profile_sha256": "c7aca1afbc7d2231a6404d13a5bfeddbcb80010270e2b78f87523def92ff94e5"
 }

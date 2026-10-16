@@ -1,5 +1,8 @@
 """Frozen prompt candidates; no hidden-state inputs."""
+
 import json
+
+FORECAST_CANDIDATES = ()
 
 BASE = '''Play this Touhou Kaguya easy boss practice from the attached game screenshots.
 You control Reimu, the small red/white player initially near the bottom. Kaguya is the small moving boss near the top. The large translucent woman is background art, not an enemy or your player. Bright moving colored beads are dangerous enemy bullets; your upward white shots are friendly. Shift shows your tiny white hitbox. The HUD shows remaining lives and bombs. Win by shooting down the boss before the 60-game-second limit; simply surviving is not a win.
@@ -19,8 +22,8 @@ STRATEGIES = {
  'burst': 'Make decisive safe horizontal corrections toward the boss with normal speed, then slow down or stop while firing. Predict motion during the response delay. Keep clear of bullets approaching the bottom and use a bomb proactively to preserve sustained damage. Avoid staying under a gap where shots continually miss the moving boss.',
 }
 
-# Same movement/bomb strategy; vary only temporal visual grounding.
 STRATEGIES['grounded_latest'] = STRATEGIES['grounded_macro']
+
 STRATEGIES['grounded_guard'] = STRATEGIES['grounded_macro']
 
 TRACKING_DODGE = '''Decision priority: (1) avoid an incoming enemy bullet, (2) keep the shot column on Kaguya, (3) avoid unnecessary movement. Keep Z held continuously. Focused, short horizontal tracking is the default; focused movement can still overshoot if held too long.
@@ -28,69 +31,70 @@ First use the chronological screenshots and their frame differences to estimate 
 When the path is safe, make a small deliberate horizontal correction toward a useful firing column. Aim for where the small boss will be when your shots arrive, allowing for the response delay and shot travel; use visible drift and your own past visual estimates to notice turns rather than blindly extending an old velocity. Choose direction AND duration yourself. Stop when aligned or when more travel would leave the safe corridor. Do not alternate left/right in response to tiny estimation noise. A stay action with Z held is correct when the firing column is already useful. These are action preferences, never an automatic tracker: every move, duration and bomb must be your decision from the screenshots.'''
 
 STRATEGIES['tracking_dodge_small'] = TRACKING_DODGE + '''\nTracking experiment: prefer focus=1 and a nudge of about 8..24 screenshot pixels (roughly 5..15 horizontal logical frames). This is a default size, not a mandatory move: stay when aligned, shorten or lengthen when the visible geometry requires it, and prioritize a safe dodge over this tracking preference. Reserve normal speed for a clearly necessary, visibly safe escape rather than routine tracking.'''
+
 STRATEGIES['tracking_dodge_adaptive'] = TRACKING_DODGE + '''\nTracking experiment: prefer focus=1. Use a short nudge for a small alignment error; a clearly large error in an open corridor may need a longer focused correction. Do not impose a tiny move that leaves every shot missing, and do not use all 48 frames just because they are available. Reserve normal speed for a clearly necessary, visibly safe escape rather than routine tracking.'''
 
-
-# Additive candidates: never change the historical adaptive baseline.
 TRACKING_EXPOSURE = """Tracking benchmark objective: preserve actual shot contact over the entire interval until another decision can arrive, not merely reduce the present player-to-boss pixel distance. Your newest image is already old when this action starts. Estimate the player at application from held keys/known plan. Estimate a range of boss positions when newly emitted shots reach boss height: screenshot-to-action delay PLUS the selected movement time PLUS shot flight (roughly half a game second or more from the bottom). Also consider shots fired from your final column while movement has ended and the next response is pending. Movement stops after the plan, but Z keeps shooting; a 10-frame nudge followed by several seconds at a bad column is not successful tracking. Use the recent image sequence and your own past estimates to recognize deceleration, a completed reversal, or repeated left/right excursions. Do not extrapolate the most recent velocity straight through a likely turn for several seconds. Do not chase the old visible endpoint after the boss is likely already returning. Never use a memorized time-to-position table. Threat prediction across the same whole interval still takes priority. Small focused corrections are useful when sufficient; large clear errors can justify a longer focused correction. Stay is useful when the delayed firing column covers the expected pass, but repeated safe stays while every shot misses should trigger a new intercept estimate. Every direction and duration remains your visual decision."""
+
 STRATEGIES['tracking_dodge_intercept_hold'] = STRATEGIES['tracking_dodge_adaptive'] + '\n' + TRACKING_EXPOSURE + """ Prefer a robust final firing column that the boss is likely to cross during the upcoming firing interval; compare holding the current column against a focused correction to that column. Do not blindly center on the screen: use visible excursions and motion evidence. For uncertain turns, favor useful coverage over an extreme extrapolated endpoint. aim_x records that useful column; the executor does not chase it."""
+
 STRATEGIES['tracking_dodge_turn_guard'] = STRATEGIES['tracking_dodge_adaptive'] + '\n' + TRACKING_EXPOSURE + """ Before choosing horizontal direction, explicitly check whether the newest drift agrees with older observations, whether the boss is slowing near a recently seen excursion limit, and whether a reversal may happen before your action takes effect. Compare continued drift and a return pass rather than treating one long extrapolation as certain. If both suggest the same safe correction, act; if they disagree, choose a modest correction or hold a useful intermediate firing column instead of committing across the entire arena. Do not apply a blanket tiny-move limit when separation is clear and the direction remains well supported."""
 
-
-# V2 frozen before new data collection: concise, safety-gated tracking deltas.
 STRATEGIES['tracking_dodge_safe_intercept_v2'] = STRATEGIES['tracking_dodge_adaptive'] + """\nDelay-aware tracking: choose a useful shot-intercept column for response delay plus roughly half a second or more of shot flight. Recent slowing or reversal makes a long straight-line extrapolation unreliable; use your own past visual estimates to judge a return pass. Do not chase the old visible endpoint. A short correction is useful only if the resulting column remains useful while Z fires and you await the next answer. Safety veto: check enemy-bullet trajectories at action START, across the MOVE, and at the STOPPED endpoint for the next slow-response interval. Staying also needs this check. A presently empty endpoint can become unsafe after you stop. Reject a better-damage column if any of these stages is unsafe; choose a nearby safe correction/hold instead. If danger reaches you before a dodge can work, use a currently available bomb proactively. Do not assume a short move, a stay, or an active friendly effect guarantees safety. Tracking is secondary to keeping this whole interval safe."""
+
 STRATEGIES['tracking_dodge_safe_corridor_v2'] = STRATEGIES['tracking_dodge_adaptive'] + """\nUse safety as a hard filter before tracking: (1) project your held/known motion and approaching enemy bullets through the P95 response delay; (2) check each candidate's whole travel corridor; (3) check its final stationary location while the next slow response is pending. Include the stay candidate: no movement can still be dangerous. Avoid moving into a stream just to gain alignment, and avoid stopping in a gap that will close. If a delayed threat is too early for a safe dodge, choose an available bomb now; X also arrives late. Among remaining safe choices, keep firing from a column the boss should cross after delay plus shot flight, using visible turns instead of indefinitely extending current drift. Use a sufficient focused correction for a real error, but prefer a safe partial correction over crossing danger for exact alignment. A few extra hits on the boss never justify losing a life. Safety remains mandatory even when a column looks excellent for sustained damage."""
 
-GROUNDED_CANDIDATES = ('grounded', 'grounded_macro', 'grounded_latest', 'grounded_guard',
-                       'tracking_dodge_small', 'tracking_dodge_adaptive',
-                       'tracking_dodge_intercept_hold', 'tracking_dodge_turn_guard',
-                       'tracking_dodge_safe_intercept_v2', 'tracking_dodge_safe_corridor_v2')
+GROUNDED_CANDIDATES = ('grounded', 'grounded_macro', 'grounded_latest', 'grounded_guard', 'tracking_dodge_small', 'tracking_dodge_adaptive', 'tracking_dodge_intercept_hold', 'tracking_dodge_turn_guard', 'tracking_dodge_safe_intercept_v2', 'tracking_dodge_safe_corridor_v2')
 
 LATEST_GROUNDING = '''Visual grounding: Report player coordinates strictly from the LAST attached screenshot, which is the newest observation. Use earlier screenshots only to estimate drift and motion, never copy their player coordinates as current. Your bright multicolored orbiting balls during X are friendly effects, while the small colored enemy beads and diamonds are hazards. During a bomb flash, identify the current player from its visible sprite, the center of its orbiting balls, or the newest shot emission nearest the player; an older upper red-paper shot trail marks a past firing column, not the current player. If the latest screenshot hides the player and its current position cannot be identified reliably, report "player":null instead of substituting a stale coordinate. Choose your action from the visible evidence and observed motion.\n'''
 
 BOMB_GUARD = '''Bomb timing: From the visible bullet motion, anticipate danger over the typical-to-P95 response delay plus your planned movement interval. If enemy bullets are approaching the player's position or crossing the planned path in that window and a safe dodge is doubtful, choose X proactively in your first action rather than waiting until impact is imminent. Read remaining bombs from the visible HUD. If no bombs remain, set bomb=0 and spend this decision on aiming and dodging instead of requesting an X-only maneuver. If you are currently dead or the player is absent, first release X with bomb=0; keeping X held through death does not create a new press when you respawn. When another press is needed after X was held, explicitly include a bomb=0 action before a bomb=1 action, subject to the visible resources and situation. Choose all bomb presses yourself from the screenshots; the executor will not decide or trigger them for you.\n'''
 
-
 def make_prompt(candidate, observation, config, profile, known_plan=None):
-    frames=observation['image_frames']
-    text=BASE.format(chunk_size=config.get('chunk_size',1),max_duration=config.get('max_duration',48))
-    text+='Strategy: '+STRATEGIES[candidate]+'\n'
+    frames = observation['image_frames']
+    text = BASE.format(chunk_size=config.get('chunk_size', 1), max_duration=config.get('max_duration', 48))
+    text += 'Strategy: ' + STRATEGIES[candidate] + '\n'
     if candidate == 'impact' or candidate in GROUNDED_CANDIDATES:
-        text=text.replace('your upward white shots are friendly','your upward red paper talismans and shot streams are friendly')
+        text = text.replace('your upward white shots are friendly', 'your upward red paper talismans and shot streams are friendly')
     if candidate in GROUNDED_CANDIDATES:
-        start=text.index('Return ONLY a JSON plan:')
-        end=text.index('A new completed response',start)
-        text=text[:start]+'Return ONLY a JSON object with current visual estimates and your chosen action: {"player":[x,y],"boss":[x,y],"aim_x":x,"plan":[[move,shoot,focus,bomb,duration_frames]]}. Positions are screenshot pixels in the full 640x480 image, not engine coordinates. aim_x is your estimate of the useful firing column after delay and shot travel, not a command to a servo. Up to CHUNK_LIMIT actions; every action has exactly five integers and duration 1..48. No explanation. '+text[end:]
-    text=text.replace('CHUNK_LIMIT',str(config.get('chunk_size',1)))
+        start = text.index('Return ONLY a JSON plan:')
+        end = text.index('A new completed response', start)
+        text = text[:start] + 'Return ONLY a JSON object with current visual estimates and your chosen action: {"player":[x,y],"boss":[x,y],"aim_x":x,"plan":[[move,shoot,focus,bomb,duration_frames]]}. Positions are screenshot pixels in the full 640x480 image, not engine coordinates. aim_x is your estimate of the useful firing column after delay and shot travel, not a command to a servo. Up to CHUNK_LIMIT actions; every action has exactly five integers and duration 1..48. No explanation. ' + text[end:]
+    text = text.replace('CHUNK_LIMIT', str(config.get('chunk_size', 1)))
     if config.get('structured'):
-        text=text.replace('\"plan\":[[move,shoot,focus,bomb,duration_frames]]','\"plan\":[{\"move\":3,\"shoot\":1,\"focus\":1,\"bomb\":0,\"duration\":12}]')
-        text=text.replace('every action has exactly five integers and duration 1..48','every action has all five named integer fields move, shoot, focus, bomb, duration; duration is 1..48 logical frames')
+        text = text.replace('"plan":[[move,shoot,focus,bomb,duration_frames]]', '"plan":[{"move":3,"shoot":1,"focus":1,"bomb":0,"duration":12}]')
+        text = text.replace('every action has exactly five integers and duration 1..48', 'every action has all five named integer fields move, shoot, focus, bomb, duration; duration is 1..48 logical frames')
     if candidate == 'grounded_latest' or candidate.startswith('tracking_dodge_'):
-        text+=LATEST_GROUNDING
+        text += LATEST_GROUNDING
     if candidate == 'grounded_guard':
-        text+=BOMB_GUARD
-    if observation.get('clock',{}).get('intro',0)>0:
-        text+='The spell declaration is currently visible and the playfield is temporarily frozen by the original opening animation. You can hold Z and Shift now to begin firing when it ends; avoid wasting a bomb during the declaration.\n'
+        text += BOMB_GUARD
+    if observation.get('clock', {}).get('intro', 0) > 0:
+        text += 'The spell declaration is currently visible and the playfield is temporarily frozen by the original opening animation. You can hold Z and Shift now to begin firing when it ends; avoid wasting a bomb during the declaration.\n'
     if config.get('wait_for_move'):
-        text+='Controller protocol: at most one request is in flight. After a movement plan returns, no new request is submitted until that movement finishes, so each new observation already shows your completed maneuver. Movement then stops while waiting for the next answer; shooting keeps firing. Predict where the boss and bullets will be after the response delay plus the planned short move.\n'
-    text+=f"Speed: {config.get('speed',1):g}x; logical physics remain 60 frames per game second. "
-    if 'control_age_p50_s' in profile and 'control_age_p95_s' in profile:
-        marginal='legal-action' if profile.get('control_age_kind')=='modeled_early_prompt_transport' else 'complete-action'
-        text+=f"Per-request marginal API {marginal} delay: median {profile.get('p50_s',0):.3f}s, P95 {profile.get('p95_s',0):.3f}s wall time. This is context only, not the delay of the selected winning action in a race.\n"
-        if profile.get('control_age_kind')=='modeled_early_prompt_transport':
-            text+=f"Modeled screenshot-to-selected-action-application delay: median {profile['control_age_p50_s']:.3f}s, P95 {profile['control_age_p95_s']:.3f}s wall time. This forecast maps this candidate task's serial API legal-action durations onto historical concurrent early-action timing, retaining launch/publication overhead and terminal concurrency tails. It is modeled aggregate timing, not newly measured concurrent performance or the sampled delay of this request. Single-sample image strata cannot characterize slow tails. Use this modeled distribution to forecast positions and threats when your chosen action will take effect.\n"
-        elif profile.get('control_age_kind')=='modeled_early_legal':
-            text+=f"Modeled screenshot-to-selected-action-application delay: median {profile['control_age_p50_s']:.3f}s, P95 {profile['control_age_p95_s']:.3f}s wall time. This forecast uses complete legal JSON arrival times from earlier concurrent API requests and assumed durable-publication and actuator overhead. Early delivery has not yet been measured end to end; the two-image stratum has only one serial sample and uncertain tails. Use this modeled distribution to predict positions and bullet motion before your action takes effect. It is not the known delay of this request.\n"
-        elif profile.get('control_age_kind')=='modeled_marginal_transport':
-            text+=f"Modeled screenshot-to-selected-action-application delay: median {profile['control_age_p50_s']:.3f}s, P95 {profile['control_age_p95_s']:.3f}s wall time. This forecast combines this prompt's new serial API measurements with past concurrent launch and actuator overhead; it is not a new concurrent measurement. Use this modeled control-age distribution to predict positions and bullet motion before your action takes effect. It is not the known delay of this request; one- and two-image forecasts have only one new serial sample each and uncertain tails.\n"
+        text += 'Controller protocol: at most one request is in flight. After a movement plan returns, no new request is submitted until that movement finishes, so each new observation already shows your completed maneuver. Movement then stops while waiting for the next answer; shooting keeps firing. Predict where the boss and bullets will be after the response delay plus the planned short move.\n'
+    text += f'Speed: {config.get('speed', 1):g}x; logical physics remain 60 frames per game second. '
+    if profile.get('control_age_kind') == 'instantaneous_diagnostic':
+        text += 'Hypothetical diagnostic condition: this command applies immediately after the observation, with zero simulated control delay. This is not a measurement of real API latency. Still check the chosen movement and its stopped endpoint while waiting for the next observation.\n'
+    elif 'control_age_p50_s' in profile and 'control_age_p95_s' in profile:
+        marginal = 'legal-action' if profile.get('control_age_kind') == 'modeled_early_prompt_transport' else 'complete-action'
+        text += f'Per-request marginal API {marginal} delay: median {profile.get('p50_s', 0):.3f}s, P95 {profile.get('p95_s', 0):.3f}s wall time. This is context only, not the delay of the selected winning action in a race.\n'
+        if profile.get('control_age_kind') == 'modeled_early_prompt_transport':
+            text += f"Modeled screenshot-to-selected-action-application delay: median {profile['control_age_p50_s']:.3f}s, P95 {profile['control_age_p95_s']:.3f}s wall time. This forecast maps this candidate task's serial API legal-action durations onto historical concurrent early-action timing, retaining launch/publication overhead and terminal concurrency tails. It is modeled aggregate timing, not newly measured concurrent performance or the sampled delay of this request. Single-sample image strata cannot characterize slow tails. Use this modeled distribution to forecast positions and threats when your chosen action will take effect.\n"
+        elif profile.get('control_age_kind') == 'modeled_early_legal':
+            text += f'Modeled screenshot-to-selected-action-application delay: median {profile['control_age_p50_s']:.3f}s, P95 {profile['control_age_p95_s']:.3f}s wall time. This forecast uses complete legal JSON arrival times from earlier concurrent API requests and assumed durable-publication and actuator overhead. Early delivery has not yet been measured end to end; the two-image stratum has only one serial sample and uncertain tails. Use this modeled distribution to predict positions and bullet motion before your action takes effect. It is not the known delay of this request.\n'
+        elif profile.get('control_age_kind') == 'modeled_marginal_transport':
+            text += f"Modeled screenshot-to-selected-action-application delay: median {profile['control_age_p50_s']:.3f}s, P95 {profile['control_age_p95_s']:.3f}s wall time. This forecast combines this prompt's new serial API measurements with past concurrent launch and actuator overhead; it is not a new concurrent measurement. Use this modeled control-age distribution to predict positions and bullet motion before your action takes effect. It is not the known delay of this request; one- and two-image forecasts have only one new serial sample each and uncertain tails.\n"
         else:
-            text+=f"Observed screenshot-to-selected-action-application delay: median {profile['control_age_p50_s']:.3f}s, P95 {profile['control_age_p95_s']:.3f}s wall time, measured across prior real API episodes and including race selection and actuator overhead. Use this historical control-age distribution to predict positions and bullet motion before your action takes effect, rather than the per-request marginal API times. This is a distribution, not the known delay of this request.\n"
+            text += f'Observed screenshot-to-selected-action-application delay: median {profile['control_age_p50_s']:.3f}s, P95 {profile['control_age_p95_s']:.3f}s wall time, measured across prior real API episodes and including race selection and actuator overhead. Use this historical control-age distribution to predict positions and bullet motion before your action takes effect, rather than the per-request marginal API times. This is a distribution, not the known delay of this request.\n'
+    elif profile.get('kind') == 'modeled_independent_k1_pipeline_from_historical_serial_terminal':
+        delay_label = 'per-request' if feedback else 'rolling-pipeline'
+        text += f"Modeled {delay_label} delay: each request independently draws an earlier unloaded serial API complete-action duration, median {profile.get('p50_s', 0):.3f}s, P95 {profile.get('p95_s', 0):.3f}s. This is a development assumption, not measured concurrent performance or this request's known delay. In this model action readiness and slot release coincide; concurrent queuing and extra application overhead are not calibrated.\n"
     else:
-        text+=f"Measured unloaded API complete-action delay: median {profile.get('p50_s',0):.3f}s, P95 {profile.get('p95_s',0):.3f}s wall time. This is a distribution, not the known delay of this request.\n"
-    text+='Observation frames: '+json.dumps(frames)+'. Current held keys: '+json.dumps(observation.get('held',[0,0,0,0]))+'.\n'
-    text+='Known returned plan: '+json.dumps(known_plan or [],separators=(',',':'))+'.\n'
+        text += f'Measured unloaded API complete-action delay: median {profile.get('p50_s', 0):.3f}s, P95 {profile.get('p95_s', 0):.3f}s wall time. This is a distribution, not the known delay of this request.\n'
+    text += 'Observation frames: ' + json.dumps(frames) + '. Current held keys: ' + json.dumps(observation.get('held', [0, 0, 0, 0])) + '.\n'
+    text += 'Known returned plan: ' + json.dumps(known_plan or [], separators=(',', ':')) + '.\n'
     if observation.get('visual_memory'):
-        text+='Your own past visual estimates (not engine truth), with each observed frame and boss coordinate: '+json.dumps(observation['visual_memory'],separators=(',',':'))+'. The newest screenshot is authoritative. Use past turns to infer recurring boss motion; never treat old positions as current.\n'
+        text += 'Your own past visual estimates (not engine truth), with each observed frame and boss coordinate: ' + json.dumps(observation['visual_memory'], separators=(',', ':')) + '. The newest screenshot is authoritative. Use past turns to infer recurring boss motion; never treat old positions as current.\n'
     if config.get('pixel_controls') or candidate.startswith('tracking_dodge_'):
-        text+='Static actuator constants in screenshot coordinates: pure horizontal movement is 3.44 pixels per logical frame at normal speed (focus=0), or 1.6 pixels per logical frame at focused speed (focus=1). For diagonal movement, divide the horizontal component by sqrt(2). Duration is measured in logical frames at 60 frames per game second. These are fixed control constants, not a live player position or entity state. Estimate the player position when your action will arrive and choose a safe movement direction, focus, and duration yourself. You do not have to reach aim_x completely when a shorter move is safer; no target or duration is calculated for you.\n'
+        text += 'Static actuator constants in screenshot coordinates: pure horizontal movement is 3.44 pixels per logical frame at normal speed (focus=0), or 1.6 pixels per logical frame at focused speed (focus=1). For diagonal movement, divide the horizontal component by sqrt(2). Duration is measured in logical frames at 60 frames per game second. These are fixed control constants, not a live player position or entity state. Estimate the player position when your action will arrive and choose a safe movement direction, focus, and duration yourself. You do not have to reach aim_x completely when a shorter move is safer; no target or duration is calculated for you.\n'
     return text

@@ -22,7 +22,7 @@ def png_content(data, detail="high"):
 
 
 class ApiClient:
-    def __init__(self, key, ledger_path, stage="profile", max_output_tokens=128, session=None, detail="high", output_schema=None):
+    def __init__(self, key, ledger_path, stage="profile", max_output_tokens=128, session=None, detail="high", output_schema=None, preserve_schema_order=False, budget_limits=None):
         if not key:
             raise ValueError("API key required")
         if type(max_output_tokens) is not int or not 16 <= max_output_tokens <= 512:
@@ -35,13 +35,17 @@ class ApiClient:
         self.detail = detail
         self.session = session
         self.key = key
-        self.ledger = BudgetLedger(ledger_path)
+        self.ledger = BudgetLedger(ledger_path, **(budget_limits or {}))
         self.stage = stage
         self.max_output_tokens = max_output_tokens
         if output_schema is not None and not isinstance(output_schema, dict):
             raise ValueError("Output schema must be an object")
         self.schema_text = json.dumps(output_schema, sort_keys=True, separators=(",", ":"), ensure_ascii=False) if output_schema is not None else ""
-        self.output_schema = json.loads(self.schema_text) if output_schema is not None else None
+        if type(preserve_schema_order) is not bool:
+            raise ValueError("preserve_schema_order must be boolean")
+        self.preserve_schema_order = preserve_schema_order
+        encoded = json.dumps(output_schema, separators=(",", ":"), ensure_ascii=False) if preserve_schema_order else self.schema_text
+        self.output_schema = json.loads(encoded) if output_schema is not None else None
 
     def close(self):
         self.session.close()
@@ -79,6 +83,8 @@ class ApiClient:
         if self.output_schema is not None:
             payload["text"] = {"format": {"type": "json_schema", "name": "touhou_grounded_plan", "strict": True, "schema": self.output_schema}}
             shape["schema_sha256"] = hashlib.sha256(self.schema_text.encode("utf-8")).hexdigest()
+            shape["preserve_schema_order"] = self.preserve_schema_order
+            shape["schema_order_sha256"] = hashlib.sha256(json.dumps(self.output_schema,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()
         rid = self.ledger.reserve(self.stage, reservation_usd(prompt + self.schema_text, len(images), self.max_output_tokens), shape)
         prepared = time.perf_counter() - prep
         start = time.perf_counter()

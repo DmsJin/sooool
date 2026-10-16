@@ -5,19 +5,20 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 
 class BrowserEnv:
-    def __init__(self, url: str, browser=None, *, headless=True, record_video_dir=None):
+    def __init__(self, url: str, browser=None, *, headless=True, record_video_dir=None, decision_panel=False, panel_provider="subscription", panel_language="zh", browser_executable=None):
         from playwright.sync_api import sync_playwright
         self._playwright = None
         self._owns_browser = browser is None
         if browser is None:
             self._playwright = sync_playwright().start()
-            browser = self._playwright.chromium.launch(headless=headless, args=[
+            browser = self._playwright.chromium.launch(headless=headless, executable_path=browser_executable, args=[
                 '--no-sandbox', '--disable-background-timer-throttling',
                 '--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows'])
         self.browser = browser
-        options = dict(viewport={'width': 900, 'height': 720}, device_scale_factor=1)
+        size={'width':1440,'height':800} if decision_panel else {'width':900,'height':720}
+        options = dict(viewport=size, device_scale_factor=1)
         if record_video_dir:
-            options.update(record_video_dir=str(record_video_dir), record_video_size={'width': 900, 'height': 720})
+            options.update(record_video_dir=str(record_video_dir), record_video_size=size)
         self.context = browser.new_context(**options)
         self.page = self.context.new_page()
         parts = urlsplit(url)
@@ -25,6 +26,9 @@ class BrowserEnv:
         target = urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment))
         self.page.goto(target, wait_until='domcontentloaded', timeout=120000)
         self.page.wait_for_function('window.research?.ready()', timeout=120000)
+        if decision_panel:
+            from .live_summary import install_panel
+            install_panel(self.page, panel_provider, panel_language)
         self.mode = 'sim'
 
     def reset(self, seed=1, mode='sim', speed=1):
@@ -32,13 +36,16 @@ class BrowserEnv:
         self.mode = mode
         return result
 
-    def apply(self, plan):
+    def apply(self, plan, decision=None):
         """Replace pending chunks [direction,Z,Shift,X,logical_frames].
 
         Directions: 0 idle, 1 up, 2 NE, 3 right, 4 SE, 5 down, 6 SW,
         7 left, 8 NW. Expiry releases movement/X; Z/Shift persist.
         X uses original held edges: release X between presses.
         """
+        if decision is not None:
+            from .live_summary import apply_with_brief
+            return apply_with_brief(self.page,plan,decision)
         return self.page.evaluate('(plan) => research.apply(plan)', plan)
 
     def advance(self, frames):
