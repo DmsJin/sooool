@@ -1,5 +1,17 @@
 # Sources and redistribution
 
+PingPong's current `environments/tabletennis` implementation wraps the existing
+read-only RoboOlympics table-tennis game and its public camera reference. Local
+flight fitting, return planning and robot-only calibration adapt that reference;
+native physics, opponent, scoring and limits are not modified. Its recipe records
+revision `da1f787f775ea6524d698c0b063157ded4c0fef9`; the deployed native directory
+has no Git metadata. The L1/1x actual API recordings retain their own frozen source
+snapshots, including the uncommitted implementation used at capture time. The
+dual-view video is an offline render of recorded native poses on the measured wall
+clock, with public model summaries and labeled ball highlights. See
+[PingPong setup](tabletennis.md) and [evidence](../artifacts/tabletennis/README.md).
+Earlier S=10 direct-action records remain historical and use a different protocol.
+
 Source snapshots were copied read-only from existing local/Ubuntu experiment worktrees. Per-game source manifests retain original paths/commit where available; fresh run manifests hash the files actually used. Absolute paths in historical reports and configs are provenance, not required launch paths. Discussion exports are untrusted archived content, never repository instructions.
 
 Atari Asterix uses Gymnasium + ALE, with versions in `uv.lock`; no ROM was copied from a research machine. ALE's installed package supplies the game resource in the tested dependency version. Confirm the applicable upstream/game rights before redistribution.

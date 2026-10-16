@@ -1,0 +1,418 @@
+{
+  "status": "completed",
+  "error": null,
+  "frames": 3604,
+  "native_planning_workers": 2,
+  "game_seconds": 36.04,
+  "gameplay_wall_seconds": 36.39045611600159,
+  "started_mono": 242914.167226094,
+  "ended_mono": 242950.55768221,
+  "invalid": 0,
+  "plans_installed": 19,
+  "plans_discarded": 18,
+  "clock": {
+    "requested_slowdown": 1.0,
+    "catch_up_steps": 0,
+    "physics_waits_for_model": false,
+    "physics_waits_for_preparation": false,
+    "tick_intervals_seconds": {
+      "count": 3603,
+      "min": 0.010010210011387244,
+      "mean": 0.010096640981399512,
+      "p95": 0.010076639999169856,
+      "max": 0.027908590011065826
+    },
+    "step_seconds": {
+      "count": 3604,
+      "min": 0.001555819995701313,
+      "mean": 0.001792664587428004,
+      "p95": 0.001990699995076284,
+      "max": 0.027708620007615536
+    },
+    "installation_seconds": {
+      "count": 28,
+      "min": 1.6700068954378366e-06,
+      "mean": 0.00013008000158671557,
+      "p95": 0.00020808001863770187,
+      "max": 0.00022343001910485327
+    },
+    "preparation_seconds": {
+      "count": 16,
+      "min": 0.1746349699969869,
+      "mean": 0.3653863294948678,
+      "p95": 0.935495865996927,
+      "max": 0.935495865996927
+    },
+    "initial_preparation_seconds": {
+      "count": 12,
+      "min": 0.08202916002483107,
+      "mean": 0.16043041666125646,
+      "p95": 0.3666231890092604,
+      "max": 0.3666231890092604
+    },
+    "effective_slowdown": 1.0097240875694113
+  },
+  "points_for": 3,
+  "points_against": 5,
+  "won": false,
+  "native_match_completed": true,
+  "serves": 4,
+  "legal_serves": 3,
+  "incoming": 9,
+  "legal_returns": 5,
+  "results": [
+    {
+      "kind": "return",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=-0.27, y=0.56"
+    },
+    {
+      "kind": "return",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=-0.18, y=0.50"
+    },
+    {
+      "kind": "serve",
+      "returned": false,
+      "hit": 0,
+      "summary": "missed: no paddle contact"
+    },
+    {
+      "kind": "serve",
+      "returned": false,
+      "hit": 0,
+      "summary": "missed: no paddle contact"
+    },
+    {
+      "kind": "return",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=0.16, y=0.44"
+    },
+    {
+      "kind": "return",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=0.05, y=0.28"
+    },
+    {
+      "kind": "return",
+      "returned": false,
+      "hit": 1,
+      "summary": "fault: after your hit the ball hit your own half (x=0.18, y=-0.39)"
+    },
+    {
+      "kind": "serve",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=-0.19, y=0.20"
+    },
+    {
+      "kind": "serve",
+      "returned": false,
+      "hit": 0,
+      "summary": "missed: no paddle contact"
+    }
+  ],
+  "serve_results": [
+    {
+      "point": 0,
+      "verdict": "good",
+      "code": "",
+      "why": "good service"
+    },
+    {
+      "point": 1,
+      "verdict": "good",
+      "code": "",
+      "why": "good service"
+    },
+    {
+      "point": 4,
+      "verdict": "fault",
+      "code": "out",
+      "why": "after the server's court the service touched table server instead of the receiver's court (Law 2.6.3)"
+    },
+    {
+      "point": 5,
+      "verdict": "good",
+      "code": "",
+      "why": "good service"
+    }
+  ],
+  "points": [
+    {
+      "point": 0,
+      "how": "too wide: the ball passed 0.37 m from the opponent's paddle (its reach 0.20 m)",
+      "winner": "you",
+      "score": [
+        1,
+        0
+      ],
+      "step": 518,
+      "server": "you",
+      "serve": null
+    },
+    {
+      "point": 1,
+      "how": "too wide: the ball passed 0.24 m from the opponent's paddle (its reach 0.20 m)",
+      "winner": "you",
+      "score": [
+        2,
+        0
+      ],
+      "step": 1059,
+      "server": "you",
+      "serve": null
+    },
+    {
+      "point": 2,
+      "how": "missed: no paddle contact",
+      "winner": "opponent",
+      "score": [
+        2,
+        1
+      ],
+      "step": 1435,
+      "server": "opponent",
+      "serve": "lab0004"
+    },
+    {
+      "point": 3,
+      "how": "missed: no paddle contact",
+      "winner": "opponent",
+      "score": [
+        2,
+        2
+      ],
+      "step": 1715,
+      "server": "opponent",
+      "serve": "ext0069"
+    },
+    {
+      "point": 4,
+      "how": "serve_fault:out: after the server's court the service touched table server instead of the receiver's court (Law 2.6.3)",
+      "winner": "opponent",
+      "score": [
+        2,
+        3
+      ],
+      "step": 2063,
+      "server": "you",
+      "serve": null
+    },
+    {
+      "point": 5,
+      "how": "fault: after your hit the ball hit your own half (x=0.18, y=-0.39)",
+      "winner": "opponent",
+      "score": [
+        2,
+        4
+      ],
+      "step": 2852,
+      "server": "you",
+      "serve": null
+    },
+    {
+      "point": 6,
+      "how": "too wide: the ball passed 0.31 m from the opponent's paddle (its reach 0.20 m)",
+      "winner": "you",
+      "score": [
+        3,
+        4
+      ],
+      "step": 3227,
+      "server": "opponent",
+      "serve": "lab0170"
+    },
+    {
+      "point": 7,
+      "how": "missed: no paddle contact",
+      "winner": "opponent",
+      "score": [
+        3,
+        5
+      ],
+      "step": 3604,
+      "server": "opponent",
+      "serve": "lab0024"
+    }
+  ],
+  "source": "api",
+  "calls": 54,
+  "accepted_intentions": 47,
+  "model_invalid": 0,
+  "model_workers": 4,
+  "max_inflight_model_calls": 4,
+  "model_worker_ids": [
+    "tabletennis-model_0",
+    "tabletennis-model_1",
+    "tabletennis-model_2",
+    "tabletennis-model_3"
+  ],
+  "reply_intervals_seconds": {
+    "count": 49,
+    "min": 0.07261190001736395,
+    "mean": 0.6791362467961984,
+    "p95": 1.4584017219895031,
+    "max": 1.5897479229897726
+  },
+  "observation_age_game_seconds": {
+    "count": 50,
+    "min": 1.8,
+    "mean": 2.242,
+    "p95": 2.95,
+    "max": 4.45
+  },
+  "superseded_intentions": 4,
+  "tactical_action_submissions": 14,
+  "late_model_outcome": [
+    {
+      "request_id": 51,
+      "source_frame": 3455,
+      "bootstrap": false,
+      "issued_mono": 242949.123935788,
+      "status": "completed"
+    },
+    {
+      "request_id": 52,
+      "source_frame": 3520,
+      "bootstrap": false,
+      "issued_mono": 242949.784652305,
+      "status": "cancelled_before_start"
+    },
+    {
+      "request_id": 53,
+      "source_frame": 3585,
+      "bootstrap": false,
+      "issued_mono": 242950.434890031,
+      "status": "cancelled_before_start"
+    }
+  ],
+  "return_policy_origins": [
+    {
+      "policy": "wide_right",
+      "intent_id": 1,
+      "fallback": false
+    },
+    {
+      "policy": "wide_left",
+      "intent_id": 10,
+      "fallback": false
+    },
+    {
+      "policy": "wide_left",
+      "intent_id": 14,
+      "fallback": false
+    },
+    {
+      "policy": "wide_left",
+      "intent_id": 19,
+      "fallback": false
+    },
+    {
+      "policy": "safe_center",
+      "intent_id": 32,
+      "fallback": false
+    },
+    {
+      "policy": "safe_center",
+      "intent_id": 35,
+      "fallback": false
+    },
+    {
+      "policy": "safe_center",
+      "intent_id": 37,
+      "fallback": false
+    },
+    {
+      "policy": "wide_left",
+      "intent_id": 41,
+      "fallback": false
+    },
+    {
+      "policy": "safe_center",
+      "intent_id": 46,
+      "fallback": false
+    }
+  ],
+  "initialization_wall_seconds": 3.433613091998268,
+  "model_latency_seconds": {
+    "count": 52,
+    "min": 1.7934780110081192,
+    "mean": 2.262951792288312,
+    "p95": 2.9425768349901773,
+    "max": 4.476930505974451
+  },
+  "served_service_tiers": [
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast"
+  ],
+  "control_compute_seconds": {
+    "count": 720,
+    "min": 7.700000423938036e-06,
+    "mean": 0.00413083021889583,
+    "p95": 0.010433688992634416,
+    "max": 0.04100247999303974
+  },
+  "total_wall_seconds": 41.016800942015834,
+  "api_budget": {
+    "limit_usd": 20.0,
+    "committed_usd": 10.9792428,
+    "settled_usd": 10.9792428,
+    "unresolved_requests": 0,
+    "requests": 173
+  }
+}

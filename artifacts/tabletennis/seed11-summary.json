@@ -1,0 +1,367 @@
+{
+  "status": "completed",
+  "error": null,
+  "frames": 3129,
+  "native_planning_workers": 2,
+  "game_seconds": 31.29,
+  "gameplay_wall_seconds": 31.58755506001762,
+  "started_mono": 241252.957396647,
+  "ended_mono": 241284.544951707,
+  "invalid": 0,
+  "plans_installed": 16,
+  "plans_discarded": 9,
+  "clock": {
+    "requested_slowdown": 1.0,
+    "catch_up_steps": 0,
+    "physics_waits_for_model": false,
+    "physics_waits_for_preparation": false,
+    "tick_intervals_seconds": {
+      "count": 3128,
+      "min": 0.01000791901606135,
+      "mean": 0.010094490827997918,
+      "p95": 0.010074530000565574,
+      "max": 0.028795999009162188
+    },
+    "step_seconds": {
+      "count": 3129,
+      "min": 0.0015377899981103837,
+      "mean": 0.0017876895287171032,
+      "p95": 0.0018157500016968697,
+      "max": 0.028654369001742452
+    },
+    "installation_seconds": {
+      "count": 18,
+      "min": 2.249988028779626e-06,
+      "mean": 0.0001455294437214939,
+      "p95": 0.00019248999888077378,
+      "max": 0.00019248999888077378
+    },
+    "preparation_seconds": {
+      "count": 11,
+      "min": 0.15154659902327694,
+      "mean": 0.2649836652801076,
+      "p95": 0.3616207090090029,
+      "max": 0.3616207090090029
+    },
+    "initial_preparation_seconds": {
+      "count": 7,
+      "min": 0.04159714002162218,
+      "mean": 0.080505942722084,
+      "p95": 0.10727890999987721,
+      "max": 0.10727890999987721
+    },
+    "effective_slowdown": 1.0095095896458173
+  },
+  "points_for": 5,
+  "points_against": 1,
+  "won": true,
+  "native_match_completed": true,
+  "serves": 4,
+  "legal_serves": 4,
+  "incoming": 7,
+  "legal_returns": 6,
+  "results": [
+    {
+      "kind": "return",
+      "returned": false,
+      "hit": 1,
+      "summary": "fault: after your hit the ball flew out without touching the table"
+    },
+    {
+      "kind": "serve",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=-0.30, y=0.31"
+    },
+    {
+      "kind": "serve",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=-0.11, y=0.66"
+    },
+    {
+      "kind": "return",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=-0.52, y=0.80"
+    },
+    {
+      "kind": "return",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=0.01, y=0.60"
+    },
+    {
+      "kind": "return",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=0.44, y=0.65"
+    },
+    {
+      "kind": "return",
+      "returned": true,
+      "hit": 1,
+      "summary": "returned: landed on the opponent's half at x=-0.27, y=0.35"
+    }
+  ],
+  "serve_results": [
+    {
+      "point": 0,
+      "verdict": "good",
+      "code": "",
+      "why": "good service"
+    },
+    {
+      "point": 1,
+      "verdict": "good",
+      "code": "",
+      "why": "good service"
+    },
+    {
+      "point": 4,
+      "verdict": "good",
+      "code": "",
+      "why": "good service"
+    },
+    {
+      "point": 5,
+      "verdict": "good",
+      "code": "",
+      "why": "good service"
+    }
+  ],
+  "points": [
+    {
+      "point": 0,
+      "how": "too short: the opponent met your service only 0.55 m from the net (its limit 0.62 m)",
+      "winner": "you",
+      "score": [
+        1,
+        0
+      ],
+      "step": 391,
+      "server": "you",
+      "serve": null
+    },
+    {
+      "point": 1,
+      "how": "fault: after your hit the ball flew out without touching the table",
+      "winner": "opponent",
+      "score": [
+        1,
+        1
+      ],
+      "step": 888,
+      "server": "you",
+      "serve": null
+    },
+    {
+      "point": 2,
+      "how": "too wide: the ball passed 0.43 m from the opponent's paddle (its reach 0.20 m)",
+      "winner": "you",
+      "score": [
+        2,
+        1
+      ],
+      "step": 1258,
+      "server": "opponent",
+      "serve": "lab0152"
+    },
+    {
+      "point": 3,
+      "how": "too wide: the ball passed 0.48 m from the opponent's paddle (its reach 0.20 m)",
+      "winner": "you",
+      "score": [
+        3,
+        1
+      ],
+      "step": 1822,
+      "server": "opponent",
+      "serve": "lab0080"
+    },
+    {
+      "point": 4,
+      "how": "too wide: the ball passed 0.32 m from the opponent's paddle (its reach 0.20 m)",
+      "winner": "you",
+      "score": [
+        4,
+        1
+      ],
+      "step": 2568,
+      "server": "you",
+      "serve": null
+    },
+    {
+      "point": 5,
+      "how": "too wide: the ball passed 0.44 m from the opponent's paddle (its reach 0.20 m)",
+      "winner": "you",
+      "score": [
+        5,
+        1
+      ],
+      "step": 3129,
+      "server": "you",
+      "serve": null
+    }
+  ],
+  "source": "api",
+  "calls": 48,
+  "accepted_intentions": 44,
+  "model_invalid": 0,
+  "model_workers": 4,
+  "max_inflight_model_calls": 4,
+  "model_worker_ids": [
+    "tabletennis-model_0",
+    "tabletennis-model_1",
+    "tabletennis-model_2",
+    "tabletennis-model_3"
+  ],
+  "reply_intervals_seconds": {
+    "count": 43,
+    "min": 0.04672082999604754,
+    "mean": 0.6735871977444879,
+    "p95": 1.1522425840084907,
+    "max": 1.4875968730193563
+  },
+  "observation_age_game_seconds": {
+    "count": 44,
+    "min": 1.75,
+    "mean": 2.0795454545454546,
+    "p95": 2.65,
+    "max": 3.05
+  },
+  "superseded_intentions": 1,
+  "tactical_action_submissions": 11,
+  "late_model_outcome": [
+    {
+      "request_id": 45,
+      "source_frame": 2965,
+      "bootstrap": false,
+      "issued_mono": 241282.963519685,
+      "status": "completed"
+    },
+    {
+      "request_id": 46,
+      "source_frame": 3030,
+      "bootstrap": false,
+      "issued_mono": 241283.618097461,
+      "status": "completed"
+    },
+    {
+      "request_id": 47,
+      "source_frame": 3095,
+      "bootstrap": false,
+      "issued_mono": 241284.262650899,
+      "status": "cancelled_before_start"
+    }
+  ],
+  "return_policy_origins": [
+    {
+      "policy": "wide_right",
+      "intent_id": 8,
+      "fallback": false
+    },
+    {
+      "policy": "wide_left",
+      "intent_id": 12,
+      "fallback": false
+    },
+    {
+      "policy": "safe_center",
+      "intent_id": 18,
+      "fallback": false
+    },
+    {
+      "policy": "wide_left",
+      "intent_id": 21,
+      "fallback": false
+    },
+    {
+      "policy": "wide_right",
+      "intent_id": 30,
+      "fallback": false
+    },
+    {
+      "policy": "wide_right",
+      "intent_id": 33,
+      "fallback": false
+    },
+    {
+      "policy": "wide_left",
+      "intent_id": 41,
+      "fallback": false
+    }
+  ],
+  "initialization_wall_seconds": 3.216176114976406,
+  "model_latency_seconds": {
+    "count": 47,
+    "min": 1.7746950830041897,
+    "mean": 2.094047282892403,
+    "p95": 2.6418208169925492,
+    "max": 3.0588281050149817
+  },
+  "served_service_tiers": [
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast",
+    "ultrafast"
+  ],
+  "control_compute_seconds": {
+    "count": 625,
+    "min": 8.669972885400057e-06,
+    "mean": 0.0033008818110916763,
+    "p95": 0.010437400982482359,
+    "max": 0.04927409000811167
+  },
+  "total_wall_seconds": 35.95570425997721,
+  "api_budget": {
+    "limit_usd": 20.0,
+    "committed_usd": 9.3362946,
+    "settled_usd": 9.3362946,
+    "unresolved_requests": 0,
+    "requests": 121
+  }
+}

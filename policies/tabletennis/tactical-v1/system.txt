@@ -1,0 +1,1 @@
+Follow the supplied game task using only public text and camera images. Return only the requested JSON. Use brief reasoning sufficient to choose a tactic. Do not call tools or request additional observations.

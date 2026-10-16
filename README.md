@@ -16,7 +16,7 @@ The gameplay decisions come from GPT-SOL on each turn. The surrounding code hand
 </tr>
 <tr>
 <td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-SOL hitting DFJK notes and building a perfect combo" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · Gameplay only</td>
-<td width="50%" align="center"><a href="assets/gameplay/pingpong.mp4"><img src="assets/gameplay/pingpong.gif" alt="Robot arm playing a point from GPT-SOL's recorded table-tennis API match" width="440"></a><br><b>PingPong</b> · API match replay · S=10 · Gameplay only</td>
+<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-SOL selecting table-tennis tactics at 1x, with both camera views and original public decision summaries" width="440"></a><br><b>PingPong</b> · Real-time API · 1× · Four tactical workers</td>
 </tr>
 </table>
 
@@ -31,11 +31,11 @@ You can watch GPT-SOL dodge a screen full of bullets, race a rival, collect food
 | **Touhou / Kaguya** | Dodge bullets. Defeat the boss. | Real-time API at 1×. GPT-SOL chooses movement, shooting, focus, bombs and duration. |
 | **Racing** | Find a line. Beat your rival. | Real-time API at 1×. GPT-SOL chooses speed and racing targets; a coded controller supplies steering. |
 | **Rhythm** | Hit the right key at the right time. | Native browser/audio API capture at 1×, with DFJK inputs. |
-| **PingPong** | Serve, return, win the point. | Replay from a recorded 5:2 API match at the official S=10 slowdown, using the native robot executor. |
+| **PingPong** | Serve, return, win the point. | Real-time API at 1× with four tactical workers. GPT-SOL selects shot placement; a camera-only rule controller serves, tracks and executes. [Setup and results](docs/tabletennis.md). |
 | **Badminton** | Place the shot. Recover for the next one. | Tactical goals with native mechanics; real-time API at S3. [Setup and control boundary](docs/badminton.md). |
 | **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | Historical delay simulation at 5× slowdown, with model actions applied unchanged. |
 
-The GIFs are continuous excerpts at their source playback speed. PingPong is a cropped spectator replay with point-review pauses omitted in the original export. Racing uses hybrid steering. Touhou, Racing and Asterix show original public decision summaries. Rhythm and PingPong currently show gameplay only; their decision-summary videos are pending. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
+The GIFs are continuous excerpts at their source playback speed. PingPong shows both native camera views and public model summaries from a complete actual-clock match; its linked full video retains every point and failure. Racing uses hybrid steering. Touhou, Racing and Asterix also show original public decision summaries. Rhythm currently shows gameplay only. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
 
 ## How it works
 
@@ -77,7 +77,31 @@ uv run sol eval touhou \
 
 Real-time Touhou evaluation requires an OpenAI API key, read from process memory or prompted without echo. The game keeps running while requests are in flight. The runner records inputs, public decision summaries, applied actions, timing, video and cost. The retained source-harness demo defeated Kaguya; fresh full-game paid validation of the portable launcher is pending. [Setup, budgets and timing](docs/realtime.md).
 
-Racing uses a separate environment and dependencies; PingPong is a research adapter. See the [Racing workflow](docs/racing.md), [PingPong research](research/in-progress/pingpong/README.md), [Badminton setup](docs/badminton.md), and [complete release guide](docs/release-guide.md) for their conditions and entrypoints.
+Racing and PingPong use separate native dependencies. See the [Racing workflow](docs/racing.md), [PingPong tactical setup](docs/tabletennis.md), [Badminton setup](docs/badminton.md), and [complete release guide](docs/release-guide.md) for their conditions and entrypoints.
+
+## PingPong: tactical control at 1×
+
+GPT-6.1 Sol Low / Ultrafast chooses `safe_center`, `wide_left`, `wide_right` or
+`short_center` through four staggered workers. Native physics runs at 100 Hz while
+camera tracking and rule control run at 20 Hz; two asynchronous planning workers
+prepare strokes without pausing physics or catching up late frames. Serving and
+joint control are rule based. This is hierarchical tactical control.
+
+Two complete actual API matches used the same gameplay code and settings:
+
+| Seed | Score | Legal serves | Legal returns |
+|---|---|---|---|
+| 11 | **5:1** | 4/4 | 6/7 |
+| 12 | **3:5** | 3/4 | 5/9 |
+
+The second seed still has missed contacts and an own-half return; stable serving
+and long rallies are not solved. The sidebar labels the latest accepted public
+summary, its observation time, the `NEXT` policy and the reply actually executing.
+Four workers improve reply throughput; individual replies still take about two seconds.
+
+[Watch the complete dual-view match](assets/tabletennis/seed11-full.mp4) ·
+[Run rules or the actual API](docs/tabletennis.md) ·
+[Both matches and retained evidence](artifacts/tabletennis/README.md).
 
 ## Make it play better
 
@@ -92,6 +116,7 @@ No model weights were trained for the selected Touhou policy. Its behavior was d
 - [Touhou research](docs/touhou-research-record.md): feedback, policy changes and the selected boss-defeat run.
 - [Racing experiments](research/racing/EVALUATION.md): candidate policies, full cohorts and transfer to real-time gameplay.
 - [Asterix experiments](docs/asterix-autoresearch.md): direct model actions and the selected serial policy.
+- [PingPong tactical control](docs/tabletennis.md): asynchronous native planning, four-worker API decisions, dual-view replay and cross-seed failures.
 - [Evaluation records](docs/evaluation-records.md): conditions, replays and appended research decisions.
 
 ## Code

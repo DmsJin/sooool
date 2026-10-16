@@ -148,7 +148,23 @@ uv run playwright install --with-deps chromium
 uv run sol simulate rhythm
 ```
 
-Rhythm's retained portable simulation scored 50 PERFECT, 1 GREAT, 1 MISS; strict full combo was not met. These are subscription/profile simulations. Their detailed development and unfinished PingPong research remain preserved independently. Racing retains its selected workflow above.
+Rhythm's retained portable simulation scored 50 PERFECT, 1 GREAT, 1 MISS; strict full combo was not met. These are subscription/profile simulations. Racing retains its selected workflow above.
+
+## PingPong: asynchronous tactical control
+
+[PingPong setup and commands](tabletennis.md) describe the separate native runtime.
+Use `python scripts/tabletennis.py eval --source rules` for rule control and
+`--source api --model-workers 4 --slowdown 1` for actual GPT-6.1 Sol Low / Ultrafast
+strategy selection with explicit key-file and cumulative-budget arguments. The
+camera-only rule controller serves and executes joint motion; physics does not
+wait for either the API or the two native planning workers. `sol eval pingpong`
+and `sol report pingpong` route to this implementation.
+
+At L1/1x, seed 11 completed 5:1 (4/4 legal serves, 6/7 returns) and seed 12
+completed 3:5 (3/4 serves, 5/9 returns). The complete dual-view video includes
+public decision summaries and execution IDs. See [retained evidence](../artifacts/tabletennis/README.md).
+Earlier S=10 PingPong attempts remain in the research archive and are a different
+control/timing setup.
 
 ## Repository map
 

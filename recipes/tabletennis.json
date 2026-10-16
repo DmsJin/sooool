@@ -1,0 +1,19 @@
+{
+  "game": "tabletennis",
+  "action_level": "high",
+  "policy": "tactical-v1",
+  "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "subscription_service_tier": "priority",
+  "level": 1,
+  "seed": 11,
+  "slowdown": 1,
+  "duration": 300,
+  "observation_stride": 5,
+  "max_calls": 120,
+  "model_workers": 4,
+  "request_interval_s": 0.65,
+  "rules_policy": "safe_center",
+  "control": "SOL selects persistent shot policies over a continuous camera-only reference"
+}
