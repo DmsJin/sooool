@@ -26,7 +26,7 @@
         window.__modelExecutor.drain();render();
       }
       window.__modelExecutor.drain();render();
-      if(seconds>=30.001 && document.body.dataset.state==='playing')document.getElementById('audio').dispatchEvent(new Event('ended'));
+      if(seconds>=Number(globalThis.__MODEL_SIM_DURATION_S__||30.001) && document.body.dataset.state==='playing')document.getElementById('audio').dispatchEvent(new Event('ended'));
     }
   };
 })();

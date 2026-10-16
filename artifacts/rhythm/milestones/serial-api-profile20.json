@@ -1,0 +1,1078 @@
+{
+  "serial": true,
+  "concurrency": 1,
+  "paid_api_only": true,
+  "gameplay": false,
+  "actions_executed": 0,
+  "model": "gpt-6.1-sol",
+  "tier": "ultrafast",
+  "effort": "low",
+  "max_output_tokens": 512,
+  "detail": "high",
+  "source_run": "/tmp/dfjk-avsync200-native/experiments/rhythm/runs/model-timing/native-avsync200-english17-1",
+  "source_sha256": "3e8499570d02f1f2af695270cc37278c1f8926b19dcfa00e8521acbc2b9c9fc1",
+  "selection": "20 distinct saved requests evenly spaced across latest17s English200ms native run; verbatim task prompts and PNGs; no excluded warmup",
+  "threshold_s": 1.8,
+  "primary_metric": "time until complete schema-valid action JSON, excluding subsequent live commentary and stream drain",
+  "percentile_method": "linear interpolation",
+  "rows": [
+    {
+      "index": 0,
+      "source_version": 1,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[1930.001708984375,1930.001708984375]],\"now\":1945.8999999761581,\"p\":[],\"ack\":[],\"rtt\":[],\"v\":1}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "b1956e6b8ebb4eef8c978264c60bca981ac29f84b29505bcfc2326ae08c60095",
+      "image_sha256": [
+        "984a4675377d404efb817fdbcf15a90c835df357fb3d6400b2c80d0f66e8c2a2"
+      ],
+      "answer": "{\"v\":1,\"a\":[]}",
+      "metadata": {
+        "request_id": "671b1b0881924bf88748c4b5aebac724",
+        "latency_s": 1.9354732320061885,
+        "ttft_s": 1.799868852016516,
+        "usage": {
+          "input_tokens": 1145,
+          "input_tokens_details": {
+            "cache_write_tokens": 1142,
+            "cached_tokens": 0
+          },
+          "output_tokens": 26,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 1171
+        },
+        "cost_usd": 0.018726,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3464,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.800515222013928,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 4.3199979700148106e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.8781516359886155,
+        "live_commentary": true,
+        "commentary": "No notes are visible yet; no taps scheduled.",
+        "commentary_ready_s": 1.8005665820091963,
+        "raw_output": "{\"v\":1,\"a\":[]}\n{\"comment\":\"No notes are visible yet; no taps scheduled.\"}",
+        "pre_http_s": 0.025650497991591692,
+        "settlement_s": 0.015779957990162075,
+        "total_provider_s": 1.9771869190153666
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 1,
+      "source_version": 5,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[2746.635986328125,2746.635986328125]],\"now\":2757.699999988079,\"p\":[],\"ack\":[],\"rtt\":[],\"v\":5}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "97cda45fd02e6d7bd3aaab2c6bd1fd272314d441fd9c7d5f745e35a38df629e2",
+      "image_sha256": [
+        "b38d860fb1b1016817d1cde71f50be4f2a5be98e478a4a260a1e12bbfbef581f"
+      ],
+      "answer": "{\"v\":5,\"a\":[[\"k16\",\"k\",4386,4536]]}",
+      "metadata": {
+        "request_id": "f8959c0ce4754db1a74d6eb34fb023b8",
+        "latency_s": 1.4181557609699667,
+        "ttft_s": 1.31943825900089,
+        "usage": {
+          "input_tokens": 1144,
+          "input_tokens_details": {
+            "cache_write_tokens": 1141,
+            "cached_tokens": 0
+          },
+          "output_tokens": 81,
+          "output_tokens_details": {
+            "reasoning_tokens": 35
+          },
+          "total_tokens": 1225
+        },
+        "cost_usd": 0.022011,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3463,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.3198610289837234,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 3.0800001695752144e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.3623392159934156,
+        "live_commentary": true,
+        "commentary": "One clear note is visible in the rightmost K lane; scheduled its tap.",
+        "commentary_ready_s": 1.3199469089740887,
+        "raw_output": "{\"v\":5,\"a\":[[\"k16\",\"k\",4386,4536]]}\n{\"comment\":\"One clear note is visible in the rightmost K lane; scheduled its tap.\"}",
+        "pre_http_s": 0.021573438018094748,
+        "settlement_s": 0.022962159011512995,
+        "total_provider_s": 1.4631048279698007
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 2,
+      "source_version": 10,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[3746.595947265625,3746.595947265625]],\"now\":3759.5999999940395,\"p\":[],\"ack\":[],\"rtt\":[1237.7582869958133,892.8314030054025,1250.9918359864969,1490.9792079997715],\"v\":10}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "e9f90f44cd3836c64b5ca573c868bf27ff1b62e6709699d6fd999f81904ea38e",
+      "image_sha256": [
+        "4bd9ab91d492a337351cf791e166a796d8d47ee674e395d031c043af3857d125"
+      ],
+      "answer": "{\"v\":10,\"a\":[[\"f18\",\"f\",4913,5063],[\"f20\",\"f\",5450,5600]]}",
+      "metadata": {
+        "request_id": "3dc5d51f23d94f11868dc6dc916f8573",
+        "latency_s": 1.79644811199978,
+        "ttft_s": 1.6499602730036713,
+        "usage": {
+          "input_tokens": 1179,
+          "input_tokens_details": {
+            "cache_write_tokens": 1176,
+            "cached_tokens": 0
+          },
+          "output_tokens": 150,
+          "output_tokens_details": {
+            "reasoning_tokens": 92
+          },
+          "total_tokens": 1329
+        },
+        "cost_usd": 0.026676,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3539,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.6501445830217563,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.6199850253760815e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.7468585459864698,
+        "live_commentary": true,
+        "commentary": "Two upper F notes scheduled; the lower K note is too close for latency.",
+        "commentary_ready_s": 1.7004955189768225,
+        "raw_output": "{\"v\":10,\"a\":[[\"f18\",\"f\",4913,5063],[\"f20\",\"f\",5450,5600]]}\n{\"comment\":\"Two upper F notes scheduled; the lower K note is too close for latency.\"}",
+        "pre_http_s": 0.01982527901418507,
+        "settlement_s": 0.011861869017593563,
+        "total_provider_s": 1.828468689986039
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 3,
+      "source_version": 14,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[4546.56396484375,4546.56396484375]],\"now\":4559,\"p\":[],\"ack\":[{\"id\":\"k16\",\"status\":\"rejected\",\"key\":\"k\",\"at_ms\":4385},{\"id\":\"k16\",\"status\":\"executed\",\"key\":\"k\",\"at_ms\":4386,\"actual_ms\":4387.899999976158}],\"rtt\":[1250.9918359864969,1490.9792079997715,999.9642049951945,1132.6600549800787],\"v\":14}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "bfa510abb519b3c0259c6ddc3eced56fd84b4c7a5da0e05b57541508cc83e5a1",
+      "image_sha256": [
+        "db276ac612ab74e51e9522b48a4ad46093e59f74fdb2c7f863c36649f2224c16"
+      ],
+      "answer": "{\"v\":14,\"a\":[[\"k22\",\"k\",5977,6127]]}",
+      "metadata": {
+        "request_id": "e20224f68cf04a148cc46b22b73dfbac",
+        "latency_s": 2.1668789539835416,
+        "ttft_s": 2.0745166309643537,
+        "usage": {
+          "input_tokens": 1225,
+          "input_tokens_details": {
+            "cache_write_tokens": 1222,
+            "cached_tokens": 0
+          },
+          "output_tokens": 177,
+          "output_tokens_details": {
+            "reasoning_tokens": 131
+          },
+          "total_tokens": 1402
+        },
+        "cost_usd": 0.028986,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3664,
+        "counted_image_certificate": true,
+        "action_ready_s": 2.074700989993289,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.5999615900218487e-06,
+        "action_delivered": true,
+        "completion_event_s": 2.121393818000797,
+        "live_commentary": true,
+        "commentary": "The upper K note has useful lead time; lower F notes are too close.",
+        "commentary_ready_s": 2.0747600100003183,
+        "raw_output": "{\"v\":14,\"a\":[[\"k22\",\"k\",5977,6127]]}\n{\"comment\":\"The upper K note has useful lead time; lower F notes are too close.\"}",
+        "pre_http_s": 0.019813808030448854,
+        "settlement_s": 0.011532798991538584,
+        "total_provider_s": 2.1985612610005774
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 4,
+      "source_version": 19,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[5546.52392578125,5546.52392578125]],\"now\":5569.399999976158,\"p\":[],\"ack\":[{\"id\":\"f20\",\"status\":\"rejected\",\"key\":\"f\",\"at_ms\":5450},{\"id\":\"f20\",\"status\":\"executed\",\"key\":\"f\",\"at_ms\":5446,\"actual_ms\":5452.299999982119}],\"rtt\":[1617.7774489915464,1401.8965649884194,1212.805000017397,1475.2484890050255],\"v\":19}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "feeb8015d78b9d55f189093f64ffd64db3513907170c9cca67d9b46c0642bbaf",
+      "image_sha256": [
+        "16bbf1fdba56079a6f46ed73f29bfa4d4f8d803b7dc946563df4caea18442d19"
+      ],
+      "answer": "{\"v\":19,\"a\":[[\"f26\",\"f\",7039,7189]]}",
+      "metadata": {
+        "request_id": "3d521111d07441a0809fd592a650f167",
+        "latency_s": 1.7611642450210638,
+        "ttft_s": 1.6652428330271505,
+        "usage": {
+          "input_tokens": 1230,
+          "input_tokens_details": {
+            "cache_write_tokens": 1227,
+            "cached_tokens": 0
+          },
+          "output_tokens": 172,
+          "output_tokens_details": {
+            "reasoning_tokens": 125
+          },
+          "total_tokens": 1402
+        },
+        "cost_usd": 0.028761,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3677,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.6654323430266231,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.9599759727716446e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.7039106200099923,
+        "live_commentary": true,
+        "commentary": "Queued the upper F note; lower J and K notes are too close for latency.",
+        "commentary_ready_s": 1.665491182997357,
+        "raw_output": "{\"v\":19,\"a\":[[\"f26\",\"f\",7039,7189]]}\n{\"comment\":\"Queued the upper F note; lower J and K notes are too close for latency.\"}",
+        "pre_http_s": 0.01856687798863277,
+        "settlement_s": 0.011961519019678235,
+        "total_provider_s": 1.7920131420250982
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 5,
+      "source_version": 23,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[6363.15771484375,6363.15771484375]],\"now\":6374.0999999940395,\"p\":[],\"ack\":[{\"id\":\"f20\",\"status\":\"rejected\",\"key\":\"f\",\"at_ms\":5442},{\"id\":\"k22\",\"status\":\"rejected\",\"key\":\"k\",\"at_ms\":5979}],\"rtt\":[1475.2484890050255,1384.2164069938008,1852.1636210207362,1552.848933992209],\"v\":23}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "4adf88a1f5f707f84a3eac2941a9e21ce301957a53330370e1a4b987ccf42f1c",
+      "image_sha256": [
+        "599a4b3d5c493ba14806673261f2d75ee9914a12e5b729f6d06abb0bb56c6067"
+      ],
+      "answer": "{\"v\":23,\"a\":[[\"d28\",\"d\",7569,7719]]}",
+      "metadata": {
+        "request_id": "f6fe64e177284662a4c33fea89287b89",
+        "latency_s": 1.1616365909576416,
+        "ttft_s": 1.0970436949864961,
+        "usage": {
+          "input_tokens": 1220,
+          "input_tokens_details": {
+            "cache_write_tokens": 1217,
+            "cached_tokens": 0
+          },
+          "output_tokens": 104,
+          "output_tokens_details": {
+            "reasoning_tokens": 58
+          },
+          "total_tokens": 1324
+        },
+        "cost_usd": 0.024531,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3648,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.0972222450072877,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.909975592046976e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.1293115729931742,
+        "live_commentary": true,
+        "commentary": "The upper-left note has the most lead time; lower notes are too close.",
+        "commentary_ready_s": 1.0972767749917693,
+        "raw_output": "{\"v\":23,\"a\":[[\"d28\",\"d\",7569,7719]]}\n{\"comment\":\"The upper-left note has the most lead time; lower notes are too close.\"}",
+        "pre_http_s": 0.018033578991889954,
+        "settlement_s": 0.011289179034065455,
+        "total_provider_s": 1.1912067289813422
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 6,
+      "source_version": 28,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[7363.117919921875,7363.117919921875]],\"now\":7384.899999976158,\"p\":[],\"ack\":[{\"id\":\"j24\",\"status\":\"rejected\",\"key\":\"j\",\"at_ms\":6506},{\"id\":\"f26\",\"status\":\"rejected\",\"key\":\"f\",\"at_ms\":7039}],\"rtt\":[1776.7528370022774,1593.9841999788769,1725.605009996798,1534.114745008992],\"v\":28}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "a794af7f640510c22364b7db1ace1e236322ed04bb1c5d11fc2b05ec3719d8e5",
+      "image_sha256": [
+        "d585e6c94076285841819f289fc42cf022067900a3b0d7df4d097153d23ac894"
+      ],
+      "answer": "{\"v\":28,\"a\":[[\"j32\",\"j\",8629,8779]]}",
+      "metadata": {
+        "request_id": "4832cf16de6a46f1a588a1f95504e76e",
+        "latency_s": 1.6208856459707022,
+        "ttft_s": 1.5165868930052966,
+        "usage": {
+          "input_tokens": 1218,
+          "input_tokens_details": {
+            "cache_write_tokens": 1215,
+            "cached_tokens": 0
+          },
+          "output_tokens": 140,
+          "output_tokens_details": {
+            "reasoning_tokens": 95
+          },
+          "total_tokens": 1358
+        },
+        "cost_usd": 0.026661,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3648,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.5167118840035982,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.129003405570984e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.5392709919833578,
+        "live_commentary": true,
+        "commentary": "Queued the highest visible j note; lower notes are too close to arrival.",
+        "commentary_ready_s": 1.5167624640162103,
+        "raw_output": "{\"v\":28,\"a\":[[\"j32\",\"j\",8629,8779]]}\n{\"comment\":\"Queued the highest visible j note; lower notes are too close to arrival.\"}",
+        "pre_http_s": 0.015892378985881805,
+        "settlement_s": 0.010327188007067889,
+        "total_provider_s": 1.647258722980041
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 7,
+      "source_version": 32,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[8163.0859375,8163.0859375]],\"now\":8178.5999999940395,\"p\":[],\"ack\":[{\"id\":\"f26\",\"status\":\"rejected\",\"key\":\"f\",\"at_ms\":7037},{\"id\":\"d28\",\"status\":\"rejected\",\"key\":\"d\",\"at_ms\":7573}],\"rtt\":[1574.576952989446,1370.703466993291,1918.9679159899242,1501.835507020587],\"v\":32}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "e78f1f76e0957c62675328ed8909036292b91e8109361d3e2bf1de914dda5a04",
+      "image_sha256": [
+        "114dfce9c06a8f313998e7c37600fe11867b24ce68bcab3be5a73843c8d9ae18"
+      ],
+      "answer": "{\"v\":32,\"a\":[[\"d34\",\"d\",9161,9311]]}",
+      "metadata": {
+        "request_id": "5c4d0a2cb39d4d26b6eaee8813bb3199",
+        "latency_s": 1.6017192670260556,
+        "ttft_s": 1.5117426340002567,
+        "usage": {
+          "input_tokens": 1216,
+          "input_tokens_details": {
+            "cache_write_tokens": 1213,
+            "cached_tokens": 0
+          },
+          "output_tokens": 157,
+          "output_tokens_details": {
+            "reasoning_tokens": 109
+          },
+          "total_tokens": 1373
+        },
+        "cost_usd": 0.027651,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3638,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.511886833992321,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 1.920037902891636e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.5508601809851825,
+        "live_commentary": true,
+        "commentary": "Queued the upper left-lane note; lower notes are too close to arrive in time.",
+        "commentary_ready_s": 1.5119357540388592,
+        "raw_output": "{\"v\":32,\"a\":[[\"d34\",\"d\",9161,9311]]}\n{\"comment\":\"Queued the upper left-lane note; lower notes are too close to arrive in time.\"}",
+        "pre_http_s": 0.01361947797704488,
+        "settlement_s": 0.011679638992063701,
+        "total_provider_s": 1.627466475008987
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 8,
+      "source_version": 36,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[8963.052734375,8963.052734375]],\"now\":8984.799999982119,\"p\":[],\"ack\":[{\"id\":\"k31\",\"status\":\"executed\",\"key\":\"k\",\"at_ms\":8370,\"actual_ms\":8370.299999982119},{\"id\":\"j32\",\"status\":\"executed\",\"key\":\"j\",\"at_ms\":8633,\"actual_ms\":8635.5}],\"rtt\":[1918.9679159899242,1501.835507020587,1537.3550450021867,1355.287448008312],\"v\":36}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "9957eb4201e5a1c4a9583416d5d6e11d52cbe82975d6cf4bc901b852bb00cb88",
+      "image_sha256": [
+        "f8a81a4e1521e3864c5eb3c879b4196766f02393df16dc115d36313cb787fd15"
+      ],
+      "answer": "{\"v\":36,\"a\":[[\"k37\",\"k\",9961,10111],[\"j38\",\"j\",10226,10376]]}",
+      "metadata": {
+        "request_id": "5826d03aee5f4ed08865285c1e28ad00",
+        "latency_s": 1.830128628993407,
+        "ttft_s": 1.6490409229882061,
+        "usage": {
+          "input_tokens": 1235,
+          "input_tokens_details": {
+            "cache_write_tokens": 1232,
+            "cached_tokens": 0
+          },
+          "output_tokens": 118,
+          "output_tokens_details": {
+            "reasoning_tokens": 60
+          },
+          "total_tokens": 1353
+        },
+        "cost_usd": 0.025596,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3691,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.6492315329960547,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 3.4199911169707775e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.7613770539755933,
+        "live_commentary": true,
+        "commentary": "Queued the higher K and J notes; the low D note is too close.",
+        "commentary_ready_s": 1.7102720479597338,
+        "raw_output": "{\"v\":36,\"a\":[[\"k37\",\"k\",9961,10111],[\"j38\",\"j\",10226,10376]]}\n{\"comment\":\"Queued the higher K and J notes; the low D note is too close.\"}",
+        "pre_http_s": 0.032911038026213646,
+        "settlement_s": 0.010847959027159959,
+        "total_provider_s": 1.8742649360210635
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 9,
+      "source_version": 41,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[9979.678955078125,9979.678955078125]],\"now\":10006.899999976158,\"p\":[[\"j38\",\"j\",10225,10375]],\"ack\":[{\"id\":\"j38\",\"status\":\"admitted\",\"key\":\"j\",\"at_ms\":10225},{\"id\":\"k37\",\"status\":\"executed\",\"key\":\"k\",\"at_ms\":9959,\"actual_ms\":9960}],\"rtt\":[1187.643860001117,1460.2435310080182,1841.4956429915037,1130.9753259993158],\"v\":41}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "c2cc92089f388498db6a41742769cecbc11c6acb8f39cab6ec031431d914c2e7",
+      "image_sha256": [
+        "5af49393c01bd88030428390f9a23560fef2f66beaa67579096b2bf2ad295c23"
+      ],
+      "answer": "{\"v\":41,\"a\":[]}",
+      "metadata": {
+        "request_id": "fa066371465149cd85332b610cde19d5",
+        "latency_s": 1.4656908870092593,
+        "ttft_s": 1.3775989129790105,
+        "usage": {
+          "input_tokens": 1237,
+          "input_tokens_details": {
+            "cache_write_tokens": 1234,
+            "cached_tokens": 0
+          },
+          "output_tokens": 30,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 1267
+        },
+        "cost_usd": 0.020346,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3691,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.3777489329804666,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.8199865482747555e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.4556562979705632,
+        "live_commentary": true,
+        "commentary": "The visible J note is already pending; the K note has executed.",
+        "commentary_ready_s": 1.3777928130002692,
+        "raw_output": "{\"v\":41,\"a\":[]}\n{\"comment\":\"The visible J note is already pending; the K note has executed.\"}",
+        "pre_http_s": 0.018321837997063994,
+        "settlement_s": 0.01175618899287656,
+        "total_provider_s": 1.4960290739545599
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 10,
+      "source_version": 45,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[10796.313720703125,10796.313720703125]],\"now\":10812.09999999404,\"p\":[],\"ack\":[{\"id\":\"k37\",\"status\":\"rejected\",\"key\":\"k\",\"at_ms\":9961},{\"id\":\"j38\",\"status\":\"rejected\",\"key\":\"j\",\"at_ms\":10226}],\"rtt\":[1130.9753259993158,1495.1064380002208,1368.5054570087232,1032.9088429862168],\"v\":45}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "3c6b712c0bef3af56a6910137c541413d69cf45146da2252cc6b1c0d597c819a",
+      "image_sha256": [
+        "f3ac8b041acc782f085d34bf9925579adbf9e09296769745bea82d1a7086158c"
+      ],
+      "answer": "{\"v\":45,\"a\":[[\"d46\",\"d\",12349,12499]]}",
+      "metadata": {
+        "request_id": "0964eb22547340a8b581bcf31ffba0c2",
+        "latency_s": 1.3522182350279763,
+        "ttft_s": 1.2657382120378315,
+        "usage": {
+          "input_tokens": 1220,
+          "input_tokens_details": {
+            "cache_write_tokens": 1217,
+            "cached_tokens": 0
+          },
+          "output_tokens": 83,
+          "output_tokens_details": {
+            "reasoning_tokens": 37
+          },
+          "total_tokens": 1303
+        },
+        "cost_usd": 0.023271,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3653,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.2658576419926248,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 1.7299898900091648e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.3308188960072584,
+        "live_commentary": true,
+        "commentary": "One clear note is visible in the leftmost lane; scheduled a d tap.",
+        "commentary_ready_s": 1.2659034120151773,
+        "raw_output": "{\"v\":45,\"a\":[[\"d46\",\"d\",12349,12499]]}\n{\"comment\":\"One clear note is visible in the leftmost lane; scheduled a d tap.\"}",
+        "pre_http_s": 0.019615458964835852,
+        "settlement_s": 0.01261251897085458,
+        "total_provider_s": 1.3847154929535463
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 11,
+      "source_version": 50,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[11796.272705078125,11796.272705078125]],\"now\":11818.199999988079,\"p\":[],\"ack\":[{\"id\":\"j38\",\"status\":\"rejected\",\"key\":\"j\",\"at_ms\":10226},{\"id\":\"j38\",\"status\":\"rejected\",\"key\":\"j\",\"at_ms\":10223}],\"rtt\":[1905.8019270014483,891.8127529905178,1463.8392599881627,1375.5325770180207],\"v\":50}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "303a4bb6de6cc956521d6d2ea55e2a228525a2f03c6c9f2fb0b542f123efee58",
+      "image_sha256": [
+        "09bb7c06f4c1e3989df61d77b4b742c4aa4bcf6fde0d3622a121367139871ca7"
+      ],
+      "answer": "{\"v\":50,\"a\":[[\"f48\",\"f\",12876,13026],[\"f50\",\"f\",13412,13562]]}",
+      "metadata": {
+        "request_id": "8ebd5fc504ab49b39d139e109edbea45",
+        "latency_s": 1.7777243229793385,
+        "ttft_s": 1.5800664990092628,
+        "usage": {
+          "input_tokens": 1219,
+          "input_tokens_details": {
+            "cache_write_tokens": 1216,
+            "cached_tokens": 0
+          },
+          "output_tokens": 175,
+          "output_tokens_details": {
+            "reasoning_tokens": 116
+          },
+          "total_tokens": 1394
+        },
+        "cost_usd": 0.028776,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3654,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.580201909004245,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.0799925550818443e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.7287877469789237,
+        "live_commentary": true,
+        "commentary": "Two upcoming F notes scheduled; the low D note is too near to act reliably.",
+        "commentary_ready_s": 1.6858953699702397,
+        "raw_output": "{\"v\":50,\"a\":[[\"f48\",\"f\",12876,13026],[\"f50\",\"f\",13412,13562]]}\n{\"comment\":\"Two upcoming F notes scheduled; the low D note is too near to act reliably.\"}",
+        "pre_http_s": 0.02137287799268961,
+        "settlement_s": 0.012355239014141262,
+        "total_provider_s": 1.811738139949739
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 12,
+      "source_version": 54,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[12612.907958984375,12612.907958984375]],\"now\":12623.299999982119,\"p\":[[\"f48\",\"f\",12881,13031]],\"ack\":[{\"id\":\"d46\",\"status\":\"rejected\",\"key\":\"d\",\"at_ms\":12348},{\"id\":\"f48\",\"status\":\"admitted\",\"key\":\"f\",\"at_ms\":12881}],\"rtt\":[1207.80392998131,1263.1685250089504,1118.5576359857805,1275.1721839886159],\"v\":54}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "183984a5b117f1a0d667be67fd278a9099af9976816e58d86fb7ad2c02106da3",
+      "image_sha256": [
+        "287764368bbca6655bb031b4b9417dd763f20429cd889785ca94c1eab694203a"
+      ],
+      "answer": "{\"v\":54,\"a\":[[\"f50\",\"f\",13406,13556],[\"d51\",\"d\",13674,13824],[\"f52\",\"f\",13939,14089]]}",
+      "metadata": {
+        "request_id": "4137a0bafec64f43976cab568a0a5b92",
+        "latency_s": 3.3646899799932726,
+        "ttft_s": 3.1360801180126145,
+        "usage": {
+          "input_tokens": 1231,
+          "input_tokens_details": {
+            "cache_write_tokens": 1228,
+            "cached_tokens": 0
+          },
+          "output_tokens": 163,
+          "output_tokens_details": {
+            "reasoning_tokens": 91
+          },
+          "total_tokens": 1394
+        },
+        "cost_usd": 0.028236,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3676,
+        "counted_image_certificate": true,
+        "action_ready_s": 3.136339707998559,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.8999638743698597e-06,
+        "action_delivered": true,
+        "completion_event_s": 3.316922964004334,
+        "live_commentary": true,
+        "commentary": "The lowest F is already pending; added the next visible F, D, and F.",
+        "commentary_ready_s": 3.2523687290376984,
+        "raw_output": "{\"v\":54,\"a\":[[\"f50\",\"f\",13406,13556],[\"d51\",\"d\",13674,13824],[\"f52\",\"f\",13939,14089]]}\n{\"comment\":\"The lowest F is already pending; added the next visible F, D, and F.\"}",
+        "pre_http_s": 0.020348657970316708,
+        "settlement_s": 0.01310611900407821,
+        "total_provider_s": 3.3984224179876037
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 13,
+      "source_version": 58,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[13412.875,13412.875]],\"now\":13426.199999988079,\"p\":[],\"ack\":[{\"id\":\"f50\",\"status\":\"admitted\",\"key\":\"f\",\"at_ms\":13412},{\"id\":\"f50\",\"status\":\"executed\",\"key\":\"f\",\"at_ms\":13412,\"actual_ms\":13412}],\"rtt\":[1275.1721839886159,1320.3134009963833,1360.6308879971039,1296.2208820099477],\"v\":58}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "e5b4831b6344eece7f1b34adac5609c438acf2bffc9e9124ebbfe5e2deace88e",
+      "image_sha256": [
+        "f8dcf1c7358e9ce9f51a25ef81f932e9a3bd83c6e00b2ff56cd20b0bfca66d60"
+      ],
+      "answer": "{\"v\":58,\"a\":[[\"d55\",\"d\",14739,14889],[\"k56\",\"k\",15004,15154]]}",
+      "metadata": {
+        "request_id": "670fffb957a34342965e2cba620af341",
+        "latency_s": 1.7483687340281904,
+        "ttft_s": 1.607852715998888,
+        "usage": {
+          "input_tokens": 1220,
+          "input_tokens_details": {
+            "cache_write_tokens": 1217,
+            "cached_tokens": 0
+          },
+          "output_tokens": 145,
+          "output_tokens_details": {
+            "reasoning_tokens": 87
+          },
+          "total_tokens": 1365
+        },
+        "cost_usd": 0.026991,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3655,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.6079856749856845,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 1.609965693205595e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.682840319990646,
+        "live_commentary": true,
+        "commentary": "Queued the upper d and k notes; lower notes are too close to arrival.",
+        "commentary_ready_s": 1.6672542309970595,
+        "raw_output": "{\"v\":58,\"a\":[[\"d55\",\"d\",14739,14889],[\"k56\",\"k\",15004,15154]]}\n{\"comment\":\"Queued the upper d and k notes; lower notes are too close to arrival.\"}",
+        "pre_http_s": 0.02155646897153929,
+        "settlement_s": 0.012473099981434643,
+        "total_provider_s": 1.782789001998026
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 14,
+      "source_version": 63,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[14412.8359375,14412.8359375]],\"now\":14434.59999999404,\"p\":[],\"ack\":[{\"id\":\"d51\",\"status\":\"rejected\",\"key\":\"d\",\"at_ms\":13674},{\"id\":\"f52\",\"status\":\"rejected\",\"key\":\"f\",\"at_ms\":13939}],\"rtt\":[1296.2208820099477,1426.087262982037,1390.9172959974967,1773.8521860155743],\"v\":63}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "55360fe134e5a5f8fe1b0152c1feb75c7bba5cc39563fc6fb81ae5abd54b10d5",
+      "image_sha256": [
+        "5a8f4bfaede10b781f4280608eca5888fdf2f464c77e23d719d24d884f61e239"
+      ],
+      "answer": "{\"v\":63,\"a\":[[\"d58\",\"d\",15532,15682],[\"j60\",\"j\",16068,16218]]}",
+      "metadata": {
+        "request_id": "c59383feba4a49e5a30f2ff25631fc4d",
+        "latency_s": 1.8846556839998811,
+        "ttft_s": 1.6977650980115868,
+        "usage": {
+          "input_tokens": 1217,
+          "input_tokens_details": {
+            "cache_write_tokens": 1214,
+            "cached_tokens": 0
+          },
+          "output_tokens": 160,
+          "output_tokens_details": {
+            "reasoning_tokens": 102
+          },
+          "total_tokens": 1377
+        },
+        "cost_usd": 0.027846,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3643,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.6979013180243783,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 1.8900027498602867e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.852533005992882,
+        "live_commentary": true,
+        "commentary": "Queued the higher d and j notes; lower notes are too close to arrival.",
+        "commentary_ready_s": 1.7693409729981795,
+        "raw_output": "{\"v\":63,\"a\":[[\"d58\",\"d\",15532,15682],[\"j60\",\"j\",16068,16218]]}\n{\"comment\":\"Queued the higher d and j notes; lower notes are too close to arrival.\"}",
+        "pre_http_s": 0.02067006897414103,
+        "settlement_s": 0.010194379021413624,
+        "total_provider_s": 1.9157687419792637
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 15,
+      "source_version": 67,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[15212.803955078125,15212.803955078125]],\"now\":15302.699999988079,\"p\":[],\"ack\":[{\"id\":\"k56\",\"status\":\"admitted\",\"key\":\"k\",\"at_ms\":15004},{\"id\":\"k56\",\"status\":\"executed\",\"key\":\"k\",\"at_ms\":15004,\"actual_ms\":15077}],\"rtt\":[1898.5389969893731,1718.8142810191493,1981.6738209920004,1625.7884679944254],\"v\":67}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "b3cb7b5b800fcd3612f9d438e192a2119e5fa768e2ea24fbe47fd2a414e2f003",
+      "image_sha256": [
+        "8e829515d8199c5e90f657d9ed2f70df1ad732aab340a0c8822bb502f438b334"
+      ],
+      "answer": "{\"v\":67,\"a\":[[\"f62\",\"f\",16597,16747]]}",
+      "metadata": {
+        "request_id": "3e7d45cae8944819943e83fc13b11714",
+        "latency_s": 1.7695020230021328,
+        "ttft_s": 1.6560153620084748,
+        "usage": {
+          "input_tokens": 1226,
+          "input_tokens_details": {
+            "cache_write_tokens": 1223,
+            "cached_tokens": 0
+          },
+          "output_tokens": 155,
+          "output_tokens_details": {
+            "reasoning_tokens": 109
+          },
+          "total_tokens": 1381
+        },
+        "cost_usd": 0.027681,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3673,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.6561450920416974,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.029992174357176e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.7299741060123779,
+        "live_commentary": true,
+        "commentary": "The upper f note has the most lead time; lower notes are too close.",
+        "commentary_ready_s": 1.6562028220505454,
+        "raw_output": "{\"v\":67,\"a\":[[\"f62\",\"f\",16597,16747]]}\n{\"comment\":\"The upper f note has the most lead time; lower notes are too close.\"}",
+        "pre_http_s": 0.03118356695631519,
+        "settlement_s": 0.011702799005433917,
+        "total_provider_s": 1.812683399009984
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 16,
+      "source_version": 72,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[16246.095947265625,16246.095947265625]],\"now\":16289.199999988079,\"p\":[],\"ack\":[{\"id\":\"j60\",\"status\":\"executed\",\"key\":\"j\",\"at_ms\":16068,\"actual_ms\":16069},{\"id\":\"j60\",\"status\":\"rejected\",\"key\":\"j\",\"at_ms\":16064}],\"rtt\":[2007.446928997524,1911.9371960114222,1517.0299960009288,1302.7243819960859],\"v\":72}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "ed7c5bcc0c091f493922e07d68e06162b898cb017541be2c1a272946d0cf507f",
+      "image_sha256": [
+        "87eb026d2da17dc3e5182a4fe1559f8106c9a9b4e18ae48bdba6eeaec431f333"
+      ],
+      "answer": "{\"v\":72,\"a\":[[\"d66\",\"d\",17660,17810]]}",
+      "metadata": {
+        "request_id": "74f6266345d54665a2fca3456cd988d1",
+        "latency_s": 2.1369759240187705,
+        "ttft_s": 1.9287782110041007,
+        "usage": {
+          "input_tokens": 1225,
+          "input_tokens_details": {
+            "cache_write_tokens": 1222,
+            "cached_tokens": 0
+          },
+          "output_tokens": 144,
+          "output_tokens_details": {
+            "reasoning_tokens": 98
+          },
+          "total_tokens": 1369
+        },
+        "cost_usd": 0.027006,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3672,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.9288985210005194,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 1.8599675968289375e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.9895110559882596,
+        "live_commentary": true,
+        "commentary": "The top left-lane note has usable lead; lower notes are too close.",
+        "commentary_ready_s": 1.9289416210376658,
+        "raw_output": "{\"v\":72,\"a\":[[\"d66\",\"d\",17660,17810]]}\n{\"comment\":\"The top left-lane note has usable lead; lower notes are too close.\"}",
+        "pre_http_s": 0.021800677990540862,
+        "settlement_s": 0.01185313001042232,
+        "total_provider_s": 2.1708922010147944
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 17,
+      "source_version": 76,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[17046.06298828125,17046.06298828125]],\"now\":17068.5,\"p\":[[\"j64\",\"j\",17131,17281]],\"ack\":[{\"id\":\"f62\",\"status\":\"rejected\",\"key\":\"f\",\"at_ms\":16598},{\"id\":\"j64\",\"status\":\"admitted\",\"key\":\"j\",\"at_ms\":17131}],\"rtt\":[1252.6332459819969,1694.9281329871155,1450.701150984969,1143.2322150212713],\"v\":76}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "7687cd888d478280f091746d0d079b59621155af0fcfc81502ace5fd88b3af7b",
+      "image_sha256": [
+        "f12791205019ac3dfbdce0fe74993beda94f4ced510f0f461d6765ddbf4fa667"
+      ],
+      "answer": "{\"v\":76,\"a\":[]}",
+      "metadata": {
+        "request_id": "1d82a2d204694d7cb86563c55855974b",
+        "latency_s": 1.8044027509749867,
+        "ttft_s": 1.706875207950361,
+        "usage": {
+          "input_tokens": 1228,
+          "input_tokens_details": {
+            "cache_write_tokens": 1225,
+            "cached_tokens": 0
+          },
+          "output_tokens": 100,
+          "output_tokens_details": {
+            "reasoning_tokens": 65
+          },
+          "total_tokens": 1328
+        },
+        "cost_usd": 0.024411,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3664,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.7069657079991885,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 1.909967977553606e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.7523880449589342,
+        "live_commentary": true,
+        "commentary": "The j note is already queued; the d note is too near for reliable delivery.",
+        "commentary_ready_s": 1.7070039579994045,
+        "raw_output": "{\"v\":76,\"a\":[]}\n{\"comment\":\"The j note is already queued; the d note is too near for reliable delivery.\"}",
+        "pre_http_s": 0.01958203804679215,
+        "settlement_s": 0.011570899048820138,
+        "total_provider_s": 1.8357775880140252
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 18,
+      "source_version": 81,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[18046.02392578125,18046.02392578125]],\"now\":18067.69999998808,\"p\":[],\"ack\":[{\"id\":\"d66\",\"status\":\"expired_before_admission\",\"key\":\"d\",\"at_ms\":17660},{\"id\":\"d66\",\"status\":\"idempotent_id\",\"key\":\"d\",\"at_ms\":17660}],\"rtt\":[1902.681676991051,1539.5547740045004,1940.4383539804257,1735.0384699821007],\"v\":81}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "951560d9d073b3c1bc74fafa4787fac17f918432a9babf69657c23262b6f9357",
+      "image_sha256": [
+        "84605e0d106d5ba7209706bf21caca8f8aecb80c4c0d05c0ab9b495fa7469c85"
+      ],
+      "answer": "{\"v\":81,\"a\":[]}",
+      "metadata": {
+        "request_id": "50065bbc4f9f49a9bbf27d5c9f680f64",
+        "latency_s": 1.033342780021485,
+        "ttft_s": 0.923630208009854,
+        "usage": {
+          "input_tokens": 1223,
+          "input_tokens_details": {
+            "cache_write_tokens": 1220,
+            "cached_tokens": 0
+          },
+          "output_tokens": 28,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 1251
+        },
+        "cost_usd": 0.020016,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3672,
+        "counted_image_certificate": true,
+        "action_ready_s": 0.9237626980175264,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.260028850287199e-06,
+        "action_delivered": true,
+        "completion_event_s": 0.9708805850241333,
+        "live_commentary": true,
+        "commentary": "No visible notes remain above the receptors; no taps scheduled.",
+        "commentary_ready_s": 0.9238039780175313,
+        "raw_output": "{\"v\":81,\"a\":[]}\n{\"comment\":\"No visible notes remain above the receptors; no taps scheduled.\"}",
+        "pre_http_s": 0.01926214899867773,
+        "settlement_s": 0.01184058905346319,
+        "total_provider_s": 1.0647188180009834
+      },
+      "schema_valid": true
+    },
+    {
+      "index": 19,
+      "source_version": 85,
+      "prompt": "Play screenshots oldest first; lanes left-right d,f,j,k. Use memory for reasoning and strategy. f=capture [start,end] ms; now=external monotonic ms; p=pending [id,key,at,expiry]; ack=raw receipts; rtt=raw request ms; v=request version. Return JSON {\"v\":v,\"a\":[[id,key,at_ms,expires_ms]]}, at most 12 rows; one when appropriate, [] otherwise. Times are literal: executor never corrects them. No scripts, expressions or conditions.\nMODEL_AUTHORED_MEMORY:\nv21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed\u2248.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.\nMatch p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.\nRead all clear unplanned notes,especially TOP;\u226412. 16 actors/200ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp\u2248at+150;don't widen blindly.\nInput: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.\nONLY JSON {\"v\":v,\"a\":[[id,key,at,exp],...]};\u226412 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0\u2264at\u2264exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.\nTIMING CLARIFICATION (overrides the earlier uncorrected capture-time formula): The screenshot marked timestamp is approximately 50 ms later than the time when its visible notes were drawn. Estimate note arrival using image_content_time = marked_capture_time - 50 ms, then add remaining_vertical_distance / estimated_vertical_speed. Account for this yourself when writing literal action times; the executor applies no correction. This is an approximate visual timing calibration, not API RTT compensation. Preserve the existing ID, pending-plan and receipt rules.\n\nOBSERVATION:\n{\"f\":[[18862.657958984375,18862.657958984375]],\"now\":18904.79999998212,\"p\":[],\"ack\":[{\"id\":\"j64\",\"status\":\"rejected\",\"key\":\"j\",\"at_ms\":17123},{\"id\":\"d66\",\"status\":\"rejected\",\"key\":\"d\",\"at_ms\":17656}],\"rtt\":[1334.8272800212726,1385.664817003999,1102.5977270037401,2117.8003909881227],\"v\":85}\nOUTPUT FORMAT OVERRIDE (also overrides older ONLY clauses in model_memory):\nIn this SAME response, emit exactly two JSON records separated by a newline.\nFIRST: the unchanged requested action JSON. Finish it before writing anything else.\nSECOND: {\"comment\":\"one brief English public explanation, at most 80 characters\"}.\nExplain visible evidence and the action choice briefly, including when choosing no taps.\nNo step-by-step derivation or private chain of thought. No new commands in the comment.\nNo Markdown or extra records. The complete first record is dispatched immediately;\nthe comment is displayed live separately and never changes any action or time.\n",
+      "prompt_sha256": "924f7d8106faea330d4de07147945408aa715a099b02013ebd67249d98c79333",
+      "image_sha256": [
+        "9f1e5f26e45264e3ba89cf284174bb20a45d48ca31fff925654703608f9f1910"
+      ],
+      "answer": "{\"v\":85,\"a\":[]}",
+      "metadata": {
+        "request_id": "4ea8cb58ccd2451cbc62475961542b0a",
+        "latency_s": 1.1676652590394951,
+        "ttft_s": 1.111595444031991,
+        "usage": {
+          "input_tokens": 1219,
+          "input_tokens_details": {
+            "cache_write_tokens": 1216,
+            "cached_tokens": 0
+          },
+          "output_tokens": 28,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 1247
+        },
+        "cost_usd": 0.019956,
+        "phase": "profiling",
+        "model": "gpt-6.1-sol",
+        "tier": "ultrafast",
+        "detail": "high",
+        "effort": "low",
+        "max_output_tokens": 512,
+        "reserved_input_bound": 3653,
+        "counted_image_certificate": true,
+        "action_ready_s": 1.1117377530317754,
+        "delivery_stage": "json_complete_delta",
+        "action_callback_s": 2.610962837934494e-06,
+        "action_delivered": true,
+        "completion_event_s": 1.1583774400060065,
+        "live_commentary": true,
+        "commentary": "No visible notes remain above the receptors; no taps scheduled.",
+        "commentary_ready_s": 1.1117821329971775,
+        "raw_output": "{\"v\":85,\"a\":[]}\n{\"comment\":\"No visible notes remain above the receptors; no taps scheduled.\"}",
+        "pre_http_s": 0.019649247988127172,
+        "settlement_s": 0.011035678966436535,
+        "total_provider_s": 1.1987010660232045
+      },
+      "schema_valid": true
+    }
+  ],
+  "limits": [
+    "20 samples cannot establish a stable tail or concurrent-load guarantee.",
+    "Saved public inputs vary in content; no game action is submitted."
+  ],
+  "summary": {
+    "action_ready_s": {
+      "n": 20,
+      "min_s": 0.9237626980175264,
+      "median_s": 1.6286086039908696,
+      "mean_s": 1.6139625810057623,
+      "sd_s": 0.44534952089767904,
+      "variance_s2": 0.19833619576379224,
+      "p95_s": 2.1277829258935532,
+      "max_s": 3.136339707998559,
+      "below_1p8": 16,
+      "at_or_above_1p8": 4
+    },
+    "latency_s": {
+      "n": 20,
+      "min_s": 1.033342780021485,
+      "median_s": 1.7653331340115983,
+      "mean_s": 1.7398863508511568,
+      "sd_s": 0.4785805044389592,
+      "variance_s2": 0.22903929922904864,
+      "p95_s": 2.226769505284029,
+      "max_s": 3.3646899799932726,
+      "below_1p8": 13,
+      "at_or_above_1p8": 7
+    },
+    "ttft_s": {
+      "n": 20,
+      "min_s": 0.923630208009854,
+      "median_s": 1.628446819493547,
+      "mean_s": 1.6137718491023407,
+      "sd_s": 0.44532727376420866,
+      "variance_s2": 0.19831638075826244,
+      "p95_s": 2.1275948053167673,
+      "max_s": 3.1360801180126145,
+      "below_1p8": 17,
+      "at_or_above_1p8": 3
+    },
+    "total_provider_s": {
+      "n": 20,
+      "min_s": 1.0647188180009834,
+      "median_s": 1.8018756409874186,
+      "mean_s": 1.7735883821937022,
+      "sd_s": 0.47930995177379276,
+      "variance_s2": 0.22973802986939554,
+      "p95_s": 2.2585543188499297,
+      "max_s": 3.3984224179876037,
+      "below_1p8": 10,
+      "at_or_above_1p8": 10
+    }
+  },
+  "cost_usd": 0.504135,
+  "reasoning_tokens": [
+    0,
+    35,
+    92,
+    131,
+    125,
+    58,
+    95,
+    109,
+    60,
+    0,
+    37,
+    116,
+    91,
+    87,
+    102,
+    109,
+    98,
+    65,
+    0,
+    0
+  ],
+  "schema_valid_count": 20
+}

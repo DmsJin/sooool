@@ -16,12 +16,14 @@ ROOT=Path(__file__).resolve().parents[2]
 
 class ModelVisualEnv:
     def __init__(self,url,*,virtual=False,browser_executable=None,audio_path=None,
-                 chart_path=None,record_video_dir=None,clock_offset_ms=10000,sensor='screencast'):
+                 chart_path=None,record_video_dir=None,clock_offset_ms=10000,sensor='screencast',record_sensor_dir=None):
         self.url,self.virtual=url,virtual
         self.browser_executable,self.audio_path=browser_executable,audio_path
         self.chart_path=Path(chart_path) if chart_path else None
         self.record_video_dir=Path(record_video_dir) if record_video_dir else None
         self.clock_offset_ms=clock_offset_ms
+        self.record_sensor_dir=Path(record_sensor_dir) if record_sensor_dir else None
+        self._recorded_sensor_frames=[]
         self.video_path=None
         self._pw=self._browser=self._page=None
         if sensor not in ('screencast','capture'):raise ValueError('Unknown pixel sensor')
@@ -48,10 +50,14 @@ class ModelVisualEnv:
             payload=self.chart_path.read_bytes()
             await self._page.route('**/chart.json',lambda route:route.fulfill(body=payload,content_type='application/json'))
         if self.virtual:
+            duration=json.loads(self.chart_path.read_text())['duration'] if self.chart_path else 30.001
+            await self._page.add_init_script('globalThis.__MODEL_SIM_DURATION_S__='+str(duration))
             await self._page.route('**/AudioPreview*/**',lambda route:route.abort())
             await self._page.add_init_script('globalThis.__MODEL_SIM_OFFSET_MS__='+str(self.clock_offset_ms)+';\n'+(ROOT/'dist/model-sim-clock.js').read_text())
         await self._page.add_init_script((ROOT/'dist/model-executor.js').read_text())
         await self._page.goto(self.url,wait_until='domcontentloaded')
+        # Load bundled CJK glyphs before any recording/model observation.
+        await self._page.evaluate('document.fonts.ready.then(()=>true)')
         await self._page.wait_for_function('!!window.__modelExecutor && !!window.rhythmDebug',polling=20)
         if self.audio_path:
             value='data:audio/mp4;base64,'+base64.b64encode(Path(self.audio_path).read_bytes()).decode()
@@ -77,6 +83,7 @@ class ModelVisualEnv:
         self._latest_frame={'png':base64.b64decode(event['data']),
             'capture_start_ms':frame_ms,'capture_end_ms':frame_ms,
             'raw_frame_timestamp_epoch_s':timestamp,'time_origin_ms':self._time_origin_ms}
+        if self.record_sensor_dir:self._recorded_sensor_frames.append(self._latest_frame)
         self._first_frame.set()
     async def _ack_frame(self,session_id):
         try:await self._cdp.send('Page.screencastFrameAck',{'sessionId':session_id})
@@ -95,6 +102,17 @@ class ModelVisualEnv:
             self.video_path=str(await video.path())
         if self._browser:await self._browser.close()
         if self._pw:await self._pw.stop()
+        if self.record_sensor_dir:
+            await asyncio.to_thread(self._save_sensor_frames)
+    def _save_sensor_frames(self):
+        self.record_sensor_dir.mkdir(parents=True,exist_ok=True)
+        metadata=[]
+        for i,frame in enumerate(self._recorded_sensor_frames):
+            name=f'frame-{i:05d}.png'
+            (self.record_sensor_dir/name).write_bytes(frame['png'])
+            metadata.append({**{k:v for k,v in frame.items() if k!='png'},'file':name})
+        (self.record_sensor_dir/'frames.json').write_text(json.dumps(metadata))
+        self._recorded_sensor_frames.clear()
     async def start(self):
         await self._page.locator('#start').click(force=True)
         await self._page.wait_for_function("document.body.dataset.state==='playing'",polling=20,timeout=30000)

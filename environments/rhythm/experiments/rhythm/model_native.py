@@ -16,6 +16,11 @@ async def run(args,key):
  from . import model_compact_policy,model_lean_policy
  policy=model_lean_policy if getattr(args,'lean',False) else model_compact_policy if getattr(args,'compact',False) else None
  make_prompt,parse_plan=(policy.prompt,policy.parse) if policy else (prompt,parse)
+ live_commentary=getattr(args,'live_commentary',False)
+ if live_commentary:
+  from .model_commentary import prompt as with_commentary
+  base_prompt=make_prompt
+  make_prompt=lambda context:with_commentary(base_prompt(context),getattr(args,'commentary_language','zh'))
  root=Path(args.run_root).resolve();out=root/'model-timing'/args.name
  out.mkdir(parents=True,exist_ok=False)
  memory=Path(args.memory).read_text() if args.memory else ''
@@ -28,7 +33,7 @@ async def run(args,key):
   if frozen:
    if args.duration != frozen['acceptance']['duration_s']:raise ValueError('Frozen duration differs')
    if args.max_miss != frozen['acceptance']['max_miss']:raise ValueError('Frozen acceptance differs')
-   if any(getattr(args,k)!=v for k,v in frozen['runtime'].items()):raise ValueError('Frozen runtime configuration differs')
+   if any((getattr(args,k,True) if k in ('early_actions','live_commentary') else getattr(args,k))!=v for k,v in frozen['runtime'].items()):raise ValueError('Frozen runtime configuration differs')
    if hashlib.sha256(memory.encode()).hexdigest()!=frozen['memory_sha256']:raise ValueError('Frozen memory changed')
    if frozen.get('image_token_certificate_sha256'):
     if hashlib.sha256(Path(args.image_token_certificate).read_bytes()).hexdigest()!=frozen['image_token_certificate_sha256']:raise ValueError('Frozen financial certificate changed')
@@ -41,20 +46,32 @@ async def run(args,key):
  async def decide(context,images,framepaths):
   row={'version':context['request_version'],'observation':{k:v for k,v in context.items() if k!='frames'},'frames':framepaths,'frame_metadata':[{k:v for k,v in f.items() if k!='png'} for f in context['frames']],'prompt':make_prompt(context)}
   try:
-   answer,metadata=await provider.act(row['prompt'],images)
+   async def deliver(answer,delivery):
+    # Validation only. All identifiers, tap times and expiry values remain
+    # precisely the model's literals, including any mistakes.
+    plan=parse_plan(answer)
+    row.update(answer=answer,plan=plan,action_delivery=delivery)
+    row['receipt']=await env.apply(plan)
+    rtts.append(delivery['action_ready_s']*1000)
+   async def explain(text,timing):
+    row['commentary']={'text':text,'received_ms':await env.public_clock_ms(),**timing}
+   answer,metadata=await provider.act(row['prompt'],images,
+    on_action=deliver if getattr(args,'early_actions',True) else None,action_validator=parse_plan,
+    on_commentary=explain if live_commentary else None,live_commentary=live_commentary)
    row.update(answer=answer,metadata=metadata)
-   rtts.append(metadata['latency_s']*1000)
-   plan=parse_plan(answer);row['plan']=plan
-   # No interpreter computes, clamps, or repairs command timestamps.
-   row['receipt']=await env.apply(plan)
+   if 'receipt' not in row:
+    plan=parse_plan(answer);row['plan']=plan
+    row['receipt']=await env.apply(plan)
+    rtts.append(metadata['latency_s']*1000)
   except Exception as error:row['error']=type(error).__name__+': '+str(error)[:200]
   rows.append(row)
   with (out/'requests.jsonl').open('a') as f:f.write(json.dumps(row)+'\n')
  try:
-  async with ModelVisualEnv(args.url,browser_executable=args.browser_executable,audio_path=args.audio,chart_path=args.chart,record_video_dir=None) as env:
+  async with ModelVisualEnv(args.url,browser_executable=args.browser_executable,audio_path=args.audio,chart_path=args.chart,record_video_dir=None,record_sensor_dir=out/'display-frames' if getattr(args,'record_frames',False) else None) as env:
    await env.start();start=time.monotonic();next_capture=start
    diagnostics=[await env.trusted_clock_diagnostic()];next_diagnostic=start+5
    while time.monotonic()-start<args.duration+.05:
+    if getattr(provider,'authentication_failed',False):break
     now=time.monotonic()
     if now<next_capture:await asyncio.sleep(min(.02,next_capture-now));continue
     next_capture=now+args.cadence
@@ -63,7 +80,7 @@ async def run(args,key):
     frame=await env.capture();version+=1
     framepath=f'obs-{version:04d}.png';(out/framepath).write_bytes(frame['png'])
     frames.append((frame,framepath));frames=frames[-args.frames:]
-    if len(tasks)>=args.concurrency:continue
+    if len(tasks)>=args.concurrency or len(rows)+len(tasks)>=getattr(args,"max_calls",1000000):continue
     snapshot=await env.snapshot(receipt_cursor)
     receipt_cursor=snapshot['cursor'];receipt_tail.extend(snapshot['rawacks'])
     snapshot['rawacks']=list(receipt_tail)
@@ -89,6 +106,10 @@ if __name__=='__main__':
  p=argparse.ArgumentParser(description=__doc__)
  p.add_argument('--url',required=True);p.add_argument('--run-root',required=True);p.add_argument('--name',required=True)
  p.add_argument('--lean',action='store_true');p.add_argument('--compact',action='store_true');p.add_argument('--freeze');p.add_argument('--memory');p.add_argument('--chart');p.add_argument('--audio');p.add_argument('--browser-executable');p.add_argument('--image-token-certificate')
+ p.add_argument('--record-frames',action='store_true',help='Keep all compositor frames independently of model observation cadence')
+ p.add_argument('--commentary-language',choices=('zh','en'),default='zh')
+ p.add_argument('--live-commentary',action='store_true',help='Emit action then a brief public explanation in the same streamed response')
+ p.add_argument('--wait-for-completion',dest='early_actions',action='store_false',help='Control: wait for the full stream and settlement before applying actions')
  p.add_argument('--cadence',type=float,default=.12);p.add_argument('--concurrency',type=int,default=20)
  p.add_argument('--frames',type=int,choices=(1,3),default=1);p.add_argument('--detail',choices=('low','high'),default='high')
  p.add_argument('--max-output',type=int,default=256)

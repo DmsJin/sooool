@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "run": "/home/zihan/papers/latency/sooool-realtime/runs/rhythm-portable-api-001",
+  "created_at_unix": 1792190165.631558,
+  "game": "rhythm",
+  "mode": "realtime_api",
+  "recipe": {
+    "policy": "v21",
+    "profile": "profiles/rhythm/selected-native-joint.json",
+    "memory": "policies/rhythm/v21/memory.txt",
+    "chart": "policies/rhythm/v21/chart.json",
+    "args": {
+      "outer": "minimal",
+      "candidate": "selected-v21",
+      "seed": 20261016,
+      "clock_offset_ms": 10000,
+      "ack_limit": 8,
+      "actors": 16,
+      "cadence": 0.2,
+      "frames": 1,
+      "max_requests": 90,
+      "duration": 17.0,
+      "lean": true,
+      "compact": true,
+      "hide_rtt": false,
+      "live_commentary": true,
+      "commentary_language": "en",
+      "content_timestamp_bias_ms": 50
+    },
+    "api": {
+      "cadence": 0.2,
+      "concurrency": 16,
+      "frames": 1,
+      "detail": "high",
+      "max_output": 512,
+      "duration": 17.0,
+      "lean": true,
+      "compact": true,
+      "early_actions": true,
+      "live_commentary": true,
+      "commentary_language": "en",
+      "record_frames": true,
+      "max_miss": 0
+    },
+    "environment": {
+      "approach_s": 2.5,
+      "speed": 1,
+      "note_count": 25
+    },
+    "hypothesis": "A2.5s visual approach gives literal model plans more delivery slack while preserving1x audio and judgment windows.",
+    "parent_record": "native-avsync200-english17-1"
+  },
+  "manifest_sha256": "3c0825fdf30edeaa91915d0ab5edab3d978fd0c2db2fe790151e340d0e2cbf96",
+  "summary": null,
+  "status": "interrupted",
+  "performance_is_independently_confirmed": false,
+  "record_id": "rhythm-portable-api-001",
+  "policy": "v21",
+  "accounting": {
+    "calls": 32,
+    "all_settled": false,
+    "cost_usd": 0.0,
+    "committed_usd": 75.782038,
+    "remaining_usd": 4.217962,
+    "old_uncertain_reservations_retained": true
+  },
+  "hypothesis": "A2.5s visual approach gives literal model plans more delivery slack while preserving1x audio and judgment windows.",
+  "parent_record": "native-avsync200-english17-1",
+  "outcome": null,
+  "complete": false,
+  "passed": false,
+  "real_time_api_acceptance": false
+}

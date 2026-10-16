@@ -1,21 +1,46 @@
 {
-  "policy": "v19",
-  "profile": "profiles/rhythm/native-v17-joint-profile.json",
-  "memory": "policies/rhythm/v19/memory.txt",
-  "chart": "policies/rhythm/v19/chart.json",
+  "policy": "v21",
+  "profile": "profiles/rhythm/selected-native-joint.json",
+  "memory": "policies/rhythm/v21/memory.txt",
+  "chart": "policies/rhythm/v21/chart.json",
   "args": {
     "outer": "minimal",
-    "candidate": "packaged-v19",
-    "seed": 79,
+    "candidate": "selected-v21",
+    "seed": 20261016,
     "clock_offset_ms": 10000,
     "ack_limit": 8,
-    "actors": 12,
-    "cadence": 0.14,
+    "actors": 16,
+    "cadence": 0.2,
     "frames": 1,
-    "max_requests": 400,
-    "duration": 30.001,
+    "max_requests": 90,
+    "duration": 17.0,
     "lean": true,
-    "compact": false,
-    "hide_rtt": false
-  }
+    "compact": true,
+    "hide_rtt": false,
+    "live_commentary": true,
+    "commentary_language": "en",
+    "content_timestamp_bias_ms": 50
+  },
+  "api": {
+    "cadence": 0.2,
+    "concurrency": 16,
+    "frames": 1,
+    "detail": "high",
+    "max_output": 512,
+    "duration": 17.0,
+    "lean": true,
+    "compact": true,
+    "early_actions": true,
+    "live_commentary": true,
+    "commentary_language": "en",
+    "record_frames": true,
+    "max_miss": 0
+  },
+  "environment": {
+    "approach_s": 2.5,
+    "speed": 1,
+    "note_count": 25
+  },
+  "hypothesis": "A2.5s visual approach gives literal model plans more delivery slack while preserving1x audio and judgment windows.",
+  "parent_record": "native-avsync200-english17-1"
 }

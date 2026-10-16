@@ -1,0 +1,221 @@
+{
+  "method": "Trusted postrun sequential matching to stable median audio clock; estimates near boundaries may differ from actual browser judgment",
+  "actions": [
+    {
+      "id": "k17",
+      "key": "k",
+      "song_s": 2.26340249999702,
+      "note_s": 2.372921,
+      "delta_ms": -109.51850000297992,
+      "estimated_status": "great"
+    },
+    {
+      "id": "k18",
+      "key": "k",
+      "song_s": 2.3739024999970195,
+      "note_s": null,
+      "delta_ms": null,
+      "estimated_status": "empty"
+    },
+    {
+      "id": "f20",
+      "key": "f",
+      "song_s": 2.9033025000029804,
+      "note_s": 2.903894,
+      "delta_ms": -0.5914999970197954,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "f22",
+      "key": "f",
+      "song_s": 3.4378025000029804,
+      "note_s": 3.434867,
+      "delta_ms": 2.9355000029802625,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "k24",
+      "key": "k",
+      "song_s": 3.9658025000029804,
+      "note_s": 3.965841,
+      "delta_ms": -0.038499997019769694,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "j26",
+      "key": "j",
+      "song_s": 4.49390249999702,
+      "note_s": 4.496814,
+      "delta_ms": -2.9115000029795723,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "f28",
+      "key": "f",
+      "song_s": 5.02840249999702,
+      "note_s": 5.027788,
+      "delta_ms": 0.6144999970194576,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "d30",
+      "key": "d",
+      "song_s": 5.559702500008941,
+      "note_s": 5.558761,
+      "delta_ms": 0.9415000089409986,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "k33",
+      "key": "k",
+      "song_s": 6.34980250000298,
+      "note_s": 6.355221,
+      "delta_ms": -5.418499997020376,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "j34",
+      "key": "j",
+      "song_s": 6.61790249999702,
+      "note_s": 6.620708,
+      "delta_ms": -2.805500002979855,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "d36",
+      "key": "d",
+      "song_s": 7.17630250000298,
+      "note_s": 7.151682,
+      "delta_ms": 24.620500002979995,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "f36",
+      "key": "f",
+      "song_s": 7.17690249999702,
+      "note_s": null,
+      "delta_ms": null,
+      "estimated_status": "empty"
+    },
+    {
+      "id": "k39",
+      "key": "k",
+      "song_s": 7.94330250000298,
+      "note_s": 7.948142,
+      "delta_ms": -4.839499997019381,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "j40",
+      "key": "j",
+      "song_s": 8.21390249999702,
+      "note_s": 8.213629,
+      "delta_ms": 0.27349999702153127,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "d48",
+      "key": "d",
+      "song_s": 10.337902499997021,
+      "note_s": 10.337522,
+      "delta_ms": 0.3804999970213885,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "f50",
+      "key": "f",
+      "song_s": 10.869902499997021,
+      "note_s": 10.868496,
+      "delta_ms": 1.4064999970209158,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "f52",
+      "key": "f",
+      "song_s": 11.40200249999106,
+      "note_s": 11.399469,
+      "delta_ms": 2.5334999910597844,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "d53",
+      "key": "d",
+      "song_s": 11.66590249999702,
+      "note_s": 11.664956,
+      "delta_ms": 0.9464999970205668,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "f54",
+      "key": "f",
+      "song_s": 11.93400249999106,
+      "note_s": 11.930443,
+      "delta_ms": 3.5594999910593117,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "k56",
+      "key": "k",
+      "song_s": 12.465902499997021,
+      "note_s": 12.461416,
+      "delta_ms": 4.4864999970215536,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "d57",
+      "key": "d",
+      "song_s": 12.728702500008941,
+      "note_s": 12.726903,
+      "delta_ms": 1.799500008941024,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "k58",
+      "key": "k",
+      "song_s": 12.9926024999851,
+      "note_s": 12.99239,
+      "delta_ms": 0.21249998509986767,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "d60",
+      "key": "d",
+      "song_s": 13.52600249999106,
+      "note_s": 13.523363,
+      "delta_ms": 2.63949999106039,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "j62",
+      "key": "j",
+      "song_s": 14.05400249999106,
+      "note_s": 14.054336,
+      "delta_ms": -0.3335000089386142,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "f64",
+      "key": "f",
+      "song_s": 14.58590249999702,
+      "note_s": 14.58531,
+      "delta_ms": 0.5924999970208233,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "j66",
+      "key": "j",
+      "song_s": 15.113902499997021,
+      "note_s": 15.116283,
+      "delta_ms": -2.380500002978181,
+      "estimated_status": "perfect"
+    },
+    {
+      "id": "d68",
+      "key": "d",
+      "song_s": 15.6461024999851,
+      "note_s": 15.647257,
+      "delta_ms": -1.1545000149002504,
+      "estimated_status": "perfect"
+    }
+  ]
+}

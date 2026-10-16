@@ -1,0 +1,8 @@
+{
+  "calls": 32,
+  "all_settled": false,
+  "cost_usd": 0.0,
+  "committed_usd": 75.782038,
+  "remaining_usd": 4.217962,
+  "old_uncertain_reservations_retained": true
+}

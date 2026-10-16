@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "model": "gpt-6.1-sol",
+  "detail": "high",
+  "width": 390,
+  "height": 844,
+  "framed_image_input_tokens": 428,
+  "count_request_sha256": "72d493e6477d660555a5e5b2addafa7ff67bcb2b6c1ff8e261608bba2bd1103f",
+  "image_sha256": "f6af730086e445e701ee51bb77837b80c99db50fce4e7a88a91e5df57c435114",
+  "response_object": "response.input_tokens",
+  "billing": "full_uncertain_reservation_retained",
+  "ledger_request_id": "3718bf621b764c26b9e76afea767e0df",
+  "reserved_micros": 184320,
+  "reference": "https://developers.openai.com/api/docs/guides/token-counting"
+}

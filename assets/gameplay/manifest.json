@@ -6,18 +6,18 @@
   "clips": [
     {
       "game": "rhythm",
-      "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-autoresearch-evidence/native-api-episode-03.webm",
-      "start_seconds": 23,
+      "source": "assets/gameplay/rhythm.mp4",
+      "start_seconds": 2,
       "duration_seconds": 8,
-      "width": 240,
-      "fps": 15,
+      "width": 640,
+      "fps": 12,
       "crop": null,
-      "mode": "Native browser/audio API capture, 1x; episode 03. GIF is silent.",
-      "source_sha256": "2f0be47d10cfcb17ab9274d12a8b1934b5d441f3b1db9a8ed552a28d98ac914d",
-      "gif_sha256": "1bc8e11ee6e3a3f4ac841aced73d12648c9d97839ee3b4646142ee794d589f8e",
-      "bytes": 3439200,
-      "public_decision_summary_visible": false,
-      "decision_summary_video_status": "pending; current clip is gameplay only"
+      "mode": "Selected literal-time native API17s;2.5s approach;24P/1Great/0Miss/2empty;continuous compositor capture plus original remuxed audio",
+      "source_sha256": "e9db3acfb10b41b56c40e85eec06a20d7a3c27f99557c32f179483f0e405dec0",
+      "gif_sha256": "1ae8117f90674ebb5ce0f6253c6fd21c698c1aaf0780700afcae1b53623983e1",
+      "bytes": 1199179,
+      "public_decision_summary_visible": true,
+      "decision_summary_video_status": "Original English same-response public explanations visible"
     },
     {
       "game": "touhou",
