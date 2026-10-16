@@ -16,7 +16,7 @@ The gameplay decisions come from GPT-SOL on each turn. The surrounding code hand
 </tr>
 <tr>
 <td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-SOL choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
-<td width="50%" align="center"><a href="assets/gameplay/pingpong.mp4"><img src="assets/gameplay/pingpong.gif" alt="Robot arm playing a point from GPT-SOL's recorded table-tennis API match" width="440"></a><br><b>PingPong</b> · API match replay · S=10 · Gameplay only</td>
+<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-SOL playing table tennis with both camera views and live public decision summaries" width="440"></a><br><b>PingPong</b> · Real-time API · 1×</td>
 </tr>
 </table>
 
@@ -31,11 +31,11 @@ You can watch GPT-SOL dodge a screen full of bullets, race a rival, collect food
 | **Touhou / Kaguya** | Dodge bullets. Defeat the boss. | Real-time API at 1×. GPT-SOL chooses movement, shooting, focus, bombs and duration. |
 | **Racing** | Find a line. Beat your rival. | Real-time API at 1×. GPT-SOL chooses speed and racing targets; a coded controller supplies steering. |
 | **Rhythm** | Hit the right key at the right time. | Native browser/audio API capture at 1×, with DFJK inputs. |
-| **PingPong** | Serve, return, win the point. | Replay from a recorded 5:2 API match at the official S=10 slowdown, using the native robot executor. |
+| **PingPong** | Serve, return, win the point. | Real-time API at 1×. GPT-SOL selects shot placement; rules handle serving and execution. [Setup](docs/tabletennis.md). |
 | **Badminton** | Place the shot. Recover for the next one. | Tactical goals with native mechanics; real-time API at S3. [Setup and control boundary](docs/badminton.md). |
 | **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | Historical delay simulation at 5× slowdown, with model actions applied unchanged. |
 
-The GIFs are continuous excerpts at their source playback speed. PingPong is a cropped spectator replay with point-review pauses omitted in the original export. Racing uses hybrid steering. Touhou, Racing and Asterix show original public decision summaries. Rhythm shows original English action-plus-commentary responses; its17s run has two empty presses and is not a full combo. PingPong currently shows gameplay only. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
+The GIFs are continuous excerpts at their source playback speed. Racing uses hybrid steering. Touhou, Racing, PingPong and Asterix show original public decision summaries. Rhythm shows original English action-plus-commentary responses; its 17s run has two empty presses and is not a full combo. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
 
 ## How it works
 
@@ -90,7 +90,7 @@ uv run sol eval touhou \
 
 Real-time Touhou evaluation requires an OpenAI API key, read from process memory or prompted without echo. The game keeps running while requests are in flight. The runner records inputs, public decision summaries, applied actions, timing, video and cost. The retained source-harness demo defeated Kaguya; fresh full-game paid validation of the portable launcher is pending. [Setup, budgets and timing](docs/realtime.md).
 
-Racing uses a separate environment and dependencies; PingPong is a research adapter. See the [Racing workflow](docs/racing.md), [PingPong research](research/in-progress/pingpong/README.md), [Badminton setup](docs/badminton.md), and [complete release guide](docs/release-guide.md) for their conditions and entrypoints.
+Racing and PingPong use separate native dependencies. See the [Racing workflow](docs/racing.md), [PingPong tactical setup](docs/tabletennis.md), [Badminton setup](docs/badminton.md), and [complete release guide](docs/release-guide.md) for their conditions and entrypoints.
 
 ## Make it play better
 
@@ -105,6 +105,7 @@ No model weights were trained for the selected Touhou policy. Its behavior was d
 - [Touhou research](docs/touhou-research-record.md): feedback, policy changes and the selected boss-defeat run.
 - [Racing experiments](research/racing/EVALUATION.md): candidate policies, full cohorts and transfer to real-time gameplay.
 - [Asterix experiments](docs/asterix-autoresearch.md): direct model actions and the selected serial policy.
+- [PingPong research](docs/tabletennis.md): tactical policies, asynchronous execution and actual API results.
 - [Evaluation records](docs/evaluation-records.md): conditions, replays and appended research decisions.
 
 ## Code

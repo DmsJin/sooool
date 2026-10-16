@@ -151,7 +151,24 @@ uv run sol eval rhythm --budget-usd 5 --max-calls 90 --output runs/rhythm-api-00
 uv run sol record runs/rhythm-api-001 --registry artifacts/rhythm/evaluations.jsonl
 ```
 
-[Rhythm workflow](rhythm.md) distinguishes fresh subscription simulation, serial API probes, continuously advancing API evaluation and saved evidence. The selected historical native case has24 Perfect,1 Great,zero Miss,two empty presses; it is near-perfect timing, not full combo. [Selected adopted lineage](rhythm-autoresearch.md) and machine-readable records explain changed conditions. Other games and unfinished PingPong research remain independently available.
+[Rhythm workflow](rhythm.md) distinguishes fresh subscription simulation, serial API probes, continuously advancing API evaluation and saved evidence. The selected historical native case has24 Perfect,1 Great,zero Miss,two empty presses; it is near-perfect timing, not full combo. [Selected adopted lineage](rhythm-autoresearch.md) and machine-readable records explain changed conditions. Other games remain independently available.
+
+## PingPong: asynchronous tactical control
+
+[PingPong setup and commands](tabletennis.md) describe the separate native runtime.
+Use `python scripts/tabletennis.py eval --source rules` for rule control and
+`--source api --model-workers 4 --slowdown 1` for actual GPT-6.1 Sol Low / Ultrafast
+strategy selection with explicit key-file and cumulative-budget arguments. The
+camera-only rule controller serves and executes joint motion; physics does not
+wait for either the API or the two native planning workers. `sol eval pingpong`
+and `sol report pingpong` route to this implementation.
+
+At L1/1x, seed 11 completed 5:1 (4/4 legal serves, 6/7 returns) and seed 12
+completed 3:5 (3/4 serves, 5/9 returns). The complete dual-view video includes
+public decision summaries and execution IDs. See [retained evidence](../artifacts/tabletennis/README.md).
+Earlier S=10 PingPong attempts remain in the research archive and are a different
+control/timing setup.
+
 
 ## Repository map
 

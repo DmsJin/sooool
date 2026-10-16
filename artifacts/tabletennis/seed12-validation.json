@@ -1,0 +1,1421 @@
+{
+  "run": "/home/ubuntu/lzj/sooool-pingpong-tactical/runs/tabletennis/api-ultrafast-rally-mw4-s1-seed12-001",
+  "config": {
+    "game": "tabletennis",
+    "action_level": "high",
+    "policy": "tactical-v1",
+    "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "subscription_service_tier": "priority",
+    "level": 1,
+    "seed": 12,
+    "slowdown": 1.0,
+    "duration": 300.0,
+    "observation_stride": 5,
+    "max_calls": 120,
+    "control": "SOL selects persistent shot policies over a continuous camera-only reference",
+    "source": "api",
+    "model_workers": 4,
+    "request_interval_s": 0.65,
+    "rules_policy": "safe_center",
+    "repository_revision": "bf6428147e4253a6eae1d3822eb87a8f492ac8e0",
+    "repository_revision_is_base": true,
+    "source_path": "/home/ubuntu/lzj/sooool-pingpong-tactical",
+    "environment_root": "/home/ubuntu/auto-research/deps/latency-bench/third_party/roboolympics",
+    "clock": "actual_wall_api",
+    "native_planner": "two-phase asynchronous native IK/trajectory + robot-only servo rehearsal",
+    "gpu_device": "2",
+    "catch_up_steps": 0,
+    "capture_stride": 5,
+    "max_output_tokens": 512,
+    "timeout_seconds": 60,
+    "api_budget_file": "/home/ubuntu/auto-research/outputs/api_budget.jsonl",
+    "api_limit_usd": 20.0,
+    "budget_scope": "tabletennis_realtime",
+    "budget_scope_limit_usd": 6.0,
+    "service_tier": "ultrafast"
+  },
+  "summary": {
+    "status": "completed",
+    "error": null,
+    "frames": 3604,
+    "native_planning_workers": 2,
+    "game_seconds": 36.04,
+    "gameplay_wall_seconds": 36.39045611600159,
+    "started_mono": 242914.167226094,
+    "ended_mono": 242950.55768221,
+    "invalid": 0,
+    "plans_installed": 19,
+    "plans_discarded": 18,
+    "clock": {
+      "requested_slowdown": 1.0,
+      "catch_up_steps": 0,
+      "physics_waits_for_model": false,
+      "physics_waits_for_preparation": false,
+      "tick_intervals_seconds": {
+        "count": 3603,
+        "min": 0.010010210011387244,
+        "mean": 0.010096640981399512,
+        "p95": 0.010076639999169856,
+        "max": 0.027908590011065826
+      },
+      "step_seconds": {
+        "count": 3604,
+        "min": 0.001555819995701313,
+        "mean": 0.001792664587428004,
+        "p95": 0.001990699995076284,
+        "max": 0.027708620007615536
+      },
+      "installation_seconds": {
+        "count": 28,
+        "min": 1.6700068954378366e-06,
+        "mean": 0.00013008000158671557,
+        "p95": 0.00020808001863770187,
+        "max": 0.00022343001910485327
+      },
+      "preparation_seconds": {
+        "count": 16,
+        "min": 0.1746349699969869,
+        "mean": 0.3653863294948678,
+        "p95": 0.935495865996927,
+        "max": 0.935495865996927
+      },
+      "initial_preparation_seconds": {
+        "count": 12,
+        "min": 0.08202916002483107,
+        "mean": 0.16043041666125646,
+        "p95": 0.3666231890092604,
+        "max": 0.3666231890092604
+      },
+      "effective_slowdown": 1.0097240875694113
+    },
+    "points_for": 3,
+    "points_against": 5,
+    "won": false,
+    "native_match_completed": true,
+    "serves": 4,
+    "legal_serves": 3,
+    "incoming": 9,
+    "legal_returns": 5,
+    "results": [
+      {
+        "kind": "return",
+        "returned": true,
+        "hit": 1,
+        "summary": "returned: landed on the opponent's half at x=-0.27, y=0.56"
+      },
+      {
+        "kind": "return",
+        "returned": true,
+        "hit": 1,
+        "summary": "returned: landed on the opponent's half at x=-0.18, y=0.50"
+      },
+      {
+        "kind": "serve",
+        "returned": false,
+        "hit": 0,
+        "summary": "missed: no paddle contact"
+      },
+      {
+        "kind": "serve",
+        "returned": false,
+        "hit": 0,
+        "summary": "missed: no paddle contact"
+      },
+      {
+        "kind": "return",
+        "returned": true,
+        "hit": 1,
+        "summary": "returned: landed on the opponent's half at x=0.16, y=0.44"
+      },
+      {
+        "kind": "return",
+        "returned": true,
+        "hit": 1,
+        "summary": "returned: landed on the opponent's half at x=0.05, y=0.28"
+      },
+      {
+        "kind": "return",
+        "returned": false,
+        "hit": 1,
+        "summary": "fault: after your hit the ball hit your own half (x=0.18, y=-0.39)"
+      },
+      {
+        "kind": "serve",
+        "returned": true,
+        "hit": 1,
+        "summary": "returned: landed on the opponent's half at x=-0.19, y=0.20"
+      },
+      {
+        "kind": "serve",
+        "returned": false,
+        "hit": 0,
+        "summary": "missed: no paddle contact"
+      }
+    ],
+    "serve_results": [
+      {
+        "point": 0,
+        "verdict": "good",
+        "code": "",
+        "why": "good service"
+      },
+      {
+        "point": 1,
+        "verdict": "good",
+        "code": "",
+        "why": "good service"
+      },
+      {
+        "point": 4,
+        "verdict": "fault",
+        "code": "out",
+        "why": "after the server's court the service touched table server instead of the receiver's court (Law 2.6.3)"
+      },
+      {
+        "point": 5,
+        "verdict": "good",
+        "code": "",
+        "why": "good service"
+      }
+    ],
+    "points": [
+      {
+        "point": 0,
+        "how": "too wide: the ball passed 0.37 m from the opponent's paddle (its reach 0.20 m)",
+        "winner": "you",
+        "score": [
+          1,
+          0
+        ],
+        "step": 518,
+        "server": "you",
+        "serve": null
+      },
+      {
+        "point": 1,
+        "how": "too wide: the ball passed 0.24 m from the opponent's paddle (its reach 0.20 m)",
+        "winner": "you",
+        "score": [
+          2,
+          0
+        ],
+        "step": 1059,
+        "server": "you",
+        "serve": null
+      },
+      {
+        "point": 2,
+        "how": "missed: no paddle contact",
+        "winner": "opponent",
+        "score": [
+          2,
+          1
+        ],
+        "step": 1435,
+        "server": "opponent",
+        "serve": "lab0004"
+      },
+      {
+        "point": 3,
+        "how": "missed: no paddle contact",
+        "winner": "opponent",
+        "score": [
+          2,
+          2
+        ],
+        "step": 1715,
+        "server": "opponent",
+        "serve": "ext0069"
+      },
+      {
+        "point": 4,
+        "how": "serve_fault:out: after the server's court the service touched table server instead of the receiver's court (Law 2.6.3)",
+        "winner": "opponent",
+        "score": [
+          2,
+          3
+        ],
+        "step": 2063,
+        "server": "you",
+        "serve": null
+      },
+      {
+        "point": 5,
+        "how": "fault: after your hit the ball hit your own half (x=0.18, y=-0.39)",
+        "winner": "opponent",
+        "score": [
+          2,
+          4
+        ],
+        "step": 2852,
+        "server": "you",
+        "serve": null
+      },
+      {
+        "point": 6,
+        "how": "too wide: the ball passed 0.31 m from the opponent's paddle (its reach 0.20 m)",
+        "winner": "you",
+        "score": [
+          3,
+          4
+        ],
+        "step": 3227,
+        "server": "opponent",
+        "serve": "lab0170"
+      },
+      {
+        "point": 7,
+        "how": "missed: no paddle contact",
+        "winner": "opponent",
+        "score": [
+          3,
+          5
+        ],
+        "step": 3604,
+        "server": "opponent",
+        "serve": "lab0024"
+      }
+    ],
+    "source": "api",
+    "calls": 54,
+    "accepted_intentions": 47,
+    "model_invalid": 0,
+    "model_workers": 4,
+    "max_inflight_model_calls": 4,
+    "model_worker_ids": [
+      "tabletennis-model_0",
+      "tabletennis-model_1",
+      "tabletennis-model_2",
+      "tabletennis-model_3"
+    ],
+    "reply_intervals_seconds": {
+      "count": 49,
+      "min": 0.07261190001736395,
+      "mean": 0.6791362467961984,
+      "p95": 1.4584017219895031,
+      "max": 1.5897479229897726
+    },
+    "observation_age_game_seconds": {
+      "count": 50,
+      "min": 1.8,
+      "mean": 2.242,
+      "p95": 2.95,
+      "max": 4.45
+    },
+    "superseded_intentions": 4,
+    "tactical_action_submissions": 14,
+    "late_model_outcome": [
+      {
+        "request_id": 51,
+        "source_frame": 3455,
+        "bootstrap": false,
+        "issued_mono": 242949.123935788,
+        "status": "completed"
+      },
+      {
+        "request_id": 52,
+        "source_frame": 3520,
+        "bootstrap": false,
+        "issued_mono": 242949.784652305,
+        "status": "cancelled_before_start"
+      },
+      {
+        "request_id": 53,
+        "source_frame": 3585,
+        "bootstrap": false,
+        "issued_mono": 242950.434890031,
+        "status": "cancelled_before_start"
+      }
+    ],
+    "return_policy_origins": [
+      {
+        "policy": "wide_right",
+        "intent_id": 1,
+        "fallback": false
+      },
+      {
+        "policy": "wide_left",
+        "intent_id": 10,
+        "fallback": false
+      },
+      {
+        "policy": "wide_left",
+        "intent_id": 14,
+        "fallback": false
+      },
+      {
+        "policy": "wide_left",
+        "intent_id": 19,
+        "fallback": false
+      },
+      {
+        "policy": "safe_center",
+        "intent_id": 32,
+        "fallback": false
+      },
+      {
+        "policy": "safe_center",
+        "intent_id": 35,
+        "fallback": false
+      },
+      {
+        "policy": "safe_center",
+        "intent_id": 37,
+        "fallback": false
+      },
+      {
+        "policy": "wide_left",
+        "intent_id": 41,
+        "fallback": false
+      },
+      {
+        "policy": "safe_center",
+        "intent_id": 46,
+        "fallback": false
+      }
+    ],
+    "initialization_wall_seconds": 3.433613091998268,
+    "model_latency_seconds": {
+      "count": 52,
+      "min": 1.7934780110081192,
+      "mean": 2.262951792288312,
+      "p95": 2.9425768349901773,
+      "max": 4.476930505974451
+    },
+    "served_service_tiers": [
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast",
+      "ultrafast"
+    ],
+    "control_compute_seconds": {
+      "count": 720,
+      "min": 7.700000423938036e-06,
+      "mean": 0.00413083021889583,
+      "p95": 0.010433688992634416,
+      "max": 0.04100247999303974
+    },
+    "total_wall_seconds": 41.016800942015834,
+    "api_budget": {
+      "limit_usd": 20.0,
+      "committed_usd": 10.9792428,
+      "settled_usd": 10.9792428,
+      "unresolved_requests": 0,
+      "requests": 173
+    }
+  },
+  "api_completed": 52,
+  "api_cost_usd": 1.6429481999999993,
+  "api_model_effort_tier_matched": true,
+  "accepted_summary_and_source_observation_pixels_matched": 47,
+  "installed_flights": 9,
+  "installed_policy_counts": {
+    "wide_right": 1,
+    "wide_left": 4,
+    "safe_center": 4
+  },
+  "fallback_flights": 0,
+  "every_installed_policy_matches_its_accepted_model_reply": true,
+  "same_flight_model_identity_never_changed": true,
+  "maximum_legal_returns_in_one_point": 2,
+  "legal_returns_per_point": {
+    "1": 1,
+    "2": 1,
+    "3": 0,
+    "4": 0,
+    "6": 2,
+    "7": 1,
+    "8": 0
+  },
+  "shot_outcomes": [
+    {
+      "point": 1,
+      "game_seconds": 4.55,
+      "kind": "shot",
+      "returned": true,
+      "summary": "returned: landed on the opponent's half at x=-0.27, y=0.56"
+    },
+    {
+      "point": 2,
+      "game_seconds": 9.92,
+      "kind": "shot",
+      "returned": true,
+      "summary": "returned: landed on the opponent's half at x=-0.18, y=0.50"
+    },
+    {
+      "point": 3,
+      "game_seconds": 14.35,
+      "kind": "shot",
+      "returned": false,
+      "summary": "missed: no paddle contact"
+    },
+    {
+      "point": 4,
+      "game_seconds": 17.15,
+      "kind": "shot",
+      "returned": false,
+      "summary": "missed: no paddle contact"
+    },
+    {
+      "point": 6,
+      "game_seconds": 25.49,
+      "kind": "shot",
+      "returned": true,
+      "summary": "returned: landed on the opponent's half at x=0.16, y=0.44"
+    },
+    {
+      "point": 6,
+      "game_seconds": 27.09,
+      "kind": "shot",
+      "returned": true,
+      "summary": "returned: landed on the opponent's half at x=0.05, y=0.28"
+    },
+    {
+      "point": 6,
+      "game_seconds": 28.52,
+      "kind": "shot",
+      "returned": false,
+      "summary": "fault: after your hit the ball hit your own half (x=0.18, y=-0.39)"
+    },
+    {
+      "point": 7,
+      "game_seconds": 31.44,
+      "kind": "shot",
+      "returned": true,
+      "summary": "returned: landed on the opponent's half at x=-0.19, y=0.20"
+    },
+    {
+      "point": 8,
+      "game_seconds": 36.04,
+      "kind": "shot",
+      "returned": false,
+      "summary": "missed: no paddle contact"
+    }
+  ],
+  "contacts": [
+    {
+      "point": 1,
+      "leg": "our_serve",
+      "game_seconds": 2.171,
+      "normal_speed_m_s": 0.8379842583564914,
+      "ball_velocity_after": [
+        0.1565981309112094,
+        0.38462490394207494,
+        -1.7968980798735465
+      ],
+      "ball_velocity_before": [
+        0.0,
+        0.0,
+        -2.6732156152397213
+      ]
+    },
+    {
+      "point": 1,
+      "leg": "return",
+      "game_seconds": 3.943,
+      "normal_speed_m_s": 1.3492833181566932,
+      "ball_velocity_after": [
+        -0.8657745091422586,
+        -1.2460629489518888,
+        0.1998263026153455
+      ],
+      "ball_velocity_before": [
+        -1.1114683368806473,
+        -2.3914447410990354,
+        -0.3488808090100556
+      ]
+    },
+    {
+      "point": 2,
+      "leg": "our_serve",
+      "game_seconds": 7.523,
+      "normal_speed_m_s": 0.7959192853805173,
+      "ball_velocity_after": [
+        0.2836979875621639,
+        0.763451865971935,
+        -1.1539973763150118
+      ],
+      "ball_velocity_before": [
+        0.0,
+        0.0,
+        -2.6908881802690794
+      ]
+    },
+    {
+      "point": 2,
+      "leg": "return",
+      "game_seconds": 9.3,
+      "normal_speed_m_s": 1.1925187452678594,
+      "ball_velocity_after": [
+        -0.615901771593335,
+        -0.5689788220483012,
+        0.5702752603969578
+      ],
+      "ball_velocity_before": [
+        -0.9849571807868425,
+        -2.370483659048014,
+        -0.31362326983486255
+      ]
+    },
+    {
+      "point": 5,
+      "leg": "our_serve",
+      "game_seconds": 19.526,
+      "normal_speed_m_s": 0.8533713665080462,
+      "ball_velocity_after": [
+        0.38040225807975653,
+        0.9667876107726576,
+        -0.7604917288657882
+      ],
+      "ball_velocity_before": [
+        0.0,
+        0.0,
+        -2.717349007861465
+      ]
+    },
+    {
+      "point": 6,
+      "leg": "our_serve",
+      "game_seconds": 22.872,
+      "normal_speed_m_s": 0.9526058155749022,
+      "ball_velocity_after": [
+        0.18618024418360163,
+        0.6141877005222589,
+        -1.305909503409229
+      ],
+      "ball_velocity_before": [
+        0.0,
+        0.0,
+        -2.682055088261173
+      ]
+    },
+    {
+      "point": 6,
+      "leg": "return",
+      "game_seconds": 24.876,
+      "normal_speed_m_s": 1.2477555005479113,
+      "ball_velocity_after": [
+        -0.47426319310287557,
+        -1.6890472122478843,
+        -0.1357851433007698
+      ],
+      "ball_velocity_before": [
+        -0.5875154454610939,
+        -2.2207293896614715,
+        -0.3890976773489982
+      ]
+    },
+    {
+      "point": 6,
+      "leg": "return",
+      "game_seconds": 26.412,
+      "normal_speed_m_s": 0.8648943035688976,
+      "ball_velocity_after": [
+        -0.1722734838030032,
+        -1.0084300448646273,
+        0.6985693800934933
+      ],
+      "ball_velocity_before": [
+        -0.3067002453411471,
+        -2.5945375806891517,
+        -0.19100095264388364
+      ]
+    },
+    {
+      "point": 6,
+      "leg": "return",
+      "game_seconds": 28.008,
+      "normal_speed_m_s": 0.3114493299729174,
+      "ball_velocity_after": [
+        0.07356145930885699,
+        -1.1194871616962296,
+        0.4291858590360502
+      ],
+      "ball_velocity_before": [
+        -0.014223315173593685,
+        -2.6103844822770252,
+        -0.18723848599894996
+      ]
+    },
+    {
+      "point": 7,
+      "leg": "serve",
+      "game_seconds": 30.957,
+      "normal_speed_m_s": 1.0775370815888667,
+      "ball_velocity_after": [
+        -0.38953188097020786,
+        -0.145559907831607,
+        0.6738622358228721
+      ],
+      "ball_velocity_before": [
+        0.16412283904677258,
+        -1.3671340787368462,
+        0.05636428894003812
+      ]
+    }
+  ],
+  "model_replies": [
+    {
+      "id": 0,
+      "source_game_seconds": 0.0,
+      "accepted_wall_seconds": -8.567998884245753e-05,
+      "source_point": 1,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "wide_right",
+      "summary": "The opponent appears slightly left of center in the behind camera; target wide right to pressure the open court."
+    },
+    {
+      "id": 1,
+      "source_game_seconds": 0.65,
+      "accepted_wall_seconds": 2.9830234840046614,
+      "source_point": 1,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "wide_right",
+      "summary": "Opponent appears left of center and no execution pressure is reported; target wide right into the open court."
+    },
+    {
+      "id": 2,
+      "source_game_seconds": 1.3,
+      "accepted_wall_seconds": 3.922297258017352,
+      "source_point": 1,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "wide_right",
+      "summary": "Opponent appears left of center and no outcomes show execution pressure; retain wide right to target the open court."
+    },
+    {
+      "id": 3,
+      "source_game_seconds": 1.95,
+      "accepted_wall_seconds": 4.156057868007338,
+      "source_point": 1,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "wide_right",
+      "summary": "Opponent appears slightly left of center and no outcomes show execution pressure; retain wide right to target the open court."
+    },
+    {
+      "id": 5,
+      "source_game_seconds": 3.25,
+      "accepted_wall_seconds": 5.210892561008222,
+      "source_point": 1,
+      "source_phase": "going to the opponent",
+      "opponent_camera_estimate": null,
+      "policy": "wide_right",
+      "summary": "Opponent appears slightly left of center and no execution pressure is reported; retain wide right to target the open court."
+    },
+    {
+      "id": 7,
+      "source_game_seconds": 4.55,
+      "accepted_wall_seconds": 6.847565192991169,
+      "source_point": 1,
+      "source_phase": "going to the opponent",
+      "opponent_camera_estimate": {
+        "x": 0.61,
+        "age_game_seconds": 1.23
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last seen right at x=0.61 and the latest return landed in bounds; target wide left to pressure the open court."
+    },
+    {
+      "id": 8,
+      "source_game_seconds": 5.2,
+      "accepted_wall_seconds": 7.693312969000544,
+      "source_point": 2,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": {
+        "x": 0.61,
+        "age_game_seconds": 1.88
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last struck from x=0.61, and the left-side return won beyond reach; aim wide left into the open court."
+    },
+    {
+      "id": 9,
+      "source_game_seconds": 5.85,
+      "accepted_wall_seconds": 8.388241005013697,
+      "source_point": 2,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "wide_right",
+      "summary": "Opponent is slightly left of center and the last wide return won the point; keep wide_right to pressure the open court."
+    },
+    {
+      "id": 10,
+      "source_game_seconds": 6.8,
+      "accepted_wall_seconds": 8.773027012997773,
+      "source_point": 2,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "wide_left",
+      "summary": "The last left-side return landed in bounds and won beyond the opponent's reach; keep targeting wide left."
+    },
+    {
+      "id": 11,
+      "source_game_seconds": 7.6,
+      "accepted_wall_seconds": 10.02099898699089,
+      "source_point": 2,
+      "source_phase": "going to the opponent",
+      "opponent_camera_estimate": null,
+      "policy": "wide_left",
+      "summary": "The last left return landed successfully and beat the opponent's reach; keep targeting wide left."
+    },
+    {
+      "id": 12,
+      "source_game_seconds": 8.25,
+      "accepted_wall_seconds": 10.556839213008061,
+      "source_point": 2,
+      "source_phase": "going to the opponent",
+      "opponent_camera_estimate": null,
+      "policy": "wide_left",
+      "summary": "The last left-side return landed and won beyond the opponent's reach; keep targeting wide left."
+    },
+    {
+      "id": 13,
+      "source_game_seconds": 8.9,
+      "accepted_wall_seconds": 11.044360530999256,
+      "source_point": 2,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": {
+        "x": 0.57,
+        "age_game_seconds": 0.24
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last struck from the right at x=0.57; keep targeting the open left court with wide_left."
+    },
+    {
+      "id": 14,
+      "source_game_seconds": 9.55,
+      "accepted_wall_seconds": 11.850245936017018,
+      "source_point": 2,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": {
+        "x": 0.57,
+        "age_game_seconds": 0.89
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last struck from the right at x=0.57, and the recent left shot landed; retain wide_left to pressure the open court."
+    },
+    {
+      "id": 15,
+      "source_game_seconds": 10.2,
+      "accepted_wall_seconds": 12.378253463015426,
+      "source_point": 2,
+      "source_phase": "going to the opponent",
+      "opponent_camera_estimate": {
+        "x": 0.57,
+        "age_game_seconds": 1.54
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last seen right at x=0.57 and recent left returns landed successfully; keep wide_left to pressure the open court."
+    },
+    {
+      "id": 16,
+      "source_game_seconds": 10.85,
+      "accepted_wall_seconds": 13.975238425016869,
+      "source_point": 3,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "wide_left",
+      "summary": "Both recent left returns won beyond the opponent's reach; keep wide_left pressure on the next return."
+    },
+    {
+      "id": 17,
+      "source_game_seconds": 11.5,
+      "accepted_wall_seconds": 14.287566073006019,
+      "source_point": 3,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "wide_left",
+      "summary": "Two recent left placements landed and won beyond the opponent's reach; keep targeting wide left."
+    },
+    {
+      "id": 18,
+      "source_game_seconds": 12.15,
+      "accepted_wall_seconds": 14.564887421991443,
+      "source_point": 3,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "wide_left",
+      "summary": "Two wide-left returns landed legally and won points beyond opponent reach; keep targeting wide left."
+    },
+    {
+      "id": 19,
+      "source_game_seconds": 12.8,
+      "accepted_wall_seconds": 14.995256530004553,
+      "source_point": 3,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "wide_left",
+      "summary": "Two successful left returns produced opponent reach misses; keep wide_left to sustain the effective pressure."
+    },
+    {
+      "id": 20,
+      "source_game_seconds": 13.85,
+      "accepted_wall_seconds": 16.218537234002724,
+      "source_point": 3,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "Latest rehearsal shows 0.47 m blade error and repeated own-half bounces; aim center to reduce execution demand."
+    },
+    {
+      "id": 21,
+      "source_game_seconds": 14.5,
+      "accepted_wall_seconds": 16.72576304100221,
+      "source_point": 4,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "The latest return missed contact and calibration showed a large blade error; target center to reduce angular demand."
+    },
+    {
+      "id": 22,
+      "source_game_seconds": 15.15,
+      "accepted_wall_seconds": 17.718065715016564,
+      "source_point": 4,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "The latest return missed contact with substantial blade error; target center to reduce angular demand."
+    },
+    {
+      "id": 23,
+      "source_game_seconds": 15.8,
+      "accepted_wall_seconds": 18.16636065300554,
+      "source_point": 4,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "The latest return missed paddle contact and rehearsal showed large blade error; aim center to reduce angular demand."
+    },
+    {
+      "id": 24,
+      "source_game_seconds": 16.45,
+      "accepted_wall_seconds": 18.51810731101432,
+      "source_point": 4,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "The latest return missed contact and wide-left preparation missed its deadline; aim center to reduce angular demand."
+    },
+    {
+      "id": 25,
+      "source_game_seconds": 17.1,
+      "accepted_wall_seconds": 19.480605896009365,
+      "source_point": 4,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "The latest return missed contact and wide-left updates missed preparation deadlines; aim center to reduce angular demand."
+    },
+    {
+      "id": 26,
+      "source_game_seconds": 17.75,
+      "accepted_wall_seconds": 19.964422143995762,
+      "source_point": 5,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "Two recent returns missed paddle contact; aim centrally to reduce angular demand while execution stabilizes."
+    },
+    {
+      "id": 27,
+      "source_game_seconds": 18.4,
+      "accepted_wall_seconds": 20.79578785900958,
+      "source_point": 5,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "Two recent no-contact losses and missed wide-left preparation favor center placement to reduce angular demand."
+    },
+    {
+      "id": 28,
+      "source_game_seconds": 19.05,
+      "accepted_wall_seconds": 21.253436797007453,
+      "source_point": 5,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "Two recent returns missed paddle contact, so keep central placement to reduce angular demand."
+    },
+    {
+      "id": 30,
+      "source_game_seconds": 20.35,
+      "accepted_wall_seconds": 22.39157678099582,
+      "source_point": 5,
+      "source_phase": "going to the opponent",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "Two recent returns missed paddle contact; keep the next return central to reduce angular demand."
+    },
+    {
+      "id": 31,
+      "source_game_seconds": 21.0,
+      "accepted_wall_seconds": 23.26205559601658,
+      "source_point": 6,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "Two recent no-contact misses show execution pressure; retain center placement to reduce angular demand."
+    },
+    {
+      "id": 32,
+      "source_game_seconds": 21.65,
+      "accepted_wall_seconds": 23.76678323300439,
+      "source_point": 6,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "Two recent returns missed paddle contact; target center to reduce angular demand while execution stabilizes."
+    },
+    {
+      "id": 33,
+      "source_game_seconds": 22.3,
+      "accepted_wall_seconds": 24.679570409003645,
+      "source_point": 6,
+      "source_phase": "your serve",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "Two recent returns missed paddle contact; keep the next uncommitted return central to reduce angular demand."
+    },
+    {
+      "id": 35,
+      "source_game_seconds": 23.7,
+      "accepted_wall_seconds": 26.10725578101119,
+      "source_point": 6,
+      "source_phase": "going to the opponent",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "Two recent no-contact misses show execution pressure; aim centrally to reduce angular demand."
+    },
+    {
+      "id": 36,
+      "source_game_seconds": 24.35,
+      "accepted_wall_seconds": 26.728004947013687,
+      "source_point": 6,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": {
+        "x": 0.47,
+        "age_game_seconds": 0.23
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last struck from the right at x=0.47; aim wide left to pressure the open court."
+    },
+    {
+      "id": 37,
+      "source_game_seconds": 25.0,
+      "accepted_wall_seconds": 27.726809432002483,
+      "source_point": 6,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": {
+        "x": 0.47,
+        "age_game_seconds": 0.88
+      },
+      "policy": "safe_center",
+      "summary": "Two recent no-contact misses show execution pressure; keep placement central despite the opponent being right."
+    },
+    {
+      "id": 38,
+      "source_game_seconds": 25.85,
+      "accepted_wall_seconds": 28.084850881015882,
+      "source_point": 6,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": {
+        "x": 0.22,
+        "age_game_seconds": 0.05
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last struck from the right at x=0.22 and the latest return landed successfully; aim wide left into the open court."
+    },
+    {
+      "id": 39,
+      "source_game_seconds": 26.5,
+      "accepted_wall_seconds": 28.817491155990865,
+      "source_point": 6,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": {
+        "x": 0.23,
+        "age_game_seconds": 0.72
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last struck from the right at x=0.23 and the latest return landed; aim wide left into the open court."
+    },
+    {
+      "id": 40,
+      "source_game_seconds": 27.15,
+      "accepted_wall_seconds": 29.465302733005956,
+      "source_point": 6,
+      "source_phase": "going to the opponent",
+      "opponent_camera_estimate": {
+        "x": 0.23,
+        "age_game_seconds": 1.37
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last struck from the right at x=0.23 and recent returns landed; target the open left court."
+    },
+    {
+      "id": 41,
+      "source_game_seconds": 27.8,
+      "accepted_wall_seconds": 30.175415309000527,
+      "source_point": 6,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": {
+        "x": 0.07,
+        "age_game_seconds": 0.4
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last struck slightly right at x=0.07 and recent returns landed; target the open left court with wide_left."
+    },
+    {
+      "id": 42,
+      "source_game_seconds": 28.45,
+      "accepted_wall_seconds": 30.874670045013772,
+      "source_point": 6,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": {
+        "x": 0.07,
+        "age_game_seconds": 1.05
+      },
+      "policy": "wide_left",
+      "summary": "Opponent last struck slightly right at x=0.07 and two returns landed successfully; target the open left court."
+    },
+    {
+      "id": 43,
+      "source_game_seconds": 29.1,
+      "accepted_wall_seconds": 31.49676837300649,
+      "source_point": 7,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "The latest return hit our own half at speed 2.72; target center to reduce angular demand under execution pressure."
+    },
+    {
+      "id": 44,
+      "source_game_seconds": 29.75,
+      "accepted_wall_seconds": 32.08387370899436,
+      "source_point": 7,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "The latest return hit our own half; target center to reduce angular demand and stabilize execution."
+    },
+    {
+      "id": 45,
+      "source_game_seconds": 30.4,
+      "accepted_wall_seconds": 32.73188865600969,
+      "source_point": 7,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "The latest return hit our own half; target center on the next uncommitted flight to reduce angular demand."
+    },
+    {
+      "id": 46,
+      "source_game_seconds": 31.05,
+      "accepted_wall_seconds": 33.408190062007634,
+      "source_point": 7,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "safe_center",
+      "summary": "The latest return hit our own half; target center to reduce angular demand and stabilize execution."
+    },
+    {
+      "id": 47,
+      "source_game_seconds": 31.7,
+      "accepted_wall_seconds": 34.88672446500277,
+      "source_point": 7,
+      "source_phase": "going to the opponent",
+      "opponent_camera_estimate": null,
+      "policy": "wide_right",
+      "summary": "The latest return landed legally and the opponent appears left of center; aim wide right into the open court."
+    },
+    {
+      "id": 48,
+      "source_game_seconds": 32.35,
+      "accepted_wall_seconds": 34.96224176400574,
+      "source_point": 8,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "wide_left",
+      "summary": "The latest leftward return landed legally and beat the opponent's reach; keep pressure with wide_left."
+    },
+    {
+      "id": 49,
+      "source_game_seconds": 33.0,
+      "accepted_wall_seconds": 35.80109724900103,
+      "source_point": 8,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "wide_left",
+      "summary": "The latest left-side return landed and beat the opponent's reach; use wide_left again to maintain that pressure."
+    },
+    {
+      "id": 50,
+      "source_game_seconds": 33.65,
+      "accepted_wall_seconds": 36.26789262701641,
+      "source_point": 8,
+      "source_phase": "coming to you",
+      "opponent_camera_estimate": null,
+      "policy": "wide_right",
+      "summary": "Opponent appears left of center in the rear camera; aim wide right to pressure the open court."
+    }
+  ],
+  "installations": [
+    {
+      "installed_game_seconds": 3.58,
+      "installed_wall_seconds": 3.633395400014706,
+      "leg": [
+        1,
+        "opponent's return",
+        330
+      ],
+      "model_id": 1,
+      "policy": "wide_right",
+      "fallback": false,
+      "model_observed_game_seconds": 0.65
+    },
+    {
+      "installed_game_seconds": 3.85,
+      "installed_wall_seconds": 3.90501058899099,
+      "leg": [
+        1,
+        "opponent's return",
+        330
+      ],
+      "model_id": 1,
+      "policy": "wide_right",
+      "fallback": false,
+      "model_observed_game_seconds": 0.65
+    },
+    {
+      "installed_game_seconds": 8.93,
+      "installed_wall_seconds": 9.038969910994638,
+      "leg": [
+        2,
+        "opponent's return",
+        864
+      ],
+      "model_id": 10,
+      "policy": "wide_left",
+      "fallback": false,
+      "model_observed_game_seconds": 6.8
+    },
+    {
+      "installed_game_seconds": 9.22,
+      "installed_wall_seconds": 9.331071980006527,
+      "leg": [
+        2,
+        "opponent's return",
+        864
+      ],
+      "model_id": 10,
+      "policy": "wide_left",
+      "fallback": false,
+      "model_observed_game_seconds": 6.8
+    },
+    {
+      "installed_game_seconds": 12.93,
+      "installed_wall_seconds": 13.06785896999645,
+      "leg": [
+        3,
+        "serve",
+        1190
+      ],
+      "model_id": 14,
+      "policy": "wide_left",
+      "fallback": false,
+      "model_observed_game_seconds": 9.55
+    },
+    {
+      "installed_game_seconds": 16.09,
+      "installed_wall_seconds": 16.250350353016984,
+      "leg": [
+        4,
+        "serve",
+        1566
+      ],
+      "model_id": 19,
+      "policy": "wide_left",
+      "fallback": false,
+      "model_observed_game_seconds": 12.8
+    },
+    {
+      "installed_game_seconds": 24.49,
+      "installed_wall_seconds": 24.728822458011564,
+      "leg": [
+        6,
+        "opponent's return",
+        2411
+      ],
+      "model_id": 32,
+      "policy": "safe_center",
+      "fallback": false,
+      "model_observed_game_seconds": 21.65
+    },
+    {
+      "installed_game_seconds": 24.76,
+      "installed_wall_seconds": 25.000799897010438,
+      "leg": [
+        6,
+        "opponent's return",
+        2411
+      ],
+      "model_id": 32,
+      "policy": "safe_center",
+      "fallback": false,
+      "model_observed_game_seconds": 21.65
+    },
+    {
+      "installed_game_seconds": 26.19,
+      "installed_wall_seconds": 26.45846815899131,
+      "leg": [
+        6,
+        "opponent's return",
+        2576
+      ],
+      "model_id": 35,
+      "policy": "safe_center",
+      "fallback": false,
+      "model_observed_game_seconds": 23.7
+    },
+    {
+      "installed_game_seconds": 26.35,
+      "installed_wall_seconds": 26.61964903800981,
+      "leg": [
+        6,
+        "opponent's return",
+        2576
+      ],
+      "model_id": 35,
+      "policy": "safe_center",
+      "fallback": false,
+      "model_observed_game_seconds": 23.7
+    },
+    {
+      "installed_game_seconds": 27.79,
+      "installed_wall_seconds": 28.087564980000025,
+      "leg": [
+        6,
+        "opponent's return",
+        2738
+      ],
+      "model_id": 37,
+      "policy": "safe_center",
+      "fallback": false,
+      "model_observed_game_seconds": 25.0
+    },
+    {
+      "installed_game_seconds": 27.95,
+      "installed_wall_seconds": 28.24874177001766,
+      "leg": [
+        6,
+        "opponent's return",
+        2738
+      ],
+      "model_id": 37,
+      "policy": "safe_center",
+      "fallback": false,
+      "model_observed_game_seconds": 25.0
+    },
+    {
+      "installed_game_seconds": 30.18,
+      "installed_wall_seconds": 30.494941957993433,
+      "leg": [
+        7,
+        "serve",
+        2983
+      ],
+      "model_id": 41,
+      "policy": "wide_left",
+      "fallback": false,
+      "model_observed_game_seconds": 27.8
+    },
+    {
+      "installed_game_seconds": 34.5,
+      "installed_wall_seconds": 34.84698277400457,
+      "leg": [
+        8,
+        "serve",
+        3358
+      ],
+      "model_id": 46,
+      "policy": "safe_center",
+      "fallback": false,
+      "model_observed_game_seconds": 31.05
+    }
+  ],
+  "comparison_to_seed11": {
+    "config_changes": {
+      "seed": [
+        11,
+        12
+      ]
+    },
+    "changed_snapshot_sources": [
+      "environments/tabletennis/replay.py"
+    ],
+    "gameplay_policy_and_async_execution_sources_unchanged": true
+  },
+  "video_alignment": {
+    "frames_audited": 1870,
+    "wrong_pose_or_summary_frames": 0,
+    "summary_shown_before_acceptance_frames": 0,
+    "max_receipt_to_video_ms": 19.394103990634903,
+    "max_recorded_pose_age_ms_during_game": 30.418658978305757,
+    "first_pose_startup_hold_frames": 1,
+    "first_pose_startup_lead_ms": 12.271229992620647,
+    "frames_latest_reply_differs_from_same_point_installed_reply": 574
+  }
+}
