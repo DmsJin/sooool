@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "run": "/home/zihan/papers/latency/sooool-realtime/runs/rhythm-portable-sim-001",
+  "created_at_unix": 1792190061.776645,
+  "game": "rhythm",
+  "mode": "subscription_with_simulated_profile",
+  "recipe": {
+    "policy": "v21",
+    "profile": "profiles/rhythm/selected-native-joint.json",
+    "memory": "policies/rhythm/v21/memory.txt",
+    "chart": "policies/rhythm/v21/chart.json",
+    "args": {
+      "outer": "minimal",
+      "candidate": "selected-v21",
+      "seed": 20261016,
+      "clock_offset_ms": 10000,
+      "ack_limit": 8,
+      "actors": 16,
+      "cadence": 0.2,
+      "frames": 1,
+      "max_requests": 90,
+      "duration": 17.0,
+      "lean": true,
+      "compact": true,
+      "hide_rtt": false,
+      "live_commentary": true,
+      "commentary_language": "en",
+      "content_timestamp_bias_ms": 50
+    },
+    "api": {
+      "cadence": 0.2,
+      "concurrency": 16,
+      "frames": 1,
+      "detail": "high",
+      "max_output": 512,
+      "duration": 17.0,
+      "lean": true,
+      "compact": true,
+      "early_actions": true,
+      "live_commentary": true,
+      "commentary_language": "en",
+      "record_frames": true,
+      "max_miss": 0
+    },
+    "environment": {
+      "approach_s": 2.5,
+      "speed": 1,
+      "note_count": 25
+    }
+  },
+  "manifest_sha256": "3def6c42b5ae4001f581fda9dc4c4af30305866a2e7e11dd93b7583b2e61890e",
+  "summary": {
+    "mode": "subscription_virtual_joint_delay_simulation",
+    "candidate": "selected-v21",
+    "seed": 20261016,
+    "evaluator": {
+      "state": "result",
+      "time_s": 17,
+      "score": 25000,
+      "combo": 25,
+      "max_combo": 25,
+      "judged": 25,
+      "counts": {
+        "perfect": 25,
+        "great": 0,
+        "ok": 0,
+        "miss": 0
+      },
+      "empty_presses": 0,
+      "total_notes": 25
+    },
+    "complete": true,
+    "passed": true,
+    "legacy_two_miss_passed": true,
+    "requests": 85,
+    "delivered_plans": 79,
+    "transaction_rejections": 0,
+    "errors": 0,
+    "dropped_capture_requests": 0,
+    "undelivered_requests_at_end": 6,
+    "occupied_requests_at_end": 7,
+    "policy_unchanged": true,
+    "paid_api_calls": 0,
+    "wall_s": 123.89944734796882,
+    "output": "/home/zihan/papers/latency/sooool-realtime/runs/rhythm-portable-sim-001/episodes/selected-v21-seed20261016-b169962a"
+  },
+  "status": "completed",
+  "performance_is_independently_confirmed": false,
+  "record_id": "rhythm-portable-sim-001",
+  "policy": "v21",
+  "accounting": null,
+  "outcome": {
+    "state": "result",
+    "time_s": 17,
+    "score": 25000,
+    "combo": 25,
+    "max_combo": 25,
+    "judged": 25,
+    "counts": {
+      "perfect": 25,
+      "great": 0,
+      "ok": 0,
+      "miss": 0
+    },
+    "empty_presses": 0,
+    "total_notes": 25
+  },
+  "complete": true,
+  "passed": true,
+  "real_time_api_acceptance": false
+}

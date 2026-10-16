@@ -13,7 +13,16 @@ Use the root README and recipes as the runnable interface. Original environment/
 
 ## Rhythm
 
-Start with `environments/rhythm/experiments/rhythm/model_joint_training.py` (causal event loop), `model_env.py` (pixels and clocks), `model_lean_policy.py` (exact actor projection), `dist/model-executor.js` (literal timestamp execution), and `policies/rhythm/v19/memory.txt`. `hidden_charts.py` belongs to the trusted evaluator. Older cropped/sparse/model variants are preserved experiment versions; do not mix their acceptance claims.
+Start with [`rhythm.md`](rhythm.md), `runtime/rhythm.py`, `recipes/rhythm.json`
+and `policies/rhythm/v21/`. The simulator's causal event loop is
+`environments/rhythm/experiments/rhythm/model_joint_training.py`; `model_native.py`
+is the continuous API runner; `model_env.py` supplies public pixels/clocks.
+`model_lean_policy.py` validates the selected action format and
+`dist/model-executor.js` executes model literal times. `scheduler.py` now
+contains accounting only. The trusted evaluator owns chart/audio diagnostics.
+[The selected iteration record](rhythm-autoresearch.md) links raw evidence.
+Inactive cropped/sparse timing controllers and machine-specific SSH workers
+have been removed from the active tree.
 
 ## Touhou
 

@@ -1,5 +1,14 @@
 {
-  "source_path": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-lab-model-timing",
-  "source_commit": "dc8886178cacc9eec39d558d16bb2bb8edb5b6ac",
-  "dirty_source": false
+  "source_commit": "677cb16",
+  "source": "Original selected source-harness experiment",
+  "selected_run": "native-travel2500-english17-1",
+  "active_policy": "v21",
+  "packaging_changes": [
+    "Portable CLI/API/subscription transports",
+    "Removal of inactive controllers and SSH workers",
+    "Local copy of same17s source audio",
+    "Source/record verification and cumulative ledger lock canonicalization"
+  ],
+  "original_evidence": "artifacts/rhythm/selected",
+  "adopted_lineage": "research/rhythm/evaluation-history.jsonl"
 }

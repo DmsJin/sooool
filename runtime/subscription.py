@@ -75,6 +75,13 @@ class SubscriptionClient:
             'OPENAI_API_KEY','CODEX_API_KEY','OPENAI_BASE_URL','OPENAI_API_BASE')}
         if os.environ.get('SOL_CODEX_HOME'):
             child_env['CODEX_HOME'] = os.environ['SOL_CODEX_HOME']
+        if kwargs.get('auth_only_home',False):
+            source=Path(child_env.get('CODEX_HOME',str(Path.home()/'.codex')))/'auth.json'
+            self._auth_home=tempfile.TemporaryDirectory(prefix='sol-auth-only-')
+            auth_target=Path(self._auth_home.name)/'auth.json'
+            shutil.copyfile(source,auth_target);auth_target.chmod(0o600)
+            child_env['CODEX_HOME']=self._auth_home.name
+
         self.stderr = (self.output/'native-stderr.log').open('w')
         self.process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
             stderr=self.stderr, text=True, cwd=self.workspace, env=child_env)
@@ -206,6 +213,7 @@ class SubscriptionClient:
             except subprocess.TimeoutExpired:self.process.kill();self.process.wait()
         if getattr(self,'stderr',None):self.stderr.close()
         if getattr(self,'_workspace',None):self._workspace.cleanup()
+        if getattr(self,'_auth_home',None):self._auth_home.cleanup()
 
 class AsyncProvider:
     async def start(self):
@@ -213,7 +221,7 @@ class AsyncProvider:
         root=os.environ.get('SOL_NATIVE_LOG_ROOT')
         output=Path(tempfile.mkdtemp(prefix='worker-',dir=root)) if root else None
         system=(Path(__file__).resolve().parents[1]/'environments/rhythm/experiments/rhythm/outer/minimal-system.txt').read_text()
-        self.client=await asyncio.to_thread(SubscriptionClient,output=output,system=system,service_tier='priority')
+        self.client=await asyncio.to_thread(SubscriptionClient,output=output,system=system,service_tier='priority',auth_only_home=True)
         self.configuration={'auth':'chatgpt','adapter':'portable app-server'}
         return self
     async def act(self,prompt,images):

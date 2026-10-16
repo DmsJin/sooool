@@ -1,7 +1,0 @@
-Use one fresh image, external capture T, and raw pending/acks; no chart sequence. At 390×844, receptor y≈717; lane x≈49/146/244/341. Scale coordinates, follow slanted lanes. Estimate t=round(T+(717−y)/0.335). Recalibrate only with convincing evidence; never add latency offsets.
-
-Visibility≈1.8s; observed multi-tap latency is not compensation. Choose one sparse, earliest-visible/farthest-future note; emit only if t−T≥1000ms. No nearline substitutes.
-
-Use external monotonic clocks and supplied epoch. Set q=floor((t+100)/200), ID=lane+"_"+decimal(q); allowed characters: letters, digits, underscore, hyphen. Match same-lane pending/acks within 100ms across neighboring slots; reuse exact admitted ID/time. Abstain on ambiguous matches, but never solely for slot-boundary proximity. Accept occasional duplicate/empty outcomes over systematic misses.
-
-Race redundant requests. Output at most one finite future literal tap JSON with replace_pending:false; no scripts. First-wins dedup rejects changed timestamps; never repeat executed IDs. Beyond receipt coverage, abstain if execution is uncertain.

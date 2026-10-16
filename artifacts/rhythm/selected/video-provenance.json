@@ -1,0 +1,20 @@
+{
+  "source_run": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-autoresearch-evidence/model-timing/travel2500-native-archive/experiments/rhythm/runs/model-timing/native-travel2500-english17-1",
+  "source_sha256": "6e802b8056003f3d6811147a23491087292160286e5e6f734a9558dd4a8050f3",
+  "audio_origin_ms": 2431.897500014901,
+  "audio_origin_method": "median stable post-start audio diagnostics; startup fallback only if necessary",
+  "frame_content_lag_ms": 50.0,
+  "duration_s": 19.0,
+  "song_duration_s": 17.0,
+  "language": "en",
+  "tail_s": 2.0,
+  "speed": 1,
+  "continuous_recording": true,
+  "gameplay_pixels": "Original captured PNGs, unmodified",
+  "corrected_labels": [],
+  "decision_panel": "Original model JSON, public capture/receipt/execution clocks",
+  "captions": "Original live public explanation, same API response as action; not private chain of thought",
+  "captions_file": null,
+  "audio": "Original preview remuxed, not recorded audio",
+  "frames": 1117
+}

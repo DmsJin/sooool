@@ -31,6 +31,9 @@ def load_joint_delays(path):
             raise ValueError('Completed joint rows must contain finite numerical delays')
         if values[0] <= 0 or values[1] < 0 or values[2] < 0:
             raise ValueError('API delay must be positive; frame age and overhead nonnegative')
+        occupancy=row.get('request_occupancy_s',values[0]+values[2])
+        if type(occupancy) not in (int,float) or not math.isfinite(occupancy) or occupancy<values[0]+values[2]:
+            raise ValueError('Request occupancy cannot end before action delivery')
         conditions.append(values)
     if not conditions:
         raise ValueError('Joint profile has no completed rows')
@@ -50,22 +53,27 @@ async def run_episode(args, *, provider_factory=NativeProvider, env_factory=Mode
     hide_rtt=getattr(args,'hide_rtt',False)
     if hide_rtt and not getattr(args,'lean',False):
         raise ValueError('RTT ablation requires the lean observation codec')
-    _, conditions = load_joint_delays(args.joint_profile)
+    joint_profile, conditions = load_joint_delays(args.joint_profile)
+    completed_rows=[row for row in joint_profile['rows'] if row.get('status')=='completed']
     memory = Path(args.memory).read_text() if args.memory else ''
+    content_bias_ms=getattr(args,'content_timestamp_bias_ms',0)
+    live_commentary=getattr(args,'live_commentary',False)
+    expected_notes = len(json.loads(Path(args.chart).read_text())['notes']) if args.chart else 52
     rng = random.Random(args.seed)
     output = Path(args.run_root) / (args.candidate + '-seed' + str(args.seed) + '-' + uuid.uuid4().hex[:8])
     output.mkdir(parents=True, exist_ok=False, mode=0o700)
     files = ['experiments/rhythm/' + name for name in (
         'model_joint_training.py', 'model_training.py', 'model_policy.py', 'model_compact_policy.py',
         'model_lean_policy.py', 'model_env.py', 'model_subscription.py', 'providers.py', 'scheduler.py',
-        'model_outer_provider.py', 'subscription_outer_worker.py')]
+        'model_commentary.py')]
     files += ['dist/model-executor.js', 'dist/model-sim-clock.js', 'dist/game.js',
+              'dist/index.html','dist/style.css','dist/assets/rhythm-cjk.woff',
               'experiments/rhythm/outer/minimal-system.txt']
     frozen = dict(mode='subscription_virtual_joint_delay_simulation', paid_api_calls=0,
                   candidate=args.candidate, seed=args.seed, clock_offset_ms=args.clock_offset_ms,
                   cadence_s=args.cadence, actors=args.actors, frames=1, max_requests=args.max_requests,
                   duration_s=args.duration, lean=getattr(args, 'lean', False), compact=getattr(args, 'compact', False),
-                  outer=getattr(args, 'outer', 'legacy'), raw_ack_tail=getattr(args, 'ack_limit', 8),
+                  outer=getattr(args, 'outer', 'minimal'), content_timestamp_bias_ms=content_bias_ms, live_commentary=live_commentary, raw_ack_tail=getattr(args, 'ack_limit', 8),
                   hide_rtt=hide_rtt,
                   joint_profile_path=str(Path(args.joint_profile).resolve()),
                   joint_profile_sha256=hashlib.sha256(Path(args.joint_profile).read_bytes()).hexdigest(),
@@ -82,15 +90,18 @@ async def run_episode(args, *, provider_factory=NativeProvider, env_factory=Mode
     index = 0
     while index * args.cadence < args.duration - 1e-9:
         issue = index * args.cadence
-        api, age, overhead = rng.choice(conditions)
-        capture = max(0., issue - age)
+        sampled=rng.randrange(len(conditions))
+        api, age, overhead = conditions[sampled]
+        occupancy=completed_rows[sampled].get('request_occupancy_s',api+overhead)
+        capture = max(0., issue - age - content_bias_ms/1000)
         calendar[index] = dict(issue_s=issue, capture_s=capture, api_rtt_s=api,
                                frame_age_s=age, transport_overhead_s=overhead,
-                               due_s=issue + api + overhead)
+                               due_s=issue + api + overhead,release_s=issue+occupancy)
         heapq.heappush(events, (capture, 1, index))
         heapq.heappush(events, (issue, 2, index))
         index += 1
     providers, tasks, retained = [], {}, {}
+    occupied=set()
     available = asyncio.Queue()
     rtts = []
     sent = dropped = errors = applied = rejected = 0
@@ -117,7 +128,9 @@ async def run_episode(args, *, provider_factory=NativeProvider, env_factory=Mode
                 game_s, kind, event_index = heapq.heappop(events)
                 await env.advance(game_s)
                 condition = calendar[event_index]
-                if kind == 0:
+                if kind == -1:
+                    occupied.remove(event_index)
+                elif kind == 0:
                     sequence, future = tasks.pop(event_index)
                     row = dict(request_version=sequence, sent_virtual_s=condition['issue_s'],
                                delivery_virtual_s=game_s, sampled_due_virtual_s=condition['due_s'],
@@ -125,6 +138,11 @@ async def run_episode(args, *, provider_factory=NativeProvider, env_factory=Mode
                     try:
                         # Even an already-completed task is not observed before this event.
                         answer, metadata = await future
+                        raw_answer=answer
+                        if live_commentary:
+                            from .model_commentary import complete as decode
+                            answer,comment=decode(answer)
+                            row.update(raw_output=raw_answer,commentary=comment)
                         plan = policy.parse(answer)
                         receipt = await env.apply(plan)
                         row.update(answer=answer, metadata=metadata, plan=plan, receipt=receipt)
@@ -137,6 +155,8 @@ async def run_episode(args, *, provider_factory=NativeProvider, env_factory=Mode
                     _append(output / 'decisions.jsonl', row)
                 elif kind == 1:
                     frame = await env.capture()
+                    frame['capture_start_ms']+=content_bias_ms
+                    frame['capture_end_ms']+=content_bias_ms
                     name = f'frame-{event_index:04d}.png'
                     (output / name).write_bytes(frame['png'])
                     metadata = {k: v for k, v in frame.items() if k != 'png'}
@@ -145,10 +165,10 @@ async def run_episode(args, *, provider_factory=NativeProvider, env_factory=Mode
                     _append(output / 'captures.jsonl', dict(calendar_index=event_index, virtual_s=game_s, **metadata))
                 else:
                     frame, metadata = retained.pop(event_index)
-                    if len(tasks) >= args.actors or sent >= args.max_requests:
+                    if len(occupied) >= args.actors or sent >= args.max_requests:
                         dropped += 1
                         _append(output / 'drops.jsonl', dict(calendar_index=event_index, issue_virtual_s=game_s,
-                                reason='inflight_capacity' if len(tasks) >= args.actors else 'request_ceiling'))
+                                reason='inflight_capacity' if len(occupied) >= args.actors else 'request_ceiling'))
                         continue
                     snapshot = await env.snapshot()
                     sequence = sent + 1
@@ -158,14 +178,19 @@ async def run_episode(args, *, provider_factory=NativeProvider, env_factory=Mode
                                        rtt_history_ms=rtts[-8:], model_memory=memory,
                                        request_version=sequence, queue_version=snapshot['version'])
                     text = policy.prompt(observation,include_rtt=False) if hide_rtt else policy.prompt(observation)
+                    if live_commentary:
+                        from .model_commentary import prompt as explain
+                        text=explain(text,getattr(args,'commentary_language','en'))
                     tasks[event_index] = (sequence, asyncio.create_task(infer(text, frame['png'])))
+                    occupied.add(event_index)
                     heapq.heappush(events, (condition['due_s'], 0, event_index))
+                    heapq.heappush(events, (condition['release_s'], -1, event_index))
                     _append(output / 'requests.jsonl', dict(request_version=sequence, sent_virtual_s=game_s,
                             delivery_virtual_s=condition['due_s'], joint_condition=condition, frames=[metadata],
                             prompt=text, prompt_sha256=hashlib.sha256(text.encode()).hexdigest()))
                     sent += 1
                 if kind == 2 and event_index % 10 == 0:
-                    progress = dict(game_s=game_s, requests=sent, pending=len(tasks), drops=dropped,
+                    progress = dict(game_s=game_s, requests=sent, pending=len(tasks), occupied_requests=len(occupied), drops=dropped,
                                     errors=errors, evaluator=await env.trusted_evaluator(), wall_s=time.monotonic()-started)
                     (output / 'progress.json').write_text(json.dumps(progress))
                     print('MODEL_JOINT_PROGRESS ' + json.dumps(progress), flush=True)
@@ -174,12 +199,13 @@ async def run_episode(args, *, provider_factory=NativeProvider, env_factory=Mode
             snapshot = await env.snapshot()
             (output / 'final_snapshot.json').write_text(json.dumps(snapshot, indent=2))
         unchanged = all(hashlib.sha256((ROOT/f).read_bytes()).hexdigest() == sha for f, sha in frozen['source_sha256'].items())
-        complete = evaluator['state'] == 'result' and evaluator['judged'] == evaluator['total_notes'] == 52
+        complete = expected_notes > 0 and evaluator['state'] == 'result' and evaluator['judged'] == evaluator['total_notes'] == expected_notes
         summary = dict(mode=frozen['mode'], candidate=args.candidate, seed=args.seed, evaluator=evaluator,
-                       complete=complete, passed=complete and evaluator['counts']['miss'] == 0 and evaluator.get('max_combo',0) == 52 and unchanged,
+                       complete=complete, passed=complete and evaluator['counts']['miss'] == 0 and evaluator.get('max_combo',0) == expected_notes and unchanged,
                        legacy_two_miss_passed=complete and evaluator['counts']['miss'] <= 2 and unchanged,
                        requests=sent, delivered_plans=applied, transaction_rejections=rejected, errors=errors,
                        dropped_capture_requests=dropped, undelivered_requests_at_end=len(tasks),
+                       occupied_requests_at_end=len(occupied),
                        policy_unchanged=unchanged, paid_api_calls=0, wall_s=time.monotonic()-started, output=str(output))
         (output / 'summary.json').write_text(json.dumps(summary, indent=2))
         print('MODEL_JOINT_COMPLETE ' + json.dumps(summary), flush=True)
