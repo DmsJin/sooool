@@ -122,17 +122,17 @@ Large videos and input archives are optional and checksummed in [the evidence in
 Badminton selects **tactical-goal-v2**: SOL supplies conditional placement and recovery
 goals. The camera controller jointly searches contact time and outgoing flight,
 with legal goal projection and delivery correction. The native reference handles
-serving and recovery mechanics. Simulation uses EGL GPU rendering, L1/S2 and the
-retained API20 latency profile. Subscription simulation runs with **Fast disabled**.
+serving and recovery mechanics. Simulation uses EGL GPU rendering, L1/S3 and the
+retained API10 latency profile. Subscription simulation runs with **Fast disabled**.
 `sol eval badminton` uses actual Ultrafast API responses, independent 33.333-step-per-second
 physics at S3 (3× slowdown), and a native-match endpoint. Its verified replay adds English public
 decision summaries from the same responses as the tactical intents.
 See [Badminton setup, control boundary and reproduction](../docs/badminton.md).
 The [GPU validation record](../artifacts/badminton/README.md) separates historical
-replays from the new rule/SOL comparison. The completed goal-v2 actual API match
-finished 1:11 before the FIFO admission fix; no completed corrected-code match is retained, and the latest retry reported
-exhausted provider credit. This is implemented control with
-a retained diagnostic run, not a verified corrected-code performance result.
+replays from the new rule/SOL comparison. The latest retained goal-v2 API match completed 8:11 with 90/97 legal returns
+and a matching 27,609-step native replay. Its recorded inputs predate the latest
+public-input acknowledgement filter correction; later code changes retain
+separate validation status.
 
 ```bash
 python scripts/badminton.py simulate --source sol --seed 101 --duration 60 --output runs/badminton-sol101

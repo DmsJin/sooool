@@ -12,7 +12,8 @@ The gameplay decisions come from GPT-Sol on each turn. The surrounding code hand
 <td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-Sol selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
 </tr>
 <tr>
-<td colspan="2" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-Sol collecting food in Asterix alongside original public decision summaries" width="600"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-Sol collecting food in Asterix alongside original public decision summaries" width="440"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" width="440"></a><br><b>Badminton</b> · Real-time API replay · S3 slowdown · 15s</td>
 </tr>
 <tr>
 <td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-SOL choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
@@ -20,7 +21,7 @@ The gameplay decisions come from GPT-Sol on each turn. The surrounding code hand
 </tr>
 </table>
 
-You can watch GPT-Sol dodge a screen full of bullets, race a rival, collect food in Atari Asterix, play robot table tennis, or hit notes in time with the music. Then inspect its decisions, change the policy, and send it back into the game.
+You can watch GPT-Sol dodge bullets, race a rival, collect food, play robot table tennis and badminton, or hit notes with the music. Then inspect its decisions, change the policy, and send it back into the game.
 
 **Simulated latency. Real model decisions.** During development, cheaper inference drives fresh decisions from actual game frames, with actions delivered under a measured API latency profile. Freeze a candidate, then evaluate it with the real API while the game clock keeps running. The repository includes the environments, prompts, profiles, runners and experiment records for this loop.
 
@@ -34,10 +35,12 @@ You can watch GPT-Sol dodge a screen full of bullets, race a rival, collect food
 | **Racing** | Find a line. Beat your rival. | Real-time API at 1×. GPT-Sol chooses speed and racing targets; a coded controller supplies steering. [Recorded comparison: GPT 7/7, fixed goals 3/7](research/racing/EVALUATION.md#recorded-gpt-and-no-gpt-comparison). |
 | **Rhythm** | Hit the right key at the right time. | Real-time API at 1×. GPT-Sol chooses each DFJK key and its absolute tap timestamp. [Setup](docs/rhythm.md). |
 | **PingPong** | Serve, return, win the point. | Real-time API at 1×. GPT-Sol selects shot placement; rules handle serving and execution. [Setup](docs/tabletennis.md). |
-| **Badminton** | Place the shot. Recover for the next one. | Tactical goals with native mechanics; actual API at 3× slowdown (S3). [Setup and control boundary](docs/badminton.md). |
+| **Badminton** | Place the shot. Recover for the next one. | Actual API at 3× slowdown (S3); SOL selects tactical goals, native mechanics execute them. [Setup](docs/badminton.md) · [Evidence](artifacts/badminton/README.md). |
 | **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | Historical delay simulation at 5× slowdown, with model actions applied unchanged. |
 
-The GIFs are continuous excerpts at their source playback speed. Racing uses hybrid steering. Touhou, Racing, PingPong and Asterix show original public decision summaries. Rhythm shows original English action-plus-commentary responses; its 17s run has two empty presses and is not a full combo. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
+The GIFs are continuous excerpts at their source playback speed. Racing uses hybrid steering. Touhou, Racing, PingPong, Badminton and Asterix show original public decision summaries. Rhythm shows original English action-plus-commentary responses; its 17s run has two empty presses and is not a full combo. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
+
+The Badminton clip shows the opening serve and rally from one seed-101, L1/S3 match. The full match lost **8:11**, with **90/97 legal returns**, **47 confirmed Ultrafast responses**, zero rule fallbacks across 90 controlled rally strokes, and four serve failures. Its native replay matched all 27,609 steps. [Protocol and evidence](artifacts/badminton/README.md).
 
 ## Game sources and inspirations
 
@@ -47,7 +50,7 @@ The GIFs are continuous excerpts at their source playback speed. Racing uses hyb
 | **Badminton** | [RoboOlympics](https://olympics.embodied-first-exam.ai/), using the same pinned native environment. |
 | **PingPong / Table Tennis** | [RoboOlympics](https://olympics.embodied-first-exam.ai/), using the same pinned native environment. |
 | **Atari Asterix** | The Atari 2600 game through the [Arcade Learning Environment (ALE)](https://ale.farama.org/environments/asterix/), using `ALE/Asterix-v5`. |
-| **Rhythm** | Inspired by Tencent’s [Rhythm Master / 节奏大师](https://apps.apple.com/cn/app/id493901993); implemented here as a custom four-lane DFJK browser game and practice chart. |
+| **Rhythm** | Inspired by Tencent’s [Rhythm Master / 节奏大师](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993); implemented here as a custom four-lane DFJK browser game and practice chart. |
 | **Touhou / Kaguya** | Follows [Touhou Eiyashou ~ Imperishable Night](https://www16.big.or.jp/~zun/html/th08top.html) by ZUN / Team Shanghai Alice; implemented here as a simplified Kaguya practice encounter with original-game presentation assets. |
 
 Environment and media attribution details are recorded in [source and media provenance](docs/provenance.md).

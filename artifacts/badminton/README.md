@@ -1,5 +1,56 @@
 # Badminton validation
 
+## Completed realtime rerun: 2026-10-17
+
+The [rerun record](realtime-rerun-005.json) retains one actual API match using
+`tactical-goal-v2`, seed 101, L1/S3, and serial `gpt-6.1-sol / low / ultrafast`
+requests. All 47 provider receipts confirm Ultrafast. The match completed and
+lost 8:11. The policy remains unpromoted.
+
+| Run | Score | Legal returns | Legal serves |
+|---|---:|---:|---:|
+| Prior fixed tactics | 8:11 | 57/64 (89.1%) | 5/9 |
+| Prior SOL | 5:11 | 36/45 (80.0%) | 4/6 |
+| SOL rerun | 8:11 | 90/97 (92.8%) | 5/9 |
+
+The rerun used the same execution code and protocol as the prior SOL match.
+It added one SOL match, with no new fixed-tactics match, profiling or simulation.
+All 90 controlled rally strokes used SOL goals, with zero rule fallbacks.
+The audit separates 38 planned exact goals and 52 legal projections.
+Four serves failed. This observed single-match improvement does not promote
+the policy or establish a repeated success rate.
+
+The protocol used 100 Hz game physics, observations up to 10 Hz game time,
+and 100/3 control steps per wall second. The RTX PRO 6000 Blackwell Server
+Edition GPU used EGL, driver 615.71.09, Python 3.11.17 and MuJoCo 3.3.7.
+The environment revision was `da1f787f775ea6524d698c0b063157ded4c0fef9`.
+Execution used base `06633f3b911da6bce57e8bd618ac1a0a6907e01d` plus the
+retained run's uncommitted source snapshot. Later PR changes are not attributed
+to this recorded match.
+
+The retained prompts included internal installation acknowledgements in 28 of
+47 requests. The current public-input filter excludes those acknowledgements
+from future model inputs. This recorded result predates that input correction.
+
+The match completed 276.09 game seconds in 828.27 wall seconds. The native
+replay matched all 27,609 steps, and the recorded clock passed its limits.
+All 47 requests settled for $6.5010948. Mean complete-JSON readiness was
+2.251 seconds, with P95 3.131 seconds. The shared comparison ledger retained
+$10.1178768 cumulative spend under its $15 cap.
+
+[Watch the 15-second opening serve and rally](../../assets/gameplay/badminton.mp4).
+The excerpt is source seconds 6–21, with original S3 speed, both cameras, and
+same-response English summaries. The opening point ultimately finished 1:0;
+the short excerpt shows its beginning. The full 13:48.27 video is a verified
+native replay of actual API controls at 100/3 FPS, rendered without model calls.
+
+Primary evidence remains under the local artifact directory
+`outputs/sooool_badminton_realtime_rerun_005/`: `REPORT.md`, `protocol.json`,
+`source.tgz`, `comparison.json`, and the `sol-s3-101/` summary, audit, requests,
+source snapshot and `realtime-s3.mp4`. Raw camera images remain with the original
+GPU-host artifact directory. The committed rerun record contains compact audit,
+timing and per-request tier evidence for review without those local files.
+
 ## Goal-v2 migration and realtime diagnostic: 2026-10-17
 
 [The goal-v2 record](realtime-goal-v2-20261017.json) identifies the single-goal
@@ -9,11 +60,12 @@ returns 8/19. All 5512 steps match native replay. The video preserves 165.36 sec
 at 100/3 FPS with English summaries from the same API decisions.
 
 The run exposed seven initial strokes and one correction silently discarded while
-the native planner was busy. The current code queues these commands and retains
-their absolute contact times. It passes 21 GPU tests and 31 subtests. The completed
-1:11 match predates this correction. Two corrected reruns stopped before a valid
-decision; the latest raw provider reply reports `credit_balance_exhausted`.
-Corrected realtime performance remains unmeasured. No policy score gain is claimed.
+the native planner was busy. A subsequent correction queued these commands and
+retained their absolute contact times. That correction passed 21 GPU tests and
+31 subtests. The completed 1:11 match predates it. Two initial corrected reruns
+stopped before a valid decision; the latter provider reply reported
+`credit_balance_exhausted`. The later completed comparison and rerun are recorded
+above. This earlier diagnostic does not establish a policy score gain.
 
 The diagnostic video/report are local-only at
 `outputs/sooool_badminton_goal_realtime_001/api-s3-101/index.html` and

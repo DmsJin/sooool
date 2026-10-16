@@ -1,18 +1,17 @@
 {
   "game": "badminton",
   "policy": "tactical-goal-v2",
-  "profile": "profiles/badminton/conditional-api-20.json",
+  "profile": "profiles/badminton/conditional-api-10.json",
   "model": "gpt-6.1-sol",
   "effort": "low",
   "subscription_service_tier": "default",
   "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
   "args": {
     "level": 1,
-    "slowdown": 2,
+    "slowdown": 3,
     "seed": 101,
     "duration": 60,
-    "source": "sol",
-    "profile_info": "show"
+    "source": "sol"
   },
   "physics_hz": 100,
   "observation_hz_game_time": 10,

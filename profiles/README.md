@@ -1,6 +1,6 @@
 # Profile inventory
 
-Badminton’s selected goal-v2 recipes use `badminton/conditional-api-20.json`: 20 serial API Ultrafast end-to-end samples, including request preparation, token preflight and client overhead. Simulation uses these samples at S2 (2× slowdown), with subscription Fast disabled. Actual API evaluation uses its real response timing at S3 (3× slowdown); the profile summary is context, not a delivery schedule. `tactical-api-100.json` is the older tactical-v1 campaign, retained for provenance. See [Badminton](../docs/badminton.md).
+Badminton’s selected goal-v2 recipes use `badminton/conditional-api-10.json`: 10 serial API Ultrafast samples retaining complete-valid-JSON readiness and terminal service time from the realtime transport. Both simulation and actual API evaluation use S3 (3× slowdown); subscription simulation disables Fast and samples this profile, while actual API delivery uses real response timing. The older API20 and API100 profiles remain historical evidence. See [Badminton](../docs/badminton.md).
 
 Default simulation recipes select one exact profile each; older profiles are archived separately for development provenance.
 

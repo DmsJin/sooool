@@ -1,5 +1,10 @@
 # Badminton: conditional goals over continuous camera execution
 
+[Watch the 15-second opening serve and rally](../assets/gameplay/badminton.mp4).
+The source match completed 8:11 with 90/97 legal returns, at seed 101 and L1/S3.
+See the [completed-match evidence](../artifacts/badminton/README.md) for its source
+snapshot, protocol, API accounting and native replay audit.
+
 ## Actual realtime API run
 
 Use the same Python/GPU setup below. `sol eval badminton` runs one native match
@@ -11,7 +16,7 @@ they do not schedule response delivery.
 ```bash
 PYTHON=/tmp/sol-badminton-venv/bin/python
 $PYTHON scripts/badminton.py preflight --duration 10 --output outputs/badminton/preflight
-$PYTHON scripts/badminton.py eval --budget-usd 20 --env-file /absolute/path/to/.env \
+$PYTHON scripts/badminton.py eval --budget-usd 15 --ledger outputs/badminton/budget.json --env-file /absolute/path/to/.env \
   --output outputs/badminton/api-101
 $PYTHON scripts/badminton.py audit --output outputs/badminton/api-101
 $PYTHON scripts/badminton.py report --episodes outputs/badminton/api-101 \
@@ -33,7 +38,7 @@ It searches the remaining contact trajectory, including earlier high contacts.
 It uses a legal approximation to that same goal when exact placement is unavailable.
 Exact plans, projected plans and rule fallbacks remain separate from actual outcomes.
 A committed swing retains its goal through camera and delivery corrections.
-Requests can start during serve preparation. The 1–10 game-second horizon starts
+Requests start during serving and receiving preparation, and refresh before expiry. The 1–10 game-second horizon starts
 at the source observation, so thinking time consumes it. Expired replies are discarded.
 
 The realtime recipe retains tactical placement and recovery. Its output adds
@@ -48,11 +53,17 @@ planning requests a 0.4-wall-second lead, rounded up to 14 control steps at S3
 (0.42 wall seconds). Absolute contact
 times survive capture and preparation delay. A missed planning deadline is
 recorded and dropped; it cannot trigger synchronous replanning in the physics
-loop. This realtime execution condition differs from the zero-lead simulation.
+loop. Subscription simulation uses the same lead and command scheduler, and injects
+measured native planning time into its virtual clock.
 Commands produced while the planner is busy remain in a FIFO queue. Submission
 keeps each command's absolute contact time and subtracts the time spent waiting.
 Point boundaries discard queued commands explicitly. A busy planner does not
-silently discard a stroke already committed by the camera controller.
+silently discard a stroke already committed by the camera controller. A camera proposal
+becomes active only after installation acknowledgement. Up to three contact/stance
+candidates run in parallel robot-only rehearsals. Candidates must deliver position
+within 2 cm, face within 3 degrees, avoid robot stops, and predict a legal outgoing
+flight using rehearsed velocity. Geometry corrections retain the goal and pass the
+same checks before replacing the active stroke.
 
 The default endpoint is the native match: first to 11 by two points, capped at
 15, including the environment's original hit/point safety caps. Limits are 300
@@ -126,23 +137,22 @@ $PYTHON scripts/badminton.py report --episodes runs/badminton/rules-101 runs/bad
 
 The same commands are available as `sol simulate badminton`, `sol audit badminton`,
 and `sol report badminton` when the selected Python environment provides `sol`.
-`--profile-info hide` hides only profiling statistics. `--source sol-frozen`
-retains the first accepted intention per point. The default recipe uses online
-SOL with the profile shown. Each output directory must be new. A `STOP` file in
+The default recipe uses online SOL with profiling context. Each output directory must be new. A `STOP` file in
 its parent interrupts the episode and preserves partial evidence.
 
 ## Clocks and model inputs
 
-The simulation protocol is L1/S2, native 100 Hz physics, and public observations at up
-to 10 Hz game time. One measured wall second corresponds to 50 physics steps.
+The simulation protocol is L1/S3, native 100 Hz physics, and public observations at up
+to 10 Hz game time. One modeled wall second corresponds to 33.333 physics steps.
 Rendering, perception, local decision work, and image serialization incur measured
-virtual delay. Native mechanical planning time is recorded but is not injected,
-as in the original checkpoint. Contacts keep their absolute game times.
+virtual delay. Native mechanical planning consumes measured virtual time and uses
+the same 14-step installation deadline as realtime. Contacts keep their absolute game times.
 
-Requests are serial, at most once per game second and 64 per window. SOL receives
+Requests are serial, at most once per game second and 300 per match. SOL receives
 the original public two-camera/four-frame image sheet, filtered public state and
 specification, accepted history, memory, and optional profile statistics. Seeds,
-simulator truth, future delay draws, pending answers and offline audit data never
+internal installation acknowledgements, simulator truth, future delay draws,
+pending answers and offline audit data never
 enter its prompt.
 
 Subscription simulation explicitly requests **default tier with Fast disabled**.
@@ -153,9 +163,10 @@ replace coding instructions. Project documents, skills,
 tools and memory sources are disabled. The existing signed-in ChatGPT subscription
 supplies all new model decisions. There is no paid API fallback.
 
-Virtual scheduling uses the retained 20-call **API Ultrafast** conditional-strategy
-profile in `profiles/badminton/conditional-api-20.json`. Its end-to-end measurement
-includes request preparation, token preflight, client accounting and complete response.
+Virtual scheduling uses the retained 10-call **API Ultrafast** conditional-strategy
+profile in `profiles/badminton/conditional-api-10.json`. It records complete valid
+JSON readiness and terminal service time through the live API transport.
+The earlier API20 measurement remains historical evidence.
 The same profile summary is prompt context in realtime runs; realtime delivery
 uses actual API readiness without sampled delays. Actual subscription compute time is recorded separately.
 If it exceeds a virtual delivery deadline, simulation waits for the answer.
@@ -177,8 +188,25 @@ model answers. Original and newly generated model decisions remain separate.
 
 The report exports 1x game-time videos at 10 FPS from held public observations.
 New GPU runs retain their own measured preprocessing times and observed scores.
-Raw logs and videos belong in ignored `runs/`; compact validation evidence belongs
-in `artifacts/badminton/`. No new profiling calls are required for this port.
+Raw logs and videos belong in ignored `outputs/` or `runs/`; compact published
+validation evidence belongs in `artifacts/badminton/`.
+
+## Reception diagnosis and profiling
+
+`sol diagnose badminton --episodes ORIGINAL_RUN --output NEW_DIRECTORY` restores
+each settled audited stroke's verified physical prefix and frozen public goal. This is
+an offline counterfactual, with zero model calls. Native snapshots remain outside
+the policy input. Original evidence is retained. The comparison reports legal
+returns and preserved returns separately. `complete` requires an outcome for every
+source case, valid clocks and zero invalid commands. It does not impose a fixed
+case count or a policy-promotion threshold.
+
+`sol profile badminton --episodes ORIGINAL_RUN --budget-usd 15 --ledger outputs/badminton/budget.json --output NEW_PROFILE`
+measures exactly 10 distinct public camera observations through the realtime API
+transport. Use the same `--ledger` and dollar cap for later evaluations, and pass
+`--profile NEW_PROFILE/profile.json` to select the measurement. Historical API20
+evidence remains separately labeled. `sol eval badminton --source rules` runs the
+fixed tactical control with zero model calls and the same native match endpoint.
 
 ## Goal audit and source ownership
 

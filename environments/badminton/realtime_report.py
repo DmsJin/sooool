@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import sys
 import textwrap
+from decimal import Decimal
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -46,7 +47,8 @@ def _replay(directory):
                                                    "result_index": len(env.match.g.results)}
                     strokes[current_stroke]["final"] = selection
             if frame in observations:
-                expected = {k: v for k, v in observations[frame]["state"].items() if k != "pending_commands"}
+                expected = {k: v for k, v in observations[frame]["state"].items()
+                            if k not in {"pending_commands", "control_ack"}}
                 if env.public_state() != expected:
                     raise ValueError(f"Native public state differs at frame {frame}")
             yield env, frame, by_frame.get(frame, []), strokes
@@ -96,7 +98,7 @@ def audit_realtime(directory):
         serves = [r for r in results if r["kind"] == "our_serve"]
         report.update(matched=True, verified_frames=frame + 1, incoming=len(incoming),
                       legal_returns=sum(r["returned"] for r in incoming), serves=len(serves),
-                      legal_serves=sum(r["returned"] for r in serves))
+                      legal_serves=sum(r["returned"] for r in serves), incoming_results=incoming)
         sol = [s for s in strokes.values() if s["initial"]["goal_origin"] == "sol"]
         settled = [s for s in sol if s["outcome"] is not None]
         realized = [s for s in settled if "realized_launch" in s]
@@ -112,6 +114,19 @@ def audit_realtime(directory):
             **{f"realized_{kind}": sum(s["realized_launch"]["goal_status"] == kind
                     and s["realized_launch"]["legal_flight"] and s["outcome"]["returned"] for s in realized)
                for kind in ("exact", "projected")}}
+        summary = json.loads((directory / "summary.json").read_text())
+        if summary["mode"] == "realtime_api":
+            # Each match owns its request IDs, even when several matches share a ledger.
+            requests = [json.loads(p.read_text()) for p in sorted((directory / "requests").glob("*/result.json"))]
+            ledger = json.loads((directory / "ledger.json").read_text())
+            unadmitted = int(summary["stop_reason"] == "budget_limit")
+            settled = len(requests) + unadmitted == summary["calls"] and all(
+                ledger["requests"][r["ledger_request_id"]]["status"] == "settled"
+                and ledger["requests"][r["ledger_request_id"]]["actual_usd"] == r["cost_usd"] for r in requests)
+            report["billing"] = {"api_calls": len(requests), "terminal_accounting_complete": settled,
+                                 "cost_usd": str(sum((Decimal(r["cost_usd"]) for r in requests), Decimal(0)))}
+            report["evaluation_complete"] = (summary["native_match_completed"] and summary["clock_valid"]
+                                               and summary["error"] is None and settled)
     except ValueError as exc:
         report["error"] = str(exc)
     _write(directory / "audit.json", report)
@@ -137,7 +152,9 @@ def decision_panel(events, current, history):
             else:
                 current["status"] = "Recovery command applied"
         elif event["event"] == "soft_reset":
-            current = {"brief": "New point; waiting for a model decision.", "intent": None,
+            current = {"brief": ("Fixed tactics; continuous camera control." if current["source"] == "rules"
+                                 else "New point; waiting for a model decision."),
+                       "source": current["source"], "intent": None,
                        "status": "Reference serving / tracking"}
     return current
 
@@ -151,11 +168,15 @@ def report_realtime(directory):
     if not audit["matched"]:
         raise ValueError("Video requires a matched native replay")
     summary = json.loads((directory / "summary.json").read_text())
+    if "billing" in audit:
+        summary.update(cost_usd=audit["billing"]["cost_usd"], complete=audit["evaluation_complete"])
     slowdown = json.loads((directory / "run.json").read_text())["config"]["slowdown"]
     fps = 100 / slowdown
     period = slowdown / 100
     video_name = f"realtime-s{slowdown}.mp4"
-    source_label = f"REAL API / S{slowdown}" if summary["mode"] == "realtime_api" else "PREFLIGHT / ZERO API CALLS"
+    source_label = (f"REAL API / S{slowdown}" if summary["mode"] == "realtime_api" else
+                    f"SUBSCRIPTION SIM / S{slowdown}" if summary["mode"] == "subscription_with_simulated_profile" else
+                    f"FIXED TACTICS / S{slowdown}")
     font = ImageFont.truetype("DejaVuSans.ttf", 23)
     small = ImageFont.truetype("DejaVuSans.ttf", 17)
     title = ImageFont.truetype("DejaVuSans.ttf", 30)
@@ -163,7 +184,9 @@ def report_realtime(directory):
         "-pix_fmt", "rgb24", "-s", "1440x800", "-r", f"100/{slowdown}", "-i", "-", "-an", "-c:v", "libx264",
         "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
         str(directory / video_name)], stdin=subprocess.PIPE)
-    current = {"brief": "Waiting for the first model response.", "intent": None,
+    fixed = summary["mode"] not in {"realtime_api", "subscription_with_simulated_profile"}
+    current = {"brief": "Fixed tactics; continuous camera control." if fixed else "Waiting for the first model response.",
+               "source": "rules" if fixed else "sol", "intent": None,
                "status": "Reference serving / tracking"}
     history = []
     renderer = None
@@ -210,7 +233,8 @@ def report_realtime(directory):
                     draw.text((1008, y), line, font=small, fill="#a8b6c8")
                     y += 24
                 y += 12
-            draw.text((20, 780), f"Verified replay of actual API controls | S{slowdown} playback | {fps:g} FPS | Same-response English summaries",
+            draw.text((20, 780), f"Verified native control replay | S{slowdown} playback | {fps:g} FPS | "
+                      + ("Fixed tactical execution" if fixed else "Same-response decision summaries"),
                       font=small, fill="#a8b6c8")
             encoder.stdin.write(image.tobytes())
     finally:

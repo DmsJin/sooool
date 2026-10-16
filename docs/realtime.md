@@ -2,12 +2,12 @@
 
 ## Badminton: actual realtime API at S3
 
-`sol eval badminton --budget-usd 20 --env-file /absolute/path/to/.env --output outputs/badminton-api101`
+`sol eval badminton --budget-usd 15 --ledger outputs/badminton-budget.json --env-file /absolute/path/to/.env --output outputs/badminton-api101`
 runs one L1, seed-101 native match. It uses one serial `gpt-6.1-sol / low / ultrafast`
 request and a continuously advancing S3 clock. S3 means 3× slowdown: one game second takes three wall seconds. Camera control and native stroke
 planning run off the physics process. Limits, preparation timing, public English
 summaries and verified replay video are described in [Badminton](badminton.md).
-Run `sol preflight badminton` with an explicit output directory before paid use. The completed goal-v2 diagnostic scored 1:11 before the FIFO correction; the corrected current code has not completed an API match because provider credit was exhausted. [The evidence record](../artifacts/badminton/realtime-goal-v2-20261017.json) preserves both conditions.
+Run `sol preflight badminton` with an explicit output directory before paid use. The latest retained goal-v2 API match completed 8:11 with 90/97 legal returns and matching native replay. It predates the latest public-input acknowledgement filter correction; [the evidence record](../artifacts/badminton/realtime-rerun-005.json) identifies the exact run conditions.
 
 ## Asterix
 

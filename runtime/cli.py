@@ -131,7 +131,7 @@ def doctor(a):
 def main():
     if len(sys.argv)>2 and sys.argv[2] in ('tabletennis','pingpong') and sys.argv[1] in ('eval','report'):
         raise SystemExit(subprocess.call([sys.executable,str(ROOT/'scripts/tabletennis.py'),sys.argv[1],*sys.argv[3:]]))
-    if len(sys.argv)>2 and sys.argv[2]=='badminton' and sys.argv[1] in ('simulate','eval','preflight','audit','report'):
+    if len(sys.argv)>2 and sys.argv[2]=='badminton' and sys.argv[1] in ('simulate','eval','preflight','audit','report','diagnose','profile'):
         raise SystemExit(subprocess.call([sys.executable,str(ROOT/'scripts/badminton.py'),sys.argv[1],*sys.argv[3:]]))
     # Racing retains its measured driver/transport, with an explicit real API path.
     if len(sys.argv)>2 and sys.argv[2]=='racing' and sys.argv[1] in ('simulate','eval','profile','preflight','record','budget'):
