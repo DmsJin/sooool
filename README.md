@@ -30,7 +30,7 @@ You can watch GPT-Sol dodge a screen full of bullets, race a rival, collect food
 |---|---|---|
 | **Touhou / Kaguya** | Dodge bullets. Defeat the boss. | Real-time API at 1×. GPT-Sol chooses movement, shooting, focus, bombs and duration. |
 | **Racing** | Find a line. Beat your rival. | Real-time API at 1×. GPT-Sol chooses speed and racing targets; a coded controller supplies steering. |
-| **Rhythm** | Hit the right key at the right time. | Native browser/audio API capture at 1×, with DFJK inputs. |
+| **Rhythm** | Hit the right key at the right time. | Real-time API at 1×. GPT-Sol chooses each DFJK key and its absolute tap timestamp. [Setup](docs/rhythm.md). |
 | **PingPong** | Serve, return, win the point. | Real-time API at 1×. GPT-Sol selects shot placement; rules handle serving and execution. [Setup](docs/tabletennis.md). |
 | **Badminton** | Place the shot. Recover for the next one. | Tactical goals with native mechanics; real-time API at S3. [Setup and control boundary](docs/badminton.md). |
 | **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | Historical delay simulation at 5× slowdown, with model actions applied unchanged. |
@@ -52,7 +52,9 @@ Codex runs the research loop; GPT-Sol makes the online gameplay decisions. The d
 
 ### Rhythm: from delayed decisions to near-perfect timing
 
-The selected policy is the v21 strategy, with public speed and screenshot-time calibration. SOL outputs each key, ID, literal tap time and expiry from pixels. After simulation development and serial API profiling exposed a1.8s deadline problem, a human-requested2.5s visual approach gave it more planning room. The selected real17s API run scores24 PERFECT,1 GREAT,zero MISS and98.8% weighted accuracy, with two empty presses. Music remains1x. This is one reused-chart episode, not a full-combo or repeated-success claim.
+The selected v21 policy reads full-board screenshots and outputs each DFJK key, ID, absolute tap timestamp and expiry. Timestamps use the executor’s monotonic clock. The executor queues those exact commands and presses at the supplied times; it does not convert note coordinates into tap times or correct the model’s predictions. Public note-speed and screenshot-time calibration are provided to the model.
+
+The selected real-time API run achieved **24 Perfect / 1 Great / 0 Miss (98.8% weighted accuracy)** over a 17-second preview, with two empty presses. Music runs at 1×, with 2.5 seconds of visual note approach. This is one reused-chart episode; the two empty presses broke the combo.
 
 [Selected research path](docs/rhythm-autoresearch.md) · [Run/profile/record and portability limits](docs/rhythm.md) · [Machine-readable evaluation history](research/rhythm/evaluation-history.jsonl)
 

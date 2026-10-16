@@ -42,13 +42,19 @@ An early legal JSON response can be applied while its terminal event is pending.
 
 The current policy accepts only short public summaries, not internal reasoning traces. A summary and action are displayed atomically from the same selected response. The display panel is outside the actor's observation. Postprocessed videos must retain their original timing and label added audio or rendering changes.
 
-## Other games
+## Rhythm: model-owned absolute tap times
 
-Rhythm retains its original real-time research paths:
+`sol eval rhythm --budget-usd 5 --max-calls 90 --output runs/rhythm-api-001`
+uses the selected v21 policy and a continuously advancing browser/audio clock.
+GPT chooses each key and absolute tap timestamp in the executor’s monotonic
+clock domain. The executor preserves those timestamps and handles timed key
+delivery; it does not calculate tap times from note coordinates.
 
-- Rhythm model-owned timing: `environments/rhythm/experiments/rhythm/model_native.py`; prior cropped-coordinate campaign: `realtime_v2.py`. Native audio evaluation additionally needs the authorized audio resource and continuous audio/browser clocks.
-
-Their original commands retain their declared resource and budget assumptions. The root `sol eval asterix` uses the shared native loop; `sol eval racing` delegates to the selected Racing driver. Historical and fresh results must remain separately labeled.
+The selected native API episode achieved 24 Perfect, 1 Great and zero Miss over
+a 17-second preview at 1× audio speed, with 2.5s visual approach. Two empty
+presses broke the combo. See [the current workflow](rhythm.md) for commands,
+calibration, budgets and portability limits, and [the case study](rhythm-autoresearch.md)
+for the selected experiment. Historical and fresh runs retain separate records.
 
 ## Racing
 
