@@ -1,0 +1,35 @@
+[
+  {
+    "id": "frozen-lane-commit-1x-holdout-s301",
+    "variant": "metric",
+    "slowdown": 1,
+    "control": "lane",
+    "cadence": 0.6,
+    "chunk": 1,
+    "history": 2,
+    "workers": 3,
+    "seed": 301
+  },
+  {
+    "id": "frozen-lane-commit-1x-holdout-s302",
+    "variant": "metric",
+    "slowdown": 1,
+    "control": "lane",
+    "cadence": 0.6,
+    "chunk": 1,
+    "history": 2,
+    "workers": 3,
+    "seed": 302
+  },
+  {
+    "id": "frozen-lane-commit-1x-holdout-s303",
+    "variant": "metric",
+    "slowdown": 1,
+    "control": "lane",
+    "cadence": 0.6,
+    "chunk": 1,
+    "history": 2,
+    "workers": 3,
+    "seed": 303
+  }
+]

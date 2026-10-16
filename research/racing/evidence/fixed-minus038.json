@@ -1,0 +1,798 @@
+{
+  "fixed_goal": [
+    3.4,
+    -0.38,
+    1.7
+  ],
+  "matches": 7,
+  "wins": 0,
+  "actual_model_calls": 0,
+  "additional_paid_usd": 0,
+  "budget_unchanged": true,
+  "same_lane_sha256": "76798b23171aa68c90bb92641514c7a5f16f36306c3f6806d21a3e3b500c967e",
+  "retains_camera_pure_pursuit_and_curvature_speed_cap": true,
+  "retains_profile_delay_and_goal_expiry": true,
+  "all_replays_valid": true,
+  "cases": [
+    {
+      "seed": 101,
+      "won": false,
+      "scores": {
+        "A": {
+          "heats_won": 1,
+          "warnings": 3,
+          "checkpoints": 23,
+          "laps": 1,
+          "obstacle_crashes": 0
+        },
+        "opponent": {
+          "heats_won": 0,
+          "warnings": 0,
+          "checkpoints": 17,
+          "laps": 0,
+          "obstacle_crashes": 0
+        }
+      },
+      "heat_results": [
+        {
+          "heat": 1,
+          "winner": "A",
+          "decided_by": "finish",
+          "finish_time": 23.7792
+        },
+        {
+          "heat": 2,
+          "winner": "B",
+          "decided_by": "disqualification",
+          "finish_time": null
+        }
+      ],
+      "grids": [
+        {
+          "A": "outer",
+          "B": "inner"
+        },
+        {
+          "A": "inner",
+          "B": "outer"
+        }
+      ],
+      "crashes": [
+        {
+          "heat": 2,
+          "t": 4.79,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.085,
+            "B": -1.7
+          },
+          "impulse": 1.5533,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 1
+        },
+        {
+          "heat": 2,
+          "t": 11.24,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 2.908,
+            "B": -1.636
+          },
+          "impulse": 1.3318,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 2
+        },
+        {
+          "heat": 2,
+          "t": 17.85,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.185,
+            "B": -1.659
+          },
+          "impulse": 1.3728,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 3
+        }
+      ],
+      "physics": {
+        "late_max_s": 0.02142856700811535,
+        "late_p99_s": 0.008468350142939018,
+        "run_steps": 4163,
+        "run_sim_s": 41.63,
+        "run_wall_s": 41.63752106600441,
+        "period_s": 0.01
+      },
+      "goal_proposals_checked": 65
+    },
+    {
+      "seed": 111,
+      "won": false,
+      "scores": {
+        "A": {
+          "heats_won": 1,
+          "warnings": 3,
+          "checkpoints": 22,
+          "laps": 1,
+          "obstacle_crashes": 1
+        },
+        "opponent": {
+          "heats_won": 0,
+          "warnings": 0,
+          "checkpoints": 17,
+          "laps": 0,
+          "obstacle_crashes": 0
+        }
+      },
+      "heat_results": [
+        {
+          "heat": 1,
+          "winner": "A",
+          "decided_by": "finish",
+          "finish_time": 26.1299
+        },
+        {
+          "heat": 2,
+          "winner": "B",
+          "decided_by": "disqualification",
+          "finish_time": null
+        }
+      ],
+      "grids": [
+        {
+          "A": "outer",
+          "B": "inner"
+        },
+        {
+          "A": "inner",
+          "B": "outer"
+        }
+      ],
+      "crashes": [
+        {
+          "heat": 1,
+          "t": 13.65,
+          "at_fault": "A",
+          "obstacle": 2,
+          "kind": "impact",
+          "fault_rule": "obstacle",
+          "impulse": 7.9159,
+          "contact_s": 0.01
+        },
+        {
+          "heat": 2,
+          "t": 3.74,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.099,
+            "B": -1.655
+          },
+          "impulse": 1.5638,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 1
+        },
+        {
+          "heat": 2,
+          "t": 9.15,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.149,
+            "B": -1.676
+          },
+          "impulse": 1.2711,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 2
+        },
+        {
+          "heat": 2,
+          "t": 15.58,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 2.675,
+            "B": -1.658
+          },
+          "impulse": 0.7219,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 3
+        }
+      ],
+      "physics": {
+        "late_max_s": 0.018095665029250085,
+        "late_p99_s": 0.008484073902945977,
+        "run_steps": 4171,
+        "run_sim_s": 41.71,
+        "run_wall_s": 41.71659181101131,
+        "period_s": 0.01
+      },
+      "goal_proposals_checked": 66
+    },
+    {
+      "seed": 121,
+      "won": false,
+      "scores": {
+        "A": {
+          "heats_won": 1,
+          "warnings": 3,
+          "checkpoints": 23,
+          "laps": 1,
+          "obstacle_crashes": 1
+        },
+        "opponent": {
+          "heats_won": 0,
+          "warnings": 0,
+          "checkpoints": 18,
+          "laps": 0,
+          "obstacle_crashes": 0
+        }
+      },
+      "heat_results": [
+        {
+          "heat": 1,
+          "winner": "A",
+          "decided_by": "finish",
+          "finish_time": 26.4922
+        },
+        {
+          "heat": 2,
+          "winner": "B",
+          "decided_by": "disqualification",
+          "finish_time": null
+        }
+      ],
+      "grids": [
+        {
+          "A": "outer",
+          "B": "inner"
+        },
+        {
+          "A": "inner",
+          "B": "outer"
+        }
+      ],
+      "crashes": [
+        {
+          "heat": 1,
+          "t": 17.59,
+          "at_fault": "A",
+          "obstacle": 2,
+          "kind": "impact",
+          "fault_rule": "obstacle",
+          "impulse": 3.9011,
+          "contact_s": 0.01
+        },
+        {
+          "heat": 2,
+          "t": 3.78,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.135,
+            "B": -1.662
+          },
+          "impulse": 1.6989,
+          "contact_s": 0.02,
+          "kind": "impact",
+          "warning": 1
+        },
+        {
+          "heat": 2,
+          "t": 10.35,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 2.717,
+            "B": -1.647
+          },
+          "impulse": 1.1267,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 2
+        },
+        {
+          "heat": 2,
+          "t": 18.35,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.046,
+            "B": -1.656
+          },
+          "impulse": 1.1301,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 3
+        }
+      ],
+      "physics": {
+        "late_max_s": 0.01611707400297746,
+        "late_p99_s": 0.00841414294554851,
+        "run_steps": 4485,
+        "run_sim_s": 44.85,
+        "run_wall_s": 44.86071909099701,
+        "period_s": 0.01
+      },
+      "goal_proposals_checked": 70
+    },
+    {
+      "seed": 301,
+      "won": false,
+      "scores": {
+        "A": {
+          "heats_won": 1,
+          "warnings": 3,
+          "checkpoints": 24,
+          "laps": 1,
+          "obstacle_crashes": 2
+        },
+        "opponent": {
+          "heats_won": 0,
+          "warnings": 0,
+          "checkpoints": 20,
+          "laps": 0,
+          "obstacle_crashes": 0
+        }
+      },
+      "heat_results": [
+        {
+          "heat": 1,
+          "winner": "A",
+          "decided_by": "finish",
+          "finish_time": 28.6159
+        },
+        {
+          "heat": 2,
+          "winner": "B",
+          "decided_by": "disqualification",
+          "finish_time": null
+        }
+      ],
+      "grids": [
+        {
+          "A": "outer",
+          "B": "inner"
+        },
+        {
+          "A": "inner",
+          "B": "outer"
+        }
+      ],
+      "crashes": [
+        {
+          "heat": 1,
+          "t": 11.13,
+          "at_fault": "A",
+          "obstacle": 1,
+          "kind": "impact",
+          "fault_rule": "obstacle",
+          "impulse": 3.3555,
+          "contact_s": 0.01
+        },
+        {
+          "heat": 2,
+          "t": 5.25,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.211,
+            "B": -1.705
+          },
+          "impulse": 1.4747,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 1
+        },
+        {
+          "heat": 2,
+          "t": 10.54,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.071,
+            "B": -1.682
+          },
+          "impulse": 1.5765,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 2
+        },
+        {
+          "heat": 2,
+          "t": 17.15,
+          "at_fault": "A",
+          "obstacle": 1,
+          "kind": "impact",
+          "fault_rule": "obstacle",
+          "impulse": 7.3873,
+          "contact_s": 0.01
+        },
+        {
+          "heat": 2,
+          "t": 23.52,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.298,
+            "B": -1.707
+          },
+          "impulse": 1.6277,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 3
+        }
+      ],
+      "physics": {
+        "late_max_s": 0.015994356013834476,
+        "late_p99_s": 0.00826053383963881,
+        "run_steps": 5214,
+        "run_sim_s": 52.14,
+        "run_wall_s": 52.1491220780008,
+        "period_s": 0.01
+      },
+      "goal_proposals_checked": 81
+    },
+    {
+      "seed": 302,
+      "won": false,
+      "scores": {
+        "A": {
+          "heats_won": 1,
+          "warnings": 3,
+          "checkpoints": 21,
+          "laps": 1,
+          "obstacle_crashes": 0
+        },
+        "opponent": {
+          "heats_won": 0,
+          "warnings": 0,
+          "checkpoints": 15,
+          "laps": 0,
+          "obstacle_crashes": 0
+        }
+      },
+      "heat_results": [
+        {
+          "heat": 1,
+          "winner": "A",
+          "decided_by": "finish",
+          "finish_time": 24.721
+        },
+        {
+          "heat": 2,
+          "winner": "B",
+          "decided_by": "disqualification",
+          "finish_time": null
+        }
+      ],
+      "grids": [
+        {
+          "A": "outer",
+          "B": "inner"
+        },
+        {
+          "A": "inner",
+          "B": "outer"
+        }
+      ],
+      "crashes": [
+        {
+          "heat": 2,
+          "t": 3.84,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.001,
+            "B": -1.67
+          },
+          "impulse": 1.1646,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 1
+        },
+        {
+          "heat": 2,
+          "t": 8.93,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 2.984,
+            "B": -1.687
+          },
+          "impulse": 0.8986,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 2
+        },
+        {
+          "heat": 2,
+          "t": 14.01,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.281,
+            "B": -1.677
+          },
+          "impulse": 2.7447,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 3
+        }
+      ],
+      "physics": {
+        "late_max_s": 0.026320912991650403,
+        "late_p99_s": 0.007749742519808933,
+        "run_steps": 3874,
+        "run_sim_s": 38.74,
+        "run_wall_s": 38.75205861101858,
+        "period_s": 0.01
+      },
+      "goal_proposals_checked": 61
+    },
+    {
+      "seed": 303,
+      "won": false,
+      "scores": {
+        "A": {
+          "heats_won": 1,
+          "warnings": 3,
+          "checkpoints": 25,
+          "laps": 1,
+          "obstacle_crashes": 1
+        },
+        "opponent": {
+          "heats_won": 0,
+          "warnings": 0,
+          "checkpoints": 19,
+          "laps": 0,
+          "obstacle_crashes": 0
+        }
+      },
+      "heat_results": [
+        {
+          "heat": 1,
+          "winner": "A",
+          "decided_by": "finish",
+          "finish_time": 25.1248
+        },
+        {
+          "heat": 2,
+          "winner": "B",
+          "decided_by": "disqualification",
+          "finish_time": null
+        }
+      ],
+      "grids": [
+        {
+          "A": "outer",
+          "B": "inner"
+        },
+        {
+          "A": "inner",
+          "B": "outer"
+        }
+      ],
+      "crashes": [
+        {
+          "heat": 2,
+          "t": 3.64,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.242,
+            "B": -1.651
+          },
+          "impulse": 1.4605,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 1
+        },
+        {
+          "heat": 2,
+          "t": 9.83,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 2.898,
+            "B": -1.586
+          },
+          "impulse": 1.5962,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 2
+        },
+        {
+          "heat": 2,
+          "t": 12.73,
+          "at_fault": "A",
+          "obstacle": 0,
+          "kind": "impact",
+          "fault_rule": "obstacle",
+          "impulse": 22.3478,
+          "contact_s": 0.01
+        },
+        {
+          "heat": 2,
+          "t": 23.83,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 2.175,
+            "B": -1.599
+          },
+          "impulse": 0.9077,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 3
+        }
+      ],
+      "physics": {
+        "late_max_s": 0.021125324012245983,
+        "late_p99_s": 0.008460321843449492,
+        "run_steps": 4896,
+        "run_sim_s": 48.96,
+        "run_wall_s": 48.96694084099727,
+        "period_s": 0.01
+      },
+      "goal_proposals_checked": 77
+    },
+    {
+      "seed": 304,
+      "won": false,
+      "scores": {
+        "A": {
+          "heats_won": 1,
+          "warnings": 3,
+          "checkpoints": 25,
+          "laps": 1,
+          "obstacle_crashes": 3
+        },
+        "opponent": {
+          "heats_won": 0,
+          "warnings": 0,
+          "checkpoints": 21,
+          "laps": 0,
+          "obstacle_crashes": 0
+        }
+      },
+      "heat_results": [
+        {
+          "heat": 1,
+          "winner": "A",
+          "decided_by": "finish",
+          "finish_time": 29.2977
+        },
+        {
+          "heat": 2,
+          "winner": "B",
+          "decided_by": "disqualification",
+          "finish_time": null
+        }
+      ],
+      "grids": [
+        {
+          "A": "outer",
+          "B": "inner"
+        },
+        {
+          "A": "inner",
+          "B": "outer"
+        }
+      ],
+      "crashes": [
+        {
+          "heat": 1,
+          "t": 10.56,
+          "at_fault": "A",
+          "obstacle": 0,
+          "kind": "impact",
+          "fault_rule": "obstacle",
+          "impulse": 5.0331,
+          "contact_s": 0.01
+        },
+        {
+          "heat": 1,
+          "t": 21.23,
+          "at_fault": "A",
+          "obstacle": 2,
+          "kind": "impact",
+          "fault_rule": "obstacle",
+          "impulse": 4.7544,
+          "contact_s": 0.01
+        },
+        {
+          "heat": 2,
+          "t": 6.03,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 1.879,
+            "B": -1.776
+          },
+          "impulse": 0.7208,
+          "contact_s": 0.08,
+          "kind": "impact",
+          "warning": 1
+        },
+        {
+          "heat": 2,
+          "t": 13.9,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.269,
+            "B": -1.656
+          },
+          "impulse": 2.0477,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 2
+        },
+        {
+          "heat": 2,
+          "t": 17.65,
+          "at_fault": "A",
+          "obstacle": 0,
+          "kind": "impact",
+          "fault_rule": "obstacle",
+          "impulse": 5.7065,
+          "contact_s": 0.01
+        },
+        {
+          "heat": 2,
+          "t": 24.41,
+          "at_fault": "A",
+          "other": "B",
+          "fault_rule": "drove_into",
+          "closing": {
+            "A": 3.032,
+            "B": -1.669
+          },
+          "impulse": 1.3025,
+          "contact_s": 0.01,
+          "kind": "impact",
+          "warning": 3
+        }
+      ],
+      "physics": {
+        "late_max_s": 0.015583294007228687,
+        "late_p99_s": 0.008030548991519037,
+        "run_steps": 5371,
+        "run_sim_s": 53.71,
+        "run_wall_s": 53.71661997801857,
+        "period_s": 0.01
+      },
+      "goal_proposals_checked": 84
+    }
+  ]
+}

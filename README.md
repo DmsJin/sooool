@@ -44,6 +44,22 @@ These are single seed-5 trials under historical sampled API delays. Serial reque
 
 Every new run snapshots its code/recipe and emits `evaluation-record.json`; `sol record` appends retain/reject/diagnostic decisions. [Validation](docs/validation.md) distinguishes historical records, cold replay, fresh portable simulation, and actual-clock trials. [Real-time evaluation](docs/realtime.md) describes the clocks and remaining API transfer work.
 
+## Racing: SOL develops, then evaluates in real time
+
+[Start with the Racing workflow](docs/racing.md) and [the evidence-linked iteration record](research/racing/EVALUATION.md). SOL changes prompts/control representation, tests delayed closed-loop decisions in simulation, inspects failures, freezes a candidate, and transfers it to continuously advancing API gameplay.
+
+The selected **early lane-commit-v14** checkpoint won seed304 **2:0** using real `gpt-6.1-sol / low / ultrafast` API decisions. The English-summary video variant won a separate **2:1** retake. GPT selects speed, stripe-relative offset and lookahead; a coded 5 Hz visual tracker supplies steering and bend speed limiting. These are hybrid Level 1 results, not direct GPT steering. Historical subscription groups used numeric camera features but omitted image contents; that input limitation is preserved in the record.
+
+```bash
+# Use the separate Racing environment/dependencies described in docs/racing.md.
+python scripts/racing.py simulate --output runs/racing-dev101 --seed 101
+# Real-time eval requires process-only credentials and an explicit capped ledger.
+python scripts/racing.py eval --output runs/racing-api304 --seed 304 \
+  --budget-ledger runs/racing-budget.json --stage-cap-usd 10
+```
+
+[Watch/download: seed304, edited win → loss → win](artifacts/videos/racing-seed304-win-loss-win.mp4). Original heat IDs, clock and score remain visible; actual API explanations and actions stay synchronized. [How to track an evaluation](research/racing/RECORDS.md) defines hypotheses, full cohorts, replay checks, costs and promotion gates. Later development branches are outside this selected lineage.
+
 ## Other games
 
 Rhythm and Touhou keep their existing environments, policies and recipes:
@@ -54,7 +70,7 @@ uv run sol simulate rhythm
 uv run sol simulate touhou
 ```
 
-Rhythm's retained portable simulation scored 50 PERFECT, 1 GREAT, 1 MISS; strict full combo was not met. Touhou's retained portable seed-9 trial ended at 48.82 game seconds with Boss HP 260. These are subscription/profile simulations. Their detailed development and unfinished PingPong/Racing research remain preserved independently.
+Rhythm's retained portable simulation scored 50 PERFECT, 1 GREAT, 1 MISS; strict full combo was not met. Touhou's retained portable seed-9 trial ended at 48.82 game seconds with Boss HP 260. These are subscription/profile simulations. Their detailed development and unfinished PingPong research remain preserved independently. Racing retains its selected workflow above.
 
 ## Repository map
 

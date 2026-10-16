@@ -98,7 +98,11 @@ def doctor(a):
     print(json.dumps(checks,indent=2))
 
 def main():
-    p=argparse.ArgumentParser();sub=p.add_subparsers(dest='command',required=True)
+    # Racing retains its measured driver/transport, with an explicit real API path.
+    if len(sys.argv)>2 and sys.argv[2]=='racing' and sys.argv[1] in ('simulate','eval','profile','preflight','record','budget'):
+        import subprocess
+        raise SystemExit(subprocess.call([sys.executable,str(ROOT/'scripts/racing.py'),sys.argv[1],*sys.argv[3:]]))
+    p=argparse.ArgumentParser(epilog='Racing: sol simulate racing, sol eval racing, sol profile racing; see docs/racing.md for external engine setup.');sub=p.add_subparsers(dest='command',required=True)
     d=sub.add_parser('doctor');d.add_argument('--game',choices=['all','rhythm','touhou','asterix'],default='all');d.add_argument('--auth',action='store_true');d.add_argument('--browser-executable')
     e=sub.add_parser('simulate');e.add_argument('game',choices=['rhythm','touhou','asterix']);e.add_argument('--output',type=Path);e.add_argument('--seed',type=int);e.add_argument('--duration',type=float);e.add_argument('--browser-executable');e.add_argument('--recipe',type=Path)
     live=sub.add_parser('eval',help='Continuously advancing real-time subscription evaluation')

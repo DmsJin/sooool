@@ -23,6 +23,10 @@ Start with `environments/touhou/research/run_episode.py`, `scheduler.py`, `polic
 
 Start with `environments/asterix/runner.py` (one shared serial development/evaluation loop), `direct_action_transport.py` (unchanged model commands), `simulate_5x.py` (pixels, clock quantization and replay), and `policies/asterix/v28/` (exact strategy, timing preamble and public output format). `sol simulate asterix` uses virtual sampled delay; `sol eval asterix` uses actual wall time. `runtime/evaluation.py` writes run records and appended researcher assessments. `docs/asterix-autoresearch.md` and `research/asterix/evaluation-history.jsonl` explain the selected path; inactive source lives at a fixed historical commit.
 
+## Racing
+
+Start with [`racing.md`](racing.md), [`scripts/racing.py`](../scripts/racing.py), [`recipes/racing.json`](../recipes/racing.json), and [`policies/racing/lane-commit-v14`](../policies/racing/lane-commit-v14/). `environments/racing/run.py` owns causal simulation and subscription/API transport; `live.py` owns continuous HTTP evaluation; `lane.py` is the coded visual tracker; `live_explained.py` adds the separately evaluated public-summary output. The iteration record is `research/racing/EVALUATION.md`. External roboolympics supplies the read-only game engine. Duplicate active Racing snapshots have been replaced by redirects.
+
 ## Ignore on first pass
 
-Full discussion tool traces, all historical profiles, old transport probes, legacy policy variants and offline case truth are not needed to run a frozen policy. Retained evidence documents the selected policies and subsequent development. PingPong/Racing snapshots under `research/in-progress` are unfinished source records, not supported portable recipes.
+Full discussion tool traces, all historical profiles, old transport probes, legacy policy variants and offline case truth are not needed to run a frozen policy. Retained evidence documents the selected policies and subsequent development. PingPong snapshots under `research/in-progress` are unfinished source records. Racing uses the selected workflow linked above.

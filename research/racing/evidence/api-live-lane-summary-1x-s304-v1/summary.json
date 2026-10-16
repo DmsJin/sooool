@@ -1,0 +1,32 @@
+{
+  "status": "complete",
+  "match_winner": "A",
+  "won": true,
+  "valid_trial": true,
+  "deterministic": true,
+  "sim_lag": {
+    "late_max_s": 0.011550981987966225,
+    "late_p99_s": 0.004124703005654731,
+    "run_steps": 8597,
+    "run_sim_s": 85.97,
+    "run_wall_s": 85.9788546859927,
+    "period_s": 0.01
+  },
+  "slowdown": 1.0,
+  "calls": 137,
+  "submitted_commands": 432,
+  "applied_commands": 432,
+  "invalid_output_count": 0,
+  "control": "lane",
+  "anchor": "arrival",
+  "system": "minimal",
+  "wall_seconds": 100.92172746601864,
+  "model": "gpt-6.1-sol",
+  "service_tier": "ultrafast",
+  "artificial_delay": false,
+  "harbor_isolation": false,
+  "decision_summaries_from_same_API_response": true,
+  "cadence_seconds": 0.6,
+  "image_detail": "low",
+  "controller": "unchanged lane-commit visual tracker"
+}

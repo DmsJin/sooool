@@ -1,0 +1,17 @@
+{
+  "out": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/api-live-lane-1x-s204-v1",
+  "profile": "results/profile-serial-v2/profile.json",
+  "seed": 204,
+  "level": 1,
+  "slowdown": 1.0,
+  "variant": "metric",
+  "chunk": 1,
+  "history": 2,
+  "cadence": 0.6,
+  "capacity": 8,
+  "budget": "/home/ubuntu/wzh/racing-autoresearch-20261015/research-results/budget.json",
+  "control": "lane",
+  "anchor": "arrival",
+  "executor_preflight": false,
+  "validation_cap": 27.0
+}

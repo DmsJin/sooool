@@ -21,4 +21,10 @@ Rhythm and Touhou retain their original real-time research paths:
 - Rhythm model-owned timing: `environments/rhythm/experiments/rhythm/model_native.py`; prior cropped-coordinate campaign: `realtime_v2.py`. Native audio evaluation additionally needs the authorized audio resource and continuous audio/browser clocks.
 - Touhou: `environments/touhou/research/run_episode.py` with `provider=api`, `mode=realtime`; direct API schema/early-action logic lives in `api_client.py`.
 
-Their original commands retain their declared resource and budget assumptions. The new root `sol eval` command currently supports Asterix. Historical and fresh results must remain separately labeled.
+Their original commands retain their declared resource and budget assumptions. The root `sol eval asterix` uses the shared native loop; `sol eval racing` delegates to the selected Racing driver. Historical and fresh results must remain separately labeled.
+
+## Racing
+
+Racing retains its selected-policy path: `python scripts/racing.py eval` or `sol eval racing` uses real API decisions while original-speed physics advances. It requires an existing capped ledger and a process-only credential. See [Racing setup, profiling and evaluation](racing.md). The selected historical seed304 result remains separate from this Asterix release and its subscription checks.
+
+Protocol reference: [OpenAI Docs — Codex app-server](https://learn.chatgpt.com/docs/app-server).

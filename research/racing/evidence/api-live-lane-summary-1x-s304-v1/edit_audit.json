@@ -1,0 +1,63 @@
+{
+  "source_video": "/home/zihan/.codex/visualizations/2026/10/15/01a13e84-6151-70f1-bec1-fc05fea1f2fa/racing-live-decisions/racing-seed304-live-decisions.mp4",
+  "source_video_sha256": "69bea5a81d80010864f50bc7c8e192f0c5450c8c88db5b2a05497eb20099cb3b",
+  "output_video": "/home/zihan/.codex/visualizations/2026/10/15/01a13e84-6151-70f1-bec1-fc05fea1f2fa/racing-win-loss-win/racing-seed304-win-loss-win.mp4",
+  "original_heat_order": [
+    2,
+    1,
+    3
+  ],
+  "edited_results": [
+    "win",
+    "loss",
+    "win"
+  ],
+  "all_original_frames_preserved": true,
+  "all_game_and_decision_pixels_reordered_together": true,
+  "original_clock_and_score_retained": true,
+  "edit_disclosure_burned_into_every_frame": true,
+  "no_new_model_calls": true,
+  "clips": [
+    {
+      "heat": 2,
+      "start_frame": 760,
+      "end_frame": 1223,
+      "edited_position": 1,
+      "result": "win",
+      "output_start_frame": 0,
+      "output_end_frame": 463
+    },
+    {
+      "heat": 1,
+      "start_frame": 0,
+      "end_frame": 760,
+      "edited_position": 2,
+      "result": "loss",
+      "output_start_frame": 463,
+      "output_end_frame": 1223
+    },
+    {
+      "heat": 3,
+      "start_frame": 1223,
+      "end_frame": 1781,
+      "edited_position": 3,
+      "result": "win",
+      "output_start_frame": 1223,
+      "output_end_frame": 1781
+    }
+  ],
+  "probe": {
+    "programs": [],
+    "streams": [
+      {
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "20/1",
+        "nb_frames": "1781"
+      }
+    ],
+    "format": {
+      "duration": "89.050000"
+    }
+  }
+}
