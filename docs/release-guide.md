@@ -141,14 +141,17 @@ python scripts/badminton.py audit --output outputs/badminton-api101
 python scripts/badminton.py report --episodes outputs/badminton-api101 --output outputs/badminton-api101
 ```
 
-Rhythm keeps its existing environment, policy and recipe:
+Rhythm uses the selected v21 literal-time policy and the17s2.5s-approach setup:
 
 ```bash
 uv run playwright install --with-deps chromium
-uv run sol simulate rhythm
+uv run sol simulate rhythm --output runs/rhythm-dev-001
+uv run sol profile rhythm --episode artifacts/rhythm/selected --budget-usd 1 --max-calls 20 --output runs/rhythm-profile-001
+uv run sol eval rhythm --budget-usd 5 --max-calls 90 --output runs/rhythm-api-001
+uv run sol record runs/rhythm-api-001 --registry artifacts/rhythm/evaluations.jsonl
 ```
 
-Rhythm's retained portable simulation scored 50 PERFECT, 1 GREAT, 1 MISS; strict full combo was not met. These are subscription/profile simulations. Their detailed development and unfinished PingPong research remain preserved independently. Racing retains its selected workflow above.
+[Rhythm workflow](rhythm.md) distinguishes fresh subscription simulation, serial API probes, continuously advancing API evaluation and saved evidence. The selected historical native case has24 Perfect,1 Great,zero Miss,two empty presses; it is near-perfect timing, not full combo. [Selected adopted lineage](rhythm-autoresearch.md) and machine-readable records explain changed conditions. Other games and unfinished PingPong research remain independently available.
 
 ## Repository map
 

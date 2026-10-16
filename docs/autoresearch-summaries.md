@@ -12,3 +12,7 @@ The README demos came out of Goal mode research sessions: a human supplied the g
 | PingPong | [Research log](../research/in-progress/pingpong/README.md) | Native robot execution, latency calibration, trial-and-error comparisons and recorded API matches. This remains a chronological research log. |
 
 For the common run-record format, see [evaluation records](evaluation-records.md). Recorded simulation results, live API results and replay checks are distinct evidence types.
+
+## Rhythm: selected v21 route
+
+[Case study](rhythm-autoresearch.md) · [Commands](rhythm.md) · [Machine-readable history](../research/rhythm/evaluation-history.jsonl). New literal-time model decisions in subscription simulation, serial API latency profiling, clock alignment audits and one real17s2.5s-approach episode:24 Perfect,1 Great,zero Miss,two empty presses. Human feedback and changed environment conditions are explicit.

@@ -17,6 +17,13 @@ def record_run(out):
         'manifest_sha256':hashlib.sha256((out/'manifest.json').read_bytes()).hexdigest(),
         'summary':summary, 'status':'interrupted' if interrupted else 'completed' if summary is not None else 'incomplete',
         'performance_is_independently_confirmed':False}
+    if manifest['game']=='rhythm':
+        accounting=json.loads((out/'accounting.json').read_text()) if (out/'accounting.json').exists() else None
+        row.update(record_id=out.name,policy=manifest['recipe'].get('policy'),accounting=accounting,
+                   hypothesis=manifest['recipe'].get('hypothesis'),parent_record=manifest['recipe'].get('parent_record'),
+                   outcome=(summary or {}).get('result',(summary or {}).get('evaluator')),
+                   complete=bool((summary or {}).get('complete')),passed=bool((summary or {}).get('passed')),
+                   real_time_api_acceptance=bool(manifest['mode']=='realtime_api' and (summary or {}).get('passed') and accounting and accounting['all_settled']))
     (out/'evaluation-record.json').write_text(json.dumps(row,indent=2)+'\n')
     return row
 

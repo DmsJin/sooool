@@ -1,0 +1,59 @@
+{
+  "protocol": "literal-model-timing-v1",
+  "memory_sha256": "0241f450f85a140b53063bc60c8b0a55c8aef188bc8086c043736b2052c63532",
+  "source_sha256": {
+    "dist/game.js": "fbfdf8d70bc4245e6411d3b8161500fb4913d78216da51edd1aaa617a3ab59c8",
+    "dist/model-executor.js": "3b0c38c81ae163fc1ff56dc26943484e8121a47f90ce4d3c7f2be221547e1b28",
+    "experiments/rhythm/model_env.py": "fc3f1eb760d48d0321525bb7504fb2e077c8f6e6f057f89cdce6167077de2f16",
+    "experiments/rhythm/model_transport_env.py": "4f4b18bd464b02b7e831f267b231a02cecc0b06bd264f63c093c2f905db9b6f2",
+    "experiments/rhythm/model_policy.py": "a18be3b239bfb1ee554c9d63e910c5485bdf3828241b9d0c66757f4079170c0c",
+    "experiments/rhythm/model_compact_policy.py": "1a634ad23afdb0c210f51ee25281f62fa6ba0773c73b6ebe14d46d201e432a08",
+    "experiments/rhythm/model_lean_policy.py": "4b78f5dba820fc01ae3ec0148a942ced3e82cb51ac2f6d10d7d9deecf01a1c74",
+    "experiments/rhythm/model_profile.py": "dd118456743dd3c4499647a72145966e0ba373fbe0bc85bc3d8bd52d17b16e35",
+    "experiments/rhythm/model_native.py": "626a232656b2f4feeec808037a8eeae077471f71cc4409fedbf8e3e679fda83c",
+    "experiments/rhythm/providers.py": "5732a8b2ed318a0c4b0d00f77427969dcadd54e16c8c7022efc55bdd3d175220",
+    "experiments/rhythm/model_image_budget.py": "7e1b2578cece11a666007874992a8ab0bd23c6009609dcb7eb47e956b41b4e7d",
+    "experiments/rhythm/model_token_preflight.py": "943ec67579773e5d4152b1634f815c53fddd552cefb468e3b337f8321aa27d0d",
+    "experiments/rhythm/scheduler.py": "4a7ef5b82c877e870ab4062f6267ea8d0a142eb0bd5456790f557c24c85cdb03",
+    "experiments/rhythm/model_freeze.py": "617cf0265f0262d37921b5d9dc101de3cccd4e9632f5153be9abf2c839f727e9",
+    "experiments/rhythm/hidden_charts.py": "d2b2e92dc989739f3e152cac3238b8c72bfa8ce9891d76d45fbcefd238566988",
+    "dist/index.html": "bcc1b17a090a5ed37e130ba4935235721a7824e0d68b9385ae769f140a9d309a",
+    "dist/style.css": "57d59b4768bebcc50392c3de607d9db6e5ab041ebd0914d6cbf869a410c54494",
+    "dist/assets/rhythm-cjk.woff": "d69fce4cdfdc4d41616e9f8f0428c1f6cd263c917c989d2e3369ef42ddd2f65b",
+    "experiments/rhythm/model_commentary.py": "bc2f00e21dde30251a381770f9852d2e913b0d499a136e4caf469dc703bbf907",
+    "dist/i18n.js": "9cc0f41518d25190e2bfdbb0143678175f60df8f3a046888a199cd556ffd419d"
+  },
+  "runtime": {
+    "cadence": 0.2,
+    "concurrency": 16,
+    "frames": 1,
+    "detail": "high",
+    "max_output": 512,
+    "compact": true,
+    "lean": true,
+    "early_actions": true,
+    "live_commentary": true,
+    "commentary_language": "en",
+    "record_frames": true
+  },
+  "acceptance": {
+    "duration_s": 17.0,
+    "speed": 1,
+    "max_miss": 0,
+    "episodes": 1
+  },
+  "image_token_certificate_sha256": "eb488dcf63425be5c10e8be4451705780c93529e9a25b2ad9d4edaf540e0183e",
+  "evaluation_design": {
+    "kind": "matched_chart_travel2500",
+    "source_run": "native-avsync200-english17-1",
+    "travel_s_before": 1.8,
+    "travel_s_after": 2.5,
+    "public_speed_px_per_ms": 0.2404,
+    "only_changes": [
+      "vertical approach duration",
+      "corresponding public speed calibration"
+    ],
+    "chart_unchanged": true,
+    "fresh_heldout": false
+  }
+}

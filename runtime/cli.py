@@ -45,17 +45,8 @@ def freeze(game,recipe,out, mode="subscription_with_simulated_profile"):
         'created_at_unix':time.time()},indent=2))
 
 def rhythm(recipe,out,a):
-    sys.path.insert(0,str(ROOT/'environments/rhythm'))
-    from experiments.rhythm.model_joint_training import run_episode
-    from runtime.subscription import AsyncProvider
-    with serve(ROOT/'environments/rhythm/dist') as url:
-        kw=dict(recipe['args']);kw.update(url=url,run_root=str(out/'episodes'),browser_executable=a.browser_executable,
-            profile=None,joint_profile=str(ROOT/recipe['profile']),memory=str(ROOT/recipe['memory']),chart=str(ROOT/recipe['chart']))
-        if a.seed is not None:kw['seed']=a.seed
-        if a.duration is not None:kw['duration']=a.duration
-        result=asyncio.run(run_episode(SimpleNamespace(**kw),provider_factory=AsyncProvider))
-        (out/'summary.json').write_text(json.dumps(result,indent=2))
-        return result
+    from runtime.rhythm import simulate
+    return simulate(ROOT,recipe,out,a)
 
 def touhou(recipe,out,a):
     sys.path.insert(0,str(ROOT/'environments/touhou'))
@@ -141,19 +132,29 @@ def main():
     p=argparse.ArgumentParser(epilog='Racing: sol simulate racing, sol eval racing, sol profile racing; see docs/racing.md. Badminton: sol simulate badminton, sol eval badminton, sol preflight badminton, sol audit badminton, sol report badminton; see docs/badminton.md.');sub=p.add_subparsers(dest='command',required=True)
     d=sub.add_parser('doctor');d.add_argument('--game',choices=['all','rhythm','touhou','asterix'],default='all');d.add_argument('--auth',action='store_true');d.add_argument('--browser-executable')
     e=sub.add_parser('simulate');e.add_argument('game',choices=['rhythm','touhou','asterix']);e.add_argument('--output',type=Path);e.add_argument('--seed',type=int);e.add_argument('--duration',type=float);e.add_argument('--browser-executable');e.add_argument('--recipe',type=Path)
-    v=sub.add_parser('eval',help='Continuous evaluation: Asterix subscription or Touhou API (explicit budget)')
-    v.add_argument('game',choices=['touhou','asterix']);v.add_argument('--output',type=Path);v.add_argument('--seed',type=int)
-    v.add_argument('--recipe',type=Path);v.add_argument('--browser-executable');v.add_argument('--budget-usd',help='Required for Touhou paid API evaluation')
+    v=sub.add_parser('eval',help='Continuous evaluation: Asterix subscription or Touhou/Rhythm API (explicit budget)')
+    v.add_argument('game',choices=['touhou','asterix','rhythm']);v.add_argument('--output',type=Path);v.add_argument('--seed',type=int)
+    v.add_argument('--recipe',type=Path);v.add_argument('--browser-executable');v.add_argument('--budget-usd',help='Required for paid API evaluation')
     v.add_argument('--max-calls',type=int,default=100);v.add_argument('--ledger',type=Path)
-    v.add_argument('--duration',type=float)
+    v.add_argument('--duration',type=float);v.add_argument('--audio',type=Path,help='Optional local audio; Rhythm defaults to bundled17s preview')
     r=sub.add_parser('record',help='Append an immutable evaluation record to a chosen registry')
     r.add_argument('--decision',choices=['retain','reject','diagnostic']);r.add_argument('--note');r.add_argument('run',type=Path);r.add_argument('--registry',type=Path,default=ROOT/'artifacts/touhou/evaluations.jsonl')
     c=sub.add_parser('profile',help='Strictly serial API profiling of retained unique observations')
-    c.add_argument('game',choices=['touhou']);c.add_argument('--episode',type=Path,required=True)
+    c.add_argument('game',choices=['touhou','rhythm']);c.add_argument('--episode',type=Path,required=True)
     c.add_argument('--output',type=Path);c.add_argument('--budget-usd',required=True);c.add_argument('--max-calls',type=int,default=21);c.add_argument('--ledger',type=Path)
     a=p.parse_args()
     if a.command=='record':
         manifest=json.loads((a.run/'manifest.json').read_text())
+        if manifest['game']=='rhythm':
+            if a.decision is not None or a.note is not None:
+                if a.decision is None or a.note is None:p.error('Supply both --decision and --note')
+                from runtime.evaluation import assess
+                print(json.dumps(assess(a.run,a.decision,a.note),indent=2))
+            else:
+                from runtime.rhythm import append_record
+                registry=a.registry if a.registry!=ROOT/'artifacts/touhou/evaluations.jsonl' else ROOT/'artifacts/rhythm/evaluations.jsonl'
+                print(json.dumps({'appended':append_record(a.run,registry),'registry':str(registry)}))
+            return
         if manifest['game']=='asterix':
             if a.decision is None or a.note is None:p.error('Asterix assessments require --decision and --note')
             from runtime.evaluation import assess
@@ -161,12 +162,15 @@ def main():
         if a.decision is not None or a.note is not None:p.error('--decision and --note apply to Asterix assessments')
         from runtime.touhou_records import append_record
         print(json.dumps({'appended':append_record(a.run,a.registry),'registry':str(a.registry)}));return
-    if a.command in ('eval','profile') and a.game=='touhou':
+    if a.command in ('eval','profile') and a.game in ('touhou','rhythm'):
         from decimal import Decimal,InvalidOperation
-        if a.budget_usd is None:p.error('--budget-usd is required for Touhou API evaluation')
+        if a.budget_usd is None:p.error('--budget-usd is required for paid API evaluation')
         try:a.budget_usd=Decimal(a.budget_usd)
         except InvalidOperation:p.error('--budget-usd must be a finite positive decimal')
         if not a.budget_usd.is_finite() or a.budget_usd<=0 or a.max_calls<1:p.error('Budget and max-calls must be positive')
+    if a.command=='profile' and a.game=='rhythm':
+        from runtime.rhythm import profile
+        print(json.dumps(profile(ROOT,a),indent=2));return
     if a.command=='profile':
         from runtime.touhou_profile import profile
         profile(ROOT,a)
@@ -179,15 +183,21 @@ def main():
     expected=('api','realtime') if a.command=='eval' else ('subscription','sim')
     if a.game=='touhou' and (recipe['args'].get('provider'),recipe['args'].get('mode'))!=expected:
         p.error('Recipe provider/mode must match the explicitly selected command')
-    freeze(a.game,recipe,out,mode=('realtime_api' if a.game=='touhou' else 'real_time_subscription') if a.command=='eval' else 'subscription_with_simulated_profile')
+    freeze(a.game,recipe,out,mode=('realtime_api' if a.game in ('touhou','rhythm') else 'real_time_subscription') if a.command=='eval' else 'subscription_with_simulated_profile')
     (out/'transport').mkdir()
     os.environ['SOL_NATIVE_LOG_ROOT']=str(out/'transport')
-    try:result=touhou_realtime(recipe,out,a) if a.command=='eval' and a.game=='touhou' else globals()[a.game](recipe,out,a)
+    try:
+        if a.command=='eval' and a.game=='rhythm':
+            from runtime.rhythm import evaluate
+            result=evaluate(ROOT,recipe,out,a)
+        else:result=touhou_realtime(recipe,out,a) if a.command=='eval' and a.game=='touhou' else globals()[a.game](recipe,out,a)
     except BaseException as exc:
         (out/'failure.json').write_text(json.dumps({'type':type(exc).__name__,'message':str(exc)},indent=2));raise
     finally:
         from runtime.evaluation import record_run
         record_run(out)
-    print(json.dumps({'output':str(out),'result':result},indent=2))
+    display=result
+    if a.game=='rhythm' and a.command=='eval':display={k:v for k,v in result.items() if k in ('complete','passed','native_clock_drift_s','result','requests','errors')}
+    print(json.dumps({'output':str(out),'result':display},indent=2))
 
 if __name__=='__main__':main()

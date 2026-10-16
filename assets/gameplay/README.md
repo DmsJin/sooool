@@ -4,7 +4,7 @@ Continuous excerpts from existing recordings. Original playback speed is retaine
 
 | Game | Source cut | GIF | MP4 | Public decision summary | Conditions |
 |---|---|---|---|---|---|
-| Rhythm | 23–31s | [GIF](rhythm.gif) | [MP4](rhythm.mp4) | Pending; gameplay only | Native browser/audio API capture, 1x; episode 03. GIF is silent. |
+| Rhythm | 2–10s of selected17s run | [GIF](rhythm.gif) | [MP4](rhythm.mp4) | Original English commentary | Actual native API1x,2.5s approach,24P/1Great/0Miss/2empty; MP4 includes complete17s excerpt plus2s results. GIF is silent. |
 | Touhou | 49–56s | [GIF](touhou.gif) | [MP4](touhou.mp4) | Visible in original video | Source-harness realtime API, 1x; native English public decision summaries. |
 | Pingpong | 234–246s | [GIF](pingpong.gif) | [MP4](pingpong.mp4) | Pending; gameplay only | Replay of recorded final 5:2 API match at official S=10 slowdown; cropped spectator view. Not a live screen capture; review pauses omitted in source export. |
 | Racing | 14–22s | [GIF](racing.gif) | [MP4](racing.mp4) | Visible in original video | Realtime API with coded steering, 1x; within original heat 2. Source video reordered heats win/loss/win, but this clip is continuous within a single heat. |

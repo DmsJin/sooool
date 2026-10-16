@@ -15,7 +15,7 @@ The gameplay decisions come from GPT-SOL on each turn. The surrounding code hand
 <td colspan="2" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-SOL collecting food in Asterix alongside original public decision summaries" width="600"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-SOL hitting DFJK notes and building a perfect combo" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · Gameplay only</td>
+<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-SOL choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
 <td width="50%" align="center"><a href="assets/gameplay/pingpong.mp4"><img src="assets/gameplay/pingpong.gif" alt="Robot arm playing a point from GPT-SOL's recorded table-tennis API match" width="440"></a><br><b>PingPong</b> · API match replay · S=10 · Gameplay only</td>
 </tr>
 </table>
@@ -35,7 +35,7 @@ You can watch GPT-SOL dodge a screen full of bullets, race a rival, collect food
 | **Badminton** | Place the shot. Recover for the next one. | Tactical goals with native mechanics; real-time API at S3. [Setup and control boundary](docs/badminton.md). |
 | **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | Historical delay simulation at 5× slowdown, with model actions applied unchanged. |
 
-The GIFs are continuous excerpts at their source playback speed. PingPong is a cropped spectator replay with point-review pauses omitted in the original export. Racing uses hybrid steering. Touhou, Racing and Asterix show original public decision summaries. Rhythm and PingPong currently show gameplay only; their decision-summary videos are pending. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
+The GIFs are continuous excerpts at their source playback speed. PingPong is a cropped spectator replay with point-review pauses omitted in the original export. Racing uses hybrid steering. Touhou, Racing and Asterix show original public decision summaries. Rhythm shows original English action-plus-commentary responses; its17s run has two empty presses and is not a full combo. PingPong currently shows gameplay only. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
 
 ## How it works
 
@@ -49,6 +49,19 @@ We developed these policies by giving Codex a goal in **Goal mode** and letting 
 Codex runs the research loop; GPT-SOL makes the online gameplay decisions. The demos use selected configurations from that process. Concurrency, game speed and control abstractions are recorded per experiment.
 
 **[Check autoresearch summaries →](docs/autoresearch-summaries.md)**
+
+### Rhythm: from delayed decisions to near-perfect timing
+
+The selected policy is the v21 strategy, with public speed and screenshot-time calibration. SOL outputs each key, ID, literal tap time and expiry from pixels. After simulation development and serial API profiling exposed a1.8s deadline problem, a human-requested2.5s visual approach gave it more planning room. The selected real17s API run scores24 PERFECT,1 GREAT,zero MISS and98.8% weighted accuracy, with two empty presses. Music remains1x. This is one reused-chart episode, not a full-combo or repeated-success claim.
+
+[Selected research path](docs/rhythm-autoresearch.md) · [Run/profile/record and portability limits](docs/rhythm.md) · [Machine-readable evaluation history](research/rhythm/evaluation-history.jsonl)
+
+```bash
+uv run sol simulate rhythm --output runs/rhythm-dev-001
+uv run sol profile rhythm --episode artifacts/rhythm/selected --budget-usd 1 --max-calls 20 --output runs/rhythm-profile-001
+uv run sol eval rhythm --budget-usd 5 --max-calls 90 --output runs/rhythm-api-001
+uv run sol record runs/rhythm-api-001 --registry artifacts/rhythm/evaluations.jsonl
+```
 
 ## Play a round
 

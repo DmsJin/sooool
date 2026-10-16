@@ -53,8 +53,8 @@ class ReproductionContracts(unittest.TestCase):
         self.assertEqual(t['k'],4)
         self.assertEqual(len(t['joint_delay_vectors_s']),len(t['joint_terminal_delay_vectors_s']))
         self.assertTrue(all(len(v)==4 for v in t['joint_delay_vectors_s']))
-        r=json.loads((ROOT/'profiles/rhythm/native-v17-joint-profile.json').read_text())
-        self.assertEqual(len(r['rows']),179)
+        r=json.loads((ROOT/'profiles/rhythm/selected-native-joint.json').read_text())
+        self.assertEqual(len(r['rows']),85)
         self.assertTrue(all(all(k in x for k in ('api_rtt_s','frame_age_s','transport_overhead_s'))for x in r['rows']))
 
 if __name__=='__main__':unittest.main()

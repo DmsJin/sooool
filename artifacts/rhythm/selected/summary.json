@@ -1,0 +1,59 @@
+{
+  "cost_usd": 2.230575,
+  "committed_usd": 73.137718,
+  "remaining_usd": 6.862282,
+  "requests": 85,
+  "action_ready_median_s": 1.421166472020559,
+  "action_ready_sd_s": 0.28218679778119976,
+  "action_ready_max_s": 2.3999183799605817,
+  "reasoning_tokens_median": 77,
+  "result": {
+    "state": "result",
+    "time_s": 17.018776,
+    "score": 24700,
+    "combo": 15,
+    "max_combo": 15,
+    "judged": 25,
+    "counts": {
+      "perfect": 24,
+      "great": 1,
+      "ok": 0,
+      "miss": 0
+    },
+    "empty_presses": 2,
+    "total_notes": 25
+  },
+  "weighted_accuracy_percent": 98.8,
+  "policy_freeze_verified": true,
+  "chart_sha256": "5e0237876d76c427c785e274da0855f838538ac26543ac43ccdd29c9b9d9b6f0",
+  "memory_sha256": "0241f450f85a140b53063bc60c8b0a55c8aef188bc8086c043736b2052c63532",
+  "duplicate_execution_pairs": [
+    {
+      "key": "k",
+      "first": {
+        "seq": 8,
+        "status": "executed",
+        "version": 6,
+        "id": "k17",
+        "key": "k",
+        "at_ms": 4691,
+        "expires_ms": 4841,
+        "admitted_version": 1,
+        "actual_ms": 4695.300000011921
+      },
+      "second": {
+        "seq": 9,
+        "status": "executed",
+        "version": 6,
+        "id": "k18",
+        "key": "k",
+        "at_ms": 4804,
+        "expires_ms": 4954,
+        "admitted_version": 2,
+        "actual_ms": 4805.800000011921
+      },
+      "planned_spacing_ms": 113,
+      "actual_spacing_ms": 110.5
+    }
+  ]
+}
