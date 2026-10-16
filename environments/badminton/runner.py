@@ -1,4 +1,4 @@
-"""Frozen S2 tactical execution and independent native replay auditing."""
+"""Conditional goals over S2 camera execution and independent native replay auditing."""
 from __future__ import annotations
 
 import base64
@@ -17,7 +17,7 @@ from runtime.subscription import SubscriptionClient
 from . import public as badminton
 from .tactics import POLICY_ROOT, SCHEMA, TacticalPlayer, decode_intent, format_prompt
 
-PROFILE_CALLS = 100
+PROFILE_CALLS = 20
 PROFILE_SERVICE_TIER = "ultrafast"
 
 
@@ -74,6 +74,7 @@ def _snapshot(observation, image, player, memory, history, profile, slowdown, pr
                                                   if k not in {"image_png_b64", "wall_mono"}}),
         "images": [{"path": str(image), "frame": observation.env_step}],
         "intent": player.intent, "intent_id": player.intent_id,
+        "feedback": player.feedback,
         "memory": memory, "action_history": history[-16:],
         "latency": {"slowdown": slowdown, "capacity": 1},
     }
@@ -95,10 +96,10 @@ def run_episode(config, source, seed, output, frames, profile=None, *, profile_i
         raise ValueError("Tactical source must be rules, sol or sol-frozen")
     if config["slowdown"] <= 0 or config["level"] != 1:
         raise ValueError("This bounded round requires L1 and a positive slowdown")
-    if source != "rules" and (profile.get("action_mode") != "tactical" or profile.get("source") != "api"
+    if source != "rules" and (profile.get("action_mode") != "conditional_tactical_v1" or profile.get("source") != "api"
                             or profile.get("service_tier") != PROFILE_SERVICE_TIER or not profile["usable_for_simulation"]
                             or len(profile["samples"]) != PROFILE_CALLS):
-        raise ValueError("SOL requires the 100-call tactical API Ultrafast profile")
+        raise ValueError("SOL requires the 20-call conditional API Ultrafast profile")
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=False)
     (output / "images").mkdir()
@@ -167,11 +168,15 @@ def run_episode(config, source, seed, output, frames, profile=None, *, profile_i
                         invalid += 1
                         log("discarded", id=request["id"], frame=frame, reason="invalid_output", error=str(exc))
                     else:
-                        player.accept(intent, request["id"])
-                        memory = intent["memory"]
-                        accepted += 1
-                        log("intent_accepted", id=request["id"], frame=frame,
-                            source_frame=request["source_frame"], intent=intent)
+                        expires = request["source_frame"] / 100 + intent["horizon_game_s"]
+                        if frame / 100 >= expires:
+                            log("discarded", id=request["id"], frame=frame, reason="expired")
+                        else:
+                            player.accept(intent, request["id"], source_game_time=request["source_frame"] / 100)
+                            memory = intent["memory"]
+                            accepted += 1
+                            log("intent_accepted", id=request["id"], frame=frame,
+                                source_frame=request["source_frame"], intent=intent)
             if request is not None and request["decided"] and frame >= request["release_frame"]:
                 request = None
 
@@ -197,7 +202,7 @@ def run_episode(config, source, seed, output, frames, profile=None, *, profile_i
                     serving = public_state["you_serve"] and public_state["serve"]["phase"] != "done"
                     if (source != "rules" and request is None and frame >= next_request
                             and (source != "sol-frozen" or player.intent is None)
-                            and public_state["ball_in_play"] and not serving):
+                            and (public_state["ball_in_play"] or serving)):
                         if calls >= 64:
                             reason = "max_calls"
                             break
@@ -262,7 +267,6 @@ def run_episode(config, source, seed, output, frames, profile=None, *, profile_i
             if result.info.get("soft_reset"):
                 generation += 1
                 pending = None
-                memory = ""
                 player.reset_point(None)
                 log("soft_reset", frame=frame)
             if frame % 100 == 0:

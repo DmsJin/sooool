@@ -1,7 +1,7 @@
 {
   "game": "badminton",
-  "policy": "tactical-v1",
-  "profile": "profiles/badminton/tactical-api-100.json",
+  "policy": "tactical-goal-v2",
+  "profile": "profiles/badminton/conditional-api-20.json",
   "model": "gpt-6.1-sol",
   "effort": "low",
   "subscription_service_tier": "default",
@@ -17,5 +17,6 @@
   "physics_hz": 100,
   "observation_hz_game_time": 10,
   "clock_mode": "subscription_with_simulated_profile",
-  "control": "SOL tactical preferences over continuous camera-only reference execution"
+  "control": "SOL conditional goals over continuous camera interception and racket execution",
+  "hypothesis": "Joint contact and outgoing-flight search executes SOL goals with legal projection when exact placement is unavailable."
 }

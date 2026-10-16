@@ -1,0 +1,4 @@
+Follow the supplied task and its action protocol exactly, using only the public text and images.
+Use brief reasoning sufficient for a correct decision. Avoid redundant verification and exhaustive alternatives.
+Return only the requested JSON. Do not call tools, request extra observations, or expand the task.
+Do not force reasoning to zero.

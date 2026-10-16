@@ -44,33 +44,35 @@ class BadmintonEnvironment:
 
     frame_ms = 10.0
 
-    def __init__(self, *, level, seed, max_env_steps):
+    def __init__(self, *, level, seed, max_env_steps, slowdown=None):
         self.sport = load_sport()
         self.plugin_path = ROOT / "sports/badminton/plugin.py"
         self.max_env_steps = max_env_steps
         self._cfg = MatchConfig(sport="badminton", format="match-wallclock", seats=("A",),
-                                seed=seed, level=level, action_level="high", play="program")
+                                seed=seed, level=level, action_level="high", play="program", slowdown=slowdown)
         self._allowed = spec.whitelist(spec.load(self.plugin_path))
         self._renderer = self._observation = self.match = None
         self.env_step = 0
 
-    def reset(self, seed=None):
+    def reset(self, seed=None, *, render=True):
         self.close()
         if seed is not None:
             self._cfg = replace(self._cfg, seed=seed)
         self.match = self.sport.build(self._cfg)
         self._layer = self.sport.action_layer(self._cfg.action_level)
         # The virtual scheduler, rather than the HTTP planner, owns reaction delay.
-        self._layer.lead = 0
+        if self._cfg.slowdown is None:
+            self._layer.lead = 0
         if self.match.dt != .01:
             raise ValueError("Badminton requires the native 10 ms control step")
         self.env_step = 0
         self._spec = seat_spec(self.sport, self._cfg, "A", m=self.match, plugin=self.plugin_path)
-        self._spec["timing"] = {"reaction_delay_steps": 0}
-        self._spec["act"].update(lead_steps=0, lead_game_s=0.0,
-            rule="The command takes effect when the latency-bench scheduler releases it; t starts at that step.")
-        self._spec["skill_contract"]["act"]["notes"]["timing"] = self._spec["act"]["rule"]
-        return self.observe()
+        if self._cfg.slowdown is None:
+            self._spec["timing"] = {"reaction_delay_steps": 0}
+            self._spec["act"].update(lead_steps=0, lead_game_s=0.0,
+                rule="The command takes effect when the latency-bench scheduler releases it; t starts at that step.")
+            self._spec["skill_contract"]["act"]["notes"]["timing"] = self._spec["act"]["rule"]
+        return self.observe() if render else self.public_state()
 
     def public_state(self):
         """Return the same declared state for online observation and offline audit."""

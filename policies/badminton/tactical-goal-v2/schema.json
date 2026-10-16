@@ -1,0 +1,108 @@
+{
+  "type": "object",
+  "properties": {
+    "normal": {
+      "type": "object",
+      "properties": {
+        "side": {
+          "type": "string",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        "shot": {
+          "type": "string",
+          "enum": [
+            "clear",
+            "drop",
+            "smash"
+          ]
+        }
+      },
+      "required": [
+        "side",
+        "shot"
+      ],
+      "additionalProperties": false
+    },
+    "under_pressure": {
+      "type": "object",
+      "properties": {
+        "side": {
+          "type": "string",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        "shot": {
+          "type": "string",
+          "enum": [
+            "clear",
+            "drop",
+            "smash"
+          ]
+        }
+      },
+      "required": [
+        "side",
+        "shot"
+      ],
+      "additionalProperties": false
+    },
+    "opponent_back": {
+      "type": "object",
+      "properties": {
+        "side": {
+          "type": "string",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        "shot": {
+          "type": "string",
+          "enum": [
+            "clear",
+            "drop",
+            "smash"
+          ]
+        }
+      },
+      "required": [
+        "side",
+        "shot"
+      ],
+      "additionalProperties": false
+    },
+    "recovery": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "horizon_game_s": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "memory": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "normal",
+    "under_pressure",
+    "opponent_back",
+    "recovery",
+    "horizon_game_s",
+    "memory"
+  ],
+  "additionalProperties": false
+}
