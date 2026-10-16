@@ -12,7 +12,7 @@ from research.recover_prefix import durable_write
 
 
 class EarlyDeliveryTests(unittest.TestCase):
-    def episode(self, *, fanout=2, capacity=8, stride=1, end=8, terminal_at=None, fail=False, defer_old=False):
+    def episode(self, *, fanout=2, capacity=8, stride=1, end=8, terminal_at=None, fail=False, defer_old=False, max_calls=None):
         class Pool:
             instance = None
             def __init__(self, config, out, key):
@@ -61,6 +61,7 @@ class EarlyDeliveryTests(unittest.TestCase):
             config={'profile':str(profile),'url':'unused','seed':1,'candidate':'unused','provider':'api',
                     'mode':'realtime','structured':True,'early_action_delivery':True,'workers':capacity,
                     'capacity':capacity,'decision_fanout':fanout,'decision_stride':stride,'image_stride':1}
+            if max_calls is not None:config['max_calls']=max_calls
             with patch('research.run_episode.BrowserEnv',Env),patch('research.run_episode.DecisionPool',Pool),patch('research.run_episode.make_prompt',return_value='prompt'),patch('research.run_episode.time.sleep'):
                 if fail:
                     with self.assertRaisesRegex(RuntimeError,'Terminal decision validation failed'):run(config,out)
@@ -69,6 +70,12 @@ class EarlyDeliveryTests(unittest.TestCase):
             rows=[json.loads(x) for x in (out/'decisions.jsonl').read_text().splitlines()]
             actions=[json.loads(x) for x in (out/'actions.jsonl').read_text().splitlines()]
             return read('summary.json'),rows,actions,Env.instance.applies,Pool.instance
+
+    def test_call_cap_never_admits_a_partial_race(self):
+        summary,rows,actions,applies,pool=self.episode(max_calls=3)
+        self.assertEqual(len(rows),2)
+        self.assertEqual(summary['calls'],2)
+        self.assertEqual(len(actions),1)
 
     def test_early_apply_precedes_terminal_and_pending_requests_hold_capacity_eight(self):
         summary,rows,actions,applies,pool=self.episode()

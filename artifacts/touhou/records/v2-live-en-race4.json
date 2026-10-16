@@ -1,0 +1,1302 @@
+{
+  "summary": {
+    "status": "won",
+    "seed": 1,
+    "candidate": "tracking_dodge_safe_intercept_v2",
+    "mode": "realtime",
+    "provider": "api",
+    "speed": 1,
+    "tick": 3508,
+    "game_s": 58.46666666666667,
+    "visual_frames": 3943,
+    "wall_s": 68.33678453598986,
+    "boss_hp": 0,
+    "hits": 2,
+    "lives": 1,
+    "bombs": 0,
+    "score": 6525,
+    "calls": 72,
+    "drops": 144,
+    "applied": 18,
+    "invalid_actions": 0,
+    "replayed_calls": 0,
+    "complete": true,
+    "won": true,
+    "terminal_accounting_complete": true
+  },
+  "accounting": {
+    "before_usd": "25.5664914",
+    "after_usd": "27.3056898",
+    "new_calls": 72,
+    "blocked": null,
+    "max_calls": 100,
+    "budget_limits": {
+      "total_limit": 35,
+      "admission_limit": 35,
+      "stage_caps": {
+        "profile": 6,
+        "reprofile": 3,
+        "realtime": 35
+      }
+    }
+  },
+  "episode_cost_usd": "1.7391984",
+  "source_commit": "cdedd9d",
+  "language": "en",
+  "native_english_output": true,
+  "translation": false,
+  "actual_live_capture": true,
+  "retrospective_annotations": false,
+  "summary_and_action_same_response": true,
+  "source_and_action_audit_passed": true,
+  "model": "gpt-6.1-sol",
+  "tier": "ultrafast",
+  "effort": "low",
+  "capture_to_apply_seconds": {
+    "median": 2.3518554225,
+    "min": 1.57776091,
+    "max": 2.795832814
+  },
+  "actions": [
+    {
+      "visual_frame": 152,
+      "logical_frame": 0,
+      "observed_frame": 3,
+      "plan": [
+        [
+          0,
+          1,
+          1,
+          0,
+          1
+        ]
+      ],
+      "age_frames": 149,
+      "apply_clock": {
+        "frame": 0,
+        "visual_frame": 152,
+        "intro": 13,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 2546,
+        "max_raf_gap_ms": 50,
+        "actual_visual_speed": 0.9950248756218906,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 5.124240621982608,
+      "seq": 3,
+      "early_legal": true,
+      "early_legal_ready_ns": 230566852856625,
+      "applied_monotonic_ns": 230566892693650,
+      "capture_monotonic_ns": 230564476116092,
+      "capture_started_monotonic_ns": 230564403713850,
+      "capture_start_to_apply_s": 2.4889798,
+      "capture_to_apply_s": 2.416577558,
+      "capture_clock": {
+        "frame": 0,
+        "visual_frame": 3,
+        "intro": 162,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 86.7000000178814,
+        "max_raf_gap_ms": 50,
+        "actual_visual_speed": 0.5767012686238498,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Opening declaration; hold focused fire beneath the boss."
+    },
+    {
+      "visual_frame": 286,
+      "logical_frame": 121,
+      "observed_frame": 188,
+      "plan": [
+        [
+          3,
+          1,
+          1,
+          0,
+          38
+        ]
+      ],
+      "age_frames": 98,
+      "apply_clock": {
+        "frame": 121,
+        "visual_frame": 286,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 4779.9000000059605,
+        "max_raf_gap_ms": 50,
+        "actual_visual_speed": 0.9972314623027098,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 7.3597227330028545,
+      "seq": 6,
+      "early_legal": true,
+      "early_legal_ready_ns": 230569093458136,
+      "applied_monotonic_ns": 230569128177241,
+      "capture_monotonic_ns": 230567550416331,
+      "capture_started_monotonic_ns": 230567477518780,
+      "capture_start_to_apply_s": 1.650658461,
+      "capture_to_apply_s": 1.57776091,
+      "capture_clock": {
+        "frame": 23,
+        "visual_frame": 188,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 3161.300000011921,
+        "max_raf_gap_ms": 50,
+        "actual_visual_speed": 0.9911534284381481,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya drifts right; follow with focused shooting correction"
+    },
+    {
+      "visual_frame": 480,
+      "logical_frame": 315,
+      "observed_frame": 337,
+      "plan": [
+        [
+          3,
+          1,
+          1,
+          0,
+          10
+        ]
+      ],
+      "age_frames": 143,
+      "apply_clock": {
+        "frame": 315,
+        "visual_frame": 480,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 8031.4000000059605,
+        "max_raf_gap_ms": 66.69999999999982,
+        "actual_visual_speed": 0.9960903453935881,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 10.617551170988008,
+      "seq": 9,
+      "early_legal": true,
+      "early_legal_ready_ns": 230572351183393,
+      "applied_monotonic_ns": 230572386003529,
+      "capture_monotonic_ns": 230570034488612,
+      "capture_started_monotonic_ns": 230569971234980,
+      "capture_start_to_apply_s": 2.414768549,
+      "capture_to_apply_s": 2.351514917,
+      "capture_clock": {
+        "frame": 172,
+        "visual_frame": 337,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 5645.0999999940395,
+        "max_raf_gap_ms": 50,
+        "actual_visual_speed": 0.9949631834108514,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya drifts right; nudge right beneath clear space."
+    },
+    {
+      "visual_frame": 729,
+      "logical_frame": 564,
+      "observed_frame": 561,
+      "plan": [
+        [
+          7,
+          1,
+          1,
+          0,
+          35
+        ]
+      ],
+      "age_frames": 168,
+      "apply_clock": {
+        "frame": 564,
+        "visual_frame": 729,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 12170.200000017881,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9983402080477025,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 14.75608710400411,
+      "seq": 12,
+      "early_legal": true,
+      "early_legal_ready_ns": 230576279987401,
+      "applied_monotonic_ns": 230576524539782,
+      "capture_monotonic_ns": 230573776150802,
+      "capture_started_monotonic_ns": 230573706195731,
+      "capture_start_to_apply_s": 2.818344051,
+      "capture_to_apply_s": 2.74838898,
+      "capture_clock": {
+        "frame": 396,
+        "visual_frame": 561,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 9389.40000000596,
+        "max_raf_gap_ms": 66.70000000000073,
+        "actual_visual_speed": 0.9958037787285732,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya drifts left; follow through the clear gap."
+    },
+    {
+      "visual_frame": 972,
+      "logical_frame": 807,
+      "observed_frame": 803,
+      "plan": [
+        [
+          7,
+          1,
+          1,
+          1,
+          24
+        ]
+      ],
+      "age_frames": 169,
+      "apply_clock": {
+        "frame": 807,
+        "visual_frame": 972,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 16271.5,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9956058138462958,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 18.860098181001376,
+      "seq": 18,
+      "early_legal": true,
+      "early_legal_ready_ns": 230580558356837,
+      "applied_monotonic_ns": 230580628550709,
+      "capture_monotonic_ns": 230577832717895,
+      "capture_started_monotonic_ns": 230577755881124,
+      "capture_start_to_apply_s": 2.872669585,
+      "capture_to_apply_s": 2.795832814,
+      "capture_clock": {
+        "frame": 638,
+        "visual_frame": 803,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 13437.200000017881,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9959912283299739,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Bullets approach below; bomb and focus slightly left."
+    },
+    {
+      "visual_frame": 1177,
+      "logical_frame": 1012,
+      "observed_frame": 1027,
+      "plan": [
+        [
+          3,
+          1,
+          1,
+          0,
+          28
+        ]
+      ],
+      "age_frames": 150,
+      "apply_clock": {
+        "frame": 1012,
+        "visual_frame": 1177,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 19659.20000001788,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9978364667254428,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 22.30457175700576,
+      "seq": 23,
+      "early_legal": true,
+      "early_legal_ready_ns": 230583755443403,
+      "applied_monotonic_ns": 230584073025515,
+      "capture_monotonic_ns": 230581568036046,
+      "capture_started_monotonic_ns": 230581498304574,
+      "capture_start_to_apply_s": 2.574720941,
+      "capture_to_apply_s": 2.504989469,
+      "capture_clock": {
+        "frame": 862,
+        "visual_frame": 1027,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 17180.30000001192,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9962961453906386,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya drifts right; follow with a focused correction."
+    },
+    {
+      "visual_frame": 1356,
+      "logical_frame": 1191,
+      "observed_frame": 1211,
+      "plan": [
+        [
+          0,
+          1,
+          1,
+          0,
+          12
+        ]
+      ],
+      "age_frames": 145,
+      "apply_clock": {
+        "frame": 1191,
+        "visual_frame": 1356,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 22636.30000001192,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9983963810334772,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 25.220672816998558,
+      "seq": 25,
+      "early_legal": true,
+      "early_legal_ready_ns": 230586947943861,
+      "applied_monotonic_ns": 230586989127156,
+      "capture_monotonic_ns": 230584636931228,
+      "capture_started_monotonic_ns": 230584566429546,
+      "capture_start_to_apply_s": 2.42269761,
+      "capture_to_apply_s": 2.352195928,
+      "capture_clock": {
+        "frame": 1046,
+        "visual_frame": 1211,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 20243.80000001192,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.997013077254342,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya drifts right; hold firing column below ring."
+    },
+    {
+      "visual_frame": 1658,
+      "logical_frame": 1358,
+      "observed_frame": 1501,
+      "plan": [
+        [
+          3,
+          1,
+          1,
+          0,
+          12
+        ]
+      ],
+      "age_frames": 157,
+      "apply_clock": {
+        "frame": 1358,
+        "visual_frame": 1658,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 27673.40000000596,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9985521595946787,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 30.26483734298381,
+      "seq": 28,
+      "early_legal": true,
+      "early_legal_ready_ns": 230591976660568,
+      "applied_monotonic_ns": 230592033289571,
+      "capture_monotonic_ns": 230589463431248,
+      "capture_started_monotonic_ns": 230589393513017,
+      "capture_start_to_apply_s": 2.639776554,
+      "capture_to_apply_s": 2.569858323,
+      "capture_clock": {
+        "frame": 1201,
+        "visual_frame": 1501,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 25074.80000001192,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9976816033090902,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Central gap remains open; nudge right while firing."
+    },
+    {
+      "visual_frame": 1841,
+      "logical_frame": 1541,
+      "observed_frame": 1708,
+      "plan": [
+        [
+          7,
+          1,
+          1,
+          1,
+          48
+        ]
+      ],
+      "age_frames": 133,
+      "apply_clock": {
+        "frame": 1541,
+        "visual_frame": 1841,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 30736.20000001788,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.998279986898689,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 33.31817617698107,
+      "seq": 33,
+      "early_legal": true,
+      "early_legal_ready_ns": 230595034867471,
+      "applied_monotonic_ns": 230595086629265,
+      "capture_monotonic_ns": 230592901329547,
+      "capture_started_monotonic_ns": 230592840616574,
+      "capture_start_to_apply_s": 2.246012691,
+      "capture_to_apply_s": 2.185299718,
+      "capture_clock": {
+        "frame": 1408,
+        "visual_frame": 1708,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 28515.5,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9982874810775427,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya drifts left; bomb clears the tracking path."
+    },
+    {
+      "visual_frame": 2041,
+      "logical_frame": 1741,
+      "observed_frame": 1893,
+      "plan": [
+        [
+          0,
+          1,
+          1,
+          0,
+          20
+        ]
+      ],
+      "age_frames": 148,
+      "apply_clock": {
+        "frame": 1741,
+        "visual_frame": 2041,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 34047.40000000596,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9990973368498245,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 36.62500034098048,
+      "seq": 37,
+      "early_legal": true,
+      "early_legal_ready_ns": 230598350468924,
+      "applied_monotonic_ns": 230598393453659,
+      "capture_monotonic_ns": 230595998373006,
+      "capture_started_monotonic_ns": 230595917289535,
+      "capture_start_to_apply_s": 2.476164124,
+      "capture_to_apply_s": 2.395080653,
+      "capture_clock": {
+        "frame": 1593,
+        "visual_frame": 1893,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 31607.80000001192,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9981713374543025,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Bomb clears nearby danger; hold position and keep firing."
+    },
+    {
+      "visual_frame": 2236,
+      "logical_frame": 1936,
+      "observed_frame": 2089,
+      "plan": [
+        [
+          3,
+          1,
+          1,
+          1,
+          43
+        ]
+      ],
+      "age_frames": 147,
+      "apply_clock": {
+        "frame": 1936,
+        "visual_frame": 2236,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 37303.09999999404,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9990233162035493,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 39.88057641198975,
+      "seq": 41,
+      "early_legal": true,
+      "early_legal_ready_ns": 230601617986183,
+      "applied_monotonic_ns": 230601649032610,
+      "capture_monotonic_ns": 230599255015456,
+      "capture_started_monotonic_ns": 230599184685025,
+      "capture_start_to_apply_s": 2.464347585,
+      "capture_to_apply_s": 2.394017154,
+      "capture_clock": {
+        "frame": 1789,
+        "visual_frame": 2089,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 34865.59999999404,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9985965153811385,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya moves right; bomb and track approaching bullets."
+    },
+    {
+      "visual_frame": 2444,
+      "logical_frame": 2144,
+      "observed_frame": 2286,
+      "plan": [
+        [
+          3,
+          1,
+          1,
+          0,
+          12
+        ]
+      ],
+      "age_frames": 158,
+      "apply_clock": {
+        "frame": 2144,
+        "visual_frame": 2444,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 40769.30000001192,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9991178002399212,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 43.346633656998165,
+      "seq": 47,
+      "early_legal": true,
+      "early_legal_ready_ns": 230605087115028,
+      "applied_monotonic_ns": 230605115086995,
+      "capture_monotonic_ns": 230602546139742,
+      "capture_started_monotonic_ns": 230602479628160,
+      "capture_start_to_apply_s": 2.635458835,
+      "capture_to_apply_s": 2.568947253,
+      "capture_clock": {
+        "frame": 1986,
+        "visual_frame": 2286,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 38159.80000001192,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.998432905832528,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Bomb clears bullets; nudge right toward Kaguya's column."
+    },
+    {
+      "visual_frame": 2723,
+      "logical_frame": 2400,
+      "observed_frame": 2585,
+      "plan": [
+        [
+          7,
+          1,
+          1,
+          0,
+          40
+        ]
+      ],
+      "age_frames": 138,
+      "apply_clock": {
+        "frame": 2400,
+        "visual_frame": 2723,
+        "intro": 112,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 45423.5,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9991157293764975,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 48.00544619100401,
+      "seq": 48,
+      "early_legal": true,
+      "early_legal_ready_ns": 230609749542471,
+      "applied_monotonic_ns": 230609773898159,
+      "capture_monotonic_ns": 230607506481419,
+      "capture_started_monotonic_ns": 230607449993636,
+      "capture_start_to_apply_s": 2.323904523,
+      "capture_to_apply_s": 2.26741674,
+      "capture_clock": {
+        "frame": 2285,
+        "visual_frame": 2585,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 43121.80000001192,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9991079531309319,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya drifts left; follow with focused shooting."
+    },
+    {
+      "visual_frame": 3022,
+      "logical_frame": 2587,
+      "observed_frame": 2878,
+      "plan": [
+        [
+          7,
+          1,
+          1,
+          0,
+          14
+        ]
+      ],
+      "age_frames": 144,
+      "apply_clock": {
+        "frame": 2587,
+        "visual_frame": 3022,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 50396,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9994179432230071,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 52.976524616999086,
+      "seq": 52,
+      "early_legal": true,
+      "early_legal_ready_ns": 230614708760779,
+      "applied_monotonic_ns": 230614744979925,
+      "capture_monotonic_ns": 230612394290345,
+      "capture_started_monotonic_ns": 230612332494543,
+      "capture_start_to_apply_s": 2.412485382,
+      "capture_to_apply_s": 2.35068958,
+      "capture_clock": {
+        "frame": 2443,
+        "visual_frame": 2878,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 48006.90000000596,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9991619260285649,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya moves left; nudge left between bullet streams."
+    },
+    {
+      "visual_frame": 3205,
+      "logical_frame": 2770,
+      "observed_frame": 3069,
+      "plan": [
+        [
+          3,
+          1,
+          1,
+          1,
+          19
+        ]
+      ],
+      "age_frames": 136,
+      "apply_clock": {
+        "frame": 2770,
+        "visual_frame": 3205,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 53444.30000001192,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9994829507852989,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 56.021683072991436,
+      "seq": 57,
+      "early_legal": true,
+      "early_legal_ready_ns": 230617739900998,
+      "applied_monotonic_ns": 230617790135901,
+      "capture_monotonic_ns": 230615572117036,
+      "capture_started_monotonic_ns": 230615513977573,
+      "capture_start_to_apply_s": 2.276158328,
+      "capture_to_apply_s": 2.218018865,
+      "capture_clock": {
+        "frame": 2634,
+        "visual_frame": 3069,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 51189,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9992381175643206,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Descending stars threaten firing lane; bomb and shift right."
+    },
+    {
+      "visual_frame": 3425,
+      "logical_frame": 2990,
+      "observed_frame": 3304,
+      "plan": [
+        [
+          3,
+          1,
+          1,
+          0,
+          35
+        ]
+      ],
+      "age_frames": 121,
+      "apply_clock": {
+        "frame": 2990,
+        "visual_frame": 3425,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 57112.09999999404,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9994963122234919,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 59.691299225989496,
+      "seq": 61,
+      "early_legal": true,
+      "early_legal_ready_ns": 230621439004656,
+      "applied_monotonic_ns": 230621459753794,
+      "capture_monotonic_ns": 230619488617869,
+      "capture_started_monotonic_ns": 230619427196456,
+      "capture_start_to_apply_s": 2.032557338,
+      "capture_to_apply_s": 1.971135925,
+      "capture_clock": {
+        "frame": 2869,
+        "visual_frame": 3304,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 55104.40000000596,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9993152391943422,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya drifts right; focus toward her firing column."
+    },
+    {
+      "visual_frame": 3674,
+      "logical_frame": 3239,
+      "observed_frame": 3540,
+      "plan": [
+        [
+          7,
+          1,
+          1,
+          0,
+          36
+        ]
+      ],
+      "age_frames": 134,
+      "apply_clock": {
+        "frame": 3239,
+        "visual_frame": 3674,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 61265.5,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.99947496279853,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 63.8424517409876,
+      "seq": 64,
+      "early_legal": true,
+      "early_legal_ready_ns": 230625579445643,
+      "applied_monotonic_ns": 230625610902919,
+      "capture_monotonic_ns": 230623420853950,
+      "capture_started_monotonic_ns": 230623365659287,
+      "capture_start_to_apply_s": 2.245243632,
+      "capture_to_apply_s": 2.190048969,
+      "capture_clock": {
+        "frame": 3105,
+        "visual_frame": 3540,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 59036.80000001192,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9993766599813692,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya turns left; shift left through the gap."
+    },
+    {
+      "visual_frame": 3900,
+      "logical_frame": 3465,
+      "observed_frame": 3773,
+      "plan": [
+        [
+          0,
+          1,
+          1,
+          0,
+          12
+        ]
+      ],
+      "age_frames": 127,
+      "apply_clock": {
+        "frame": 3465,
+        "visual_frame": 3900,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 65026.59999999404,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9995909366321777,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "applied_wall_s": 67.60456410300685,
+      "seq": 68,
+      "early_legal": true,
+      "early_legal_ready_ns": 230629347158374,
+      "applied_monotonic_ns": 230629373018051,
+      "capture_monotonic_ns": 230627306503677,
+      "capture_started_monotonic_ns": 230627248491644,
+      "capture_start_to_apply_s": 2.124526407,
+      "capture_to_apply_s": 2.066514374,
+      "capture_clock": {
+        "frame": 3338,
+        "visual_frame": 3773,
+        "intro": 0,
+        "mode": "realtime",
+        "speed": 1,
+        "wall_ms": 62923.09999999404,
+        "max_raf_gap_ms": 83.40000000000146,
+        "actual_visual_speed": 0.9993680116418182,
+        "blur_events": 0,
+        "paused": false,
+        "status": "playing"
+      },
+      "brief": "Kaguya drifts left; hold the useful firing column."
+    }
+  ],
+  "requests": [
+    {
+      "seq": 3,
+      "image_frames": [
+        0
+      ],
+      "image_sha256": [
+        "8337d366957478680099100f23d24481cdadce7a2c1c27452497edb9b03ea23f"
+      ],
+      "prompt_sha256": "2a5ea021fd21560bf123d612514b550b17f04845ceef575c238cb6143b94eed1",
+      "answer": "{\"aim_x\":224,\"boss\":[225,85],\"brief\":\"Opening declaration; hold focused fire beneath the boss.\",\"plan\":[{\"bomb\":0,\"duration\":1,\"focus\":1,\"move\":0,\"shoot\":1}],\"player\":[224,400]}",
+      "disposition": "applied",
+      "usd": "0.0053964",
+      "legal_action_s": 1.8874222529993858
+    },
+    {
+      "seq": 6,
+      "image_frames": [
+        2,
+        23
+      ],
+      "image_sha256": [
+        "18bddf0d7a85d98787a2ba8706e08846f1db9aa2a184a11722cf41fed3060681",
+        "cdd1aed0ca1792f75eab6e3edb6181943006b1a3f6dbd53b23ff521b950905dc"
+      ],
+      "prompt_sha256": "c3bb02dd8dae0ca521a9f3d2a0d247393842fb55549b1276cd44f33adf00b494",
+      "answer": "{\"aim_x\":288,\"boss\":[235,86],\"brief\":\"Kaguya drifts right; follow with focused shooting correction\",\"plan\":[{\"bomb\":0,\"duration\":38,\"focus\":1,\"move\":3,\"shoot\":1}],\"player\":[224,401]}",
+      "disposition": "applied",
+      "usd": "0.046251",
+      "legal_action_s": 1.3094548319932073
+    },
+    {
+      "seq": 9,
+      "image_frames": [
+        129,
+        151,
+        172
+      ],
+      "image_sha256": [
+        "b3690f60d88343c5468aff03ab95c0803cc87f39bf5859ef1b74e270dc1312c4",
+        "5185573c9dff928d16eb27b3f616e6a97f7b610fb285786a1be5ebffbe582bd3",
+        "5ddb6004bbcb9448a715ebc79debfa2114bbe4c8f1cc2c17e5ecddcab96e6f2b"
+      ],
+      "prompt_sha256": "b5a8f22a6ee54b96ca9b6adcaf7f4dd99a8577bab23121f5d893efb00005227a",
+      "answer": "{\"aim_x\":301,\"boss\":[280,96],\"brief\":\"Kaguya drifts right; nudge right beneath clear space.\",\"plan\":[{\"bomb\":0,\"duration\":10,\"focus\":1,\"move\":3,\"shoot\":1}],\"player\":[285,403]}",
+      "disposition": "applied",
+      "usd": "0.0096264",
+      "legal_action_s": 2.096062336990144
+    },
+    {
+      "seq": 12,
+      "image_frames": [
+        350,
+        375,
+        396
+      ],
+      "image_sha256": [
+        "048b2f9ece592c3534d94ce2223b55adbb45d71f77f0a5b1c8fab93641533036",
+        "cc13811f029464d47ae15a0f0a6ce05fad22c31a6d32f64de71ea3b0c4c8666b",
+        "270f2b05b691c124ee6fc1fbbb0074708c394dbf8686515bbe0e03da5b957092"
+      ],
+      "prompt_sha256": "fb02a055a81a7e8362178ab24533fe74a015dc45559d6c0d7ab1ef2707c98c29",
+      "answer": "{\"aim_x\":245,\"boss\":[251,85],\"brief\":\"Kaguya drifts left; follow through the clear gap.\",\"plan\":[{\"bomb\":0,\"duration\":35,\"focus\":1,\"move\":7,\"shoot\":1}],\"player\":[301,400]}",
+      "disposition": "applied",
+      "usd": "0.060321",
+      "legal_action_s": 2.3840658040135168
+    },
+    {
+      "seq": 18,
+      "image_frames": [
+        595,
+        617,
+        638
+      ],
+      "image_sha256": [
+        "a0d8ca80596aa8d1c94faafb13ea14555943a4f7cec690b4ee1a16f9b06408b6",
+        "88984d6de2ffd6f8fd77fd70a97ad4d54da16ca7e205145785103d38b7087bfc",
+        "f6ee4ed3274d86e9f3fc7076e98ab29396083fc17c6c0ff3a0604bc3454ad645"
+      ],
+      "prompt_sha256": "1a8edc4aae609d6fb76a9ca843e1e3de8e80d390f3d8ba4342a5f9ff703ab5a4",
+      "answer": "{\"aim_x\":210,\"boss\":[169,84],\"brief\":\"Bullets approach below; bomb and focus slightly left.\",\"plan\":[{\"bomb\":1,\"duration\":24,\"focus\":1,\"move\":7,\"shoot\":1}],\"player\":[244,400]}",
+      "disposition": "applied",
+      "usd": "0.0128796",
+      "legal_action_s": 2.3862740530166775
+    },
+    {
+      "seq": 23,
+      "image_frames": [
+        815,
+        837,
+        862
+      ],
+      "image_sha256": [
+        "de0a7c5cf50f9dfffe9c7df678299c072fe91e32459b577b958c5dd66be71dad",
+        "24abff355ebade5b0a5060f162aab988f7aee1d6304de29d9b8133c2c6c11ff1",
+        "e4ff5de0c00202fa609c29f759e25403e0b8f35807ad2b09d84a1be7aa4e0e1f"
+      ],
+      "prompt_sha256": "5b9c8b221a43f224e4a7a48babd0b21c1eb38935ea27a49c6da9d1a46010aa9f",
+      "answer": "{\"aim_x\":252,\"boss\":[194,80],\"brief\":\"Kaguya drifts right; follow with a focused correction.\",\"plan\":[{\"bomb\":0,\"duration\":28,\"focus\":1,\"move\":3,\"shoot\":1}],\"player\":[204,397]}",
+      "disposition": "applied",
+      "usd": "0.0083862",
+      "legal_action_s": 1.7580690589966252
+    },
+    {
+      "seq": 25,
+      "image_frames": [
+        998,
+        1023,
+        1046
+      ],
+      "image_sha256": [
+        "a9fc30658abc7a98b274a2285494738e932754e4bcf22a3c520766c86a54e6de",
+        "a2d907f2224b05eb9ee057920d4273940a13f619ad3ee3ec8befa92feaebcda3",
+        "490faa96f918756208828f72cef8a62ddd9acaf5bc9a1aa570db8ccc7aa236b9"
+      ],
+      "prompt_sha256": "4bde1a7306075946903244e241e2476c489ea3047de203b82d4b6b4a41874c20",
+      "answer": "{\"aim_x\":260,\"boss\":[263,88],\"brief\":\"Kaguya drifts right; hold firing column below ring.\",\"plan\":[{\"bomb\":0,\"duration\":12,\"focus\":1,\"move\":0,\"shoot\":1}],\"player\":[252,401]}",
+      "disposition": "applied",
+      "usd": "0.010974",
+      "legal_action_s": 2.072276010992937
+    },
+    {
+      "seq": 28,
+      "image_frames": [
+        1158,
+        1181,
+        1201
+      ],
+      "image_sha256": [
+        "d5a4635003a97f8168de03224211a38693d95589c944483cf3decb82807dfa36",
+        "3a1689fa38f6d8e89a8d2bd21055dd0e65d99cb5fef61985aea6cb3315e9c74f",
+        "9c627e4571559af1a64de2d673099bf514767353cd08d0ba78af60aef98561b6"
+      ],
+      "prompt_sha256": "cf97824f96d38a1488171253f023a9144d78ce5800aa56e80a5960e50693f0c7",
+      "answer": "{\"aim_x\":270,\"boss\":[285,94],\"brief\":\"Central gap remains open; nudge right while firing.\",\"plan\":[{\"bomb\":0,\"duration\":12,\"focus\":1,\"move\":3,\"shoot\":1}],\"player\":[251,402]}",
+      "disposition": "applied",
+      "usd": "0.058086",
+      "legal_action_s": 2.3383067999966443
+    },
+    {
+      "seq": 33,
+      "image_frames": [
+        1362,
+        1387,
+        1408
+      ],
+      "image_sha256": [
+        "30eb80de043fabc3481ee80f14028ca31b247ce046bb3a3b73c56d112a420ad9",
+        "d9af3ef5ac46e1f3ec720dff4783242869e98a0619f24d8ecdcaaea2ec1dfc91",
+        "da7b0b1a5c01a3282842821c99a76bf655578c5af08fa3eb0fc83dcc094acdf4"
+      ],
+      "prompt_sha256": "e441eb7af86ed07a6051681eea3157964be88c40f04dbac94f9cb2240c247b83",
+      "answer": "{\"aim_x\":171,\"boss\":[225,85],\"brief\":\"Kaguya drifts left; bomb clears the tracking path.\",\"plan\":[{\"bomb\":1,\"duration\":48,\"focus\":1,\"move\":7,\"shoot\":1}],\"player\":[270,400]}",
+      "disposition": "applied",
+      "usd": "0.060141",
+      "legal_action_s": 1.9518185160122812
+    },
+    {
+      "seq": 37,
+      "image_frames": [
+        1547,
+        1570,
+        1593
+      ],
+      "image_sha256": [
+        "d21b302a4007ef05e188e48aecca9521a58afe2896b2c39f76fe5a3172b25d5e",
+        "5def9cdb1b634a87bd0d1cd9a461e2c6a5799607b699ff858e99dc0b78fe301d",
+        "595d607add63804316ac8aa2abadc4eea17cb90f43334e16effc0f8a5bd6a92a"
+      ],
+      "prompt_sha256": "2d40837e3625017d30ef5974735c0bf48d5bda50323bee45d9170edb201dff0f",
+      "answer": "{\"aim_x\":193,\"boss\":[167,80],\"brief\":\"Bomb clears nearby danger; hold position and keep firing.\",\"plan\":[{\"bomb\":0,\"duration\":20,\"focus\":1,\"move\":0,\"shoot\":1}],\"player\":[194,397]}",
+      "disposition": "applied",
+      "usd": "0.0100296",
+      "legal_action_s": 2.1211925560201053
+    },
+    {
+      "seq": 41,
+      "image_frames": [
+        1747,
+        1768,
+        1789
+      ],
+      "image_sha256": [
+        "41da8d8d63580ea083073cea932c42b4320a541da89301e41eff521c4fb25ec0",
+        "c2110c114f6d29ee72cee158ce99ae7c9e952f6a77b601f4d765386aa5bfbb39",
+        "6586a2f7b2ca7e360cd5f0a4e64381a1a8f30004837fe05cbb2e89bb3895490b"
+      ],
+      "prompt_sha256": "9ab329692cf107f161b7472f416460f9c296798f32fd4e3b142d20ec91287bc1",
+      "answer": "{\"aim_x\":266,\"boss\":[190,85],\"brief\":\"Kaguya moves right; bomb and track approaching bullets.\",\"plan\":[{\"bomb\":1,\"duration\":43,\"focus\":1,\"move\":3,\"shoot\":1}],\"player\":[194,402]}",
+      "disposition": "applied",
+      "usd": "0.0096102",
+      "legal_action_s": 2.1752383610000834
+    },
+    {
+      "seq": 47,
+      "image_frames": [
+        1942,
+        1965,
+        1986
+      ],
+      "image_sha256": [
+        "783198abc44751298c2f7467b1cb8534044066805c5e738b306a12c88151d9fd",
+        "685f0bda9443e135f1240aba6213a7f22724c19a1a95cf7a952620370dc216c3",
+        "69871528a2263ce6b8aafa86b2552e8711da25d38e78270ff663cac6cd82c0b6"
+      ],
+      "prompt_sha256": "52007f3ce1eb1a4c7c559ec00368187ee60618056b1de0d283d440bcf7d4d937",
+      "answer": "{\"aim_x\":282,\"boss\":[262,85],\"brief\":\"Bomb clears bullets; nudge right toward Kaguya's column.\",\"plan\":[{\"bomb\":0,\"duration\":12,\"focus\":1,\"move\":3,\"shoot\":1}],\"player\":[262,382]}",
+      "disposition": "applied",
+      "usd": "0.0120108",
+      "legal_action_s": 2.140064443985466
+    },
+    {
+      "seq": 48,
+      "image_frames": [
+        2243,
+        2264,
+        2285
+      ],
+      "image_sha256": [
+        "555deb11984a75713408d4d3929b45947c4646f2c762bf40fea7c99de03a466d",
+        "5b3caef0ba09e26132908827ae34c2fe5d86578b4733d28c5c4b3beec7e24b15",
+        "f09bd57b734aa53aba6dce531be4f8160d475364099a6e35e8fb73c88ca1f356"
+      ],
+      "prompt_sha256": "85f057f19875b31d28fa0da2a6d3a1839e124bdd60321d1b7db8f39d4a4a338e",
+      "answer": "{\"aim_x\":190,\"boss\":[249,86],\"brief\":\"Kaguya drifts left; follow with focused shooting.\",\"plan\":[{\"bomb\":0,\"duration\":40,\"focus\":1,\"move\":7,\"shoot\":1}],\"player\":[282,402]}",
+      "disposition": "applied",
+      "usd": "0.060441",
+      "legal_action_s": 2.1369270449795295
+    },
+    {
+      "seq": 52,
+      "image_frames": [
+        2401,
+        2422,
+        2443
+      ],
+      "image_sha256": [
+        "f5060764900b2f69e82f45fa0b206b144c2b4bd00981a164c7e15c8655638345",
+        "2ea56e721737e957562f1504a8ddb9db84d20f3b807a932271575d6adb8f84cb",
+        "3c2764398a8df40b2990dcbde7b4434d6cf71f3c3fe2522abe047e77ad9a8052"
+      ],
+      "prompt_sha256": "2160e036a1126f973aa635a51bc12e4d63798878dbc39d97d69050ec17cd831d",
+      "answer": "{\"aim_x\":180,\"boss\":[190,85],\"brief\":\"Kaguya moves left; nudge left between bullet streams.\",\"plan\":[{\"bomb\":0,\"duration\":14,\"focus\":1,\"move\":7,\"shoot\":1}],\"player\":[218,403]}",
+      "disposition": "applied",
+      "usd": "0.061356",
+      "legal_action_s": 2.2150012050115038
+    },
+    {
+      "seq": 57,
+      "image_frames": [
+        2592,
+        2613,
+        2634
+      ],
+      "image_sha256": [
+        "d89edf231ad26ea9656b57f17a82aa29d1b46ac3020f7dee83825bc4843a588e",
+        "f147c23ab15b59c9ed05c9773483536f9f62a9c15b1b9608b7e547f9f6155da1",
+        "dcb671c0d7b72ab6151cf9b7e30f1650ba417fc5fc2db06ccb44c9012c8dd0eb"
+      ],
+      "prompt_sha256": "e675db87f80853447c6a7434649959f2400ab64efa98b0bfee67900000cc34c5",
+      "answer": "{\"aim_x\":225,\"boss\":[168,85],\"brief\":\"Descending stars threaten firing lane; bomb and shift right.\",\"plan\":[{\"bomb\":1,\"duration\":19,\"focus\":1,\"move\":3,\"shoot\":1}],\"player\":[195,402]}",
+      "disposition": "applied",
+      "usd": "0.0101526",
+      "legal_action_s": 1.9903736829874106
+    },
+    {
+      "seq": 61,
+      "image_frames": [
+        2825,
+        2848,
+        2869
+      ],
+      "image_sha256": [
+        "1f06fbff9e8f1f7fe232a58ebc906cd1aa841c3271a206a123fe493e68fb6aab",
+        "266d92f2c247920a27a26985f947520ccfb8a0fdc10014ef9b6dc68b0fd8932f",
+        "1f2c160a09e9a753cb42c6a05b8da94cd5ed69ab2bbe4e41364447b3af67a669"
+      ],
+      "prompt_sha256": "ac135a24f08a62755b16781751992aa3a64d71c04c66edba11cbef814cacc969",
+      "answer": "{\"aim_x\":282,\"boss\":[241,85],\"brief\":\"Kaguya drifts right; focus toward her firing column.\",\"plan\":[{\"bomb\":0,\"duration\":35,\"focus\":1,\"move\":3,\"shoot\":1}],\"player\":[224,400]}",
+      "disposition": "applied",
+      "usd": "0.057291",
+      "legal_action_s": 1.7834395680110902
+    },
+    {
+      "seq": 64,
+      "image_frames": [
+        3063,
+        3084,
+        3105
+      ],
+      "image_sha256": [
+        "bdc310b86ad92ab68d9e195cc57df63e876d5480534681dd532dc83920a9833a",
+        "405ee8c5c5e7f0e88558dd747a98bc179eb7ffa1cf5c766bb372ffb072eb1d42",
+        "75dfed27069abef9627205ffedf61573597eed8ebd87ab3b0fe1ff7bc7936f24"
+      ],
+      "prompt_sha256": "8efee4fde0d6c66fd1ae1b1f629de4f2a03b854fddb4513212ec1f0e78a5909c",
+      "answer": "{\"aim_x\":221,\"boss\":[281,85],\"brief\":\"Kaguya turns left; shift left through the gap.\",\"plan\":[{\"bomb\":0,\"duration\":36,\"focus\":1,\"move\":7,\"shoot\":1}],\"player\":[280,400]}",
+      "disposition": "applied",
+      "usd": "0.059331",
+      "legal_action_s": 2.0588409450137988
+    },
+    {
+      "seq": 68,
+      "image_frames": [
+        3296,
+        3317,
+        3338
+      ],
+      "image_sha256": [
+        "b1efcf0ccee07efcc7dd53136669e79dbf0c0c113232703c53daf8a01d87874b",
+        "0ce25eddaf9adcfcb3e5806ddbe878d91efa536f5d8fe3f626794e99f4a15c53",
+        "175d3b13f29210c3148920772abbc7d244ca5b9342ec694b9146f0a51829c307"
+      ],
+      "prompt_sha256": "b658d0e23556d8fdc04aa47b7048651ffc65ca963ee7b51c0bb21e7901d24627",
+      "answer": "{\"aim_x\":168,\"boss\":[207,85],\"brief\":\"Kaguya drifts left; hold the useful firing column.\",\"plan\":[{\"bomb\":0,\"duration\":12,\"focus\":1,\"move\":0,\"shoot\":1}],\"player\":[166,402]}",
+      "disposition": "applied",
+      "usd": "0.057771",
+      "legal_action_s": 1.9359471200150438
+    }
+  ],
+  "source_audit_sha256": "216eef4b252c0ef510db035f61725c4496a8eab060da587d4a6743e1fc4e3c1e",
+  "retention": "Compact selected-action view. Complete historical inputs and candidate responses remain in the original research workspace and are not bundled by this PR."
+}

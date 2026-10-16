@@ -28,7 +28,7 @@ def serve(directory):
     try:yield f'http://127.0.0.1:{server.server_port}'
     finally:server.shutdown();server.server_close();thread.join()
 
-def freeze(game,recipe,out,mode="subscription_with_simulated_profile"):
+def freeze(game,recipe,out, mode="subscription_with_simulated_profile"):
     out.mkdir(parents=True,exist_ok=False)
     sources={}
     for directory in ('environments/'+game,'runtime','policies/'+game,'profiles/'+game):
@@ -40,7 +40,7 @@ def freeze(game,recipe,out,mode="subscription_with_simulated_profile"):
                     target=out/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)
     (out/'manifest.json').write_text(json.dumps({'game':game,'recipe':recipe,'source_sha256':sources,
         'mode':mode,'real_time_api_acceptance':False,
-        'transport_adapter':'portable app-server; frozen recipe and direct visual model actions',
+        'transport_adapter':'portable app-server; original gameplay policy and timing retained',
         'created_at_unix':time.time()},indent=2))
 
 def rhythm(recipe,out,a):
@@ -64,12 +64,15 @@ def touhou(recipe,out,a):
     from research.run_episode import run
     config=dict(recipe['args']);config.update(profile=str(ROOT/recipe['profile']),suite=str(ROOT/'vendor'))
     if a.seed is not None:config['seed']=a.seed
+    config['browser_executable']=a.browser_executable
     if a.duration is not None:raise ValueError('Touhou acceptance uses a complete game; --duration is not supported')
     with serve(ROOT/'environments/touhou/dist') as url:
         config['url']=url
         run(config,out/'episode')
     summary=json.loads((out/'episode/summary.json').read_text())
     (out/'summary.json').write_text(json.dumps(summary,indent=2))
+    from runtime.touhou_records import evaluation_record
+    evaluation_record(ROOT,out)
     return summary
 
 def asterix(recipe,out,a):
@@ -79,6 +82,37 @@ def asterix(recipe,out,a):
     os.environ['SOL_QUOTA_STOP_PERCENT']=str(min(int(os.environ.get('SOL_QUOTA_STOP_PERCENT','80')),recipe['args']['quota_stop_percent']))
     return run_recipe(ROOT,recipe,out,a,SubscriptionClient,
         mode='realtime' if a.command=='eval' else 'simulation')
+
+def touhou_realtime(recipe,out,a):
+    import getpass
+    sys.path.insert(0,str(ROOT/'environments/touhou'))
+    from research.run_episode import run
+    from research.budget import BudgetLedger
+    from runtime.touhou_records import evaluation_record
+    config=dict(recipe['args'])
+    if config.get('speed')!=1:raise ValueError('Realtime acceptance requires speed=1')
+    config.update(profile=str(ROOT/recipe['profile']),suite=str(ROOT/'vendor'),
+                  ledger=str(a.ledger.resolve() if a.ledger else out/'ledger.json'),
+                  max_calls=a.max_calls,browser_executable=a.browser_executable,
+                  budget_limits={'total_limit':str(a.budget_usd),'admission_limit':str(a.budget_usd),
+                                 'stage_caps':{k:str(a.budget_usd) for k in ('profile','reprofile','realtime')}})
+    if a.seed is not None:config['seed']=a.seed
+    ledger=BudgetLedger(config['ledger'],**config['budget_limits']);before=ledger.snapshot()
+    if before.get('blocked'):raise RuntimeError('Ledger requires reconciliation before new API calls')
+    key=os.environ.get('OPENAI_API_KEY') or getpass.getpass('OpenAI API key (process memory only): ')
+    if not key:raise ValueError('A real API credential is required')
+    try:
+        with serve(ROOT/'environments/touhou/dist') as url:
+            config['url']=url
+            result=run(config,out/'episode',key)
+        (out/'summary.json').write_text(json.dumps(result,indent=2))
+        return result
+    finally:
+        key=None
+        record=evaluation_record(ROOT,out,budget_before=before,budget_after=ledger.snapshot())
+        m=json.loads((out/'manifest.json').read_text());m['real_time_api_acceptance']=record['passed']
+        (out/'manifest.json').write_text(json.dumps(m,indent=2)+'\n')
+
 
 def doctor(a):
     import importlib.metadata
@@ -105,23 +139,48 @@ def main():
     p=argparse.ArgumentParser(epilog='Racing: sol simulate racing, sol eval racing, sol profile racing; see docs/racing.md for external engine setup.');sub=p.add_subparsers(dest='command',required=True)
     d=sub.add_parser('doctor');d.add_argument('--game',choices=['all','rhythm','touhou','asterix'],default='all');d.add_argument('--auth',action='store_true');d.add_argument('--browser-executable')
     e=sub.add_parser('simulate');e.add_argument('game',choices=['rhythm','touhou','asterix']);e.add_argument('--output',type=Path);e.add_argument('--seed',type=int);e.add_argument('--duration',type=float);e.add_argument('--browser-executable');e.add_argument('--recipe',type=Path)
-    live=sub.add_parser('eval',help='Continuously advancing real-time subscription evaluation')
-    live.add_argument('game',choices=['asterix']);live.add_argument('--output',type=Path);live.add_argument('--seed',type=int);live.add_argument('--duration',type=float);live.add_argument('--recipe',type=Path)
-    assessment=sub.add_parser('record',help='Append a researcher decision to an existing evaluation')
-    assessment.add_argument('run',type=Path);assessment.add_argument('--decision',choices=['retain','reject','diagnostic'],required=True);assessment.add_argument('--note',required=True)
+    v=sub.add_parser('eval',help='Continuous evaluation: Asterix subscription or Touhou API (explicit budget)')
+    v.add_argument('game',choices=['touhou','asterix']);v.add_argument('--output',type=Path);v.add_argument('--seed',type=int)
+    v.add_argument('--recipe',type=Path);v.add_argument('--browser-executable');v.add_argument('--budget-usd',help='Required for Touhou paid API evaluation')
+    v.add_argument('--max-calls',type=int,default=100);v.add_argument('--ledger',type=Path)
+    v.add_argument('--duration',type=float)
+    r=sub.add_parser('record',help='Append an immutable evaluation record to a chosen registry')
+    r.add_argument('--decision',choices=['retain','reject','diagnostic']);r.add_argument('--note');r.add_argument('run',type=Path);r.add_argument('--registry',type=Path,default=ROOT/'artifacts/touhou/evaluations.jsonl')
+    c=sub.add_parser('profile',help='Strictly serial API profiling of retained unique observations')
+    c.add_argument('game',choices=['touhou']);c.add_argument('--episode',type=Path,required=True)
+    c.add_argument('--output',type=Path);c.add_argument('--budget-usd',required=True);c.add_argument('--max-calls',type=int,default=21);c.add_argument('--ledger',type=Path)
     a=p.parse_args()
-    if a.command=='doctor':return doctor(a)
     if a.command=='record':
-        from runtime.evaluation import assess
-        print(json.dumps(assess(a.run,a.decision,a.note),indent=2));return
+        manifest=json.loads((a.run/'manifest.json').read_text())
+        if manifest['game']=='asterix':
+            if a.decision is None or a.note is None:p.error('Asterix assessments require --decision and --note')
+            from runtime.evaluation import assess
+            print(json.dumps(assess(a.run,a.decision,a.note),indent=2));return
+        if a.decision is not None or a.note is not None:p.error('--decision and --note apply to Asterix assessments')
+        from runtime.touhou_records import append_record
+        print(json.dumps({'appended':append_record(a.run,a.registry),'registry':str(a.registry)}));return
+    if a.command in ('eval','profile') and a.game=='touhou':
+        from decimal import Decimal,InvalidOperation
+        if a.budget_usd is None:p.error('--budget-usd is required for Touhou API evaluation')
+        try:a.budget_usd=Decimal(a.budget_usd)
+        except InvalidOperation:p.error('--budget-usd must be a finite positive decimal')
+        if not a.budget_usd.is_finite() or a.budget_usd<=0 or a.max_calls<1:p.error('Budget and max-calls must be positive')
+    if a.command=='profile':
+        from runtime.touhou_profile import profile
+        profile(ROOT,a)
+        return
+    if a.command=='doctor':return doctor(a)
     if a.duration is not None and (not math.isfinite(a.duration) or a.duration<=0 or a.game=='asterix' and round(a.duration*60)<1):
         p.error('--duration must be finite and positive')
-    recipe=json.loads((a.recipe or ROOT/'recipes'/f'{a.game}.json').read_text())
+    recipe=json.loads((a.recipe or ROOT/'recipes'/(f'{a.game}'+('-realtime.json' if a.command=='eval' and a.game=='touhou' else '.json'))).read_text())
     out=(a.output or ROOT/'runs'/f'{a.game}-{time.strftime("%Y%m%dT%H%M%S")}').resolve()
-    freeze(a.game,recipe,out,mode='real_time_subscription' if a.command=='eval' else 'subscription_with_simulated_profile')
+    expected=('api','realtime') if a.command=='eval' else ('subscription','sim')
+    if a.game=='touhou' and (recipe['args'].get('provider'),recipe['args'].get('mode'))!=expected:
+        p.error('Recipe provider/mode must match the explicitly selected command')
+    freeze(a.game,recipe,out,mode=('realtime_api' if a.game=='touhou' else 'real_time_subscription') if a.command=='eval' else 'subscription_with_simulated_profile')
     (out/'transport').mkdir()
     os.environ['SOL_NATIVE_LOG_ROOT']=str(out/'transport')
-    try:result=globals()[a.game](recipe,out,a)
+    try:result=touhou_realtime(recipe,out,a) if a.command=='eval' and a.game=='touhou' else globals()[a.game](recipe,out,a)
     except BaseException as exc:
         (out/'failure.json').write_text(json.dumps({'type':type(exc).__name__,'message':str(exc)},indent=2));raise
     finally:

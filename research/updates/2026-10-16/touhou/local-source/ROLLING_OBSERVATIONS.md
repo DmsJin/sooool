@@ -1,9 +1,0 @@
-# Rolling observation development experiment
-
-The existing K1 scheduler can accept multiple different observation requests when capacity exceeds one and both wait flags are false. Set `rolling_observations: true` to accurately describe this opt-in protocol to the model. This flag changes prompt context only; it does not change scheduling, controls, safety selection, game rewards or physics. Invalid combinations are rejected while constructing the first prompt, before submitting a model request.
-
-A newer observation's returned action can interrupt a preceding plan. Old observations remain in flight until their due response and cannot replace actions already applied from newer observations. Simulation processes due events in due-time order; realtime selects the newest observation among available legal replies. No response is exposed before its modeled readiness time. The latest held keys and known plan are capture-time facts; other outstanding GPT decisions may change them during latency. Every action remains GPT's decision.
-
-For the historical serial-sample K1 model, the prompt explicitly labels independent delay draws and coincident readiness/terminal release as assumptions. It does not claim new concurrent calibration. A pipeline subscription simulation is a development experiment; it cannot prove actual realtime API throughput. Before paid validation, preserve the user's serial profiling requirement and remaining $30 total budget.
-
-Keep the v2 strategy, low effort, original four output fields, one action up to 48 logical frames, and observation image history fixed when comparing scheduling. Report applied-action intervals, interruptions and stale decisions, alongside wins, hits, consumed Bombs, ordinary shot damage and shot drought. A higher request rate alone is not success. No pipeline run is implied by this preparation commit.

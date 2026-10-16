@@ -24,7 +24,7 @@ A shallow clone of the committed source branch was installed in another fresh Py
 
 The original Rhythm and Touhou Gym packages are now installed through the root uv workspace. Their Gym API checkers, registered environment creation and complete environment episodes passed; those checks use no SOL policy and are not performance evidence.
 
-All fresh evaluations used historical profile simulation and real subscription decisions. No new paid API evaluation was run. The frozen policies were not retuned to hide losses.
+The initial package validation used historical profile simulation and real subscription decisions. No paid API evaluation was run during that initial validation. Subsequent Touhou results are separately recorded in its record index. The frozen policies were not retuned to hide losses.
 
 ## Selected Asterix: direct serial V28
 
@@ -48,3 +48,9 @@ Both commands completed using the standalone native CLI 0.162.1 and real ChatGPT
 The fresh simulation did not reproduce the historical 500-point score. Both use the selected strategy, but the original suite transport and portable app-server are separately recorded conditions, and model decisions are stochastic. The historical replay remains the demonstration; it is not substituted for the fresh trial. The short actual-clock test verifies functional transport and continuous timing, not full-game reliability or ultrafast API latency.
 
 The source host used Python 3.10.22, Gymnasium 0.29.1 and ALE 0.8.1 for these real calls. Local locked-environment replay used Python 3.12.3, Gymnasium 1.2.3 and ALE 0.11.2 and reproduced the selected trajectory exactly. Both successful and interrupted migration checks remain explicitly distinguished. The merged Racing dispatch and subsequent failure-record fixes do not change the successful Asterix action path; their tests remain part of the final branch.
+
+## Selected v2 realtime workflow
+
+The portable `sol eval touhou` and strictly serial `sol profile touhou` paths are now available. Current validation is recorded per run, with exact source hashes, clocks, terminal accounting and outcome. See [the case study](touhou-research-record.md) and [record requirements](evaluation-records.md); these entries do not overwrite the earlier portable seed9 loss.
+
+Fresh paid full-game validation of the new portable CLI is **pending at the user's request**. Offline checks: 149 Touhou research tests (6 skipped), 24 root entrypoint/record tests (including the merged Racing checks) and 8 engine tests passed; local and isolated Ubuntu doctors launched Chromium145. A three-input serial API smoke collected valid measurements, then exposed a console entrypoint returning a dictionary as an error exit. That exit bug was fixed with an offline regression test; no additional paid profile or realtime run was started. Existing live successes remain historical source-harness evidence, not claims about the new launcher.
