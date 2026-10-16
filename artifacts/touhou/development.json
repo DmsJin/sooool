@@ -1,0 +1,76 @@
+{
+  "scope": "Development leading to selected early v2 only",
+  "source_reports": [
+    "environments/touhou/research/RESULTS.md",
+    "environments/touhou/research/TRACKING_POLICY_V2.md",
+    "environments/touhou/research/TRACKING_RESULTS.md"
+  ],
+  "game_reward_changed": false,
+  "weight_training": false,
+  "human_input": "Task, budget, behavior feedback, demonstrated trajectory and review; 4 of 12 tracking cases came from human play.",
+  "case_gate": {
+    "cases": 12,
+    "responses_per_policy_per_case": 2,
+    "delays_s": [
+      2.69135,
+      3.170205
+    ],
+    "offline_horizon_ticks": 180,
+    "round1": {
+      "baseline_hits": 2,
+      "intercept_hits": 4,
+      "turn_guard_hits": 6,
+      "intercept_shot_damage_gain_percent": 5.8,
+      "turn_guard_shot_damage_gain_percent": 11.4,
+      "selection": "retain baseline; reject safety regressions"
+    },
+    "round2": {
+      "baseline_mean_shot_damage": 101.875,
+      "v2_mean_shot_damage": 105.9375,
+      "baseline_hits": 8,
+      "v2_hits": 7,
+      "baseline_bombs": 8,
+      "v2_bombs": 8,
+      "selection": "safe_intercept_v2"
+    }
+  },
+  "whole_development": {
+    "execution_mode": "subscription_with_simulated_profile",
+    "seeds": [
+      9,
+      10
+    ],
+    "baseline_won": [
+      false,
+      false
+    ],
+    "baseline_remaining_hp": [
+      470,
+      175
+    ],
+    "v2_won": [
+      true,
+      true
+    ],
+    "v2_game_s": [
+      59.9666666667,
+      50.3833333333
+    ],
+    "v2_hits": [
+      2,
+      2
+    ]
+  },
+  "finalist_serial_profile": {
+    "execution_mode": "serial_api_profile",
+    "concurrency": 1,
+    "valid_calls": 21,
+    "three_image_samples": 19,
+    "legal_json_s": {
+      "min": 1.467,
+      "median": 2.283,
+      "p95": 2.955
+    },
+    "note": "1/2-image strata had one sample each. Transporting these marginals into older concurrent cohorts was modeled, not a fresh concurrent calibration."
+  }
+}

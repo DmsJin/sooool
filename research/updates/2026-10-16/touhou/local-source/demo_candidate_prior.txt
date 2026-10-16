@@ -1,6 +1,0 @@
-Provisional visual prior learned by Sol from a completed human demonstration; validate on a new episode.
-
-- Preserve focused shooting with small alignment corrections rather than chasing exact boss position.
-- Use conservative drift prediction and avoid strong leading near uncertain turns.
-- Prioritize bullets that could intersect the entire delayed transit and subsequent hold, not merely the destination.
-- Test short focused move/hold chunks to limit overshoot and preserve shooting; assess both transit and hold under delay. Human immediate-feedback segment length is not a safe delayed chunk length.

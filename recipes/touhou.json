@@ -1,6 +1,6 @@
 {
   "policy": "tracking-safe-intercept-v2",
-  "profile": "profiles/touhou/profile-control-early-study-v1.json",
+  "profile": "profiles/touhou/profile-control-tracking-safe-intercept-v2-transport-v1.json",
   "args": {
     "provider": "subscription",
     "mode": "sim",
@@ -33,6 +33,11 @@
     "latency_scale": 1,
     "max_output_tokens": 512,
     "early_action_delivery": false,
-    "simulation_terminal_hold": true
+    "simulation_terminal_hold": true,
+    "capture_stride": 20,
+    "history_spacing_frames": 20,
+    "decision_brief": true,
+    "brief_language": "en",
+    "effort": "low"
   }
 }

@@ -200,7 +200,7 @@ function draw() {
   const bar=c.createLinearGradient(0,0,W,0);bar.addColorStop(0,'#a5dcd9');bar.addColorStop(.2,'#c8e8c9');bar.addColorStop(.6,'#f0c4ca');bar.addColorStop(1,'#df8197');c.fillStyle=bar;c.fillRect(2,3,lifeWidth,5);
   for(let i=1;i<3-phaseIndex;i++){c.fillStyle='#fff5cc';c.fillRect(i*9,4,2,3);}
   originalAssets.entity(c,'front',24,3,17,128,16,{center:false});
-  outlinedText(`+0(${String(Math.max(0,3-phaseIndex)).padStart(2,'0')})`,3,36,11,'#fff0a1');
+  outlinedText(`+0(${String(Math.max(0,3-phaseIndex)).padStart(2,'0')})`,3,48,11,'#fff0a1');
   outlinedText(remaining.toFixed(2),W-5,23,22,'#d7e9ff','right');
   const bonus=(game.hits===phaseHits&&game.player.bombs===phaseBombs)?Math.floor(1000000*remaining/20):0;
   // Declaration briefly occupies the middle, then the same title settles at the top.

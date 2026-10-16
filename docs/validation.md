@@ -24,8 +24,14 @@ A shallow clone of the committed source branch was installed in another fresh Py
 
 The original Rhythm and Touhou Gym packages are now installed through the root uv workspace. Their Gym API checkers, registered environment creation and complete environment episodes passed; those checks use no SOL policy and are not performance evidence.
 
-All fresh evaluations used historical profile simulation and real subscription decisions. No new paid API evaluation was run. The frozen policies were not retuned to hide losses.
+The initial package validation used historical profile simulation and real subscription decisions. No paid API evaluation was run during that initial validation. Subsequent source-harness and portable CLI evaluations are separately recorded in [the Touhou record index](../artifacts/touhou/evaluations.jsonl). The frozen policies were not retuned to hide losses.
 
 ## Selected Asterix policy
 
 The default is V28 with HopControllerV3. Development runs on seeds 2/5/6 completed 20 game seconds at 5× slowdown, scoring 500/550/550 with three lives each. These historical runs do not establish a 60-second result or a fresh result for the packaged default profile. The default profile remains a historical empirical latency condition, not a measurement of V28.
+
+## Selected v2 realtime workflow
+
+The portable `sol eval touhou` and strictly serial `sol profile touhou` paths are now available. Current validation is recorded per run, with exact source hashes, clocks, terminal accounting and outcome. See [the case study](touhou-research-record.md) and [record requirements](evaluation-records.md); these entries do not overwrite the earlier portable seed9 loss.
+
+Fresh paid full-game validation of the new portable CLI is **pending at the user's request**. Offline checks: 149 Touhou research tests (6 skipped), 24 root entrypoint/record tests (including the merged Racing checks) and 8 engine tests passed; local and isolated Ubuntu doctors launched Chromium145. A three-input serial API smoke collected valid measurements, then exposed a console entrypoint returning a dictionary as an error exit. That exit bug was fixed with an offline regression test; no additional paid profile or realtime run was started. Existing live successes remain historical source-harness evidence, not claims about the new launcher.

@@ -5,6 +5,8 @@ from .environment import BrowserEnv
 from .policies import make_prompt
 from .scheduler import VirtualScheduler, parse_plan
 from .recover_prefix import append_jsonl, durable_write, sync_directory
+from .observation_history import ObservationHistory
+from .known_plan_feedback import validate_known_plan_feedback, observation_gate_open
 
 
 def diagnostics(env):
@@ -21,6 +23,18 @@ def timing_clock(clock):
 
 def write(path,value):
     durable_write(path,value)
+
+
+def validate_episode_effort(config):
+    from .wire_schema import validate_schema_order_config
+    validate_schema_order_config(config)
+    from .subscription import validate_subscription_effort
+    effort=config.get('effort','low')
+    # DecisionPool's fallback branch creates ApiClient for every non-subscription
+    # provider. Match that branch, including malformed/unknown provider names.
+    if config.get('provider')!='subscription' and effort!='low':
+        raise ValueError('API episode effort currently supports low only; medium requires subscription')
+    return validate_subscription_effort(effort)
 
 
 def remember_model_estimate(memory,result,observed_frame):
@@ -49,6 +63,7 @@ def shared_inputs(directory,prompt,images):
 
 class DecisionPool:
     def __init__(self,config,out,key=None):
+        validate_episode_effort(config)
         self.config=config;self.out=out;self.key=key;self.local=threading.local();self.clients=[];self.lock=threading.Lock()
         self.timing_origin=None;self.early_results={}
         self.pool=cf.ThreadPoolExecutor(max_workers=config.get('workers',3))
@@ -61,39 +76,69 @@ class DecisionPool:
         result['plan']=[a.keys+[a.duration] for a in parse_plan(result['answer'])]
         if len(result['plan'])>self.config.get('chunk_size',1) or any(a[4]>self.config.get('max_duration',48) for a in result['plan']):
             raise ValueError('Early action exceeds frozen chunk protocol')
+        if self.config.get('decision_brief'):
+            from .live_summary import validate_brief
+            result['brief']=validate_brief(result['answer'])
         write(directory/'early_result.json',result)
         with self.lock:
             if str(directory) in self.early_results:raise RuntimeError('Duplicate early action publication')
             self.early_results[str(directory)]=result
-    def decide(self,prompt,images,directory):
-        timed=self.config.get('stage_timings',False) or self.config.get('shared_cohort_inputs',False)
-        stage={'worker_started_wall_s':time.monotonic()-self.timing_origin} if timed and self.timing_origin is not None else None
+    def validate_answer(self,answer):
+        plan=parse_plan(answer)
+        if self.config.get("decision_brief"):
+            from .live_summary import validate_brief
+            validate_brief(answer)
+        if len(plan)>self.config.get("chunk_size",1) or any(a.duration>self.config.get("max_duration",48) for a in plan):
+            raise ValueError("Action exceeds frozen chunk protocol")
+        return plan
+
+    def prepare_client(self):
         if not hasattr(self.local,'client'):
             with self.lock:
                 ident=len(self.clients)
-                from .wire_schema import grounded_schema
-                schema=grounded_schema(self.config.get('chunk_size',1),self.config.get('max_duration',48)) if self.config.get('structured') else None
+                from .wire_schema import decision_schema
+                schema=decision_schema(self.config['candidate'],self.config.get('chunk_size',1),self.config.get('max_duration',48)) if self.config.get('structured') else None
+                if self.config.get('decision_brief'):
+                    from .live_summary import add_brief_schema
+                    schema=add_brief_schema(schema)
                 if self.config['provider']=='subscription':
                     from .subscription import SubscriptionClient
                     client=SubscriptionClient(pathlib.Path(self.config['suite']),self.out/f'client_{ident}',
                                               output_schema=schema,lean=self.config.get('lean_native',False),
-                                              aggressive=self.config.get('aggressive_native',False))
+                                              aggressive=self.config.get('aggressive_native',False),
+                                              effort=self.config.get('effort','low'))
                 else:
                     from .api_client import ApiClient
-                    client=ApiClient(self.key,self.config['ledger'],stage='realtime',max_output_tokens=self.config.get('max_output_tokens',128),output_schema=schema)
+                    from .wire_schema import validate_schema_order_config
+                    client=ApiClient(self.key,self.config['ledger'],stage='realtime',max_output_tokens=self.config.get('max_output_tokens',128),output_schema=schema,preserve_schema_order=validate_schema_order_config(self.config,schema),budget_limits=self.config.get("budget_limits"))
                 self.clients.append(client);self.local.client=client
+    def warm(self):
+        barrier=threading.Barrier(self.config.get('workers',3))
+        def initialize():
+            self.prepare_client()
+            barrier.wait(timeout=120)
+        futures=[self.pool.submit(initialize) for _ in range(self.config.get('workers',3))]
+        for future in futures:future.result()
+
+    def decide(self,prompt,images,directory):
+        timed=self.config.get('stage_timings',False) or self.config.get('shared_cohort_inputs',False)
+        stage={'worker_started_wall_s':time.monotonic()-self.timing_origin} if timed and self.timing_origin is not None else None
+        self.prepare_client()
         c=self.local.client
         if stage is not None:stage['client_ready_wall_s']=time.monotonic()-self.timing_origin
         if self.config['provider']=='subscription':r=c.act(prompt,images,directory)
         elif self.config.get('early_action_delivery',False):
-            r=c.decide(prompt,images,validate=parse_plan,timing_origin=self.timing_origin,
+            r=c.decide(prompt,images,validate=self.validate_answer,timing_origin=self.timing_origin,
                        on_legal_action=lambda result:self.publish_early(directory,result))
-        elif stage is not None:r=c.decide(prompt,images,validate=parse_plan,timing_origin=self.timing_origin)
-        else:r=c.decide(prompt,images,validate=parse_plan)
+        elif stage is not None:r=c.decide(prompt,images,validate=self.validate_answer,timing_origin=self.timing_origin)
+        else:r=c.decide(prompt,images,validate=self.validate_answer)
         if stage is not None:stage['client_returned_wall_s']=time.monotonic()-self.timing_origin
         if isinstance(r,tuple):r={'answer':r[0],'meta':r[1]}
         try:
             r['plan']=[a.keys+[a.duration] for a in parse_plan(r['answer'])]
+            if self.config.get('decision_brief'):
+                from .live_summary import validate_brief
+                r['brief']=validate_brief(r['answer'])
             if len(r['plan'])>self.config.get('chunk_size',1) or any(a[4]>self.config.get('max_duration',48) for a in r['plan']):
                 raise ValueError('Action exceeds frozen chunk protocol')
         except (ValueError,TypeError):r['plan']=None;r['invalid_action']=True
@@ -119,6 +164,16 @@ def sample_delay(profile,rng,speed,scale):
 
 
 def run(config,out,key=None):
+    validate_known_plan_feedback(config)
+    validate_episode_effort(config)
+    if config.get("decision_brief") and (config.get("mode") not in ("sim","realtime") or config.get("provider") not in ("subscription","api") or not config.get("structured")):
+        raise ValueError("Decision brief requires structured subscription or API decisions")
+    if config.get("brief_language","zh") not in ("zh","en"):
+        raise ValueError("Unknown brief language")
+    max_calls=config.get('max_calls')
+    if max_calls is not None and (type(max_calls) is not int or max_calls<1):
+        raise ValueError('max_calls must be a positive integer')
+    history=ObservationHistory(config)
     early=config.get('early_action_delivery',False)
     if early and (config.get('mode','sim')!='realtime' or config.get('provider')!='api' or not config.get('structured')):
         raise ValueError('early_action_delivery requires realtime structured API decisions')
@@ -145,7 +200,7 @@ def run(config,out,key=None):
     if cohort_delay=='empirical_joint' and profile.get('k')!=fanout:raise ValueError('Empirical cohort K must match decision_fanout')
     if terminal_hold and 'joint_terminal_delay_vectors_s' not in profile:
         raise ValueError('simulation_terminal_hold requires paired terminal delay vectors')
-    rng=random.Random(config.get('delay_seed',113));window=deque(maxlen=config.get('history_frames',3))
+    rng=random.Random(config.get('delay_seed',113))
     decisions=[];applied=[];errors=[];pool=None;started=time.monotonic();realpending={};lastobs=-1;lastissued=-1
     scheduler=VirtualScheduler(capacity=config.get('capacity',8),first_valid_per_observation=fanout>1)
     mode=config.get('mode','sim');cadence=config.get('decision_stride',15);seq=0;next_capture=0;next_request=0;drops=0;invalid_actions=0
@@ -173,7 +228,8 @@ def run(config,out,key=None):
     try:
         pool=DecisionPool(config,out,key)
         pool.timing_origin=started
-        with BrowserEnv(config['url'],record_video_dir=str(out/'video') if mode=='realtime' else None) as env:
+        if config.get('warm_clients'):pool.warm()
+        with BrowserEnv(config['url'],record_video_dir=str(out/'video') if mode=='realtime' else None,decision_panel=config.get('decision_brief',False) and mode=='realtime',panel_provider=config.get('provider','subscription'),panel_language=config.get('brief_language','zh'),browser_executable=config.get('browser_executable')) as env:
             env.reset(config['seed'],mode=mode,speed=config.get('speed',1))
             state=diagnostics(env);clock=state['clock']
             while state['status']=='playing':
@@ -217,7 +273,9 @@ def run(config,out,key=None):
                             else:row['disposition']='stale'
                     if ready:
                         selected=max(ready,key=lambda x:(x['visual_frame'],-x.get('race_completed_ns',0))) if fanout>1 or early else max(ready,key=lambda x:x['visual_frame']);lastobs=selected['visual_frame']
-                        clock=env.apply(selected['result']['plan'])
+                        if config.get('decision_brief'):
+                            clock=env.apply(selected['result']['plan'],decision={'brief':selected['result']['brief'],'seq':selected['seq'],'observed_frame':selected['visual_frame']})
+                        else:clock=env.apply(selected['result']['plan'])
                         for row in ready:
                             row['disposition']='applied' if row is selected else ('stale' if (fanout>1 or early) and row['visual_frame']==selected['visual_frame'] else 'superseded')
                             if early:decisions[row['seq']][0]['disposition']=row['disposition']
@@ -231,24 +289,29 @@ def run(config,out,key=None):
                                           capture_start_to_apply_s=(applied_ns-selected['capture_started_monotonic_ns'])/1e9,
                                           capture_to_apply_s=(applied_ns-selected['capture_monotonic_ns'])/1e9,
                                           capture_clock=selected['capture_clock'])
+                        if config.get('decision_brief'):action.update(brief=selected['result']['brief'],seq=selected['seq'])
                         record_applied(action)
                         if memory_points:remember_model_estimate(visual_memory,selected['result'],selected['logical_frame'])
                 flush_completed()
                 if vframe>=next_capture and (clock['intro']==0 or (config.get('intro_observation') and seq==0)):
-                    capture_started_ns=time.monotonic_ns();observation=env.capture();capture_monotonic_ns=time.monotonic_ns();capture_completed=time.monotonic()-started;window.append((observation['frame'],observation['png']))
-                    next_capture=vframe+config.get('image_stride',cadence)
+                    capture_started_ns=time.monotonic_ns();observation=env.capture();capture_monotonic_ns=time.monotonic_ns();capture_completed=time.monotonic()-started;history.append(observation['frame'],observation['png'])
+                    next_capture=history.next_capture_after(vframe,observation)
                     if vframe>=next_request:
                         next_request=vframe+cadence
                         available=(scheduler.capacity-scheduler.inflight>=fanout) if mode=='sim' else len(realpending)+fanout<=config.get('capacity',8)
-                        if config.get('wait_for_winner') and lastissued>=0 and (scheduler.latest_observation if mode=='sim' else lastobs)<lastissued:
-                            pending=scheduler.has_pending_observation(lastissued) if mode=='sim' else any(row['visual_frame']==lastissued for row in realpending.values())
-                            if pending:available=False
-                        if config.get('wait_for_move') and (clock['held'][0]!=0 or any(a[0]!=0 for a in clock.get('pending_plan',[]))):available=False
+                        if max_calls is not None:available=available and seq+fanout<=max_calls
+                        available=observation_gate_open(config,clock,available,lastissued,
+                            scheduler.latest_observation if mode=='sim' else lastobs,
+                            lambda issued: scheduler.has_pending_observation(issued) if mode=='sim' else any(row['visual_frame']==issued for row in realpending.values()))
                         if available:
-                            images=[x[1] for x in window];image_frames=[x[0] for x in window]
+                            selected_images=history.select()
+                            images=[x[1] for x in selected_images];image_frames=[x[0] for x in selected_images]
                             ob={**observation,'image_frames':image_frames};ob.pop('png')
                             if memory_points:ob['visual_memory']=list(visual_memory)
                             prompt=make_prompt(config['candidate'],ob,config,profile,clock.get('active_plan'))
+                            if config.get('decision_brief'):
+                                from .live_summary import brief_prompt
+                                prompt=brief_prompt(prompt,config.get('brief_language','zh'))
                             if fanout>1:
                                 prompt=prompt.replace('Controller protocol: at most one request is in flight.',f'Controller protocol: each observation races {fanout} independent requests; up to {config.get("capacity",8)} total requests may be in flight.')
                                 prompt+=f'\nSame-observation race: {fanout} requests receive identical screenshots and prompt. The first legal answer takes effect; other answers for those screenshots cannot replace it. Every request has its own delay and cost.\n'
@@ -384,7 +447,7 @@ def main():
     def checkpoint_signal(signum,frame):raise KeyboardInterrupt('Operational checkpoint signal '+str(signum))
     signal.signal(signal.SIGINT,checkpoint_signal);signal.signal(signal.SIGTERM,checkpoint_signal)
     p=argparse.ArgumentParser();p.add_argument('--config',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True)
-    args=p.parse_args();config=json.loads(args.config.read_text());key=None
+    args=p.parse_args();config=json.loads(args.config.read_text());validate_episode_effort(config);key=None
     if config['provider']=='api':
         import getpass;key=getpass.getpass('API key (memory only): ')
     run(config,args.output,key)
