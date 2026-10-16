@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "properties": {
+    "side": {
+      "type": "string",
+      "enum": [
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    "shot": {
+      "type": "string",
+      "enum": [
+        "clear",
+        "drop",
+        "smash"
+      ]
+    },
+    "recovery": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "memory": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "side",
+    "shot",
+    "recovery",
+    "memory"
+  ],
+  "additionalProperties": false
+}

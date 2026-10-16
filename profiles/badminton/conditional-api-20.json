@@ -1,0 +1,103 @@
+{
+  "action_mode": "conditional_tactical_v1",
+  "source": "api",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "service_tier": "ultrafast",
+  "workers": 1,
+  "capacity": 1,
+  "samples": [
+    {
+      "latency_ms": 5368.966807989636,
+      "service_ms": 5368.966807989636
+    },
+    {
+      "latency_ms": 3397.0316770137288,
+      "service_ms": 3397.0316770137288
+    },
+    {
+      "latency_ms": 2834.8473329970147,
+      "service_ms": 2834.8473329970147
+    },
+    {
+      "latency_ms": 3183.3261489809956,
+      "service_ms": 3183.3261489809956
+    },
+    {
+      "latency_ms": 2647.660113987513,
+      "service_ms": 2647.660113987513
+    },
+    {
+      "latency_ms": 3035.9555709874257,
+      "service_ms": 3035.9555709874257
+    },
+    {
+      "latency_ms": 2714.2813339887653,
+      "service_ms": 2714.2813339887653
+    },
+    {
+      "latency_ms": 3347.367777983891,
+      "service_ms": 3347.367777983891
+    },
+    {
+      "latency_ms": 2454.0750769956503,
+      "service_ms": 2454.0750769956503
+    },
+    {
+      "latency_ms": 2651.63843499613,
+      "service_ms": 2651.63843499613
+    },
+    {
+      "latency_ms": 2793.4136529802345,
+      "service_ms": 2793.4136529802345
+    },
+    {
+      "latency_ms": 3575.3938159905374,
+      "service_ms": 3575.3938159905374
+    },
+    {
+      "latency_ms": 3884.1759329952765,
+      "service_ms": 3884.1759329952765
+    },
+    {
+      "latency_ms": 3583.8830060092732,
+      "service_ms": 3583.8830060092732
+    },
+    {
+      "latency_ms": 2640.577445999952,
+      "service_ms": 2640.577445999952
+    },
+    {
+      "latency_ms": 2483.130655979039,
+      "service_ms": 2483.130655979039
+    },
+    {
+      "latency_ms": 3302.6197089930065,
+      "service_ms": 3302.6197089930065
+    },
+    {
+      "latency_ms": 2991.485661972547,
+      "service_ms": 2991.485661972547
+    },
+    {
+      "latency_ms": 3654.6954459918197,
+      "service_ms": 3654.6954459918197
+    },
+    {
+      "latency_ms": 2603.9040359901264,
+      "service_ms": 2603.9040359901264
+    }
+  ],
+  "summary": {
+    "unit": "ms",
+    "count": 20,
+    "mean": 3157.421481941128,
+    "p95": 3884.1759329952765,
+    "max": 5368.966807989636
+  },
+  "requested_calls": 20,
+  "terminal_calls": 20,
+  "usable_for_simulation": true,
+  "measurement": "api_complete_end_to_end_wall_seconds_including_token_preflight_and_client_overhead",
+  "purpose": "tactical_api_latency_profile"
+}

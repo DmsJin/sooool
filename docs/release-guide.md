@@ -119,6 +119,28 @@ Large videos and input archives are optional and checksummed in [the evidence in
 
 ## Other games
 
+Badminton selects **tactical-goal-v2**: SOL supplies conditional placement and recovery
+goals. The camera controller jointly searches contact time and outgoing flight,
+with legal goal projection and delivery correction. The native reference handles
+serving and recovery mechanics. Simulation uses EGL GPU rendering, L1/S2 and the
+retained API20 latency profile. Subscription simulation runs with **Fast disabled**.
+`sol eval badminton` uses actual Ultrafast API responses, independent 33.333-step-per-second
+physics at S3, and a native-match endpoint. Its verified replay adds English public
+decision summaries from the same responses as the tactical intents.
+See [Badminton setup, control boundary and reproduction](../docs/badminton.md).
+The [GPU validation record](../artifacts/badminton/README.md) separates historical
+replays from the new rule/SOL comparison.
+
+```bash
+python scripts/badminton.py simulate --source sol --seed 101 --duration 60 --output runs/badminton-sol101
+python scripts/badminton.py audit --output runs/badminton-sol101
+# Actual realtime API; use the separate GPU environment described in the setup.
+python scripts/badminton.py preflight --output outputs/badminton-preflight
+python scripts/badminton.py eval --budget-usd 20 --env-file /absolute/path/to/.env --output outputs/badminton-api101
+python scripts/badminton.py audit --output outputs/badminton-api101
+python scripts/badminton.py report --episodes outputs/badminton-api101 --output outputs/badminton-api101
+```
+
 Rhythm keeps its existing environment, policy and recipe:
 
 ```bash

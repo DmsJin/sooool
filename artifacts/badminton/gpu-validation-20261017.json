@@ -1,0 +1,109 @@
+{
+  "status": "functional_validation_passed",
+  "policy_promoted": false,
+  "policy": "tactical-v1",
+  "original_checkpoint": "source_tactical_005",
+  "repository_base_revision": "dc4eae7c545f37aaadca23345e0e5897b593827b",
+  "repository_revision_is_base": true,
+  "review_branch": "codex/badminton-tactical-s2",
+  "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
+  "server": "ubuntu@34.131.176.130",
+  "remote_artifact_root": "/home/ubuntu/auto-research/lxy/outputs/sooool_badminton_port_001",
+  "local_evidence_root": "runs/badminton-validation/gpu",
+  "hardware": {
+    "cpu": "AMD EPYC 9B45",
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "gpu_device": 3,
+    "driver": "615.71.09",
+    "renderer": "egl_gpu",
+    "python": "3.11.17",
+    "mujoco": "3.3.7",
+    "numpy": "2.2.6",
+    "Pillow": "11.3.0"
+  },
+  "protocol": {
+    "level": 1,
+    "slowdown": 2,
+    "physics_hz": 100,
+    "maximum_observation_hz_game_time": 10,
+    "protocol_physics_steps_per_wall_second": 50,
+    "fresh_episodes": 2,
+    "game_seconds_per_episode": 60,
+    "seed": 101,
+    "clock_mode": "subscription_with_simulated_profile",
+    "local_rendering_perception_and_decision_compute_injected": true,
+    "native_mechanical_planning_compute_injected": false,
+    "profile": "profiles/badminton/tactical-api-100.json",
+    "profile_samples": 100,
+    "profile_origin": "historical API Ultrafast; generation request through terminal, excluding token preflight and local accounting",
+    "native_match_win_rate_measured": false
+  },
+  "model": {
+    "name": "gpt-6.1-sol",
+    "effort": "low",
+    "backend": "ChatGPT subscription",
+    "requested_service_tier": "default",
+    "native_config_service_tier": "default",
+    "native_config_fast_mode": false,
+    "native_thread_service_tier": null,
+    "additional_instruction_sources": [],
+    "actual_generation_calls": 47,
+    "new_api_calls": 0,
+    "new_api_cost_usd": 0
+  },
+  "tests": {
+    "gpu_python311": {"passed": 21, "subtests_passed": 16},
+    "full_repository_python312": {"passed": 44},
+    "python311_full_suite_note": "Existing Touhou policy uses Python 3.12 f-string syntax; its source was left unchanged."
+  },
+  "historical_action_replays": {
+    "episodes": 2,
+    "seed": 101,
+    "frames_each": 6000,
+    "public_states_native_feedback_point_boundaries_scores_and_termination_match": true,
+    "model_generation_calls": 0,
+    "rules": {"score": [3, 5], "legal_returns": 13, "incoming": 18},
+    "sol": {"score": [2, 8], "legal_returns": 12, "incoming": 20},
+    "evidence": "runs/badminton-validation/gpu/historical"
+  },
+  "fresh_episodes": [
+    {
+      "episode": "rules-101",
+      "status": "screen_completed",
+      "score": [3, 1],
+      "legal_serves": 4,
+      "serves": 4,
+      "legal_returns": 18,
+      "incoming": 19,
+      "model_generation_calls": 0,
+      "invalid": 0,
+      "timing_rejections": 0,
+      "native_replay_matched": true,
+      "source_snapshot": "runs/badminton-validation/gpu/rules-101/source_snapshot"
+    },
+    {
+      "episode": "sol-profile-101-attempt-2",
+      "status": "screen_completed",
+      "score": [0, 6],
+      "legal_serves": 1,
+      "serves": 1,
+      "legal_returns": 16,
+      "incoming": 22,
+      "model_generation_calls": 47,
+      "accepted_intentions": 40,
+      "changed_rally_choices": 12,
+      "changed_recoveries": 23,
+      "invalid": 0,
+      "timing_rejections": 0,
+      "native_replay_matched": true,
+      "source_snapshot": "runs/badminton-validation/gpu/sol-profile-101-attempt-2/source_snapshot"
+    }
+  ],
+  "retained_unscored_attempt": {
+    "episode": "sol-profile-101",
+    "reason": "Default-tier null echo was rejected during native preflight; validation was corrected before any model turn started.",
+    "model_generation_calls": 0,
+    "included_in_scored_comparison": false
+  },
+  "conclusion": "The port sustains legal rallies and applies live SOL tactical preferences. The SOL window scored below the rule reference. These two development windows do not establish a win rate or a SOL advantage."
+}

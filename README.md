@@ -32,6 +32,7 @@ You can watch GPT-SOL dodge a screen full of bullets, race a rival, collect food
 | **Racing** | Find a line. Beat your rival. | Real-time API at 1×. GPT-SOL chooses speed and racing targets; a coded controller supplies steering. |
 | **Rhythm** | Hit the right key at the right time. | Native browser/audio API capture at 1×, with DFJK inputs. |
 | **PingPong** | Serve, return, win the point. | Replay from a recorded 5:2 API match at the official S=10 slowdown, using the native robot executor. |
+| **Badminton** | Place the shot. Recover for the next one. | Tactical goals with native mechanics; real-time API at S3. [Setup and control boundary](docs/badminton.md). |
 | **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | Historical delay simulation at 5× slowdown, with model actions applied unchanged. |
 
 The GIFs are continuous excerpts at their source playback speed. PingPong is a cropped spectator replay with point-review pauses omitted in the original export. Racing uses hybrid steering. Touhou, Racing and Asterix show original public decision summaries. Rhythm and PingPong currently show gameplay only; their decision-summary videos are pending. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
@@ -76,7 +77,7 @@ uv run sol eval touhou \
 
 Real-time Touhou evaluation requires an OpenAI API key, read from process memory or prompted without echo. The game keeps running while requests are in flight. The runner records inputs, public decision summaries, applied actions, timing, video and cost. The retained source-harness demo defeated Kaguya; fresh full-game paid validation of the portable launcher is pending. [Setup, budgets and timing](docs/realtime.md).
 
-Racing uses a separate environment and dependencies; PingPong is a research adapter. See the [Racing workflow](docs/racing.md), [PingPong research](research/in-progress/pingpong/README.md), and [complete release guide](docs/release-guide.md) for their conditions and entrypoints.
+Racing uses a separate environment and dependencies; PingPong is a research adapter. See the [Racing workflow](docs/racing.md), [PingPong research](research/in-progress/pingpong/README.md), [Badminton setup](docs/badminton.md), and [complete release guide](docs/release-guide.md) for their conditions and entrypoints.
 
 ## Make it play better
 

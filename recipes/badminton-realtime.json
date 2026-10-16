@@ -1,0 +1,23 @@
+{
+  "game": "badminton",
+  "policy": "tactical-goal-v2",
+  "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
+  "profile": "profiles/badminton/conditional-api-20.json",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "service_tier": "ultrafast",
+  "max_output_tokens": 1024,
+  "args": {
+    "level": 1,
+    "seed": 101,
+    "slowdown": 3,
+    "max_game_seconds": 300,
+    "max_wall_seconds": 900,
+    "max_calls": 300,
+    "observation_stride": 10,
+    "request_stride": 100,
+    "lag_p99_limit_seconds": 0.02,
+    "lag_max_limit_seconds": 0.1
+  },
+  "hypothesis": "Joint contact and outgoing-flight search executes SOL goals with legal projection when exact placement is unavailable."
+}
