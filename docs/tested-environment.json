@@ -1,0 +1,11 @@
+{
+  "source_validation_python": "3.12.3",
+  "ubuntu_validation_python": "3.10.22",
+  "native_codex_version": "codex-cli 0.162.1",
+  "browser": "Chromium 145.0.7632.6 / Playwright 1.58.0",
+  "dependency_lock": "uv.lock",
+  "source_default_checkout_bytes": 16292075,
+  "subscription_auth": "existing ChatGPT sign-in; no paid API fallback",
+  "native_machine_isolation": "portable read-only app-server; original bubblewrap seat isolation not claimed",
+  "ubuntu_browser_system_dependencies": "Ubuntu validation used pre-existing isolated Chromium libraries via LD_LIBRARY_PATH. On a new host install Playwright system dependencies with playwright install --with-deps chromium; those OS libraries are not bundled."
+}

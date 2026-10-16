@@ -1,0 +1,1415 @@
+[
+  {
+    "id": 0,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 1,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 32.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 2,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 3,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 4,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 5,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 6,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 7,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 8,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 256.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 9,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 288.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 10,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 320.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 11,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 352.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 12,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 384.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 13,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 416.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 14,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 448.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 15,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 480.0,
+    "y": 0.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 16,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 17,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 32.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 18,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 19,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 20,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 21,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 22,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 23,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 24,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 256.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 25,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 288.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 26,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 320.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 27,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 352.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 28,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 384.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 29,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 416.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 30,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 448.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 31,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 480.0,
+    "y": 32.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 32,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 33,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 32.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 34,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 35,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 36,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 37,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 38,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 39,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 40,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 256.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 41,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 288.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 42,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 320.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 43,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 352.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 44,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 384.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 45,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 416.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 46,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 448.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 47,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 480.0,
+    "y": 64.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 48,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 49,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 32.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 50,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 51,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 52,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 53,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 54,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 55,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 56,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 256.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 57,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 288.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 58,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 320.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 59,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 352.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 60,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 384.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 61,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 416.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 62,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 448.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 63,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 480.0,
+    "y": 96.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 64,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 65,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 66,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 67,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 68,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 128.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  {
+    "id": 69,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 256.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 70,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 288.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 71,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 320.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 72,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 352.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 73,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 384.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 74,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 416.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 75,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 448.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 76,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 480.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 77,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 256.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 78,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 288.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 79,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 320.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 80,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 352.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 81,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 384.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 82,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 416.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 83,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 448.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 84,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 480.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 85,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 256.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 86,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 288.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 87,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 320.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 88,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 352.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 89,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 384.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 90,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 416.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 91,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 448.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 92,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 480.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 93,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 256.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 94,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 288.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 95,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 320.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 96,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 352.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 97,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 384.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 98,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 416.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 99,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 448.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 100,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 480.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 101,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 102,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 103,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 104,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 128.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 105,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 106,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 107,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 108,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 160.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 109,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 110,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 111,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 112,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 113,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 114,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 115,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 116,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 117,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 118,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 32.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 119,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 120,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 192.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 121,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 122,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 32.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 123,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 124,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 224.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 125,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 256.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 126,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 32.0,
+    "y": 256.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 127,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 256.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 128,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 256.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 129,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 256.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 130,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 256.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 131,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 256.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 132,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 256.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 133,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 288.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 134,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 32.0,
+    "y": 288.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 135,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 288.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 136,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 288.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 137,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 288.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 138,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 288.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 139,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 288.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 140,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 288.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 141,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 320.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 142,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 32.0,
+    "y": 320.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 143,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 320.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 144,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 320.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 145,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 320.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 146,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 320.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 147,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 320.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 148,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 320.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 149,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 0.0,
+    "y": 352.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 150,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 32.0,
+    "y": 352.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 151,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 64.0,
+    "y": 352.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 152,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 96.0,
+    "y": 352.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 153,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 128.0,
+    "y": 352.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 154,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 160.0,
+    "y": 352.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 155,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 192.0,
+    "y": 352.0,
+    "width": 32.0,
+    "height": 32.0
+  },
+  {
+    "id": 156,
+    "entry": 0,
+    "image": "data/stgenm/enemy.png",
+    "x": 224.0,
+    "y": 352.0,
+    "width": 32.0,
+    "height": 32.0
+  }
+]

@@ -1,0 +1,539 @@
+{
+  "kind": "modeled_early_legal",
+  "control_age_kind": "modeled_early_legal",
+  "version": 1,
+  "k": 4,
+  "not_serial_fastest_api_profile": true,
+  "not_observed_concurrent_profile": true,
+  "past_concurrent_timings_observed": true,
+  "early_execution_measured": false,
+  "samples_s": [
+    3.0080958059988916,
+    2.67010945599759,
+    3.25986492697848,
+    2.046233809000114,
+    1.8270195449877065,
+    2.2693901830061805,
+    2.001011565007502,
+    2.577855036011897,
+    2.697556001978228,
+    2.785309313010657,
+    1.6416224270069506,
+    2.0426520199980587,
+    1.6034621320141014,
+    2.4537893020024057,
+    2.458529631025158,
+    2.5235460830153897,
+    2.4030202080029994,
+    2.6082629230222665,
+    2.2863535810029134
+  ],
+  "p50_s": 2.4537893020024057,
+  "p95_s": 3.0332727180968497,
+  "latency_metric": "total_s",
+  "joint_delay_vectors_s": [
+    [
+      3.0497723120090092,
+      3.127648768993095,
+      3.1328940490086103,
+      3.0789703620132065
+    ],
+    [
+      1.8646813669977715,
+      2.083036746006925,
+      1.8493943780115811,
+      2.0705755070005547
+    ],
+    [
+      2.2760308209708904,
+      2.6500147619827197,
+      2.5272460279830278,
+      2.1935177450086933
+    ],
+    [
+      2.2659913970234347,
+      3.1489801199892544,
+      3.013104039007566,
+      2.952215761000524
+    ],
+    [
+      2.581053813011151,
+      2.9512865720256216,
+      2.9372489940081707,
+      2.8271201500259324
+    ],
+    [
+      2.113736317012924,
+      2.8555477970077185,
+      2.9601436420199456,
+      2.7353633230233094
+    ],
+    [
+      2.233555384010542,
+      2.509688469029497,
+      3.5342429850145707,
+      2.535205638008192
+    ],
+    [
+      2.472017228021754,
+      2.4269169000040294,
+      2.581533491990298,
+      2.7426816730008015
+    ],
+    [
+      2.5521743809951,
+      2.320616363969864,
+      2.3155490949722,
+      2.12622906400077
+    ],
+    [
+      2.198420131012567,
+      2.3429669829939983,
+      2.497564635022313,
+      2.0549615690116796
+    ],
+    [
+      2.234855204011309,
+      2.3796867349939377,
+      2.143822988006049,
+      2.1321167589977805
+    ],
+    [
+      2.2990202400176813,
+      2.425018613044641,
+      2.7406456660172,
+      2.6631002300344435
+    ],
+    [
+      1.9432991080130495,
+      2.520211416008421,
+      2.6216202800015496,
+      2.046264072009832
+    ],
+    [
+      2.3635346590136224,
+      2.2760286049861507,
+      2.9720272649838635,
+      2.6763077219775924
+    ],
+    [
+      2.2023658680119547,
+      2.260083494024118,
+      2.3446431300109247,
+      2.4392803650263226
+    ]
+  ],
+  "image_counts": [
+    1,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2
+  ],
+  "apply_overhead_s": 0.02,
+  "assumed_durable_publish_s": 0.03,
+  "control_age_p50_s": 2.2335365645096177,
+  "control_age_p95_s": 2.7651052876604014,
+  "control_age_summary_definition": "min modeled-ready +.02apply across14 historically observed1/3image cohorts; explicit singleton2img stratum is sampled conditionally and reported separately, not falsely pooled as a new observed cohort",
+  "modeled_selected_age_by_image_count": {
+    "1": {
+      "vectors": 1,
+      "p50": 3.0697723120090092,
+      "p95": 3.0697723120090092
+    },
+    "2": {
+      "vectors": 1,
+      "p50": 2.2223658680119547,
+      "p95": 2.2223658680119547
+    },
+    "3": {
+      "vectors": 13,
+      "p50": 2.2135177450086934,
+      "p95": 2.508571665206878
+    }
+  },
+  "pooled_including_synthetic2img_control_age_p50_s": 2.2223658680119547,
+  "pooled_including_synthetic2img_control_age_p95_s": 2.741669362710508,
+  "delay_definition": "network_started_wall_s + legal_action_s - (capture_clock.wall_ms/1000 + median episode clock offset) + assumed0.03s durable publication; scheduler separately adds0.02s application overhead",
+  "provenance": {
+    "source_episode": "/home/ubuntu/wzh/touhou-sol-study/api-real-human-adaptive-v1-seed1",
+    "source_sha256": {
+      "summary.json": "c8e0a7a53dd5bb1c75a2b16b7d825d971e33f92eb1b6198bccc56d41491b7c29",
+      "config.json": "5b7a1fafd44716c7b56898a079ca037f9c74e62ff372c9ab5efc76257c2dc5a2",
+      "actions.jsonl": "bca77f0689a7b21ff8e508fa9398bc1b3a85f40e957ddf1a54883b2c06c307d2",
+      "issued.jsonl": "86eea48245b142dee2658b10f15bb1df9c58e9b34da49aba66648e357ff015d6",
+      "decisions.jsonl": "1b21fbef7f15604d5fc59afcf60cb3d1e33edcd3988e37eb25a4662f4bc40747"
+    },
+    "serial_profile": "/home/ubuntu/wzh/touhou-sol-study/profile-final-human-adaptive-v2.jsonl",
+    "serial_profile_sha256": "f08b514e216749a38399daa65e7d42a75e76dee234a21ed1a1f2fa6f6b149be0",
+    "clock_offset_s": 2.7059558230086687,
+    "clock_offset_p10_s": 2.695811017810506,
+    "clock_offset_p90_s": 2.7244397483977965
+  },
+  "assumptions": [
+    "This is MODELED early legal delivery, never observed early-action execution or measured new control performance.",
+    "Past actual concurrent candidate legal-message timings, launch skew and cache behavior are retained for1/3image groups; a new early callback may change both queueing and future game observations.",
+    "Durable early publication0.03s and actuator overhead0.02s are explicit assumptions, not new measurements.",
+    "Two-image group is an explicit independent modeled singleton stratum built from its only matching serial legal sample and an actual same-episode3image non-network donor vector. It has no measured concurrent2image correlation or slow tail.",
+    "Terminal requests still drain, reserve/settle full cost and occupy capacity; finalfailure/unknownusage must invalidate any apparent engine win.",
+    "No actual sampled delay, private engine state or future source actions may enter the player model prompt."
+  ],
+  "transport_audit": [
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 0,
+      "image_count": 1,
+      "launch_preparation_s": [
+        1.2056705960002736,
+        1.1044413520011593,
+        1.0234136759990369,
+        1.2760553329880358
+      ],
+      "actual_past_network_legal_s": [
+        1.8141017160087358,
+        1.993207416991936,
+        2.0794803730095737,
+        1.772915029025171
+      ],
+      "modeled_ready_including_publish_s": [
+        3.0497723120090092,
+        3.127648768993095,
+        3.1328940490086103,
+        3.0789703620132065
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 4,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.24931822000327575,
+        0.3461546249946119,
+        0.42285264000203515,
+        0.5055371469843672
+      ],
+      "actual_past_network_legal_s": [
+        1.5853631469944958,
+        1.7068821210123133,
+        1.396541738009546,
+        1.5350383600161877
+      ],
+      "modeled_ready_including_publish_s": [
+        1.8646813669977715,
+        2.083036746006925,
+        1.8493943780115811,
+        2.0705755070005547
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 8,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.20061472797603486,
+        0.28564071300276694,
+        0.41050942699145665,
+        0.5506580889930497
+      ],
+      "actual_past_network_legal_s": [
+        2.0454160929948557,
+        2.334374048979953,
+        2.0867366009915713,
+        1.6128596560156438
+      ],
+      "modeled_ready_including_publish_s": [
+        2.2760308209708904,
+        2.6500147619827197,
+        2.5272460279830278,
+        2.1935177450086933
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 12,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.215177382017254,
+        0.31415753700491145,
+        0.40450100300437875,
+        0.4744916290168195
+      ],
+      "actual_past_network_legal_s": [
+        2.020814015006181,
+        2.804822582984343,
+        2.5786030360031873,
+        2.447724131983705
+      ],
+      "modeled_ready_including_publish_s": [
+        2.2659913970234347,
+        3.1489801199892544,
+        3.013104039007566,
+        2.952215761000524
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 16,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.18230762701574577,
+        0.28764376101759126,
+        0.48078732200525565,
+        0.6092158150204909
+      ],
+      "actual_past_network_legal_s": [
+        2.3687461859954055,
+        2.6336428110080305,
+        2.4264616720029153,
+        2.1879043350054417
+      ],
+      "modeled_ready_including_publish_s": [
+        2.581053813011151,
+        2.9512865720256216,
+        2.9372489940081707,
+        2.8271201500259324
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 20,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.2624113129994363,
+        0.32012893901159956,
+        0.4046885749984064,
+        0.49932581001380427
+      ],
+      "actual_past_network_legal_s": [
+        1.821325004013488,
+        2.505418857996119,
+        2.5254550670215394,
+        2.2060375130095053
+      ],
+      "modeled_ready_including_publish_s": [
+        2.113736317012924,
+        2.8555477970077185,
+        2.9601436420199456,
+        2.7353633230233094
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 24,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.46379765501478687,
+        0.5846747200121172,
+        0.6949337139958516,
+        0.8765427239995915
+      ],
+      "actual_past_network_legal_s": [
+        1.7397577289957553,
+        1.8950137490173802,
+        2.8093092710187193,
+        1.6286629140086006
+      ],
+      "modeled_ready_including_publish_s": [
+        2.233555384010542,
+        2.509688469029497,
+        3.5342429850145707,
+        2.535205638008192
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 28,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.183557117997438,
+        0.26328558399039537,
+        0.3618145879874959,
+        0.45504415300023027
+      ],
+      "actual_past_network_legal_s": [
+        2.2584601100243162,
+        2.133631316013634,
+        2.1897189040028024,
+        2.2576375200005714
+      ],
+      "modeled_ready_including_publish_s": [
+        2.472017228021754,
+        2.4269169000040294,
+        2.581533491990298,
+        2.7426816730008015
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 32,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.1725388269831889,
+        0.41926597298774837,
+        0.30692262998386255,
+        0.5687544259843413
+      ],
+      "actual_past_network_legal_s": [
+        2.349635554011911,
+        1.8713503909821156,
+        1.9786264649883378,
+        1.5274746380164288
+      ],
+      "modeled_ready_including_publish_s": [
+        2.5521743809951,
+        2.320616363969864,
+        2.3155490949722,
+        2.12622906400077
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 36,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.27538484301464905,
+        0.35211490899371256,
+        0.4659542830048622,
+        0.6686943819948965
+      ],
+      "actual_past_network_legal_s": [
+        1.8930352879979182,
+        1.960852074000286,
+        2.001610352017451,
+        1.3562671870167833
+      ],
+      "modeled_ready_including_publish_s": [
+        2.198420131012567,
+        2.3429669829939983,
+        2.497564635022313,
+        2.0549615690116796
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 40,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.21193899200157773,
+        0.2778921180041465,
+        0.3901636819981462,
+        0.5199268939949064
+      ],
+      "actual_past_network_legal_s": [
+        1.9929162120097317,
+        2.0717946169897914,
+        1.723659306007903,
+        1.5821898650028743
+      ],
+      "modeled_ready_including_publish_s": [
+        2.234855204011309,
+        2.3796867349939377,
+        2.143822988006049,
+        2.1321167589977805
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 44,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.2644575190120406,
+        0.3772849630245503,
+        0.4245802800201375,
+        0.5118358850218385
+      ],
+      "actual_past_network_legal_s": [
+        2.004562721005641,
+        2.017733650020091,
+        2.2860653859970625,
+        2.121264345012605
+      ],
+      "modeled_ready_including_publish_s": [
+        2.2990202400176813,
+        2.425018613044641,
+        2.7406456660172,
+        2.6631002300344435
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 48,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.24448756899964508,
+        0.47690015600691993,
+        0.3830790109948765,
+        0.5322258330141239
+      ],
+      "actual_past_network_legal_s": [
+        1.6688115390134044,
+        2.013311260001501,
+        2.2085412690066732,
+        1.4840382389957085
+      ],
+      "modeled_ready_including_publish_s": [
+        1.9432991080130495,
+        2.520211416008421,
+        2.6216202800015496,
+        2.046264072009832
+      ]
+    },
+    {
+      "stratum_kind": "modeled_from_past_concurrent_legal_timestamps",
+      "source_cohort_id": 52,
+      "image_count": 3,
+      "launch_preparation_s": [
+        0.16366526799882308,
+        0.279246941976254,
+        0.38902676499472477,
+        0.4553427619792103
+      ],
+      "actual_past_network_legal_s": [
+        2.1698693910147995,
+        1.9667816630098969,
+        2.553000499989139,
+        2.1909649599983823
+      ],
+      "modeled_ready_including_publish_s": [
+        2.3635346590136224,
+        2.2760286049861507,
+        2.9720272649838635,
+        2.6763077219775924
+      ]
+    },
+    {
+      "stratum_kind": "explicit_singleton_two_image_model",
+      "image_count": 2,
+      "serial_legal_sample_count": 1,
+      "serial_response_id": "resp_025db240efa6ca57016ad0c74e078087d1a9a210379b0fb570",
+      "serial_request_id": "518b2fcc48594a05b2ccc120a231bb41",
+      "serial_legal_s": 1.9099545550125185,
+      "donor_source_cohort_id": 20,
+      "donor_image_count": 3,
+      "donor_selection": "actual three-image cohort nearest median cohort mean launch/preparation time; no policy outcome used",
+      "borrowed_launch_preparation_s": [
+        0.2624113129994363,
+        0.32012893901159956,
+        0.4046885749984064,
+        0.49932581001380427
+      ],
+      "modeled_ready_including_publish_s": [
+        2.2023658680119547,
+        2.260083494024118,
+        2.3446431300109247,
+        2.4392803650263226
+      ],
+      "limitation": "No actual two-image concurrent cohort or early execution observed. One serial legal sample, constant across4slots; actual donor non-network shape borrowed from3image. No network correlation/tail inferred."
+    }
+  ]
+}

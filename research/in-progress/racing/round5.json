@@ -1,0 +1,35 @@
+[
+  {
+    "id": "waypoint-1x-s101",
+    "variant": "metric",
+    "control": "waypoint",
+    "slowdown": 1,
+    "seed": 101,
+    "workers": 3,
+    "cadence": 0.4,
+    "chunk": 3,
+    "history": 2
+  },
+  {
+    "id": "waypoint-1x-s111",
+    "variant": "metric",
+    "control": "waypoint",
+    "slowdown": 1,
+    "seed": 111,
+    "workers": 3,
+    "cadence": 0.4,
+    "chunk": 3,
+    "history": 2
+  },
+  {
+    "id": "waypoint-1x-s121",
+    "variant": "metric",
+    "control": "waypoint",
+    "slowdown": 1,
+    "seed": 121,
+    "workers": 3,
+    "cadence": 0.4,
+    "chunk": 3,
+    "history": 2
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "window3_eighth_c8": {
+    "observations": 897,
+    "admitted": 897,
+    "drops": 0,
+    "simulation_draws": 10000,
+    "sampled_mean_ms": 937.7487320121734,
+    "sampled_p95_ms": 1259.53091731433,
+    "v2_v3_latency_models_identical": true
+  },
+  "window3_fullspeed_c8": {
+    "observations": 903,
+    "admitted": 491,
+    "drops": 412,
+    "simulation_draws": 10000,
+    "sampled_mean_ms": 931.2282075207997,
+    "sampled_p95_ms": 1170.9530867540104,
+    "v2_v3_latency_models_identical": true
+  }
+}

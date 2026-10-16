@@ -1,0 +1,141 @@
+{
+  "scope": "Fixed native serve branches from two real API histories; passive after serve, not GPT game performance",
+  "paid_calls": 0,
+  "model_calls": 0,
+  "branch_executions": 12,
+  "distinct_seed_gap_contact_conditions": 10,
+  "duplicate_zero_adjustment_conditions": 2,
+  "conditions": [
+    {
+      "gap_ticks": 10,
+      "contact_time_compensated": false,
+      "wins_against_passive_followup": 2,
+      "branches": 2,
+      "by_seed": {
+        "1009": {
+          "point": 0,
+          "winner": "you",
+          "how": "too short: the opponent met your service only 0.61 m from the net (its limit 0.62 m)",
+          "score": [
+            1,
+            0
+          ]
+        },
+        "101": {
+          "point": 0,
+          "winner": "you",
+          "how": "too short: the opponent met your service only 0.60 m from the net (its limit 0.62 m)",
+          "score": [
+            1,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "gap_ticks": 12,
+      "contact_time_compensated": false,
+      "wins_against_passive_followup": 1,
+      "branches": 2,
+      "by_seed": {
+        "1009": {
+          "point": 0,
+          "winner": "you",
+          "how": "too short: the opponent met your service only 0.55 m from the net (its limit 0.62 m)",
+          "score": [
+            1,
+            0
+          ]
+        },
+        "101": {
+          "point": 0,
+          "winner": "opponent",
+          "how": "missed: no paddle contact",
+          "score": [
+            0,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "gap_ticks": 12,
+      "contact_time_compensated": true,
+      "wins_against_passive_followup": 1,
+      "branches": 2,
+      "by_seed": {
+        "1009": {
+          "point": 0,
+          "winner": "opponent",
+          "how": "missed: no paddle contact",
+          "score": [
+            0,
+            1
+          ]
+        },
+        "101": {
+          "point": 0,
+          "winner": "you",
+          "how": "too short: the opponent met your service only 0.60 m from the net (its limit 0.62 m)",
+          "score": [
+            1,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "gap_ticks": 14,
+      "contact_time_compensated": false,
+      "wins_against_passive_followup": 0,
+      "branches": 2,
+      "by_seed": {
+        "1009": {
+          "point": 0,
+          "winner": "opponent",
+          "how": "missed: no paddle contact",
+          "score": [
+            0,
+            1
+          ]
+        },
+        "101": {
+          "point": 0,
+          "winner": "opponent",
+          "how": "missed: no paddle contact",
+          "score": [
+            0,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "gap_ticks": 14,
+      "contact_time_compensated": true,
+      "wins_against_passive_followup": 1,
+      "branches": 2,
+      "by_seed": {
+        "1009": {
+          "point": 0,
+          "winner": "opponent",
+          "how": "missed: no paddle contact",
+          "score": [
+            0,
+            1
+          ]
+        },
+        "101": {
+          "point": 0,
+          "winner": "you",
+          "how": "too short: the opponent met your service only 0.61 m from the net (its limit 0.62 m)",
+          "score": [
+            1,
+            0
+          ]
+        }
+      }
+    }
+  ],
+  "decision": "No universal contact-time offset adopted: compensation improves seed101 but loses the native service advantage on seed1009. Keep original controller, evaluate execution blockage and coherent return plans first."
+}

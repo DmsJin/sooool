@@ -1,0 +1,13 @@
+{
+  "game": "touhou",
+  "version": "tracking-safe-intercept-v2",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "weight_training": false,
+  "implementation": "environments/touhou/research/policies.py",
+  "implementation_sha256": "f4c5cbc5c1e70b9e383f911f5b688407a54c445bf70b60c0aec951ff3509f131",
+  "recipe": "recipes/touhou.json",
+  "profile": "profiles/touhou/profile-control-early-study-v1.json",
+  "profile_sha256": "083045439b4e956618032ce42f200033554852f4c1923d074bea71091a248831",
+  "status": "frozen development policy; see docs/validation.md for portable reproduction results"
+}

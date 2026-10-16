@@ -1,0 +1,146 @@
+{
+  "game": "Touhou 08 / Imperishable Night",
+  "copyright": "ZUN / Team Shanghai Alice",
+  "extractionTool": "https://github.com/thpatch/thtk/releases/tag/12",
+  "sourceArchiveSHA256": "9d7edf43b8ddd347cbb641836f6b5050745dd936f688daebbf9382ca557043bb",
+  "atlases": {
+    "player00": {
+      "images": [
+        "textures/player00/data/player00/player00b.png",
+        "textures/player00/data/player00/player00.png"
+      ],
+      "frames": "textures/player00/frames.json",
+      "frameCount": 47
+    },
+    "stg7enm": {
+      "images": [
+        "textures/stg7enm/data/stgenm/stg7enm2.png",
+        "textures/stg7enm/data/stgenm/stg7enm.png"
+      ],
+      "frames": "textures/stg7enm/frames.json",
+      "frameCount": 25
+    },
+    "stg7bg": {
+      "images": [
+        "textures/stg7bg/data/stg1bg/stg7bg3.png",
+        "textures/stg7bg/data/stg1bg/stg7bg2.png",
+        "textures/stg7bg/data/stg1bg/stg7bg.png",
+        "textures/stg7bg/data/stg1bg/stg7bg4.png"
+      ],
+      "frames": "textures/stg7bg/frames.json",
+      "frameCount": 10
+    },
+    "stg7txt": {
+      "images": [
+        "textures/stg7txt/data/text/stg7txt.png"
+      ],
+      "frames": "textures/stg7txt/frames.json",
+      "frameCount": 7
+    },
+    "face_st07sp": {
+      "images": [
+        "textures/face_st07sp/data/face/st07/face_st07a.png"
+      ],
+      "frames": "textures/face_st07sp/frames.json",
+      "frameCount": 1
+    },
+    "face_st07": {
+      "images": [
+        "textures/face_st07/data/face/st07/face_st07a.png",
+        "textures/face_st07/data/face/st07/face_st07n2.png",
+        "textures/face_st07/data/face/st07/face_st07_name.png",
+        "textures/face_st07/data/face/st07/face_st07no.png",
+        "textures/face_st07/data/face/st07/face_st07dp.png",
+        "textures/face_st07/data/face/st07/face_st07sw.png"
+      ],
+      "frames": "textures/face_st07/frames.json",
+      "frameCount": 15
+    },
+    "etama": {
+      "images": [
+        "textures/etama/data/etama/etama5.png",
+        "textures/etama/data/etama/etama.png",
+        "textures/etama/data/etama/etama2.png",
+        "textures/etama/data/etama/etama4.png",
+        "textures/etama/data/etama/etama3.png",
+        "textures/etama/data/etama/etama6.png"
+      ],
+      "frames": "textures/etama/frames.json",
+      "frameCount": 338
+    },
+    "front": {
+      "images": [
+        "textures/front/data/front/front.png",
+        "textures/front/data/front/ename.png"
+      ],
+      "frames": "textures/front/frames.json",
+      "frameCount": 33
+    },
+    "ascii": {
+      "images": [
+        "textures/ascii/data/ascii/pause.png",
+        "textures/ascii/data/ascii/asciis.png",
+        "textures/ascii/data/ascii/ascii.png"
+      ],
+      "frames": "textures/ascii/frames.json",
+      "frameCount": 291
+    },
+    "enemy": {
+      "images": [
+        "textures/enemy/data/stgenm/enemy.png"
+      ],
+      "frames": "textures/enemy/frames.json",
+      "frameCount": 157
+    },
+    "eff01": {
+      "images": [
+        "textures/eff01/data/eff00/eff01b.png",
+        "textures/eff01/data/eff00/eff01.png"
+      ],
+      "frames": "textures/eff01/frames.json",
+      "frameCount": 2
+    },
+    "eff02": {
+      "images": [
+        "textures/eff02/data/eff00/eff02.png",
+        "textures/eff02/data/eff00/eff02b.png"
+      ],
+      "frames": "textures/eff02/frames.json",
+      "frameCount": 2
+    },
+    "eff03": {
+      "images": [
+        "textures/eff03/data/eff00/eff03b.png",
+        "textures/eff03/data/eff00/eff03.png"
+      ],
+      "frames": "textures/eff03/frames.json",
+      "frameCount": 2
+    },
+    "eff07": {
+      "images": [
+        "textures/eff07/data/eff00/eff05b.png",
+        "textures/eff07/data/eff00/eff07b.png",
+        "textures/eff07/data/eff00/eff07.png",
+        "textures/eff07/data/eff00/eff05.png"
+      ],
+      "frames": "textures/eff07/frames.json",
+      "frameCount": 4
+    },
+    "eff09rm": {
+      "images": [
+        "textures/eff09rm/data/eff00/eff09rm0.png",
+        "textures/eff09rm/data/eff00/eff09rm1.png"
+      ],
+      "frames": "textures/eff09rm/frames.json",
+      "frameCount": 2
+    },
+    "eff09yk": {
+      "images": [
+        "textures/eff09yk/data/eff00/eff09yk0.png",
+        "textures/eff09yk/data/eff00/eff09yk1.png"
+      ],
+      "frames": "textures/eff09yk/frames.json",
+      "frameCount": 2
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+runs/
+*.egg-info/
+.env
+.auth/
+auth.json
+
+/artifacts/*.tar.gz
+/artifacts/videos/*.mp4
+/research/discussions/*/trajectory.jsonl.gz
+/artifacts/*.part*

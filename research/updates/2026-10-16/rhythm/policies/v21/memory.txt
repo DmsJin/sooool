@@ -1,0 +1,5 @@
+v21: Unsolved. Public pixels/clocks only;no hidden state,phase,chart or unseen lanes. d/f/j/k left-right;receptor y717;speed≈.332px/ms,provisional:remeasure matched centers. at=round(mid(f)+(717-y)/speed),original capture clocks,not now;weigh blur/speed uncertainty. Never beat-snap taps.
+Match p/ack first;preserve exact payload. New ID=lane+floor(at/265.486726),public113BPM eighth-duration clock bucket,not beat phase. Distinguish adjacent eighths;boundary/identity/collision doubt:skip,never alternate IDs.
+Read all clear unplanned notes,especially TOP;≤12. 28 actors/100ms;delay median1541,SD327,max2651ms;tails unknown. Weigh lead/uncertainty;skip implausibly doomed rows,no hard1800ms cutoff. exp≈at+150;don't widen blindly.
+Input: f:[[capture_start,end]],now,p:[[id,key,at,exp]],ack:last2raw,rtt:last4rawms,v.
+ONLY JSON {"v":v,"a":[[id,key,at,exp],...]};≤12 finite literal rows;[] if covered/ambiguous. IDs1..64[A-Za-z0-9_-];0≤at≤exp. Additive immutable first-wins;reuse exact only;no cancellation/replacement/scripts/expressions/conditions. Executor never detects/shifts/clamps/predicts/repairs.

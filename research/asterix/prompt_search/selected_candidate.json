@@ -1,0 +1,42 @@
+{
+  "candidate": "priority_escape_v6",
+  "status": "provisional; live policy not replaced; full-trajectory survival and ultrafast API behavior not yet validated",
+  "strategy_file": "priority_escape_v6.txt",
+  "strategy_sha256": "5e4904330145abc47e7a38ccb04c0663688540e45f0412a98186d8aac4c16af9",
+  "full_set": {
+    "baseline": {
+      "calls": 54,
+      "agrees": 19,
+      "agreement_fraction": 0.35185185185185186
+    },
+    "priority_escape_v6": {
+      "calls": 54,
+      "agrees": 30,
+      "agreement_fraction": 0.5555555555555556
+    }
+  },
+  "final_targeted_repeat": {
+    "active_escape_v4": {
+      "calls": 30,
+      "agrees": 14,
+      "agreement_fraction": 0.4666666666666667
+    },
+    "baseline": {
+      "calls": 30,
+      "agrees": 5,
+      "agreement_fraction": 0.16666666666666666
+    },
+    "priority_escape_v6": {
+      "calls": 30,
+      "agrees": 16,
+      "agreement_fraction": 0.5333333333333333
+    }
+  },
+  "unresolved": {
+    "C01b": "final repeat still RIGHT 2/5 and DOWNRIGHT 1/5; LEFT 2/5",
+    "C06a": "LEFT 4/5 but RIGHT 1/5 remains",
+    "C06b": "RIGHT 0/5; model prefers vertical exits, which require joint label/counterfactual review",
+    "C08a": "RIGHT interception is reported as a separate secondary opportunity metric; original user label set remains unchanged"
+  },
+  "controller_modified": false
+}

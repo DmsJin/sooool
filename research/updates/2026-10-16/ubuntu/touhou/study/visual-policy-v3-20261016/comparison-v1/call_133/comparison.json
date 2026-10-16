@@ -1,0 +1,59 @@
+{
+  "case_id": "D06-delayed",
+  "candidate": "tracking_dodge_corridor_v3",
+  "repeat": 1,
+  "call": "call_133",
+  "prompt_sha256": "278783f8fea3b48c616b275061bc20e362c4f3e7e3abda6937860039af528da7",
+  "response": {
+    "answer": "{\"player\":[224,408],\"boss\":[218,80],\"aim_x\":181,\"plan\":[{\"move\":7,\"shoot\":1,\"focus\":1,\"bomb\":1,\"duration\":26}]}",
+    "meta": {
+      "wall_seconds": 16.86641702800989,
+      "thread_prepare_seconds": 0.020014328008983284,
+      "image_prepare_seconds": 0.0018162299820687622,
+      "action_rpc_seconds": 16.844587800005684,
+      "token_usage": {
+        "total": {
+          "totalTokens": 7778,
+          "inputTokens": 7573,
+          "cachedInputTokens": 4224,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 205,
+          "reasoningOutputTokens": 151
+        },
+        "last": {
+          "totalTokens": 7778,
+          "inputTokens": 7573,
+          "cachedInputTokens": 4224,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 205,
+          "reasoningOutputTokens": 151
+        },
+        "modelContextWindow": 475000
+      },
+      "image_sha256s": [
+        "187692699626452fd313fac7a0c3accf2650af60bf84065b2076704079d09c9a",
+        "1705c1e121d9c8ff5ff86cd54eb2d31494cbfce699dbbff8687dc9da05cd7e2d",
+        "279c494b939b95ae79955549f27a74b88e2b77b8be6aa39b7367b4e284aac39f"
+      ],
+      "output_schema_sha256": "defd8c6b11a876bb52f9e64286da223dc8eed5a89cf63e89d0c7b38c20a6f660",
+      "lean_native": false,
+      "aggressive_native": true,
+      "base_instructions_sha256": "def9fa759e6b6c5844935e2ab6ce39ece5a5d15186badbc4d96034e200c4c2e2",
+      "unexpected_tool_calls": 0,
+      "model": "gpt-6.1-sol",
+      "effort": "low",
+      "native_envelope_variant": "aggressive"
+    }
+  },
+  "metrics": {
+    "valid_contract": true,
+    "shoot": true,
+    "focus": true,
+    "bomb": true,
+    "stationary": false,
+    "duration_frames": 26,
+    "planned_horizontal_displacement_px": 41.6,
+    "focused_small_nudge": false,
+    "warning": "These are descriptive action measures, not safety/correctness scores. Grounding, delayed threat and gap quality require visual human review or private counterfactual rollout."
+  }
+}

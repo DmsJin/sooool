@@ -1,0 +1,30 @@
+{
+  "finished": true,
+  "scores": {
+    "A": 5,
+    "opponent": 1
+  },
+  "winner": "A",
+  "digest": "2b31b0b8d42304b01413c512271a73f12002dc48cb61eecf7912bc23456d1255",
+  "k": 2403,
+  "seed": 2,
+  "variant": "geometry_stable_early_chunk",
+  "level": 1,
+  "slowdown": 10,
+  "calls": 146,
+  "refused": 0,
+  "dropped": 9,
+  "peak_virtual_inflight": 4,
+  "wall_s": 733.4960480440059,
+  "failure": null,
+  "api_spend_usd": 0,
+  "continuous": {
+    "name": "point_share",
+    "from": "share",
+    "higher_is_better": true,
+    "by_side": {
+      "A": 0.833333
+    },
+    "forfeited": []
+  }
+}

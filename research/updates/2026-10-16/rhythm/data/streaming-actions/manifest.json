@@ -1,0 +1,18 @@
+{
+  "paid_api_calls": 0,
+  "source_sha256": {
+    "experiments/rhythm/providers.py": "76c05edaf4a0d84253062115de407ae6adc8496c85e3dd0bfedd4377d8f68ce1",
+    "experiments/rhythm/model_native.py": "525579d9a6f73db7888eb8b64114309f498ec3c1c8273e1db404d2b1522ac1e0",
+    "experiments/rhythm/model_profile.py": "b3f1d624694c90285ed62af3b36cd2826e5e47b5c5190d1170ef553734bf25c2",
+    "experiments/rhythm/model_freeze.py": "d53a9324446b5a7b90fe0559e5e5f39a48a70b9d47c367bbb52d124bdf86ce9f",
+    "experiments/rhythm/model_joint_profile.py": "e316c86788b66bcf756d4af5fe1cb5b1916cf3b7a1ef0380187fdb6ced71e0ec",
+    "experiments/rhythm/model_joint_training.py": "7c945e3551fd3bb5ba2103be6502b719739b3e68e136c17f229b61b78db4daa5",
+    "experiments/rhythm/tests/test_streaming_actions.py": "0dcdd0b2e714992b6fa85ce76c1144062637715c7443d8282b0aa4fc872e226b",
+    "experiments/rhythm/tests/test_streaming_profile.py": "69c4d14af4ca5853f2c6170ec71cc73d38aec849e5a172465c9711e8b6fbf32d",
+    "experiments/rhythm/tests/test_model_joint_training.py": "cb0f228ac7f9910037494b34e89e83492a5d1241e0583d9f9b36e10c9224a22f",
+    "experiments/rhythm/STREAMING_ACTIONS.md": "9cba0a26b8c20ae8fb1c82979f13e174664e9e27c04d75677f7e7784e0b6336b"
+  },
+  "local_tests": 68,
+  "ubuntu_tests": 66,
+  "actual_api_latency_savings_measured": false
+}

@@ -1,0 +1,400 @@
+{
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "tier": "ultrafast",
+  "random_seed": 20261015,
+  "pairs": [
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s101",
+      "seed": 101,
+      "seq": 173,
+      "seen_step": 2076,
+      "due_step": 2098,
+      "delay_real_s": 1.0765825810085516,
+      "image_sha256": [
+        "baa51bb947941dbfbea937612f85ea304d0cbd13452db9638f544d9424d55497"
+      ],
+      "pair": 0,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s101",
+      "seed": 101,
+      "seq": 188,
+      "seen_step": 2252,
+      "due_step": 2276,
+      "delay_real_s": 1.1520653280022088,
+      "image_sha256": [
+        "fb7d5a7831145704a13e0febd7357672c05ab64238ea796d875af706fe135c6d"
+      ],
+      "pair": 1,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s121",
+      "seed": 121,
+      "seq": 20,
+      "seen_step": 240,
+      "due_step": 265,
+      "delay_real_s": 1.2184911259973887,
+      "image_sha256": [
+        "2fe0158702cbefb7422fc480e1d9d0c8479f01c6abd37c73f9f83b830b401e7d"
+      ],
+      "pair": 2,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s121",
+      "seed": 121,
+      "seq": 98,
+      "seen_step": 1176,
+      "due_step": 1201,
+      "delay_real_s": 1.2463340100075584,
+      "image_sha256": [
+        "5a8211f536cbf21ae29d596f3be3b50f0fe3f1e48c7ea2dce8961b078f7ec15f"
+      ],
+      "pair": 3,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s101",
+      "seed": 101,
+      "seq": 280,
+      "seen_step": 3356,
+      "due_step": 3387,
+      "delay_real_s": 1.544944696011953,
+      "image_sha256": [
+        "d5dff65809359929d525fc5b66df51e78c7070502a3ee59dd4b3de46ca4e4702"
+      ],
+      "pair": 4,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s121",
+      "seed": 121,
+      "seq": 195,
+      "seen_step": 2333,
+      "due_step": 2367,
+      "delay_real_s": 1.6649798789876513,
+      "image_sha256": [
+        "233320865456483b19cc1dab909e084b98ee2a61dc0a491c8279a3451978c969"
+      ],
+      "pair": 5,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s121",
+      "seed": 121,
+      "seq": 337,
+      "seen_step": 4037,
+      "due_step": 4067,
+      "delay_real_s": 1.4979532799916342,
+      "image_sha256": [
+        "c3ac090170bf3490cbbe2a2cb019156866383aa3a0722564330060e0786c16fa"
+      ],
+      "pair": 6,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s111",
+      "seed": 111,
+      "seq": 326,
+      "seen_step": 3901,
+      "due_step": 3923,
+      "delay_real_s": 1.0967028269951697,
+      "image_sha256": [
+        "27fe5b70f1bd9f6d557677d93a5697d3dc066515c098aa50ba111e40f99de287"
+      ],
+      "pair": 7,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s111",
+      "seed": 111,
+      "seq": 167,
+      "seen_step": 2004,
+      "due_step": 2033,
+      "delay_real_s": 1.412979552987963,
+      "image_sha256": [
+        "93040edc12976a85e29910990a8fba8557b14b201ce4ecf52e8aa97b87350974"
+      ],
+      "pair": 8,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s101",
+      "seed": 101,
+      "seq": 337,
+      "seen_step": 4040,
+      "due_step": 4064,
+      "delay_real_s": 1.1520653280022088,
+      "image_sha256": [
+        "43c3158731ba5ce438cb37038315a7168a7803eb89e7cd9d6394048d750681b9"
+      ],
+      "pair": 9,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s121",
+      "seed": 121,
+      "seq": 234,
+      "seen_step": 2801,
+      "due_step": 2830,
+      "delay_real_s": 1.448469818016747,
+      "image_sha256": [
+        "04fd14096741c4cb45ba3cf9139ac976ab89beefa56f44e02c20d9c476f97962"
+      ],
+      "pair": 10,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s111",
+      "seed": 111,
+      "seq": 80,
+      "seen_step": 960,
+      "due_step": 993,
+      "delay_real_s": 1.6257839890022296,
+      "image_sha256": [
+        "7df8c51e99fd599d8cff7ab67cb696aab9fb4666a80932f911ebdb1bb8a64654"
+      ],
+      "pair": 11,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s111",
+      "seed": 111,
+      "seq": 109,
+      "seen_step": 1308,
+      "due_step": 1348,
+      "delay_real_s": 1.9596212850010488,
+      "image_sha256": [
+        "bf59582c245ccaa255d9a5f3a08510bc0c022c2b05516aa189a4a8014139b4da"
+      ],
+      "pair": 12,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s121",
+      "seed": 121,
+      "seq": 62,
+      "seen_step": 744,
+      "due_step": 773,
+      "delay_real_s": 1.448469818016747,
+      "image_sha256": [
+        "11f04c303f46298356042ebc089e7fd61ba5265b7c5d0df5536b4dc149bf835f"
+      ],
+      "pair": 13,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s101",
+      "seed": 101,
+      "seq": 125,
+      "seen_step": 1500,
+      "due_step": 1527,
+      "delay_real_s": 1.3359496369957924,
+      "image_sha256": [
+        "cf79bc57eb5b600977bed7e9d1edfc40b5948d59ad89a64f02e88db6fd9d0370"
+      ],
+      "pair": 14,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s111",
+      "seed": 111,
+      "seq": 258,
+      "seen_step": 3085,
+      "due_step": 3125,
+      "delay_real_s": 1.9596212850010488,
+      "image_sha256": [
+        "01a667dbb96712dd77f3fd2719e081c067b959629f4d9842512fe46893c3d282"
+      ],
+      "pair": 15,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s111",
+      "seed": 111,
+      "seq": 293,
+      "seen_step": 3505,
+      "due_step": 3534,
+      "delay_real_s": 1.448469818016747,
+      "image_sha256": [
+        "818988619dea6bf1d502f6d430bec73c3470621eb5eaa4b992b9579b60c92f05"
+      ],
+      "pair": 16,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s121",
+      "seed": 121,
+      "seq": 299,
+      "seen_step": 3581,
+      "due_step": 3608,
+      "delay_real_s": 1.3136087699967902,
+      "image_sha256": [
+        "62258d8fb4d87822937985832bea7faa40116108f3e8a9d7fe92d9236ab3755d"
+      ],
+      "pair": 17,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s101",
+      "seed": 101,
+      "seq": 64,
+      "seen_step": 768,
+      "due_step": 792,
+      "delay_real_s": 1.1624958159809466,
+      "image_sha256": [
+        "7b8287234e902bc6d6f68ab9b42d10e4ba8603ccaa4766ecb78cb486300302ac"
+      ],
+      "pair": 18,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s101",
+      "seed": 101,
+      "seq": 19,
+      "seen_step": 228,
+      "due_step": 255,
+      "delay_real_s": 1.3359496369957924,
+      "image_sha256": [
+        "88dc0d5c0cbb6eedc6042145549b7418e6e2c3205476096be577d9725068475d"
+      ],
+      "pair": 19,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s101",
+      "seed": 101,
+      "seq": 236,
+      "seen_step": 2828,
+      "due_step": 2850,
+      "delay_real_s": 1.0765825810085516,
+      "image_sha256": [
+        "ffa43fe8239ca704657178fa9569da1639bdae306d73646ccbaef4f6c02c990a"
+      ],
+      "pair": 20,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s111",
+      "seed": 111,
+      "seq": 201,
+      "seen_step": 2401,
+      "due_step": 2430,
+      "delay_real_s": 1.4119478469947353,
+      "image_sha256": [
+        "885ec56b5ab751d451cce7af84eef8e621194d9aabbff76f90dd278345e45929"
+      ],
+      "pair": 21,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s121",
+      "seed": 121,
+      "seq": 163,
+      "seen_step": 1956,
+      "due_step": 1980,
+      "delay_real_s": 1.1599629279808141,
+      "image_sha256": [
+        "5ef222116488f7551c1d7aa8a4a174fa0afa408748ceec513b3db10628e67514"
+      ],
+      "pair": 22,
+      "order": [
+        "minimal",
+        "current"
+      ]
+    },
+    {
+      "episode": "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round4/metric-closed-5x-s111",
+      "seed": 111,
+      "seq": 33,
+      "seen_step": 396,
+      "due_step": 441,
+      "delay_real_s": 2.242845581989968,
+      "image_sha256": [
+        "da6bcf1a3cdfedc4a7a62f69f760dea79fb249f75146b87b3cb646ed2ad0c169"
+      ],
+      "pair": 23,
+      "order": [
+        "current",
+        "minimal"
+      ]
+    }
+  ],
+  "paid_calls": 0,
+  "comparison": "Existing short racing baseInstructions and global context vs requested system.txt plus isolated reduced context. Task prompt, observations, actions, model, effort and tier unchanged.",
+  "unsupported_cli_flags": [
+    "--ignore-user-config"
+  ],
+  "unsupported_legacy_config": [
+    "tools.view_image; use features.view_image=false"
+  ]
+}

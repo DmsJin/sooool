@@ -1,0 +1,26 @@
+{
+  "question": "Remove explicit latency profile and live RTT history while retaining visual calibration and policy",
+  "paid_api_calls": 0,
+  "source_memory_sha256": "278c519325298a926f74f8c479537a4dbadfc6bf64bb6a834601ca4ffdff712d",
+  "blind_memory_sha256": "2061e77c3ddfe342dc9ebcff0e27a8b6eae004e87a4840b3ed0615a2c5340577",
+  "removed_text": [
+    "rtt:last4 ms,",
+    "Total\u22481456ms,extra\u224846ms;tails unknown. No1800ms cutoff;weigh lead vs RTT. "
+  ],
+  "retained": "visual geometry/speed, timing arithmetic, finite action schema, dedup strategy,150ms expiry tolerance,raw public clocks/queue/acks",
+  "limitation": "This ablates supplied latency information; retained policy was developed earlier with profiling and is not a from-scratch untrained policy. Models may infer timing from public acknowledgments.",
+  "chart_path": "/tmp/dfjk-v19-joint140-heldout/b60f34212cc4acdf.chart.json",
+  "chart_sha256": "3ec366ce4bf9ea94f7356581c292224fb81bf0509915ae7cd7603aef5aa87457",
+  "profile_path": "experiments/rhythm/runs/model-timing/native-v17-joint-profile.json",
+  "seed": 79,
+  "actors": 12,
+  "cadence": 0.14,
+  "frames": 1,
+  "max_requests": 230,
+  "additional_arm": {
+    "name": "blind-generic",
+    "reason": "Separate missing numeric/live profile data from loss of the generic latency-planning reminder",
+    "profile_data_supplied": false,
+    "generic_caution": "Response delay is unknown; weigh lead against that uncertainty."
+  }
+}

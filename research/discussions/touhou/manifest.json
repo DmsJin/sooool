@@ -1,0 +1,8 @@
+{
+  "source_filename": "rollout-2026-10-15T08-20-55-01a13e38-8ae9-7c13-8e41-d214caeb01a5.jsonl",
+  "source_sha256": "bafa9907ce2b54e90ea2fc1b903e9cde34798afb9bc498b053553574f77a06f4",
+  "records": 3106,
+  "messages": 288,
+  "omitted_interactive_inputs": 369,
+  "scope": "Retained visible development subset; retired Asterix policy records omitted; original external sessions unchanged."
+}

@@ -1,0 +1,58 @@
+{
+  "pairs": 24,
+  "wall_s": 301.95106686101644,
+  "paid_api_calls": 0,
+  "quality_scope": "JSON contract and paired action agreement; not ground-truth accuracy or closed-loop win rate",
+  "A": {
+    "n": 24,
+    "mean_s": 3.339951065918285,
+    "p50_s": 3.011213248493732,
+    "p95_s": 5.1182527920173015,
+    "valid": 24,
+    "retry_429_events": 0,
+    "mean_full_call_s": 6.074959107793499,
+    "mean_tokens": {
+      "inputTokens": 10293.041666666666,
+      "cachedInputTokens": 4586.666666666667,
+      "outputTokens": 22.375,
+      "reasoningOutputTokens": 12.625
+    },
+    "retry_403_events": 0,
+    "tool_calls": []
+  },
+  "B": {
+    "n": 24,
+    "mean_s": 3.8666433695373903,
+    "p50_s": 3.736016684997594,
+    "p95_s": 6.432635092001874,
+    "valid": 24,
+    "retry_429_events": 0,
+    "mean_full_call_s": 5.935940219626597,
+    "mean_tokens": {
+      "inputTokens": 8843.041666666666,
+      "cachedInputTokens": 3445.3333333333335,
+      "outputTokens": 26.833333333333332,
+      "reasoningOutputTokens": 16.916666666666668
+    },
+    "retry_403_events": 0,
+    "tool_calls": []
+  },
+  "paired_choice_agreement": 23,
+  "mean_latency_reduction_percent": -15.769461684442266,
+  "paired_mean_s_saved_bootstrap_95ci": [
+    -1.008135442532269,
+    -0.02123521436806186
+  ],
+  "timing_definition": "wall_seconds: complete native model turn, excludes shared admission wait; mean_full_call_s includes admission wait and thread start",
+  "retry_count_note": "Counted only protocol method=error, excluding digits in identifiers and game state",
+  "decision": "Do not switch: no measured latency improvement over current partially compact baseline; no closed-loop performance claim",
+  "ordinary_api_budget": {
+    "limit_usd": 30,
+    "used_usd": 1.062534,
+    "pending": {},
+    "blocked": false,
+    "stages": {
+      "profiling": 1.062534
+    }
+  }
+}

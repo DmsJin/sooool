@@ -1,0 +1,115 @@
+{
+  "kind": "frozen_k1_gated_vs_rolling_simulated_closed_loop_ablation",
+  "source_commit": "9b54922d31740b4ce1f08a27438089411fc36f2f",
+  "base": {
+    "provider": "subscription",
+    "mode": "sim",
+    "url": "http://127.0.0.1:18791",
+    "suite": "/home/ubuntu/lzj/coding-agent-suite",
+    "profile": "/home/ubuntu/wzh/touhou-sol-study/optimization-v15-20261016/modeled-k1-serial-terminal-profile.json",
+    "speed": 1,
+    "workers": 4,
+    "capacity": 4,
+    "history_frames": 3,
+    "image_stride": 30,
+    "decision_stride": 6,
+    "chunk_size": 1,
+    "max_duration": 48,
+    "max_wall_s": 10800,
+    "engine_sha256": "348e81340d4a09f8b488193daf0b4e395afa2755d34f249585ff5e1ffe787aa4",
+    "profile_note": "Declared independent K1 simulation from historical21 unloaded serialAPI terminaldurations; ready=terminal, notmeasuredconcurrentornewAPIlatency.",
+    "wait_for_move": true,
+    "intro_observation": true,
+    "structured": true,
+    "lean_native": false,
+    "decision_fanout": 1,
+    "cohort_delay": "independent",
+    "shared_cohort_inputs": true,
+    "stage_timings": true,
+    "visual_memory_points": 8,
+    "wait_for_winner": true,
+    "pixel_controls": true,
+    "aggressive_native": true,
+    "latency_scale": 1,
+    "max_output_tokens": 512,
+    "early_action_delivery": false,
+    "simulation_terminal_hold": false,
+    "candidate": "tracking_dodge_safe_intercept_v2",
+    "effort": "low",
+    "capture_stride": 6,
+    "history_spacing_frames": 30
+  },
+  "jobs": [
+    {
+      "name": "gated-seed9",
+      "config": {
+        "seed": 9,
+        "delay_seed": 7419,
+        "wait_for_winner": true,
+        "wait_for_move": true,
+        "rolling_observations": false
+      }
+    },
+    {
+      "name": "rolling-seed9",
+      "config": {
+        "seed": 9,
+        "delay_seed": 7419,
+        "wait_for_winner": false,
+        "wait_for_move": false,
+        "rolling_observations": true
+      }
+    },
+    {
+      "name": "gated-seed10",
+      "config": {
+        "seed": 10,
+        "delay_seed": 7420,
+        "wait_for_winner": true,
+        "wait_for_move": true,
+        "rolling_observations": false
+      }
+    },
+    {
+      "name": "rolling-seed10",
+      "config": {
+        "seed": 10,
+        "delay_seed": 7420,
+        "wait_for_winner": false,
+        "wait_for_move": false,
+        "rolling_observations": true
+      }
+    }
+  ],
+  "episode_workers": 2,
+  "source_sha256": {
+    "policies.py": "610c70cb6ef830ce25f06e19b9681c5247b534a4d8e71beeaf77ff16107ab731",
+    "wire_schema.py": "63d9e039ff222e2574ab63686f1f091c713f3ea6f992419fb0ed65c4533c35c9",
+    "visual_devset.py": "6cff28b72a6f766eb83dd8347cb47dac5b94382e7ddda8089c913e1b597f50df",
+    "run_episode.py": "5f15c0b409abfca8994f120c6b9f2ebc8a19d8f7c311c2bd4f7a3d5e16226c39",
+    "subscription.py": "78db29b30eb301b07c2d8322306babbdf539989648ea3eb1318e73507b277160",
+    "native_envelope.py": "3bab859af9c3978b008b4ba417c7474e7b9bb9a4975239a58e966b6fc8197ee3",
+    "observation_history.py": "aaeb81b4d2f1d9a1b666a3127950aa5c200176437a29f84becebcd3e6aa45f1c"
+  },
+  "source_archive_sha256": "18e3eaa60692d656c9356fd3ab149acd4cfe1f080874b91f0298848f4aa2ccbd",
+  "profile_sha256": "e468d470cb93932ccd5a8692c64d5f0db353cc591d854fbeb470c331830b4c94",
+  "paid_calls": 0,
+  "authorization_scope": "Exactly4subscription simulatedepisodes,2concurrent. NoAPI/profile/K4/v13/v14/extrascreenorotherfulljobs.",
+  "common_conditions": [
+    "K1/cap4/workers4,v2low,1action48,freshcapture6/history30,decision_stride6,visualmemory8,introtrue",
+    "Old21serialterminaldurations independentlysampled; modeledready=terminal andnoextracurrentoverhead",
+    "Sameprofile/capture/history/seed/delayseedperpair; twowaitflagsandtruthfulrollingprotocolarethedeclaredablation"
+  ],
+  "limits": [
+    "Notmeasuredconcurrency,norrealAPIperformance.",
+    "Modelanswersrandom,trajectoriesandnumberofdelaydrawsdiverge.",
+    "Firstrolling4slotsmayburstthenpause; reportsubmit/applyintervals,capacitydrops/stale/interruptedplans.",
+    "AllactionsremainGPTchosen. Noentityservo,automaticBomb,arithmeticrepairorhiddenscoringselection."
+  ],
+  "required_checks": [
+    "7frozensourcehashes/profilehash/HTTPoriginalengineSHA",
+    "Nativeconfig/thread/turn/responseactualeffortlow/schema/finite/prompt/imagehash/allterminal",
+    "Complete4originalenginefullstateandvisualclockreplay/tracevalidation",
+    "Submit/applybursts,intervals,capacitysaturationproxy,staleandplaninterruptioncounts"
+  ]
+}

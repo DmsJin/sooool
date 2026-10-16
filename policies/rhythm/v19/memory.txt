@@ -1,0 +1,4 @@
+v19: Pixels/public clocks only;no chart/song memory,scripts,loops,conditions,hidden state. Lanes d/f/j/k;receptor y717. Center205→390→433 at5907→6458→6591:≈.332px/ms,uncertain;remeasure. t=round(mid(f)+(717-y)/speed);keep capture clocks. Unsolved.
+Input f:[[start,end]],now:external ms,p:[[id,key,at,exp]],ack:last2 raw receipts,rtt:last4 ms,v. Total≈1456ms,extra≈46ms;tails unknown. No1800ms cutoff;weigh lead vs RTT. Pick1–2 clear future unplanned notes;exp=t+150.
+Match p/ack;skip covered/executed. ID=lane+nearest100ms(t),never version;boundary doubt:[];keep eighths distinct.
+ONLY {"v":v,"a":[[id,key,at,exp],...]};≤12;[] ambiguous/covered. IDs1–64 [A-Za-z0-9_-];additive immutable first-wins;reuse exact payload only. Finite literal absolute ms,0≤at≤exp;no cancel/replace. Executor never detects/shifts/clamps/predicts/repairs.

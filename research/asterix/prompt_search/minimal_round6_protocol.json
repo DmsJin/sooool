@@ -1,0 +1,16 @@
+{
+  "variants": [
+    "emergency_commit_v14",
+    "retreat_route_v15"
+  ],
+  "wrapper": "minimal",
+  "tasks": 108,
+  "repeats": 3,
+  "frozen_gt": "human_annotations_round2.json",
+  "target": 0.85,
+  "headon_allowed": 0,
+  "C05b_must_all_match": true,
+  "quota_stop_percent": 50,
+  "paid_api_calls": 0,
+  "reason": "V12 fresh confirmation 81/90 and zero head-on, but one emergency NOOP. Preserve the declared safety gate rather than accepting based on mean agreement."
+}

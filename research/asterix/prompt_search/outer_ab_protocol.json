@@ -1,0 +1,24 @@
+{
+  "task": "unchanged V6 full game prompt and causal screenshots",
+  "pairs": 54,
+  "cases": 18,
+  "repetitions": 3,
+  "randomized_interleaving": true,
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "workers_max": 8,
+  "gt": "round2 frozen user-adjudicated labels",
+  "adoption_gate": {
+    "mean_complete_response_speedup_min": 0.1,
+    "case_cluster_bootstrap_95pct_speedup_lower_bound_min": 0,
+    "observed_accuracy": "minimal >= default",
+    "headon_outputs": "minimal <= default",
+    "C05b_accepted": "minimal >= default"
+  },
+  "report": "all calls plus reasoning/output/input/cache token counts; no fastest-trial selection",
+  "quota_stop_percent": 50,
+  "api_spend_usd": 0,
+  "version": "0.162.1; unsupported --ignore-user-config replaced by isolated empty CODEX_HOME; strict-config startup preflight passed",
+  "auth": "existing auth file mounted read-only; no copying or global config edits",
+  "sandbox": "existing external bubblewrap command preserved"
+}

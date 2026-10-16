@@ -1,0 +1,28 @@
+{
+  "status": "complete",
+  "match_winner": "A",
+  "won": true,
+  "valid_trial": true,
+  "deterministic": true,
+  "sim_lag": {
+    "late_max_s": 0.013962846976937726,
+    "late_p99_s": 0.008147101493377704,
+    "run_steps": 5968,
+    "run_sim_s": 59.68,
+    "run_wall_s": 59.68687941299868,
+    "period_s": 0.01
+  },
+  "slowdown": 1.0,
+  "calls": 93,
+  "submitted_commands": 300,
+  "applied_commands": 299,
+  "invalid_output_count": 0,
+  "control": "lane",
+  "anchor": "arrival",
+  "system": "minimal",
+  "wall_seconds": 72.6933436160034,
+  "model": "gpt-6.1-sol",
+  "service_tier": "ultrafast",
+  "artificial_delay": false,
+  "harbor_isolation": false
+}

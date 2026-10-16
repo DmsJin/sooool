@@ -1,0 +1,10 @@
+{
+  "selected_asterix_policy": "v28",
+  "root_checks_passed": 10,
+  "indexed_archives_verified": 9,
+  "inspected_text_records": 57924,
+  "manifest_records_verified": 68061,
+  "retired_policy_findings": 0,
+  "credential_pattern_findings": 0,
+  "scope": "active source, current indexed archive text, filtered discussions and digest manifests; Git branch histories verified at publication"
+}

@@ -1,0 +1,219 @@
+ENTRY #0, VERSION 3
+Name: data/stg1bg/stg7bg.png
+Format: 1
+Width: 512
+Height: 512
+ColorKey: 00000000
+MemoryPriority: 11
+HasData: 1
+THTX-Size: 1048576
+THTX-Format: 1
+THTX-Width: 512
+THTX-Height: 512
+THTX-Zero: 0
+
+Sprite: 0 252*252+1+1
+Sprite: 1 254*254+257+1
+Sprite: 2 126*125+1+258
+Sprite: 3 30*254+257+1
+Sprite: 4 30*254+481+1
+Sprite: 5 252*252+257+257
+Sprite: 6 126*125+129+258
+
+Script: 0
+Instruction #0: 0 0 3 0
+Instruction #1: 0 0 31 1
+Instruction #2: 0 0 12 0.0f 1.5707964f 0.0f
+Instruction #3: 0 0 2
+
+Script: 1
+Instruction #0: 0 0 3 0
+Instruction #1: 0 0 31 1
+Instruction #2: 0 0 12 0.0f 1.5707964f 0.0f
+Instruction #3: 0 0 2
+
+Script: 2
+Instruction #0: 0 0 3 1
+Instruction #1: 0 0 31 1
+Instruction #2: 0 0 2
+
+Script: 3
+Instruction #0: 0 0 3 2
+Instruction #1: 0 0 31 1
+Instruction #2: 0 0 25 18
+Instruction #3: 0 0 82 1
+Instruction #4: 0 0 30 1
+Instruction #5: 0 0 8 192
+Instruction #6: 1 0 8 255
+Instruction #7: 2 0 4 60 0
+
+Script: 4
+Instruction #0: 0 0 3 1
+Instruction #1: 0 0 31 1
+Instruction #2: 0 0 9 24 24 24
+Instruction #3: 0 0 2
+
+Script: 5
+Instruction #0: 0 0 3 4
+Instruction #1: 0 0 31 1
+Instruction #2: 0 0 2
+
+Script: 6
+Instruction #0: 0 0 3 5
+Instruction #1: 0 0 31 1
+Instruction #2: 0 0 12 0.0f 1.5707964f 0.0f
+Instruction #3: 0 0 2
+
+Script: 7
+Instruction #0: 0 0 3 5
+Instruction #1: 0 0 31 1
+Instruction #2: 0 0 12 0.0f 1.5707964f 0.0f
+Instruction #3: 0 0 2
+
+Script: 8
+Instruction #0: 0 0 3 6
+Instruction #1: 0 0 31 1
+Instruction #2: 0 0 25 18
+Instruction #3: 0 0 82 1
+Instruction #4: 0 0 30 1
+Instruction #5: 0 0 8 192
+Instruction #6: 1 0 8 255
+Instruction #7: 2 0 4 60 0
+
+
+ENTRY #1, VERSION 3
+Name: data/stg1bg/stg7bg2.png
+Format: 1
+Width: 512
+Height: 512
+ColorKey: 00000000
+MemoryPriority: 11
+HasData: 1
+THTX-Size: 1048576
+THTX-Format: 1
+THTX-Width: 512
+THTX-Height: 512
+THTX-Zero: 0
+
+Sprite: 7 384*448+128+0
+
+Script: 9
+Instruction #0: 0 0 3 7
+Instruction #1: 0 0 22
+Instruction #2: 0 0 6 32.0f 16.0f 0.0f
+Instruction #3: 0 0 8 0
+Instruction #4: 0 0 34 500 0 255
+Instruction #5: 0 0 80 -0.00003125f
+Instruction #6: 4000 0 2
+
+Script: 10
+Instruction #0: 0 0 3 7
+Instruction #1: 0 0 22
+Instruction #2: 0 0 6 32.0f 16.0f 0.0f
+Instruction #3: 0 0 80 -0.00003125f
+Instruction #4: 4000 0 2
+
+
+ENTRY #2, VERSION 3
+Name: data/stg1bg/stg7bg3.png
+Format: 3
+Width: 256
+Height: 256
+ColorKey: 00000000
+MemoryPriority: 11
+HasData: 1
+THTX-Size: 131072
+THTX-Format: 3
+THTX-Width: 256
+THTX-Height: 256
+THTX-Zero: 0
+
+Sprite: 8 256*256+0+0
+
+Script: 11
+Instruction #0: 0 0 3 8
+Instruction #1: 0 0 16 1
+Instruction #2: 0 0 8 0
+Instruction #3: 0 0 34 15 0 170
+Instruction #4: 0 0 9 128 32 255
+Instruction #5: 0 0 80 0.0025f
+Instruction #6: 0 1 37 10000 120
+Instruction #7: 0 1 37 10001 1
+Instruction #8: 0 1 38 10005.0f 188.0f
+Instruction #9: 0 0 7 180.0f 1.0f
+Instruction #10: 0 0 6 128.0f 180.0f 0.0f
+Instruction #11: 0 0 32 4000 0 192.0f 180.0f 0.0f
+Instruction #12: 0 0 13 0.0f 0.0f -0.0007853982f
+Instruction #13: 10000 0 4 220 0
+Instruction #14: 10000 0 21 2
+Instruction #15: 10260 0 34 120 0 255
+Instruction #16: 10260 0 33 120 0 255 32 32
+Instruction #17: 10260 1 37 10008 120
+Instruction #18: 10260 1 38 10006.0f 400.0f
+Instruction #19: 10260 5 56 10007.0f 1.0f 10006.0f
+Instruction #20: 10260 1 80 10007.0f
+Instruction #21: 10260 1 42 10006.0f 2.5f
+Instruction #22: 10261 1 5 10008 328 10260
+Instruction #23: 20261 0 4 396 10261
+
+
+ENTRY #3, VERSION 3
+Name: data/stg1bg/stg7bg4.png
+Format: 3
+Width: 256
+Height: 256
+ColorKey: 00000000
+MemoryPriority: 11
+HasData: 1
+THTX-Size: 131072
+THTX-Format: 3
+THTX-Width: 256
+THTX-Height: 256
+THTX-Zero: 0
+
+Sprite: 9 256*256+0+0
+
+Script: 12
+Instruction #0: 0 0 3 9
+Instruction #1: 0 0 16 1
+Instruction #2: 0 0 8 0
+Instruction #3: 0 0 34 15 0 170
+Instruction #4: 0 0 9 128 32 255
+Instruction #5: 0 0 80 0.0025f
+Instruction #6: 0 1 37 10000 120
+Instruction #7: 0 1 37 10001 1
+Instruction #8: 0 1 38 10005.0f 188.0f
+Instruction #9: 0 0 7 180.0f 1.0f
+Instruction #10: 0 0 21 2
+Instruction #11: 260 0 34 120 0 255
+Instruction #12: 260 0 33 120 0 255 32 32
+Instruction #13: 260 1 37 10008 120
+Instruction #14: 260 1 38 10006.0f 400.0f
+Instruction #15: 260 5 56 10007.0f 1.0f 10006.0f
+Instruction #16: 260 1 80 10007.0f
+Instruction #17: 260 1 42 10006.0f 2.5f
+Instruction #18: 261 1 5 10008 244 260
+Instruction #19: 10261 0 4 312 261
+Instruction #20: 10261 0 21 3
+Instruction #21: 10521 0 34 120 0 255
+Instruction #22: 10521 0 33 120 0 255 32 32
+Instruction #23: 10521 1 37 10008 120
+Instruction #24: 10521 1 38 10006.0f 100.0f
+Instruction #25: 10521 5 56 10007.0f 1.0f 10006.0f
+Instruction #26: 10521 1 80 10007.0f
+Instruction #27: 10521 1 40 10006.0f 4.0f
+Instruction #28: 10522 1 5 10008 420 10521
+Instruction #29: 10522 1 37 10008 120
+Instruction #30: 10522 1 38 10006.0f 580.0f
+Instruction #31: 10522 5 56 10007.0f 1.0f 10006.0f
+Instruction #32: 10522 5 52 10007.0f 0.0f 10007.0f
+Instruction #33: 10522 1 80 10007.0f
+Instruction #34: 10522 1 42 10006.0f 4.0f
+Instruction #35: 10523 1 5 10008 520 10522
+Instruction #36: 20523 0 4 608 10523
+Instruction #37: 20523 0 21 4
+Instruction #38: 20783 0 34 120 0 255
+Instruction #39: 20783 0 33 120 0 255 32 255
+Instruction #40: 30783 0 4 684 20783
+
+

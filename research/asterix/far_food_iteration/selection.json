@@ -1,0 +1,59 @@
+{
+  "candidate": "food_route_v28.txt",
+  "phase": "Frozen case comparison passed; C06b continuation visually inspected and independently replay-verified",
+  "overall": {
+    "fixed_previous_reference": 116,
+    "paired_baseline": 113,
+    "candidate": 123,
+    "total": 130
+  },
+  "C10b": {
+    "fixed_previous_reference": 1,
+    "paired_baseline": 0,
+    "candidate": 5,
+    "total": 5
+  },
+  "C06b_RIGHT": {
+    "paired_baseline": 4,
+    "candidate": 4,
+    "total": 5
+  },
+  "safety": {
+    "old_forbidden_headon": 0,
+    "new_forbidden_landing": 0,
+    "C05b_failed": 0
+  },
+  "case_gate_passed": true,
+  "full_game_or_realtime_promoted": false,
+  "new_paid_api_calls": 0,
+  "manual_C06b": {
+    "passed_visible_food_pursuit": true,
+    "initial_score": 200,
+    "final_score": 250,
+    "initial_lives": 2,
+    "final_lives": 2,
+    "applied_chain": [
+      {
+        "frame": 419,
+        "action": 2
+      },
+      {
+        "frame": 441,
+        "action": 7
+      },
+      {
+        "frame": 466,
+        "action": 8
+      }
+    ],
+    "reward_frame": 484,
+    "reward": 50,
+    "baseline_reward": 50,
+    "models_forced_route": false,
+    "video": "c06b-v23-v28-manual-20261015/food_route_v28-repeat0/game-5x.mp4",
+    "limitation": "One restored-state diagnostic per policy, historical measured API latency conditional on valid replies; no provider failures. Not a new real-API run or full-game validation.",
+    "post_pickup_observation": "DOWNLEFT489 followed by UP518 and UPLEFT542; no second reward inside the window."
+  },
+  "models_running": false,
+  "subscription_decisions_this_round": 788
+}

@@ -1,0 +1,140 @@
+{
+  "status": "complete",
+  "api_cost_usd": 0,
+  "code_driving_policy": false,
+  "seed": 121,
+  "variant": "commit",
+  "game_seconds": 75.29,
+  "calls": 39,
+  "invalid_outputs": 0,
+  "drops": 213,
+  "skipped_inference_slots": 213,
+  "wall_seconds": 816.2284384410013,
+  "stalled_observation_fraction": 0.36507936507936506,
+  "own_speed_integral_m": 75.01578000000005,
+  "public_final_state": {
+    "phase": "over",
+    "done": true,
+    "t_sim": 75.29,
+    "heat": 2,
+    "heat_time_s": 39.04,
+    "race": {
+      "warnings": {
+        "A": 1,
+        "opponent": 0
+      },
+      "max_heats": 3,
+      "heats_won": {
+        "A": 0,
+        "opponent": 2
+      },
+      "heats_to_win": 2
+    },
+    "crashes_this_heat": [
+      {
+        "t": 3.05,
+        "at_fault": "A",
+        "kind": "impact",
+        "rule": "drove_into",
+        "other": "B"
+      }
+    ],
+    "results": [
+      {
+        "heat": 1,
+        "winner": "B",
+        "decided_by": "finish",
+        "heat_time": 36.25,
+        "winner_finish_time": 36.2432,
+        "grid": {
+          "A": "outer",
+          "B": "inner"
+        },
+        "cars": {
+          "A": {
+            "checkpoints": 7,
+            "finish_time": null,
+            "obstacle_crashes": 1
+          },
+          "B": {
+            "checkpoints": 16,
+            "finish_time": 36.2432,
+            "obstacle_crashes": 0
+          }
+        },
+        "crashes": [
+          {
+            "t": 26.69,
+            "at_fault": "A",
+            "kind": "impact",
+            "rule": "obstacle"
+          }
+        ]
+      },
+      {
+        "heat": 2,
+        "winner": "B",
+        "decided_by": "finish",
+        "heat_time": 39.04,
+        "winner_finish_time": 39.033,
+        "grid": {
+          "A": "inner",
+          "B": "outer"
+        },
+        "cars": {
+          "A": {
+            "checkpoints": 7,
+            "finish_time": null,
+            "obstacle_crashes": 0
+          },
+          "B": {
+            "checkpoints": 16,
+            "finish_time": 39.033,
+            "obstacle_crashes": 0
+          }
+        },
+        "crashes": [
+          {
+            "t": 3.05,
+            "at_fault": "A",
+            "kind": "impact",
+            "rule": "drove_into",
+            "other": "B"
+          }
+        ]
+      }
+    ],
+    "own": {
+      "grid": "inner",
+      "grid_side": "inner",
+      "forward_speed": 1.414,
+      "command": [
+        1.7,
+        0.35
+      ],
+      "held": false,
+      "retired": false
+    },
+    "race_over": true,
+    "step": 7529
+  },
+  "digest": "75a94612d012a424bbb6f6c0d6207f593a155bded9ebd4be3b43dc6a8e58d38b",
+  "won": false,
+  "scores": {
+    "A": {
+      "heats_won": 0,
+      "warnings": 1,
+      "checkpoints": 14,
+      "laps": 0,
+      "obstacle_crashes": 1
+    },
+    "opponent": {
+      "heats_won": 2,
+      "warnings": 0,
+      "checkpoints": 32,
+      "laps": 2,
+      "obstacle_crashes": 0
+    }
+  },
+  "replay_matches": true
+}

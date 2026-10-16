@@ -1,0 +1,33 @@
+{
+  "model_identity_verified_calls": 82,
+  "verified_actual_input_images": 161,
+  "nonbraking_actions_linked_to_unexpired_GPT_goals": 238,
+  "early_publications": 81,
+  "early_before_completed": 81,
+  "paired_median_stream_saving_ms": 85.93318998464383,
+  "http_429": 0,
+  "http_peak_one_second": 17,
+  "budget": {
+    "limit_usd": 30,
+    "charged_upper_usd": 19.581029999999988,
+    "reserved": {},
+    "stages": {
+      "profile": 0.8888699999999998,
+      "validation": 18.69215999999999
+    }
+  },
+  "source_sha256": {
+    "run.py": "2ce93e7647de734a94ddbf04f214fe7861635c9cb42d3ce646dbf41da3f8bb4d",
+    "lane.py": "76798b23171aa68c90bb92641514c7a5f16f36306c3f6806d21a3e3b500c967e",
+    "live.py": "74a9e372c3ffe2fda847e8d6e1540ba5167d7729823b8461fd998ab7079b527f",
+    "waypoints.py": "645785f3eec086526214253544cce9ee182d5a939e91ee65819923e50e4ef906"
+  },
+  "runtime": {
+    "python": "3.13.5",
+    "mujoco": "3.3.7",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "pillow": "12.3.0",
+    "requests": "2.34.2"
+  }
+}

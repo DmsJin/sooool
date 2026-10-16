@@ -1,0 +1,19 @@
+{
+  "source_inputs": [
+    "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round6/minimal-metric-5x-s111/decision_00287/input.json",
+    "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round6/minimal-metric-5x-s101/decision_00254/input.json",
+    "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round6/minimal-metric-5x-s111/decision_00156/input.json",
+    "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round6/minimal-metric-5x-s101/decision_00352/input.json",
+    "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round6/minimal-metric-5x-s111/decision_00246/input.json",
+    "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round6/minimal-metric-5x-s101/decision_00131/input.json",
+    "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round6/minimal-metric-5x-s111/decision_00013/input.json",
+    "/home/ubuntu/wzh/racing-autoresearch-20261015/results/round6/minimal-metric-5x-s101/decision_00040/input.json"
+  ],
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "service_tier": "ultrafast",
+  "system": "minimal",
+  "paid_api_concurrency": 1,
+  "subscription_jobs_parallel": true,
+  "note": "Frozen actual game prompts and pixels; direct API omits Codex runtime tool wrappers. Background subscription experiments remain active; compare to initial idle serial profile separately."
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "seq": 57,
+    "choice": 3,
+    "kind": "act",
+    "wall_s": 9.874432941025589,
+    "feedback_records": 4,
+    "nonempty_feedback_records": 0,
+    "scope": "subscription input smoke on saved real API camera; not an online game result",
+    "paid_api_calls": 0
+  },
+  {
+    "seq": 59,
+    "choice": 1,
+    "kind": "wait",
+    "wall_s": 11.095265802985523,
+    "feedback_records": 4,
+    "nonempty_feedback_records": 2,
+    "scope": "subscription input smoke on saved real API camera; not an online game result",
+    "paid_api_calls": 0
+  }
+]

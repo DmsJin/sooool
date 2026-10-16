@@ -1,0 +1,75 @@
+{
+  "kind": "frozen_forecast_v9_fresh_paired_closed_loop_diagnostic",
+  "base": {
+    "provider": "subscription",
+    "mode": "sim",
+    "url": "http://127.0.0.1:18791",
+    "suite": "/home/ubuntu/lzj/coding-agent-suite",
+    "profile": "/home/ubuntu/wzh/touhou-sol-study/profile-control-early-study-v1.json",
+    "speed": 1,
+    "workers": 8,
+    "capacity": 8,
+    "history_frames": 3,
+    "image_stride": 30,
+    "decision_stride": 6,
+    "chunk_size": 1,
+    "max_duration": 48,
+    "max_wall_s": 10800,
+    "engine_sha256": "348e81340d4a09f8b488193daf0b4e395afa2755d34f249585ff5e1ffe787aa4",
+    "profile_note": "Historical observed API ready/terminal paired joint vectors, shared across candidates. Not new prompt latency calibration.",
+    "wait_for_move": true,
+    "intro_observation": true,
+    "structured": true,
+    "lean_native": false,
+    "decision_fanout": 4,
+    "cohort_delay": "empirical_joint",
+    "shared_cohort_inputs": true,
+    "stage_timings": true,
+    "visual_memory_points": 8,
+    "wait_for_winner": true,
+    "pixel_controls": true,
+    "aggressive_native": true,
+    "latency_scale": 1,
+    "max_output_tokens": 512,
+    "early_action_delivery": false,
+    "simulation_terminal_hold": true
+  },
+  "jobs": [
+    {
+      "name": "baseline-seed9",
+      "config": {
+        "candidate": "tracking_dodge_safe_intercept_v2",
+        "seed": 9,
+        "delay_seed": 7319
+      }
+    },
+    {
+      "name": "forecast-v9-seed9",
+      "config": {
+        "candidate": "tracking_dodge_forecast_v9",
+        "seed": 9,
+        "delay_seed": 7319
+      }
+    },
+    {
+      "name": "baseline-seed10",
+      "config": {
+        "candidate": "tracking_dodge_safe_intercept_v2",
+        "seed": 10,
+        "delay_seed": 7320
+      }
+    },
+    {
+      "name": "forecast-v9-seed10",
+      "config": {
+        "candidate": "tracking_dodge_forecast_v9",
+        "seed": 10,
+        "delay_seed": 7320
+      }
+    }
+  ],
+  "episode_workers": 2,
+  "api_spend_usd": 0,
+  "not_policy_promotion": true,
+  "no_additional_runs_authorized": true
+}

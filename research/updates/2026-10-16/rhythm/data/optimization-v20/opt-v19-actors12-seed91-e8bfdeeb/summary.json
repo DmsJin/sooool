@@ -1,0 +1,34 @@
+{
+  "mode": "subscription_virtual_joint_delay_simulation",
+  "candidate": "opt-v19-actors12",
+  "seed": 91,
+  "evaluator": {
+    "state": "result",
+    "time_s": 30.001,
+    "score": 47400,
+    "combo": 24,
+    "max_combo": 24,
+    "judged": 52,
+    "counts": {
+      "perfect": 45,
+      "great": 3,
+      "ok": 1,
+      "miss": 3
+    },
+    "empty_presses": 0,
+    "total_notes": 52
+  },
+  "complete": true,
+  "passed": false,
+  "legacy_two_miss_passed": false,
+  "requests": 202,
+  "delivered_plans": 191,
+  "transaction_rejections": 0,
+  "errors": 0,
+  "dropped_capture_requests": 13,
+  "undelivered_requests_at_end": 11,
+  "policy_unchanged": true,
+  "paid_api_calls": 0,
+  "wall_s": 322.2684620488435,
+  "output": "experiments/rhythm/runs/model-timing/optimization-v20/opt-v19-actors12-seed91-e8bfdeeb"
+}

@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "split": "development",
+  "episode": "api-real-human-adaptive-early-v1-seed1",
+  "real_sequences": [8, 12, 16, 20, 24, 28, 32, 36],
+  "human_case_ids": ["human-obs-0148", "human-obs-0301", "human-obs-0671", "human-obs-1393"],
+  "source_selection": "Frozen before candidate comparison. Original win screenshots spanning both excursions and the reported visual 17-28s mismatch; supplementary stationary human observations. These are development cases, not a held-out success estimate."
+}

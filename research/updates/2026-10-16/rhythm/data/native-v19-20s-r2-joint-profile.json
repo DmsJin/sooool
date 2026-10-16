@@ -1,0 +1,918 @@
+{
+  "schema": 1,
+  "kind": "joint_native_transport_conditions",
+  "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-autoresearch-evidence/model-timing/native20-r2-archive/experiments/rhythm/runs/model-timing/native-v19-20s-r2-heldout-1/requests.jsonl",
+  "source_sha256": "3feef545fa4e113e83540b61f0196cff56b36dfee8aa2b756cedcbdb3517e711",
+  "rows": [
+    {
+      "status": "completed",
+      "request_version": 1,
+      "api_rtt_s": 1.9694390700024087,
+      "frame_age_s": 0.02239384764432907,
+      "transport_overhead_s": 0.0395609299975912
+    },
+    {
+      "status": "completed",
+      "request_version": 2,
+      "api_rtt_s": 1.1660160689789336,
+      "frame_age_s": 0.043866943359375,
+      "transport_overhead_s": 0.0414839310210664
+    },
+    {
+      "status": "completed",
+      "request_version": 3,
+      "api_rtt_s": 1.1334993519994896,
+      "frame_age_s": 0.015473046869039535,
+      "transport_overhead_s": 0.027300648012431372
+    },
+    {
+      "status": "completed",
+      "request_version": 4,
+      "api_rtt_s": 1.63667741799145,
+      "frame_age_s": 0.02174418944120407,
+      "transport_overhead_s": 0.034322582008549984
+    },
+    {
+      "status": "completed",
+      "request_version": 5,
+      "api_rtt_s": 1.040990798996063,
+      "frame_age_s": 0.012050048828125,
+      "transport_overhead_s": 0.024909201009897464
+    },
+    {
+      "status": "completed",
+      "request_version": 6,
+      "api_rtt_s": 1.1556803600105923,
+      "frame_age_s": 0.022322900384664536,
+      "transport_overhead_s": 0.05361964000132868
+    },
+    {
+      "status": "completed",
+      "request_version": 7,
+      "api_rtt_s": 1.9670495909813326,
+      "frame_age_s": 0.012627783209085464,
+      "transport_overhead_s": 0.04375040900078586
+    },
+    {
+      "status": "completed",
+      "request_version": 8,
+      "api_rtt_s": 1.359177362988703,
+      "frame_age_s": 0.01710112303495407,
+      "transport_overhead_s": 0.030522637029178457
+    },
+    {
+      "status": "completed",
+      "request_version": 9,
+      "api_rtt_s": 1.1316641820012592,
+      "frame_age_s": 0.012406982421875,
+      "transport_overhead_s": 0.03613581798085952
+    },
+    {
+      "status": "completed",
+      "request_version": 10,
+      "api_rtt_s": 1.131665722001344,
+      "frame_age_s": 0.013378124982118607,
+      "transport_overhead_s": 0.043434278022497885
+    },
+    {
+      "status": "completed",
+      "request_version": 11,
+      "api_rtt_s": 1.3582789129868615,
+      "frame_age_s": 0.021549999982118605,
+      "transport_overhead_s": 0.03162108701909894
+    },
+    {
+      "status": "completed",
+      "request_version": 12,
+      "api_rtt_s": 1.8652436090051197,
+      "frame_age_s": 0.011955859363079071,
+      "transport_overhead_s": 0.027956391012761816
+    },
+    {
+      "status": "completed",
+      "request_version": 13,
+      "api_rtt_s": 1.626176049001515,
+      "frame_age_s": 0.022527978509664537,
+      "transport_overhead_s": 0.040623951010406056
+    },
+    {
+      "status": "completed",
+      "request_version": 14,
+      "api_rtt_s": 2.0434459839889314,
+      "frame_age_s": 0.023035058587789536,
+      "transport_overhead_s": 0.027654016005107973
+    },
+    {
+      "status": "completed",
+      "request_version": 15,
+      "api_rtt_s": 2.2498951660236344,
+      "frame_age_s": 0.02080595701932907,
+      "transport_overhead_s": 0.08390483398828641
+    },
+    {
+      "status": "completed",
+      "request_version": 16,
+      "api_rtt_s": 1.614919330982957,
+      "frame_age_s": 0.024012060552835463,
+      "transport_overhead_s": 0.06658066901704296
+    },
+    {
+      "status": "completed",
+      "request_version": 17,
+      "api_rtt_s": 1.8843873570149299,
+      "frame_age_s": 0.0167841796875,
+      "transport_overhead_s": 0.03711264298507011
+    },
+    {
+      "status": "completed",
+      "request_version": 18,
+      "api_rtt_s": 1.3012098579783924,
+      "frame_age_s": 0.026056054681539535,
+      "transport_overhead_s": 0.0401901420275681
+    },
+    {
+      "status": "completed",
+      "request_version": 19,
+      "api_rtt_s": 1.4256859260203782,
+      "frame_age_s": 0.016361914068460465,
+      "transport_overhead_s": 0.03671407395577986
+    },
+    {
+      "status": "completed",
+      "request_version": 20,
+      "api_rtt_s": 1.548725517001003,
+      "frame_age_s": 0.022934033185243608,
+      "transport_overhead_s": 0.08367448300495739
+    },
+    {
+      "status": "completed",
+      "request_version": 21,
+      "api_rtt_s": 1.3788345099892467,
+      "frame_age_s": 0.026940136700868606,
+      "transport_overhead_s": 0.0853654900286347
+    },
+    {
+      "status": "completed",
+      "request_version": 22,
+      "api_rtt_s": 1.7454957779846154,
+      "frame_age_s": 0.022912011712789535,
+      "transport_overhead_s": 0.039504222015384505
+    },
+    {
+      "status": "completed",
+      "request_version": 23,
+      "api_rtt_s": 1.6138298109872267,
+      "frame_age_s": 0.013918115228414536,
+      "transport_overhead_s": 0.04607018901873383
+    },
+    {
+      "status": "completed",
+      "request_version": 25,
+      "api_rtt_s": 1.4267084969906136,
+      "frame_age_s": 0.022495849609375,
+      "transport_overhead_s": 0.034691503015346736
+    },
+    {
+      "status": "completed",
+      "request_version": 26,
+      "api_rtt_s": 1.6775985349959228,
+      "frame_age_s": 0.015068945318460465,
+      "transport_overhead_s": 0.029801464980235393
+    },
+    {
+      "status": "completed",
+      "request_version": 28,
+      "api_rtt_s": 1.5274749679956585,
+      "frame_age_s": 0.028746191412210464,
+      "transport_overhead_s": 0.03312503199838113
+    },
+    {
+      "status": "completed",
+      "request_version": 29,
+      "api_rtt_s": 1.736472528980812,
+      "frame_age_s": 0.01605205076932907,
+      "transport_overhead_s": 0.04652747101918786
+    },
+    {
+      "status": "completed",
+      "request_version": 30,
+      "api_rtt_s": 1.4627953140006866,
+      "frame_age_s": 0.02402392578125,
+      "transport_overhead_s": 0.045404685987392446
+    },
+    {
+      "status": "completed",
+      "request_version": 31,
+      "api_rtt_s": 1.464168853010051,
+      "frame_age_s": 0.01573002928495407,
+      "transport_overhead_s": 0.042231146995909574
+    },
+    {
+      "status": "completed",
+      "request_version": 32,
+      "api_rtt_s": 1.1853341679961886,
+      "frame_age_s": 0.018701904296875,
+      "transport_overhead_s": 0.060965831985930086
+    },
+    {
+      "status": "completed",
+      "request_version": 33,
+      "api_rtt_s": 1.6893898140115198,
+      "frame_age_s": 0.0172080078125,
+      "transport_overhead_s": 0.05951018599444069
+    },
+    {
+      "status": "completed",
+      "request_version": 34,
+      "api_rtt_s": 1.7129304120026063,
+      "frame_age_s": 0.020881103515625,
+      "transport_overhead_s": 0.056169587991433234
+    },
+    {
+      "status": "completed",
+      "request_version": 35,
+      "api_rtt_s": 2.2673436850018334,
+      "frame_age_s": 0.021687207013368605,
+      "transport_overhead_s": 0.06775631502200863
+    },
+    {
+      "status": "completed",
+      "request_version": 36,
+      "api_rtt_s": 1.1916202680149581,
+      "frame_age_s": 0.014657861322164536,
+      "transport_overhead_s": 0.032479731979081494
+    },
+    {
+      "status": "completed",
+      "request_version": 37,
+      "api_rtt_s": 1.7492661080032121,
+      "frame_age_s": 0.01606396484375,
+      "transport_overhead_s": 0.03593389198486685
+    },
+    {
+      "status": "completed",
+      "request_version": 38,
+      "api_rtt_s": 1.5241109380149283,
+      "frame_age_s": 0.025337060540914537,
+      "transport_overhead_s": 0.041289061991032217
+    },
+    {
+      "status": "completed",
+      "request_version": 39,
+      "api_rtt_s": 1.707350692973705,
+      "frame_age_s": 0.025341943353414536,
+      "transport_overhead_s": 0.06444930703821594
+    },
+    {
+      "status": "completed",
+      "request_version": 40,
+      "api_rtt_s": 1.5638055650051683,
+      "frame_age_s": 0.023514062494039537,
+      "transport_overhead_s": 0.05229443498887121
+    },
+    {
+      "status": "completed",
+      "request_version": 41,
+      "api_rtt_s": 1.754156128008617,
+      "frame_age_s": 0.016320166021585463,
+      "transport_overhead_s": 0.05374387196754116
+    },
+    {
+      "status": "completed",
+      "request_version": 42,
+      "api_rtt_s": 1.3719354219792876,
+      "frame_age_s": 0.017491796880960465,
+      "transport_overhead_s": 0.035564578020712334
+    },
+    {
+      "status": "completed",
+      "request_version": 43,
+      "api_rtt_s": 1.6967006720078643,
+      "frame_age_s": 0.015397900372743606,
+      "transport_overhead_s": 0.049099328004056586
+    },
+    {
+      "status": "completed",
+      "request_version": 44,
+      "api_rtt_s": 1.3227023860090412,
+      "frame_age_s": 0.016070019513368606,
+      "transport_overhead_s": 0.04559761400287976
+    },
+    {
+      "status": "completed",
+      "request_version": 45,
+      "api_rtt_s": 2.0155781250214204,
+      "frame_age_s": 0.015475878894329071,
+      "transport_overhead_s": 0.043521874972618946
+    },
+    {
+      "status": "completed",
+      "request_version": 46,
+      "api_rtt_s": 1.5812877930002287,
+      "frame_age_s": 0.014247998028993607,
+      "transport_overhead_s": 0.07061220700573179
+    },
+    {
+      "status": "completed",
+      "request_version": 47,
+      "api_rtt_s": 1.3816591399954632,
+      "frame_age_s": 0.023819873034954073,
+      "transport_overhead_s": 0.04274086001049726
+    },
+    {
+      "status": "completed",
+      "request_version": 50,
+      "api_rtt_s": 2.325572308996925,
+      "frame_age_s": 0.015804931640625,
+      "transport_overhead_s": 0.07002769099711426
+    },
+    {
+      "status": "completed",
+      "request_version": 51,
+      "api_rtt_s": 1.595723200996872,
+      "frame_age_s": 0.021776074200868606,
+      "transport_overhead_s": 0.04317679900908833
+    },
+    {
+      "status": "completed",
+      "request_version": 52,
+      "api_rtt_s": 2.2160406390030403,
+      "frame_age_s": 0.01548193359375,
+      "transport_overhead_s": 0.04285936100291998
+    },
+    {
+      "status": "completed",
+      "request_version": 53,
+      "api_rtt_s": 1.545998307003174,
+      "frame_age_s": 0.021454052716493605,
+      "transport_overhead_s": 0.05400169299682611
+    },
+    {
+      "status": "completed",
+      "request_version": 54,
+      "api_rtt_s": 2.057903181994334,
+      "frame_age_s": 0.027425927728414536,
+      "transport_overhead_s": 0.04589681801758694
+    },
+    {
+      "status": "completed",
+      "request_version": 55,
+      "api_rtt_s": 1.2825388979981653,
+      "frame_age_s": 0.017432031244039536,
+      "transport_overhead_s": 0.04886110200779514
+    },
+    {
+      "status": "completed",
+      "request_version": 56,
+      "api_rtt_s": 1.4001277089992072,
+      "frame_age_s": 0.022604150384664536,
+      "transport_overhead_s": 0.05847229099483231
+    },
+    {
+      "status": "completed",
+      "request_version": 57,
+      "api_rtt_s": 1.7505170479998924,
+      "frame_age_s": 0.026410009771585464,
+      "transport_overhead_s": 0.056882951976265694
+    },
+    {
+      "status": "completed",
+      "request_version": 58,
+      "api_rtt_s": 1.5144175390014425,
+      "frame_age_s": 0.02188212889432907,
+      "transport_overhead_s": 0.05328246101643885
+    },
+    {
+      "status": "completed",
+      "request_version": 59,
+      "api_rtt_s": 1.5230830979999155,
+      "frame_age_s": 0.015787988275289537,
+      "transport_overhead_s": 0.050916902000084585
+    },
+    {
+      "status": "completed",
+      "request_version": 60,
+      "api_rtt_s": 1.3544230830157176,
+      "frame_age_s": 0.020659863263368605,
+      "transport_overhead_s": 0.08087691699620336
+    },
+    {
+      "status": "completed",
+      "request_version": 61,
+      "api_rtt_s": 1.7502530580095481,
+      "frame_age_s": 0.017065966784954072,
+      "transport_overhead_s": 0.05414694199641246
+    },
+    {
+      "status": "completed",
+      "request_version": 63,
+      "api_rtt_s": 2.0243347849755082,
+      "frame_age_s": 0.027711181640625,
+      "transport_overhead_s": 0.05296521500661022
+    },
+    {
+      "status": "completed",
+      "request_version": 65,
+      "api_rtt_s": 1.6297201790148392,
+      "frame_age_s": 0.016823144525289536,
+      "transport_overhead_s": 0.04147982097323988
+    },
+    {
+      "status": "completed",
+      "request_version": 66,
+      "api_rtt_s": 0.9962405939877499,
+      "frame_age_s": 0.016195019513368606,
+      "transport_overhead_s": 0.04425940601225009
+    },
+    {
+      "status": "completed",
+      "request_version": 67,
+      "api_rtt_s": 1.5412080960231833,
+      "frame_age_s": 0.03876713865995407,
+      "transport_overhead_s": 0.034291903976816585
+    },
+    {
+      "status": "completed",
+      "request_version": 68,
+      "api_rtt_s": 1.2818387690058444,
+      "frame_age_s": 0.022206005841493605,
+      "transport_overhead_s": 0.052761231017997456
+    },
+    {
+      "status": "completed",
+      "request_version": 69,
+      "api_rtt_s": 1.3568201930029318,
+      "frame_age_s": 0.03427788084745407,
+      "transport_overhead_s": 0.05477980699110785
+    },
+    {
+      "status": "completed",
+      "request_version": 70,
+      "api_rtt_s": 1.1680543789989315,
+      "frame_age_s": 0.03188398435711861,
+      "transport_overhead_s": 0.03984562100702904
+    },
+    {
+      "status": "completed",
+      "request_version": 71,
+      "api_rtt_s": 1.4512835049827117,
+      "frame_age_s": 0.022490087896585464,
+      "transport_overhead_s": 0.04871649501728825
+    },
+    {
+      "status": "completed",
+      "request_version": 72,
+      "api_rtt_s": 1.5125608690141235,
+      "frame_age_s": 0.027361962884664536,
+      "transport_overhead_s": 0.03293913098587664
+    },
+    {
+      "status": "completed",
+      "request_version": 73,
+      "api_rtt_s": 1.7695649469969794,
+      "frame_age_s": 0.024402050763368606,
+      "transport_overhead_s": 0.07853505302686248
+    },
+    {
+      "status": "completed",
+      "request_version": 74,
+      "api_rtt_s": 1.6400592779973522,
+      "frame_age_s": 0.029539941400289534,
+      "transport_overhead_s": 0.03764072199072688
+    },
+    {
+      "status": "completed",
+      "request_version": 75,
+      "api_rtt_s": 1.5127638289995957,
+      "frame_age_s": 0.01744580078125,
+      "transport_overhead_s": 0.04733617099444376
+    },
+    {
+      "status": "completed",
+      "request_version": 76,
+      "api_rtt_s": 1.7712316969991662,
+      "frame_age_s": 0.021118896484375,
+      "transport_overhead_s": 0.04706830298295239
+    },
+    {
+      "status": "completed",
+      "request_version": 77,
+      "api_rtt_s": 1.4576690440007951,
+      "frame_age_s": 0.017024023443460466,
+      "transport_overhead_s": 0.041330955999205
+    },
+    {
+      "status": "completed",
+      "request_version": 78,
+      "api_rtt_s": 1.8321130010008346,
+      "frame_age_s": 0.033896142572164535,
+      "transport_overhead_s": 0.047486998993204965
+    },
+    {
+      "status": "completed",
+      "request_version": 79,
+      "api_rtt_s": 1.7438249479746446,
+      "frame_age_s": 0.0332689941227436,
+      "transport_overhead_s": 0.04567505202535549
+    },
+    {
+      "status": "completed",
+      "request_version": 80,
+      "api_rtt_s": 2.104700847005006,
+      "frame_age_s": 0.016374853521585464,
+      "transport_overhead_s": 0.051599152977112706
+    },
+    {
+      "status": "completed",
+      "request_version": 81,
+      "api_rtt_s": 1.7449688290071208,
+      "frame_age_s": 0.02747998046875,
+      "transport_overhead_s": 0.05093117099883959
+    },
+    {
+      "status": "completed",
+      "request_version": 82,
+      "api_rtt_s": 1.2498629110050388,
+      "frame_age_s": 0.023451855450868607,
+      "transport_overhead_s": 0.04483708901284267
+    },
+    {
+      "status": "completed",
+      "request_version": 83,
+      "api_rtt_s": 1.5743572149949614,
+      "frame_age_s": 0.026623974591493606,
+      "transport_overhead_s": 0.056942785016959485
+    },
+    {
+      "status": "completed",
+      "request_version": 84,
+      "api_rtt_s": 2.6514272800122853,
+      "frame_age_s": 0.022431054681539535,
+      "transport_overhead_s": 0.10647271999367502
+    },
+    {
+      "status": "completed",
+      "request_version": 86,
+      "api_rtt_s": 1.4818722409836482,
+      "frame_age_s": 0.039643017560243604,
+      "transport_overhead_s": 0.038027759022312146
+    },
+    {
+      "status": "completed",
+      "request_version": 87,
+      "api_rtt_s": 1.9319042919960339,
+      "frame_age_s": 0.023114160150289536,
+      "transport_overhead_s": 0.03329570799204529
+    },
+    {
+      "status": "completed",
+      "request_version": 88,
+      "api_rtt_s": 1.5434875059872866,
+      "frame_age_s": 0.01472001951932907,
+      "transport_overhead_s": 0.038712494030594735
+    },
+    {
+      "status": "completed",
+      "request_version": 89,
+      "api_rtt_s": 1.475590721995104,
+      "frame_age_s": 0.021991894513368606,
+      "transport_overhead_s": 0.04730927801085638
+    },
+    {
+      "status": "completed",
+      "request_version": 90,
+      "api_rtt_s": 1.5716643129999284,
+      "frame_age_s": 0.027764013677835465,
+      "transport_overhead_s": 0.04663568698219023
+    },
+    {
+      "status": "completed",
+      "request_version": 92,
+      "api_rtt_s": 1.4996708090184256,
+      "frame_age_s": 0.026841992169618606,
+      "transport_overhead_s": 0.0530291909994558
+    },
+    {
+      "status": "completed",
+      "request_version": 93,
+      "api_rtt_s": 1.6680305349873379,
+      "frame_age_s": 0.015348095685243606,
+      "transport_overhead_s": 0.029869465018622643
+    },
+    {
+      "status": "completed",
+      "request_version": 94,
+      "api_rtt_s": 1.440619364992017,
+      "frame_age_s": 0.021619970709085466,
+      "transport_overhead_s": 0.05968063499010179
+    },
+    {
+      "status": "completed",
+      "request_version": 95,
+      "api_rtt_s": 1.896040584979346,
+      "frame_age_s": 0.03892705076932907,
+      "transport_overhead_s": 0.03835941502661444
+    },
+    {
+      "status": "completed",
+      "request_version": 96,
+      "api_rtt_s": 1.482683840993559,
+      "frame_age_s": 0.02289794921875,
+      "transport_overhead_s": 0.04441615900048057
+    },
+    {
+      "status": "completed",
+      "request_version": 97,
+      "api_rtt_s": 1.6800457149802241,
+      "frame_age_s": 0.012804052740335465,
+      "transport_overhead_s": 0.033054285013815354
+    },
+    {
+      "status": "completed",
+      "request_version": 98,
+      "api_rtt_s": 1.6106753409840167,
+      "frame_age_s": 0.017476171880960463,
+      "transport_overhead_s": 0.044824659015983315
+    },
+    {
+      "status": "completed",
+      "request_version": 100,
+      "api_rtt_s": 1.0816386570222676,
+      "frame_age_s": 0.02175390625,
+      "transport_overhead_s": 0.04576134298369294
+    },
+    {
+      "status": "completed",
+      "request_version": 101,
+      "api_rtt_s": 1.1355711219948716,
+      "frame_age_s": 0.029526025384664537,
+      "transport_overhead_s": 0.041128877993207524
+    },
+    {
+      "status": "completed",
+      "request_version": 102,
+      "api_rtt_s": 1.7690436459961347,
+      "frame_age_s": 0.022331884771585465,
+      "transport_overhead_s": 0.0667563539859839
+    },
+    {
+      "status": "completed",
+      "request_version": 103,
+      "api_rtt_s": 1.5833120030001737,
+      "frame_age_s": 0.08083798828721046,
+      "transport_overhead_s": 0.04818799699982623
+    },
+    {
+      "status": "completed",
+      "request_version": 104,
+      "api_rtt_s": 1.383570879988838,
+      "frame_age_s": 0.022210107415914535,
+      "transport_overhead_s": 0.04932912001712242
+    },
+    {
+      "status": "completed",
+      "request_version": 105,
+      "api_rtt_s": 1.6959083729889244,
+      "frame_age_s": 0.020715966790914534,
+      "transport_overhead_s": 0.04259162701107555
+    },
+    {
+      "status": "completed",
+      "request_version": 106,
+      "api_rtt_s": 1.877063187013846,
+      "frame_age_s": 0.021587841778993606,
+      "transport_overhead_s": 0.0524368129861541
+    },
+    {
+      "status": "completed",
+      "request_version": 107,
+      "api_rtt_s": 1.873493207996944,
+      "frame_age_s": 0.012794921875,
+      "transport_overhead_s": 0.03600679200305601
+    },
+    {
+      "status": "completed",
+      "request_version": 108,
+      "api_rtt_s": 1.9405024620064069,
+      "frame_age_s": 0.02666606444120407,
+      "transport_overhead_s": 0.044997537993593184
+    },
+    {
+      "status": "completed",
+      "request_version": 109,
+      "api_rtt_s": 1.7436620889930055,
+      "frame_age_s": 0.021605908185243605,
+      "transport_overhead_s": 0.05163791101891557
+    },
+    {
+      "status": "completed",
+      "request_version": 110,
+      "api_rtt_s": 1.7736910259991419,
+      "frame_age_s": 0.02414404296875,
+      "transport_overhead_s": 0.04840897399489763
+    },
+    {
+      "status": "completed",
+      "request_version": 111,
+      "api_rtt_s": 1.431797976983944,
+      "frame_age_s": 0.014150146484375,
+      "transport_overhead_s": 0.04330202301009556
+    },
+    {
+      "status": "completed",
+      "request_version": 112,
+      "api_rtt_s": 1.4428512750018854,
+      "frame_age_s": 0.021922998040914535,
+      "transport_overhead_s": 0.075048725004075
+    },
+    {
+      "status": "completed",
+      "request_version": 113,
+      "api_rtt_s": 1.2995652179815806,
+      "frame_age_s": 0.014328857421875,
+      "transport_overhead_s": 0.06943478201841935
+    },
+    {
+      "status": "completed",
+      "request_version": 115,
+      "api_rtt_s": 1.3272811350179836,
+      "frame_age_s": 0.021605859369039537,
+      "transport_overhead_s": 0.034118864987976893
+    },
+    {
+      "status": "completed",
+      "request_version": 116,
+      "api_rtt_s": 1.220224322983995,
+      "frame_age_s": 0.027677978515625,
+      "transport_overhead_s": 0.03987567701004435
+    },
+    {
+      "status": "completed",
+      "request_version": 117,
+      "api_rtt_s": 1.451699875004124,
+      "frame_age_s": 0.02118408203125,
+      "transport_overhead_s": 0.033200125001836556
+    },
+    {
+      "status": "completed",
+      "request_version": 118,
+      "api_rtt_s": 1.4460240550106391,
+      "frame_age_s": 0.022755957037210464,
+      "transport_overhead_s": 0.043875944965519054
+    },
+    {
+      "status": "completed",
+      "request_version": 120,
+      "api_rtt_s": 1.288907398993615,
+      "frame_age_s": 0.021433935552835466,
+      "transport_overhead_s": 0.04649260098254304
+    },
+    {
+      "status": "completed",
+      "request_version": 121,
+      "api_rtt_s": 1.581455994019052,
+      "frame_age_s": 0.026506054669618608,
+      "transport_overhead_s": 0.047244005998829275
+    },
+    {
+      "status": "completed",
+      "request_version": 122,
+      "api_rtt_s": 2.168411022023065,
+      "frame_age_s": 0.039413134753704074,
+      "transport_overhead_s": 0.04708897797693501
+    },
+    {
+      "status": "completed",
+      "request_version": 123,
+      "api_rtt_s": 2.1885641099943314,
+      "frame_age_s": 0.02191801756620407,
+      "transport_overhead_s": 0.046635890023550175
+    },
+    {
+      "status": "completed",
+      "request_version": 124,
+      "api_rtt_s": 1.8365367010119371,
+      "frame_age_s": 0.027490136712789534,
+      "transport_overhead_s": 0.06436329899402327
+    },
+    {
+      "status": "completed",
+      "request_version": 125,
+      "api_rtt_s": 1.3161042150168214,
+      "frame_age_s": 0.021196972638368606,
+      "transport_overhead_s": 0.04019578499509957
+    },
+    {
+      "status": "completed",
+      "request_version": 126,
+      "api_rtt_s": 1.8579540089995135,
+      "frame_age_s": 0.014402099609375,
+      "transport_overhead_s": 0.043745990988565575
+    },
+    {
+      "status": "completed",
+      "request_version": 127,
+      "api_rtt_s": 1.2704869900189806,
+      "frame_age_s": 0.016873974591493607,
+      "transport_overhead_s": 0.03481300999294046
+    },
+    {
+      "status": "completed",
+      "request_version": 128,
+      "api_rtt_s": 1.1716541289933957,
+      "frame_age_s": 0.0257470703125,
+      "transport_overhead_s": 0.04544587100064379
+    },
+    {
+      "status": "completed",
+      "request_version": 129,
+      "api_rtt_s": 0.9940634240047075,
+      "frame_age_s": 0.015951953113079072,
+      "transport_overhead_s": 0.04673657600721337
+    },
+    {
+      "status": "completed",
+      "request_version": 130,
+      "api_rtt_s": 1.0019908829999622,
+      "frame_age_s": 0.029024072259664534,
+      "transport_overhead_s": 0.048909117005998315
+    },
+    {
+      "status": "completed",
+      "request_version": 131,
+      "api_rtt_s": 1.3482898829970509,
+      "frame_age_s": 0.017330175787210463,
+      "transport_overhead_s": 0.04211011697910716
+    },
+    {
+      "status": "completed",
+      "request_version": 132,
+      "api_rtt_s": 1.2758372600073926,
+      "frame_age_s": 0.022403027325868605,
+      "transport_overhead_s": 0.041362740010488785
+    },
+    {
+      "status": "completed",
+      "request_version": 133,
+      "api_rtt_s": 1.0284236299921758,
+      "frame_age_s": 0.02727392578125,
+      "transport_overhead_s": 0.05277636999590318
+    },
+    {
+      "status": "completed",
+      "request_version": 135,
+      "api_rtt_s": 0.9987865230068564,
+      "frame_age_s": 0.026052148431539534,
+      "transport_overhead_s": 0.05011347699910407
+    },
+    {
+      "status": "completed",
+      "request_version": 137,
+      "api_rtt_s": 2.077167350013042,
+      "frame_age_s": 0.025929882794618605,
+      "transport_overhead_s": 0.0547326499929186
+    },
+    {
+      "status": "completed",
+      "request_version": 138,
+      "api_rtt_s": 1.9764313389896415,
+      "frame_age_s": 0.022435986310243607,
+      "transport_overhead_s": 0.04056866101035839
+    },
+    {
+      "status": "completed",
+      "request_version": 139,
+      "api_rtt_s": 1.0223673330037855,
+      "frame_age_s": 0.013941845685243606,
+      "transport_overhead_s": 0.033932667008135464
+    },
+    {
+      "status": "completed",
+      "request_version": 140,
+      "api_rtt_s": 1.0355329109879676,
+      "frame_age_s": 0.016613964825868608,
+      "transport_overhead_s": 0.08316708902991388
+    },
+    {
+      "status": "completed",
+      "request_version": 141,
+      "api_rtt_s": 1.031947309995303,
+      "frame_age_s": 0.015420068353414536,
+      "transport_overhead_s": 0.031452690010657536
+    },
+    {
+      "status": "completed",
+      "request_version": 142,
+      "api_rtt_s": 1.0901745049923193,
+      "frame_age_s": 0.0159921875,
+      "transport_overhead_s": 0.03722549501364125
+    }
+  ],
+  "excluded_without_completed_metadata": [],
+  "selection": "Every completed response with public frame/snapshot/apply clocks; tails retained",
+  "actor_exposure": "None; these are trusted simulation conditions only",
+  "limitations": [
+    "Within-row correlation is preserved; random resampling does not preserve temporal correlation.",
+    "Conditions reflect the recorded source configuration; later sensor, host or load changes may differ."
+  ]
+}

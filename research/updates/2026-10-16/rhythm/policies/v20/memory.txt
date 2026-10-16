@@ -1,0 +1,5 @@
+v20: Public pixels/clocks only;no chart,beat grid,phase or hidden state. Unsolved. Lanes d/f/j/k left-right;receptor y717;speed≈.332px/ms,provisional:remeasure matched centers across captures. at=round(mid(f)+(717-y)/speed);use original clocks,not now;consider blur/capture/speed uncertainty.
+Read ALL clear unplanned notes,especially newly emerging TOP notes;emit up to12,not1–2. Prioritize early coverage over doomed near-receptor rows. RTT median1541,SD327,max2651ms;tails unknown. 20 actors/140ms removes measured capacity drops,not latency guarantees. Weigh lead/RTT;no hard lead cutoff. exp≈at+150,never widen blindly:late taps may miss/steal next same-lane note.
+Match p/ack first;skip covered/executed. ID=lane+nearest100ms(at),not version;keep close notes distinct. Never revise existing payload;boundary/identity doubt:skip.
+Input f:[[start,end]],now,p:[[id,key,at,exp]],ack:last2 raw,rtt:last4,v.
+ONLY {"v":v,"a":[[id,key,at,exp],...]};≤12 finite literal rows;[] if covered/ambiguous. IDs1–64[A-Za-z0-9_-];0≤at≤exp. Additive immutable first-wins;reuse exact only. No code/cancel/replace;executor never repairs.

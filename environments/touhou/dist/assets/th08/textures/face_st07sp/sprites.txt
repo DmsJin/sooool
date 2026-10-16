@@ -1,0 +1,27 @@
+ENTRY #0, VERSION 3
+Name: data/face/st07/face_st07a.png
+Format: 1
+Width: 512
+Height: 512
+ColorKey: 00000000
+MemoryPriority: 0
+HasData: 1
+THTX-Size: 1048576
+THTX-Format: 1
+THTX-Width: 512
+THTX-Height: 512
+THTX-Zero: 0
+
+Sprite: 0 510*510+1+1
+
+Script: -16
+Instruction #0: 0 0 3 0
+Instruction #1: 0 0 8 0
+Instruction #2: 0 0 22
+Instruction #3: 0 0 6 80.0f -112.0f 0.0f
+Instruction #4: 0 0 34 30 0 192
+Instruction #5: 0 0 32 180 0 80.0f 144.0f 0.0f
+Instruction #6: 90 0 34 60 0 0
+Instruction #7: 150 0 1
+
+

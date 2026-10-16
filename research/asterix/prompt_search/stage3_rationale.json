@@ -1,0 +1,11 @@
+{
+  "derived_from": "stage1 development results only; stage2 regression results not inspected for prompt editing",
+  "changes": [
+    "distinguish an empty neighboring row from a lyre-containing row before choosing retreat versus crossing",
+    "encourage progress through safe gaps rather than gratuitous waiting",
+    "put perception and action-arrival projection before maneuver choice"
+  ],
+  "no_case_specific_ids_or_coordinates": true,
+  "comparison": "baseline versus maneuver_v3 on the same 9 development inputs, 3 repetitions each",
+  "paid_api_calls": 0
+}

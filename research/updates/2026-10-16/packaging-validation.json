@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-16",
+  "mode": "offline packaging validation; no fresh model or paid API calls",
+  "checks": {
+    "root_timing_redaction": 9,
+    "archived_rhythm_streaming": 13,
+    "archived_touhou_feedback_scheduler": 57,
+    "archived_racing_executor": 5,
+    "archived_python_modules_parsed": 521
+  },
+  "integrity": {
+    "archive_parts": 15,
+    "archive_bytes": 570048528,
+    "evidence_file_hashes_verified": 63281,
+    "main_file_hashes_verified": 4807,
+    "discussion_archive_hashes_verified": 5
+  },
+  "credential_scan": {
+    "text_files": 56664,
+    "pattern_hits": 0,
+    "scope": "packaged text plus compressed visible discussion archives; excludes original auth/session directories"
+  },
+  "scope": "Historical packaging checkpoint before subsequent policy retirement; current validation is artifacts/policy-retirement-integrity.json"
+}

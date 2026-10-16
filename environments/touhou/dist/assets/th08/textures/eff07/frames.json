@@ -1,0 +1,38 @@
+[
+  {
+    "id": 0,
+    "entry": 0,
+    "image": "data/eff00/eff05.png",
+    "x": 0.0,
+    "y": 0.0,
+    "width": 256.0,
+    "height": 256.0
+  },
+  {
+    "id": 1,
+    "entry": 1,
+    "image": "data/eff00/eff05b.png",
+    "x": 0.0,
+    "y": 0.0,
+    "width": 256.0,
+    "height": 256.0
+  },
+  {
+    "id": 2,
+    "entry": 2,
+    "image": "data/eff00/eff07b.png",
+    "x": 0.0,
+    "y": 0.0,
+    "width": 384.0,
+    "height": 448.0
+  },
+  {
+    "id": 3,
+    "entry": 3,
+    "image": "data/eff00/eff07.png",
+    "x": 0.0,
+    "y": 0.0,
+    "width": 384.0,
+    "height": 448.0
+  }
+]

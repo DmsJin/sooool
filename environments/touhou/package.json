@@ -1,0 +1,1 @@
+{"name":"kaguya-gym","private":true,"type":"module","scripts":{"test":"node --test tests/engine.test.mjs","start":"python3 -m http.server 8787 --directory dist"}}

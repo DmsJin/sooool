@@ -1,0 +1,378 @@
+{
+  "kind": "posthoc_real_early_control_readiness",
+  "version": 1,
+  "k": 4,
+  "not_serial_fastest_api_profile": true,
+  "delay_definition": "callback_start_wall_s + callback_elapsed_s - (capture_clock.wall_ms/1000 + median_clock_offset_s)",
+  "publication_timestamp_kind": "measured_callback_return_upper_bound; exact fsync/publication timestamps were not logged",
+  "terminal_definition": "coordinator completed_wall_s; censored tail follows explicit terminal_tail_policy",
+  "terminal_tail_policy": "durable_plus_median_poll_lag",
+  "apply_overhead_s": 0.08067407849011943,
+  "joint_delay_vectors_s": [
+    [
+      2.348035490992014,
+      2.3997860569874763,
+      2.7357170090039733,
+      2.6454088470276917
+    ],
+    [
+      1.9594433229961439,
+      2.0691061340060557,
+      2.458242272028933,
+      2.181260034997017
+    ],
+    [
+      2.444641992970837,
+      2.6480673970044606,
+      2.4565282629891314,
+      3.0365330049798374
+    ],
+    [
+      3.48858907900029,
+      2.9648219619968454,
+      3.482694209987299,
+      3.387925767017064
+    ],
+    [
+      3.195241801960627,
+      3.6165120469774124,
+      3.2640220859863334,
+      3.2109176710033793
+    ],
+    [
+      2.9077612449717734,
+      2.7445296389877356,
+      4.32237669798895,
+      3.4117540939431663
+    ],
+    [
+      2.2923878870005723,
+      2.6961679129835687,
+      3.428894453021698,
+      3.6315786569993946
+    ],
+    [
+      2.5506117379898186,
+      2.350476254001258,
+      2.6813557559996823,
+      2.755736679993568
+    ],
+    [
+      3.428903840974904,
+      3.490868265971308,
+      2.438138370982138,
+      3.1037934869797894
+    ],
+    [
+      2.43541351899551,
+      2.0665055500161813,
+      2.066286189993143,
+      3.0034413619891254
+    ],
+    [
+      2.6720881479606007,
+      2.403861239004179,
+      3.439642543967345,
+      2.5096589799551268
+    ],
+    [
+      2.0204880379619965,
+      2.039421895985953,
+      2.1934203929863827,
+      2.5225212560049215
+    ],
+    [
+      3.1377382479992235,
+      3.2153344509867026,
+      3.216416310999776,
+      3.024320026991191
+    ],
+    [
+      2.7707931169709212,
+      3.6707280419643524,
+      2.77339119597967,
+      2.768666326998968
+    ],
+    [
+      2.6864490189801415,
+      3.221529093982184,
+      2.7402132239986656,
+      3.619920502013059
+    ],
+    [
+      2.585446631019934,
+      2.8676689369974184,
+      3.2196567680009167,
+      3.447533059989567
+    ],
+    [
+      3.583523923976344,
+      3.1704357180073828,
+      3.3942117600031168,
+      2.964079634993567
+    ],
+    [
+      2.7142749849953702,
+      2.674775328989142,
+      2.6726031089855837,
+      3.126233911003453
+    ],
+    [
+      2.5851941389990998,
+      2.6401730350188473,
+      3.005534194016832,
+      3.189781069013293
+    ]
+  ],
+  "joint_terminal_delay_vectors_s": [
+    [
+      3.2777404339944485,
+      3.27774814400659,
+      3.2778299840069383,
+      3.277836044006516
+    ],
+    [
+      2.2911287260088145,
+      2.4196379450170795,
+      2.7400278890002525,
+      2.485410530005815
+    ],
+    [
+      2.8948156359810397,
+      3.75528541599936,
+      2.894949515987655,
+      3.755292995975587
+    ],
+    [
+      5.459229886994931,
+      4.229540617988446,
+      5.459238276988968,
+      4.234709866982653
+    ],
+    [
+      4.071633019975387,
+      4.072000529991463,
+      4.072013379972894,
+      4.072020249990281
+    ],
+    [
+      3.6803517709730684,
+      3.6803574419708482,
+      5.489143431967825,
+      4.963309375972024
+    ],
+    [
+      2.5949054719912823,
+      3.010576056994964,
+      4.1259229559891395,
+      4.238760665999493
+    ],
+    [
+      2.8956678789888954,
+      2.895676448990123,
+      2.9781519719888436,
+      2.9781589219835567
+    ],
+    [
+      4.538228228977182,
+      4.538237088968977,
+      2.78531596399052,
+      3.4700620469790877
+    ],
+    [
+      3.0856479449889136,
+      2.459084687014574,
+      2.459090626989955,
+      3.4135062390000073
+    ],
+    [
+      3.1128605909808513,
+      2.858251011993268,
+      3.690562832988796,
+      3.1129515709809468
+    ],
+    [
+      2.5179300259929107,
+      2.583993610985573,
+      2.616918877990912,
+      2.6755274929760446
+    ],
+    [
+      3.6516886759933556,
+      3.7345508689910645,
+      3.73455858898582,
+      3.400117475991138
+    ],
+    [
+      3.274749143979747,
+      4.641653550991791,
+      3.6744642719852294,
+      3.3609146479859504
+    ],
+    [
+      3.1274744120056255,
+      3.9302443550005535,
+      3.175172787978312,
+      4.148961126982698
+    ],
+    [
+      3.260435104989213,
+      3.260442795007023,
+      4.106364365005632,
+      4.1064622539931435
+    ],
+    [
+      4.136315377990712,
+      4.136323508000231,
+      4.136329857990376,
+      4.136335347991434
+    ],
+    [
+      3.2203238629808197,
+      4.07499777197512,
+      4.075007281971864,
+      4.075013391971822
+    ],
+    [
+      2.9386389404970714,
+      3.1342842735028853,
+      3.392874002500207,
+      3.57252411752404
+    ]
+  ],
+  "image_counts": [
+    1,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+  ],
+  "provenance": [
+    {
+      "episode": "/home/zihan/.codex/visualizations/2026/10/15/01a13e38-8ae9-7c13-8e41-d214caeb01a5/kaguya-api-win/api-real-human-adaptive-early-v1-seed1",
+      "clock_offset_s": 3.3427546290052117,
+      "issued_candidates": 76,
+      "applied_count": 18,
+      "cohorts": 19,
+      "excluded_tail_cohorts": [],
+      "modeled_terminal_tail_cohorts": [
+        72
+      ],
+      "modeled_tail_poll_lag_s": 0.14284693851368502,
+      "source_sha256": {
+        "config.json": "0fc6603bb878d45b0f1d52138369d707a4953e1dcc95098f34b35d4e69fc4b39",
+        "summary.json": "ae5436b90445dceac68d8429e52577a7e2c3836531a1f7a855ed2cdc1a23f537",
+        "issued.jsonl": "6f722f76ca402492b90af5e058a1fb742f382ec53ef5cdebba71de654b36d15f",
+        "decisions.jsonl": "99224bc6b57cde17ffe0ffd2db1d7f7f5ad2dbc2493b45c5004d0fa155842a07",
+        "actions.jsonl": "a482febfb466c41a45e4f55bd9693f3c35bf5d41678abe842f35769a366d864d"
+      },
+      "early_file_sha256": {
+        "decision_00000/early_result.json": "1e34b03bb50222fabac5c483afb66b3e95ef2624f7482f7bef4a931177173675",
+        "decision_00001/early_result.json": "58258c517ee88804fc8d13d597f97e34a602230cf87434e6c815e3f0aa7a77b9",
+        "decision_00002/early_result.json": "f0975af74850c618e02a6fe5f9cedac58e922a75eef7a69b7ffca658f6fbeb87",
+        "decision_00003/early_result.json": "840be9d4fdd336141aca22addaab7c45e68806e66241a259259139ba206f4eac",
+        "decision_00004/early_result.json": "d83261ef46202c038439aee40f8e24617a5187b38dce8c9706ba472deae43cf2",
+        "decision_00005/early_result.json": "9eae6d5d621722b93454f68a7e3788f056bf335f5cb17dbd196d442effd04b0c",
+        "decision_00006/early_result.json": "e40622675a3900a4a12b57f7b67791cc2bd8b87f1a05163dee52d659f46edb06",
+        "decision_00007/early_result.json": "b009fd1b4a1959ef468b21707353461a92dea7633fc753eb487543432f4e052e",
+        "decision_00008/early_result.json": "f8d537bada3d9e0d0180025f03b905438dc526c5aa87d90e236c4047967cbeb1",
+        "decision_00009/early_result.json": "e541f16136d011b103c62a7a673e43ccc3910e125a404f3693d10d970817c298",
+        "decision_00010/early_result.json": "9f43711be3d9a9146c4411c28d72f93620f724c0cd310e24e47722b8f7436e87",
+        "decision_00011/early_result.json": "165e0b8d5ad39af001f6baf6f697d43aca2198410e266a2ff8e2c961c117b096",
+        "decision_00012/early_result.json": "614aaf455aa985ffbebb8cf15bc6cf5407f54fd30a1941925af6756ae8624192",
+        "decision_00013/early_result.json": "44e5aa5f620180d9e5863626392a0b1c66046d97751eb0aae499fdf7a5b405d1",
+        "decision_00014/early_result.json": "15203fef4b1d681a3a3d2499d45665701c01618f5cabbc25f7f31d58de42c8e0",
+        "decision_00015/early_result.json": "be9ddf8df21309f7eece975f318e18473123edb7edab457b39d570947ca378a1",
+        "decision_00016/early_result.json": "b3f87bc2a1e00039c1c1febeae4fff68b55e3fc8f2bcbec677f156fbe33355e3",
+        "decision_00017/early_result.json": "086cb33030310aee9f4894ea93b3e80fbce7b360b5187187e8d8c6931d27ea37",
+        "decision_00018/early_result.json": "1f343c99099233dcbf8ba790c68475fbb5c03254df953deed524ba681e49861e",
+        "decision_00019/early_result.json": "79e2972fa8130966bbc40d7b82537f5710c49a109f69daa676c29d765fa25741",
+        "decision_00020/early_result.json": "08dbab44153689ece4e27b404bf901303540b1bb33e3da0a3397ba564acf19a3",
+        "decision_00021/early_result.json": "bbcd34728d116c471e1185f36c6f25fce2eb51c94808ddc8714f50aed04a04e3",
+        "decision_00022/early_result.json": "773ad66c4c24526a1f3c239f464e48c92228820917c9b7eeb40a8d494a51a9b8",
+        "decision_00023/early_result.json": "586246f9cd185b4ddb958b736332b2a1e4bc4518717ce75b498e08d7ff329f29",
+        "decision_00024/early_result.json": "4645ff086063ee71b994a5170e1232b42d572c6a09ff57f01e479085492f0913",
+        "decision_00025/early_result.json": "9b819918751f430f536b6a7193288beb856cc8c6334b8a555c2f5b34cf931a45",
+        "decision_00026/early_result.json": "1c2df124ea38495b6bfa89203eff57d32388d30ab31d8d32c33c2ec126d59bf3",
+        "decision_00027/early_result.json": "61225ee7429df89a4e184d372716baed18d4a74c12087732b4fe4d70be517f97",
+        "decision_00028/early_result.json": "9d32ce2bf2f41323688be4d1355c96d45a1b97f6b315ad679afce0e5b5ca3dd3",
+        "decision_00029/early_result.json": "e09bc9f5a16a3008d541d4d5b3d865a32ab4f9c6af4b52e652f1826e65bb154d",
+        "decision_00030/early_result.json": "eeabc5464d4bbdf61793437129e872651d81ead3fb499e178a8527c75c93b02b",
+        "decision_00031/early_result.json": "ec4c5b6e8e4aca59ca4032bf363ece41c4fc50dadeb1e64e1ac7fa5ef4eec481",
+        "decision_00032/early_result.json": "88cff28e13a36b4d9b66d95c059c50549d6c94545b44921c6978a4419ed16626",
+        "decision_00033/early_result.json": "798b9a78ae70d8a01644803d7f8592a23d39979e1ebee1e791c3669b90d94665",
+        "decision_00034/early_result.json": "26f7fa26d62bb8e6cc398740538d9f8ef05bb6c4a2e5e19f98fac223d72a267a",
+        "decision_00035/early_result.json": "11cb9b8df02897f1324ae65ca3ea60a9f5371e75cb2f943151ad6b10e9e99bec",
+        "decision_00036/early_result.json": "d1b237a39730b4f91acb32e94b431ea9e531d329bb426ce7870c4fd34d9af3e7",
+        "decision_00037/early_result.json": "ccaed554b8d95c5904edd61eed6492665e65987bb70a91289ba8a48f856f007e",
+        "decision_00038/early_result.json": "b0bc6e5bf9b27d4d5d5ff9e9bc9901e2303e78f5366ebb5eed4795cb70b937fd",
+        "decision_00039/early_result.json": "ff6f0e0d0c26b9f9c4849700acf4f93a4dcb410c12d98d50ede5d3d38a62e3f6",
+        "decision_00040/early_result.json": "150b861681a08e870742dca3bf839677cbb58308a1e11bff34dbbd7c85933290",
+        "decision_00041/early_result.json": "d7148474aec160af40e36b21b3bc7d00e7a0cb748cc0ed1d5a79b2019938d15b",
+        "decision_00042/early_result.json": "7b67ea7e2f626db2d3254c2425d9b0f7ccc27e9196eef060253b7ea095d8cff6",
+        "decision_00043/early_result.json": "32cf0437c8a5b93a9d0fab9a1b8934a9dd709246f7e1495c180d0b4b45e56e23",
+        "decision_00044/early_result.json": "fdd25d015228e744b991637e289aef71b8c26421837bdeac220424003b5bd9a3",
+        "decision_00045/early_result.json": "9e89809d14818a65bc1db83dd1fc934433da5d09c6b0afc5ef5115078e23d37f",
+        "decision_00046/early_result.json": "013e69da328a72cb5eb11e2cb2722d83332beb54b392ae3615a8ba92b1942eaa",
+        "decision_00047/early_result.json": "9af779cbe5e9f6a543a0c81dacde5c99ccce6a2db51e8adb1ba9bec1cabc886d",
+        "decision_00048/early_result.json": "f9c70fb0e42b4d99e72be472bbac0959ee3039926543547ea33b253d703796a9",
+        "decision_00049/early_result.json": "c78cb0c3db27045a1ea0b1524b79a1f3341ed37ff0cd88deaad12b1faf0b15d4",
+        "decision_00050/early_result.json": "4d3c53e51bc7011c48600305bb0a942b70c5fbf8a9d064df51c738b1505283c9",
+        "decision_00051/early_result.json": "ca91186b00b6a2d7acbb92607e0a17f58756c4adec0c61556d6410ec848f912a",
+        "decision_00052/early_result.json": "72fd4be000eacab20b1cb8c958f15c3f4251367803dde9f256ab168484afc125",
+        "decision_00053/early_result.json": "34352c608d156a75fcf49f8defcd97e46d0f5d51667e3e5790e15bc23e5da206",
+        "decision_00054/early_result.json": "763a2469ded3f86fb6cca9fadac1df9c28ca98fedb11a71bc2007a3aef1a166e",
+        "decision_00055/early_result.json": "2fde31722e0f00cd89e876d90dd04d7134b9c0623e4ff32c8779a9e4a687a79a",
+        "decision_00056/early_result.json": "e82cde79b614f82199c8d79b31473a8243f0f98771ccb772bef4fbb85b970aae",
+        "decision_00057/early_result.json": "cfa1da0eeafa9a5948c25943a68af836ad29665920b67a1f51b988069a0081bb",
+        "decision_00058/early_result.json": "273754f5a842a41077e4cee0c3a65c5d59ffbd91d41a3f4089f7b5bf316fa033",
+        "decision_00059/early_result.json": "b567680aad5f75f6b5562677f645fbb9bbc9fff3c0b09fffc77d8b0aa450f5af",
+        "decision_00060/early_result.json": "760351618632fc23907d3f8c9c69d56c128cb3754b9214bb49f806f796bdb3e6",
+        "decision_00061/early_result.json": "6151714c47b71e18c7d183c5e3751c42efe2b3c0ae7828386641d94be4144f08",
+        "decision_00062/early_result.json": "21deac35e1a25df1836ecb9ff29c01bac4778827f7bb28e1192542f123c305ec",
+        "decision_00063/early_result.json": "f74878a0d30a17698dabaee6c8ad922565f3a0a69500c1a432c74842f0c642bf",
+        "decision_00064/early_result.json": "5770f7032fae24504af67ceaf8fdb870c8700b583b1c8b138c2a451be48f699e",
+        "decision_00065/early_result.json": "2513a0361f63a60546b5b4826c899a70d05b486ac5691baac4c9a37c03bb3fd5",
+        "decision_00066/early_result.json": "afd13547a6e32703397fdb18c2bcb64ebba50ecee713a477e3208b7b08e9a791",
+        "decision_00067/early_result.json": "2f26aec30d7049aeded362f3e2a9765aa6539593eec38ac32808f1498c655dc7",
+        "decision_00068/early_result.json": "400e35bd4b7a53070c3a20c20d0a106736e43cf6913460af4e6a9b93de2ec9d3",
+        "decision_00069/early_result.json": "5489f7006cb4dd56853a56a94d38ac865459aeda574436e32d85b695ce43544f",
+        "decision_00070/early_result.json": "1bbec33476a7d127fc719064a69997bf3cec02aab5ab3a072b631631b88db47a",
+        "decision_00071/early_result.json": "144ce877c3bf79645056a2b6c3dbe089bb4e038ba7285be7b91526018953a7a3",
+        "decision_00072/early_result.json": "affd7c0c75a66185bb338873a46fb7c72b754421ee470e8b1f35d2ea445e365c",
+        "decision_00073/early_result.json": "1c18de02c7aff67d9aca8ff438232849492eab0adcb2cafb46f9b486d92355b9",
+        "decision_00074/early_result.json": "89945a2b828b6e5caf858c4cb5aabe5610caf718047e1a665c43b021b620094c",
+        "decision_00075/early_result.json": "d70a5b5c03844f53aa61dc11ce1b2e271d83dc208207f4fe91b2a2a746489021"
+      }
+    }
+  ],
+  "control_age_kind": "observed_early_browser_capture_to_apply",
+  "control_age_p50_s": 2.6913499999940393,
+  "control_age_p95_s": 3.1702049999907604,
+  "control_age_capture_completed_p50_s": 2.6148773634999998,
+  "control_age_capture_completed_p95_s": 3.0886775647499993,
+  "control_age_capture_started_p50_s": 2.7330580435,
+  "control_age_capture_started_p95_s": 3.275856824449999,
+  "control_age_frames_as_s_p50": 2.6833333333333336,
+  "control_age_frames_as_s_p95": 3.184166666666666,
+  "applied_count": 18,
+  "p50_s": 2.453789,
+  "p95_s": 3.033273,
+  "actuator_overhead_note": "Median of 18 observed Python apply acknowledgement minus same selected request callback-return upper bound from original early real API episode; fixed before candidate episode results. Captured browser-to-Python clock alignment and tail extrapolation remain approximate.",
+  "marginal_latency_note": "Historical exact adaptive-task serial API terminal marginal, from profile-final-human-adaptive-v2.jsonl; new candidate prompts are not yet serially recalibrated. Development comparison condition only.",
+  "development_limitation": "Original adaptive real API timing distribution used for all prompt candidates in development; prompt-dependent latency may change. No sampled current delay is revealed to actors."
+}

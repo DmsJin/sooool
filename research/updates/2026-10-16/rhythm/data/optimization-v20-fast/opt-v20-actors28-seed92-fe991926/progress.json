@@ -1,0 +1,1 @@
+{"game_s": 30.0, "requests": 301, "pending": 16, "drops": 0, "errors": 0, "evaluator": {"state": "playing", "time_s": 30, "score": 51000, "combo": 46, "max_combo": 46, "judged": 52, "counts": {"perfect": 50, "great": 1, "ok": 1, "miss": 0}, "empty_presses": 1, "total_notes": 52}, "wall_s": 323.4106070715934}

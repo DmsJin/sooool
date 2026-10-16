@@ -1,0 +1,22 @@
+{
+  "hypothesis": "explicit silhouette/color separation reduces unnecessary dodges of collectibles while retaining active retreat",
+  "derived_from": "separate perception diagnostic and stage7 reward-case regressions",
+  "variants": [
+    "baseline",
+    "active_escape_v4",
+    "shape_escape_v5"
+  ],
+  "cases": [
+    "C01a",
+    "C01b",
+    "C06a",
+    "C06b",
+    "C08a",
+    "C08b"
+  ],
+  "repeats": 5,
+  "calls": 90,
+  "primary": "original human candidate-set agreement",
+  "secondary": "C08a RIGHT interception choice; report separately without changing original human labels",
+  "scope": "targeted development; these cases are not unseen held-out examples"
+}

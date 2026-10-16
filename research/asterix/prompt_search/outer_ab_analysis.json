@@ -1,0 +1,52 @@
+{
+  "metrics": {
+    "outer_default": {
+      "calls": 54,
+      "mean_s": 7.978044011853786,
+      "median_s": 6.654372270510066,
+      "p95_s": 13.20657016398036,
+      "max_s": 14.58188797600451,
+      "mean_act_total_s": 8.158844825722216,
+      "accuracy": 0.8148148148148148,
+      "headon": 2,
+      "emergency_correct": 3,
+      "tokens_mean": {
+        "inputTokens": 14509.055555555555,
+        "cachedInputTokens": 12160,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 59.351851851851855,
+        "reasoningOutputTokens": 52.53703703703704
+      }
+    },
+    "outer_minimal": {
+      "calls": 54,
+      "mean_s": 7.869472701554144,
+      "median_s": 5.915452127010212,
+      "p95_s": 14.297967833990697,
+      "max_s": 15.040843580994988,
+      "mean_act_total_s": 7.9729535995208645,
+      "accuracy": 0.8518518518518519,
+      "headon": 0,
+      "emergency_correct": 3,
+      "tokens_mean": {
+        "inputTokens": 5701.055555555556,
+        "cachedInputTokens": 3944.296296296296,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 61.03703703703704,
+        "reasoningOutputTokens": 54.074074074074076
+      }
+    }
+  },
+  "matched_pairs": 54,
+  "task_and_images_identical_within_pairs": true,
+  "mean_speedup": 0.013608763017392111,
+  "case_cluster_bootstrap_95pct_speedup_ci": [
+    -0.19130562573931953,
+    0.18466535866843425
+  ],
+  "adopt_minimal_for_next_experiments": false,
+  "reason": "predeclared speed/accuracy/safety gates",
+  "selected_wrapper": "default",
+  "quota_max_during_batch": 37,
+  "scope": "fixed inputs; native complete response; user-provided historical 216-pair result not treated as reproduced evidence"
+}

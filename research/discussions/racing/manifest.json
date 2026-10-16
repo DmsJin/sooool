@@ -1,0 +1,8 @@
+{
+  "source_filename": "rollout-2026-10-15T09-43-45-01a13e84-6151-70f1-bec1-fc05fea1f2fa.jsonl",
+  "source_sha256": "7581630b861852485985b75008f67a1378700b884fec86ea1177a22c42648ae5",
+  "records": 1460,
+  "messages": 182,
+  "omitted_interactive_inputs": 264,
+  "scope": "visible exported messages/tools only; hidden reasoning excluded; secrets redacted; local research archive, review before public release"
+}

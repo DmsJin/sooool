@@ -1,0 +1,160 @@
+{
+  "metric": "human candidate-set agreement; not survival accuracy",
+  "variants": {
+    "baseline": {
+      "calls": 27,
+      "agrees": 12,
+      "agreement_fraction": 0.4444444444444444,
+      "valid_actions": 27,
+      "per_case": {
+        "C01b": {
+          "calls": 3,
+          "agrees": 0,
+          "actions": {
+            "2": 3
+          }
+        },
+        "C02b": {
+          "calls": 3,
+          "agrees": 2,
+          "actions": {
+            "8": 1,
+            "0": 1,
+            "1": 1
+          }
+        },
+        "C04b": {
+          "calls": 3,
+          "agrees": 1,
+          "actions": {
+            "0": 2,
+            "8": 1
+          }
+        },
+        "C05b": {
+          "calls": 3,
+          "agrees": 1,
+          "actions": {
+            "4": 2,
+            "6": 1
+          }
+        },
+        "C06b": {
+          "calls": 3,
+          "agrees": 0,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C07b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C08b": {
+          "calls": 3,
+          "agrees": 1,
+          "actions": {
+            "5": 2,
+            "2": 1
+          }
+        },
+        "C09b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "3": 3
+          }
+        },
+        "C10b": {
+          "calls": 3,
+          "agrees": 1,
+          "actions": {
+            "0": 2,
+            "4": 1
+          }
+        }
+      }
+    },
+    "retreat_score_v2": {
+      "calls": 27,
+      "agrees": 16,
+      "agreement_fraction": 0.5925925925925926,
+      "valid_actions": 27,
+      "per_case": {
+        "C01b": {
+          "calls": 3,
+          "agrees": 1,
+          "actions": {
+            "3": 1,
+            "8": 1,
+            "2": 1
+          }
+        },
+        "C02b": {
+          "calls": 3,
+          "agrees": 1,
+          "actions": {
+            "6": 1,
+            "3": 2
+          }
+        },
+        "C04b": {
+          "calls": 3,
+          "agrees": 1,
+          "actions": {
+            "0": 2,
+            "8": 1
+          }
+        },
+        "C05b": {
+          "calls": 3,
+          "agrees": 2,
+          "actions": {
+            "6": 2,
+            "0": 1
+          }
+        },
+        "C06b": {
+          "calls": 3,
+          "agrees": 1,
+          "actions": {
+            "0": 2,
+            "2": 1
+          }
+        },
+        "C07b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C08b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "2": 3
+          }
+        },
+        "C09b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "3": 3
+          }
+        },
+        "C10b": {
+          "calls": 3,
+          "agrees": 1,
+          "actions": {
+            "0": 2,
+            "4": 1
+          }
+        }
+      }
+    }
+  }
+}

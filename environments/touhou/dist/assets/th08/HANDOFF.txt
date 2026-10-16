@@ -1,0 +1,18 @@
+Original TH08 visual/audio asset handoff
+
+Keep the existing deterministic engine, reduced difficulty bullet trajectories, collisions, timing, and Gym state. Replace presentation only. No frontend repository files were changed by this chat.
+
+textures/player00: Reimu/Yukari player sprites and projectiles.
+textures/stg7enm: Stage 6B Kaguya boss sprites (visually verified).
+textures/stg7bg: Stage 6B backgrounds; camera motion requires frontend rendering code.
+textures/face_st07sp: original Kaguya spell declaration portrait (visually verified).
+textures/etama: enemy bullet atlases. Keep engine hitboxes independent of sprite bounds.
+textures/front, ascii: original HUD and font graphics.
+textures/eff*: effects; consult sprites.txt for animation instructions.
+audio/se_pldead00.wav: original player death sound; other original WAV sound effects are included.
+audio/kaguya-original.ogg: original Kaguya BGM extracted from thbgm.dat (179.978 s).
+audio/kaguya-loop.json: exact original loop start/end in seconds; use explicit loop points rather than resetting to zero.
+
+Every atlas includes frames.json (frame coordinates) and sprites.txt (original frame and animation descriptions). Use Canvas drawImage source rectangles, preserve alpha and set imageSmoothingEnabled=false for pixel sprites. Derive playback from the existing logical tick. PNG textures alone do not implement original animation scripts or 3D camera movement.
+
+Assets are original ZUN / Team Shanghai Alice game materials, not project-authored artwork or CC0 assets. Extraction tooling license does not grant rights to the game artwork/audio. Source archive hash and tool provenance are in manifest.json.

@@ -1,0 +1,103 @@
+{
+  "burst_model_path": "latency_burst_model.json",
+  "distribution_path": "latency_distribution.json",
+  "env_fps": 7.5,
+  "frame_ms": 133.33333333333334,
+  "gpu_class": "openai-api-ultrafast",
+  "instance_id": "window3_eighth_c8",
+  "latency_kind": "observation_to_action_latency",
+  "latency_method": "temporal",
+  "model_id": "gpt-6.1-sol",
+  "n_admitted_observations": 897,
+  "n_capacity_drops": 0,
+  "n_observation_attempts": 897,
+  "per_slot_summary": {
+    "0": {
+      "admitted_count": 897,
+      "mean_observation_to_action_latency_ms": 937.0520379542095,
+      "mean_worker_service_time_ms": 937.0520379542095,
+      "p95_observation_to_action_latency_ms": 1250.3561153989724,
+      "p95_worker_service_time_ms": 1250.3561153989724,
+      "p99_worker_service_time_ms": 1757.8142432805164
+    }
+  },
+  "provenance": {
+    "censoring": "all submitted requests included, including stale and post-terminal completions",
+    "concurrency_limit": 8,
+    "history": "no conversation history",
+    "image_input": "up to three chronological 224x224 low-detail images",
+    "input_tokens_range": [
+      312,
+      509
+    ],
+    "limitations": [
+      "Mixed aware/unaware short prompts; not calibrated for growing full history or longer model reasoning.",
+      "Temporal model fit to issuance-ordered pooled requests, not physical worker timelines.",
+      "Use IID pooled emissions for the initial virtual eight-worker simulation; shared API bursts remain approximate."
+    ],
+    "measured_environment_fps": 7.5,
+    "model": "gpt-6.1-sol",
+    "normal_game_fps": 60,
+    "observation_stride_frames": 4,
+    "observed_peak_inflight": 4,
+    "reasoning_effort": "low",
+    "service_tier": "ultrafast",
+    "service_time": "request duration proxy; no separate server-side service timing",
+    "sources": [
+      {
+        "capacity_drops": 0,
+        "count": 223,
+        "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-eighth-profile-ab-c8-20261013T224958Z/aware_seed0/requests.jsonl",
+        "peak_inflight": 3,
+        "sha256": "b4ce285041778f85d371cff4f8fcbef32337531c46cab207ce634113257a6b85"
+      },
+      {
+        "capacity_drops": 0,
+        "count": 215,
+        "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-eighth-profile-ab-c8-20261013T224958Z/aware_seed1/requests.jsonl",
+        "peak_inflight": 3,
+        "sha256": "abcd6dbe766f3b0d0337e309314c388227e0c615a4294ec7f9438b1948204d89"
+      },
+      {
+        "capacity_drops": 0,
+        "count": 202,
+        "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-eighth-profile-ab-c8-20261013T224958Z/unaware_seed0/requests.jsonl",
+        "peak_inflight": 3,
+        "sha256": "e9fe41dc4eb5c1482de356caa94d2fc0d3c35e290c3fcf92aa3431d9b6ba6b66"
+      },
+      {
+        "capacity_drops": 0,
+        "count": 257,
+        "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-eighth-profile-ab-c8-20261013T224958Z/unaware_seed1/requests.jsonl",
+        "peak_inflight": 4,
+        "sha256": "fd5683cffee58d0b9a66b0d14791068f155f92b03429898e7bbc7484dcf98457"
+      }
+    ],
+    "timing": "request start through full response stream completion; excludes unmeasured capture/dispatch overhead",
+    "worker_identity": "pooled virtual slot 0; physical request worker IDs were not recorded"
+  },
+  "sample_model_type": "hidden_regime",
+  "source_run_id": "realtime-eighth-profile-ab-c8-20261013T224958Z",
+  "summary": {
+    "frame_ms": 133.33333333333334,
+    "max_ms": 3136.8296159998863,
+    "mean_effective_frames": 7.027890284656569,
+    "mean_ms": 937.0520379542093,
+    "min_ms": 698.7078140009544,
+    "n_samples": 897,
+    "p50_frames": 6.723502109994114,
+    "p50_ms": 896.4669479992153,
+    "p90_frames": 8.356272615002126,
+    "p90_ms": 1114.1696820002835,
+    "p95_frames": 9.377670865492288,
+    "p95_ms": 1250.3561153989717,
+    "p99_frames": 13.183606824603872,
+    "p99_ms": 1757.8142432805164,
+    "prob_latency_gt_1_frame": 1.0,
+    "prob_latency_gt_2_frames": 1.0,
+    "prob_latency_gt_3_frames": 1.0,
+    "std_ms": 204.8240007054542
+  },
+  "visualization_path": "latency_profile.png",
+  "workload_id": "asterix"
+}

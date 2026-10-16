@@ -1,0 +1,13 @@
+# How a profile schedules actions
+
+For frame-based runners and a scalar latency distribution, sample `u ~ Uniform(0,1)`, obtain `delay_s = F⁻¹(u)`, then schedule readiness at `observation_frame + ceil(delay_s × virtual_fps)`. Never round down. The controller can reject or supersede a reply, and an action with a model-authored future timestamp can execute after readiness; readiness is not a promise that every returned action is applied immediately.
+
+Uniformly choosing one measured sample is inverse sampling from a discrete empirical CDF. Asterix's archived 1/8-speed code uses the original interpolated fitted inverse CDF, with correlated action-ready and worker-service marginals. The default V28 5× run instead uses empirical IID resampling from 596 measured capture-to-complete delays. At 12 raw FPS, 1.28 seconds maps to 16 raw frames. At native 60 FPS the same delay maps to 77 frames; these are different conditions.
+
+Rhythm uses continuous virtual seconds/millisecond tap timestamps rather than forcing every delivery onto an integer frame. It resamples **whole** `(API RTT, screenshot age, transport overhead)` tuples. Capture occurs at `max(0, issue_time - age)`; delivery is `issue_time + RTT + overhead`. The actor receives only past pixels/public clocks, historical latency information and its own acknowledgements. Its literal action timestamps are forwarded without automatic note detection or retiming. Do not add screenshot age a second time to issue-to-delivery delay.
+
+Touhou resamples whole four-candidate readiness/terminal vectors, stratified by image count. This retains measured cross-candidate correlation and launch skew. A legal action may be ready before its request releases its slot; a first-valid winner does not release all other capacity early. Scalar IID draws are available as separate experimental assumptions, not replacements for joint calibration.
+
+All sampled future delays stay inside the trusted event loop. Answers are unavailable until their assigned readiness event, even if subscription inference finished early. If it finishes late, computation waits consume wall time, not additional virtual frames. Record both clocks. Capacity, newest-observation ordering, stale command rejection, atomic hops/chunks, and executor overhead affect the final action trajectory as much as the marginal CDF.
+
+Profiles describe a particular input/output workload and collection period. Changed prompt length, image count/detail, output schema, concurrency, caching or transport can invalidate transfer. Preserve raw samples, configuration, hashes and limitations; explicitly label transported distributions and sensitivity multipliers. Do not infer a fresh latency measurement from a simulated score.

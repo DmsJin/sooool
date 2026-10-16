@@ -1,0 +1,18 @@
+{
+  "game": "asterix",
+  "version": "v28",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "weight_training": false,
+  "recipe": "recipes/asterix.json",
+  "prompt": "policies/asterix/v28/prompt.txt",
+  "prompt_sha256": "20aa17f707b9a626cf8a7a81bd65d292cdccf3eacaa391f656d1c6619eb26d0b",
+  "system": "policies/asterix/v28/system.txt",
+  "system_sha256": "520f5b66087a65db01822e640988df720bf6753c5ca3f544e6d9f15b03db9e49",
+  "controller": "HopControllerV3",
+  "profile": "profiles/asterix/latency_5x_empirical.json",
+  "profile_sha256": "3d8ec1ed7464c028332e4f56ef55b8f4f8571c1e99053005dc7c8edcc3db6856",
+  "profile_scope": "Historical API latency condition; not measured with this prompt. Ready-frame sampling is unchanged.",
+  "status": "selected_default_by_user",
+  "performance_evidence": "artifacts/summaries/asterix-v28-development.json"
+}

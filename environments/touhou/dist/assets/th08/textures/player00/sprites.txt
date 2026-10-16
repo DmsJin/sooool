@@ -1,0 +1,338 @@
+ENTRY #0, VERSION 3
+Name: data/player00/player00.png
+Format: 5
+Width: 256
+Height: 256
+ColorKey: 00000000
+MemoryPriority: 10
+HasData: 1
+THTX-Size: 131072
+THTX-Format: 5
+THTX-Width: 256
+THTX-Height: 256
+THTX-Zero: 0
+
+Sprite: 0 30*46+1+1
+Sprite: 1 30*46+33+1
+Sprite: 2 30*46+65+1
+Sprite: 3 30*46+97+1
+Sprite: 4 30*46+1+49
+Sprite: 5 30*46+33+49
+Sprite: 6 30*46+65+49
+Sprite: 7 30*46+97+49
+Sprite: 8 30*46+129+49
+Sprite: 9 30*46+161+49
+Sprite: 10 30*46+193+49
+Sprite: 11 30*46+129+1
+Sprite: 12 30*46+161+1
+Sprite: 13 30*46+193+1
+Sprite: 14 30*46+225+1
+Sprite: 15 30*46+1+97
+Sprite: 16 30*46+33+97
+Sprite: 17 30*46+65+97
+Sprite: 18 30*46+97+97
+Sprite: 19 30*46+129+97
+Sprite: 20 30*46+161+97
+Sprite: 21 30*46+193+97
+Sprite: 22 30*46+129+145
+Sprite: 23 30*46+161+145
+Sprite: 24 30*46+193+145
+Sprite: 25 30*46+225+145
+Sprite: 26 30*46+129+193
+Sprite: 27 30*46+161+193
+Sprite: 28 30*46+193+193
+Sprite: 29 30*46+225+193
+Sprite: 30 46*46+81+145
+Sprite: 31 64*16+0+144
+Sprite: 32 16*16+48+144
+Sprite: 33 14*14+33+177
+Sprite: 34 32*32+0+176
+Sprite: 35 64*16+0+160
+Sprite: 36 64*16+0+208
+Sprite: 37 30*62+1+160
+Sprite: 38 16*16+128+144
+Sprite: 39 16*16+144+144
+Sprite: 40 16*16+128+144
+Sprite: 41 62*62+1+97
+Sprite: 42 62*62+65+97
+Sprite: 43 128*128+128+128
+
+Script: 0
+Instruction #0: 0 0 3 0
+Instruction #1: 6 0 3 1
+Instruction #2: 12 0 3 2
+Instruction #3: 18 0 3 3
+Instruction #4: 24 0 4 0 0
+
+Script: 1
+Instruction #0: 0 0 3 4
+Instruction #1: 1 0 3 5
+Instruction #2: 2 0 3 6
+Instruction #3: 3 0 3 7
+Instruction #4: 9 0 3 8
+Instruction #5: 15 0 3 9
+Instruction #6: 21 0 3 10
+Instruction #7: 26 0 4 36 2
+
+Script: 2
+Instruction #0: 0 0 3 7
+Instruction #1: 1 0 3 6
+Instruction #2: 2 0 3 5
+Instruction #3: 3 0 3 4
+Instruction #4: 4 0 3 0
+Instruction #5: 10 0 3 1
+Instruction #6: 16 0 3 2
+Instruction #7: 22 0 3 3
+Instruction #8: 27 0 4 48 3
+
+Script: 3
+Instruction #0: 0 0 10
+Instruction #1: 0 0 3 4
+Instruction #2: 1 0 3 5
+Instruction #3: 2 0 3 6
+Instruction #4: 3 0 3 7
+Instruction #5: 9 0 3 8
+Instruction #6: 15 0 3 9
+Instruction #7: 21 0 3 10
+Instruction #8: 26 0 4 44 2
+
+Script: 4
+Instruction #0: 0 0 10
+Instruction #1: 0 0 3 7
+Instruction #2: 1 0 3 6
+Instruction #3: 2 0 3 5
+Instruction #4: 3 0 3 4
+Instruction #5: 4 0 3 0
+Instruction #6: 10 0 3 1
+Instruction #7: 16 0 3 2
+Instruction #8: 22 0 3 3
+Instruction #9: 27 0 4 56 3
+
+Script: 5
+Instruction #0: 0 0 3 11
+Instruction #1: 6 0 3 12
+Instruction #2: 12 0 3 13
+Instruction #3: 18 0 3 14
+Instruction #4: 24 0 4 0 0
+
+Script: 6
+Instruction #0: 0 0 3 15
+Instruction #1: 1 0 3 16
+Instruction #2: 2 0 3 17
+Instruction #3: 3 0 3 18
+Instruction #4: 9 0 3 19
+Instruction #5: 15 0 3 20
+Instruction #6: 21 0 3 21
+Instruction #7: 26 0 4 36 2
+
+Script: 7
+Instruction #0: 0 0 3 18
+Instruction #1: 1 0 3 17
+Instruction #2: 2 0 3 16
+Instruction #3: 3 0 3 15
+Instruction #4: 4 0 3 11
+Instruction #5: 10 0 3 12
+Instruction #6: 16 0 3 13
+Instruction #7: 22 0 3 14
+Instruction #8: 27 0 4 48 3
+
+Script: 8
+Instruction #0: 0 0 10
+Instruction #1: 0 0 3 15
+Instruction #2: 1 0 3 16
+Instruction #3: 2 0 3 17
+Instruction #4: 3 0 3 18
+Instruction #5: 9 0 3 19
+Instruction #6: 15 0 3 20
+Instruction #7: 21 0 3 21
+Instruction #8: 26 0 4 44 2
+
+Script: 9
+Instruction #0: 0 0 10
+Instruction #1: 0 0 3 18
+Instruction #2: 1 0 3 17
+Instruction #3: 2 0 3 16
+Instruction #4: 3 0 3 15
+Instruction #5: 4 0 3 11
+Instruction #6: 10 0 3 12
+Instruction #7: 16 0 3 13
+Instruction #8: 22 0 3 14
+Instruction #9: 27 0 4 56 3
+
+Script: 10
+Instruction #0: 0 0 3 31
+Instruction #1: 0 0 83 2
+Instruction #2: 0 0 25 1
+Instruction #3: 0 0 8 128
+Instruction #4: 0 0 30 1
+Instruction #5: 10000 0 2
+
+Script: 11
+Instruction #0: 0 0 13 0.0f 0.0f 0.2f
+Instruction #1: 0 0 8 192
+Instruction #2: 0 0 34 30 0 0
+Instruction #3: 0 0 82 1
+Instruction #4: 0 0 3 32
+Instruction #5: 0 0 83 2
+Instruction #6: 30 0 1
+
+Script: 12
+Instruction #0: 0 0 3 33
+Instruction #1: 0 0 83 2
+Instruction #2: 0 0 25 1
+Instruction #3: 0 0 8 96
+Instruction #4: 0 0 30 1
+Instruction #5: 10000 0 2
+
+Script: 13
+Instruction #0: 0 0 13 0.0f 0.0f -0.3f
+Instruction #1: 0 0 8 128
+Instruction #2: 0 0 34 30 0 0
+Instruction #3: 0 0 36 30 0 1.5f 1.5f
+Instruction #4: 0 0 82 1
+Instruction #5: 0 0 3 34
+Instruction #6: 0 0 83 2
+Instruction #7: 30 0 1
+
+Script: 14
+Instruction #0: 0 0 3 35
+Instruction #1: 0 0 83 2
+Instruction #2: 0 0 25 1
+Instruction #3: 0 0 8 128
+Instruction #4: 0 0 30 1
+Instruction #5: 10000 0 2
+
+Script: 15
+Instruction #0: 0 0 3 35
+Instruction #1: 0 0 83 2
+Instruction #2: 0 0 25 1
+Instruction #3: 0 0 8 192
+Instruction #4: 0 0 82 1
+Instruction #5: 0 0 30 1
+Instruction #6: 0 0 36 10 1 8.0f 0.0f
+Instruction #7: 10 0 1
+
+Script: 16
+Instruction #0: 0 0 3 36
+Instruction #1: 0 0 83 2
+Instruction #2: 0 0 25 1
+Instruction #3: 0 0 8 192
+Instruction #4: 0 0 30 1
+Instruction #5: 10000 0 2
+
+Script: 17
+Instruction #0: 0 0 3 36
+Instruction #1: 0 0 83 2
+Instruction #2: 0 0 25 1
+Instruction #3: 0 0 8 192
+Instruction #4: 0 0 82 1
+Instruction #5: 0 0 30 1
+Instruction #6: 0 0 36 10 1 5.0f 0.0f
+Instruction #7: 10 0 1
+
+Script: 18
+Instruction #0: 0 0 3 25
+Instruction #1: 0 0 8 0
+Instruction #2: 0 0 34 8 0 255
+Instruction #3: 0 0 7 0.0f 6.0f
+Instruction #4: 0 0 36 8 0 1.0f 1.0f
+Instruction #5: 0 0 83 2
+Instruction #6: 0 0 21 1
+Instruction #7: 0 0 12 0.0f 0.0f 0.0f
+Instruction #8: 0 0 13 0.0f 0.0f 0.0f
+Instruction #9: 4 0 3 22
+Instruction #10: 8 0 3 23
+Instruction #11: 12 0 3 24
+Instruction #12: 16 0 3 25
+Instruction #13: 16 0 4 148 0
+Instruction #14: 16 0 21 2
+Instruction #15: 16 0 12 0.0f 0.0f 0.0f
+Instruction #16: 16 0 13 0.0f 0.0f 0.0f
+Instruction #17: 20 0 3 26
+Instruction #18: 24 0 3 27
+Instruction #19: 28 0 3 28
+Instruction #20: 32 0 3 29
+Instruction #21: 32 0 4 264 16
+Instruction #22: 32 0 21 3
+Instruction #23: 32 0 3 30
+Instruction #24: 32 0 13 0.0f 0.0f 0.62831855f
+Instruction #25: 32 0 20
+Instruction #26: 32 0 21 4
+Instruction #27: 32 0 3 30
+Instruction #28: 32 0 13 0.0f 0.0f -0.62831855f
+Instruction #29: 32 0 20
+Instruction #30: 32 0 21 5
+Instruction #31: 32 0 82 1
+Instruction #32: 32 0 8 96
+Instruction #33: 32 0 34 8 0 0
+Instruction #34: 32 0 36 16 4 3.7f 0.0f
+Instruction #35: 48 0 1
+
+
+ENTRY #1, VERSION 3
+Name: data/player00/player00b.png
+Format: 5
+Width: 256
+Height: 256
+ColorKey: 00000000
+MemoryPriority: 10
+HasData: 1
+THTX-Size: 131072
+THTX-Format: 5
+THTX-Width: 256
+THTX-Height: 256
+THTX-Zero: 0
+
+Sprite: 44 94*94+1+1
+Sprite: 45 126*126+129+1
+Sprite: 46 126*126+1+129
+
+Script: 19
+Instruction #0: 0 0 3 44
+Instruction #1: 0 0 82 1
+Instruction #2: 0 0 7 0.0f 0.0f
+Instruction #3: 0 0 36 30 4 1.0f 1.0f
+Instruction #4: 0 0 9 255 255 255
+Instruction #5: 0 0 33 30 0 255 128 96
+Instruction #6: 30 0 0
+Instruction #7: 30 0 33 200 0 96 96 255
+Instruction #8: 30 0 36 30 4 0.6f 0.6f
+Instruction #9: 60 0 36 30 4 1.2f 1.2f
+Instruction #10: 90 0 4 148 30
+Instruction #11: 90 0 21 1
+Instruction #12: 90 0 36 20 4 6.0f 6.0f
+Instruction #13: 90 0 34 20 4 0
+Instruction #14: 110 0 1
+
+Script: 20
+Instruction #0: 0 0 3 44
+Instruction #1: 0 0 82 1
+Instruction #2: 0 0 7 0.0f 0.0f
+Instruction #3: 0 0 36 20 4 4.0f 4.0f
+Instruction #4: 0 0 34 20 5 0
+Instruction #5: 0 0 33 20 0 255 128 96
+Instruction #6: 20 0 1
+
+Script: 21
+Instruction #0: 0 0 3 45
+Instruction #1: 0 0 7 3.0f 3.0f
+Instruction #2: 0 0 36 30 4 2.0f 2.0f
+Instruction #3: 0 0 8 0
+Instruction #4: 0 0 34 30 0 192
+Instruction #5: 120 0 21 1
+Instruction #6: 120 0 34 30 4 0
+Instruction #7: 150 0 1
+
+Script: 22
+Instruction #0: 0 0 3 46
+Instruction #1: 0 0 82 1
+Instruction #2: 0 0 8 0
+Instruction #3: 30 0 34 30 0 192
+Instruction #4: 30 0 7 4.0f 4.0f
+Instruction #5: 30 0 36 30 4 2.5f 2.5f
+Instruction #6: 30 0 13 0.0f 0.0f 0.057119865f
+Instruction #7: 120 0 21 1
+Instruction #8: 120 0 34 30 4 0
+Instruction #9: 150 0 1
+
+

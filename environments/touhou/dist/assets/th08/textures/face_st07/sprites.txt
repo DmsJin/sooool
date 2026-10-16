@@ -1,0 +1,254 @@
+ENTRY #0, VERSION 3
+Name: data/face/st07/face_st07a.png
+Format: 1
+Width: 512
+Height: 512
+ColorKey: 00000000
+MemoryPriority: 0
+HasData: 1
+THTX-Size: 1048576
+THTX-Format: 1
+THTX-Width: 512
+THTX-Height: 512
+THTX-Zero: 0
+
+Sprite: 0 510*510+1+1
+
+Script: -44
+Instruction #0: 0 0 3 0
+Instruction #1: 0 0 8 0
+Instruction #2: 0 0 22
+Instruction #3: 0 0 6 0.0f -112.0f 0.0f
+Instruction #4: 0 0 34 30 0 192
+Instruction #5: 0 0 32 180 0 0.0f 144.0f 0.0f
+Instruction #6: 90 0 34 60 0 0
+Instruction #7: 150 0 1
+
+
+ENTRY #1, VERSION 3
+Name: data/face/st07/face_st07_name.png
+Format: 5
+Width: 256
+Height: 64
+ColorKey: 00000000
+MemoryPriority: 0
+HasData: 1
+THTX-Size: 32768
+THTX-Format: 5
+THTX-Width: 256
+THTX-Height: 64
+THTX-Zero: 0
+
+Sprite: 1 256*48+0+0
+
+Script: -43
+Instruction #0: 0 0 3 1
+Instruction #1: 0 0 22
+Instruction #2: 0 0 6 144.0f 352.0f 0.0f
+Instruction #3: 0 0 8 0
+Instruction #4: 0 0 34 30 0 255
+Instruction #5: 350 0 34 30 0 0
+Instruction #6: 380 0 1
+
+
+ENTRY #2, VERSION 3
+Name: data/face/st07/face_st07no.png
+Format: 1
+Width: 256
+Height: 256
+ColorKey: 00000000
+MemoryPriority: 0
+HasData: 1
+THTX-Size: 262144
+THTX-Format: 1
+THTX-Width: 256
+THTX-Height: 256
+THTX-Zero: 0
+
+Sprite: 2 254*254+1+1
+
+Script: -42
+Instruction #0: 0 0 3 2
+Instruction #1: 0 0 22
+Instruction #2: 0 0 6 416.0f 128.0f 0.0f
+Instruction #3: 0 0 8 0
+Instruction #4: 0 0 23
+Instruction #5: 0 0 21 1
+Instruction #6: 0 0 32 30 4 192.0f 128.0f 0.0f
+Instruction #7: 0 0 34 30 0 255
+Instruction #8: 30 0 20
+Instruction #9: 30 0 21 2
+Instruction #10: 60 0 23
+Instruction #11: 60 0 21 3
+Instruction #12: 60 0 33 15 0 255 255 255
+Instruction #13: 60 0 34 15 0 255
+Instruction #14: 60 0 32 15 4 192.0f 128.0f 0.0f
+Instruction #15: 75 0 20
+Instruction #16: 75 0 21 4
+Instruction #17: 75 0 33 15 0 128 128 128
+Instruction #18: 75 0 34 15 0 192
+Instruction #19: 75 0 32 15 4 200.0f 136.0f 0.01f
+Instruction #20: 90 0 20
+Instruction #21: 90 0 21 6
+Instruction #22: 90 0 33 15 0 128 128 128
+Instruction #23: 90 0 32 15 4 200.0f 136.0f 0.01f
+Instruction #24: 105 0 20
+Instruction #25: 105 0 21 5
+Instruction #26: 105 0 34 30 0 0
+Instruction #27: 105 0 32 30 0 416.0f 144.0f 0.0f
+Instruction #28: 135 0 1
+
+
+ENTRY #3, VERSION 3
+Name: data/face/st07/face_st07n2.png
+Format: 1
+Width: 256
+Height: 256
+ColorKey: 00000000
+MemoryPriority: 0
+HasData: 1
+THTX-Size: 262144
+THTX-Format: 1
+THTX-Width: 256
+THTX-Height: 256
+THTX-Zero: 0
+
+Sprite: 3 254*254+1+1
+Sprite: 4 254*254+1+1
+
+Script: -41
+Instruction #0: 0 0 3 3
+Instruction #1: 0 0 22
+Instruction #2: 0 0 6 416.0f 128.0f 0.0f
+Instruction #3: 0 0 8 0
+Instruction #4: 0 0 23
+Instruction #5: 0 0 21 1
+Instruction #6: 0 0 32 30 4 192.0f 128.0f 0.0f
+Instruction #7: 0 0 34 30 0 255
+Instruction #8: 30 0 20
+Instruction #9: 30 0 21 2
+Instruction #10: 60 0 23
+Instruction #11: 60 0 21 3
+Instruction #12: 60 0 33 15 0 255 255 255
+Instruction #13: 60 0 34 15 0 255
+Instruction #14: 60 0 32 15 4 192.0f 128.0f 0.0f
+Instruction #15: 75 0 20
+Instruction #16: 75 0 21 4
+Instruction #17: 75 0 33 15 0 128 128 128
+Instruction #18: 75 0 34 15 0 192
+Instruction #19: 75 0 32 15 4 200.0f 136.0f 0.01f
+Instruction #20: 90 0 20
+Instruction #21: 90 0 21 6
+Instruction #22: 90 0 33 15 0 128 128 128
+Instruction #23: 90 0 32 15 4 200.0f 136.0f 0.01f
+Instruction #24: 105 0 20
+Instruction #25: 105 0 21 5
+Instruction #26: 105 0 34 30 0 0
+Instruction #27: 105 0 32 30 0 416.0f 144.0f 0.0f
+Instruction #28: 135 0 1
+
+
+ENTRY #4, VERSION 3
+Name: data/face/st07/face_st07dp.png
+Format: 1
+Width: 256
+Height: 256
+ColorKey: 00000000
+MemoryPriority: 0
+HasData: 1
+THTX-Size: 262144
+THTX-Format: 1
+THTX-Width: 256
+THTX-Height: 256
+THTX-Zero: 0
+
+Sprite: 5 254*254+1+1
+Sprite: 6 254*254+1+1
+
+Script: -40
+Instruction #0: 0 0 3 5
+Instruction #1: 0 0 22
+Instruction #2: 0 0 6 416.0f 128.0f 0.0f
+Instruction #3: 0 0 8 0
+Instruction #4: 0 0 23
+Instruction #5: 0 0 21 1
+Instruction #6: 0 0 32 30 4 192.0f 128.0f 0.0f
+Instruction #7: 0 0 34 30 0 255
+Instruction #8: 30 0 20
+Instruction #9: 30 0 21 2
+Instruction #10: 60 0 23
+Instruction #11: 60 0 21 3
+Instruction #12: 60 0 33 15 0 255 255 255
+Instruction #13: 60 0 34 15 0 255
+Instruction #14: 60 0 32 15 4 192.0f 128.0f 0.0f
+Instruction #15: 75 0 20
+Instruction #16: 75 0 21 4
+Instruction #17: 75 0 33 15 0 128 128 128
+Instruction #18: 75 0 34 15 0 192
+Instruction #19: 75 0 32 15 4 200.0f 136.0f 0.01f
+Instruction #20: 90 0 20
+Instruction #21: 90 0 21 6
+Instruction #22: 90 0 33 15 0 128 128 128
+Instruction #23: 90 0 32 15 4 200.0f 136.0f 0.01f
+Instruction #24: 105 0 20
+Instruction #25: 105 0 21 5
+Instruction #26: 105 0 34 30 0 0
+Instruction #27: 105 0 32 30 0 416.0f 144.0f 0.0f
+Instruction #28: 135 0 1
+
+
+ENTRY #5, VERSION 3
+Name: data/face/st07/face_st07sw.png
+Format: 1
+Width: 256
+Height: 256
+ColorKey: 00000000
+MemoryPriority: 0
+HasData: 1
+THTX-Size: 262144
+THTX-Format: 1
+THTX-Width: 256
+THTX-Height: 256
+THTX-Zero: 0
+
+Sprite: 7 254*254+1+1
+Sprite: 8 254*254+1+1
+Sprite: 9 254*254+1+1
+Sprite: 10 254*254+1+1
+Sprite: 11 254*254+1+1
+Sprite: 12 254*254+1+1
+Sprite: 13 254*254+1+1
+Sprite: 14 254*254+1+1
+
+Script: -39
+Instruction #0: 0 0 3 7
+Instruction #1: 0 0 22
+Instruction #2: 0 0 6 416.0f 128.0f 0.0f
+Instruction #3: 0 0 8 0
+Instruction #4: 0 0 23
+Instruction #5: 0 0 21 1
+Instruction #6: 0 0 32 30 4 192.0f 128.0f 0.0f
+Instruction #7: 0 0 34 30 0 255
+Instruction #8: 30 0 20
+Instruction #9: 30 0 21 2
+Instruction #10: 60 0 23
+Instruction #11: 60 0 21 3
+Instruction #12: 60 0 33 15 0 255 255 255
+Instruction #13: 60 0 34 15 0 255
+Instruction #14: 60 0 32 15 4 192.0f 128.0f 0.0f
+Instruction #15: 75 0 20
+Instruction #16: 75 0 21 4
+Instruction #17: 75 0 33 15 0 128 128 128
+Instruction #18: 75 0 34 15 0 192
+Instruction #19: 75 0 32 15 4 200.0f 136.0f 0.01f
+Instruction #20: 90 0 20
+Instruction #21: 90 0 21 6
+Instruction #22: 90 0 33 15 0 128 128 128
+Instruction #23: 90 0 32 15 4 200.0f 136.0f 0.01f
+Instruction #24: 105 0 20
+Instruction #25: 105 0 21 5
+Instruction #26: 105 0 34 30 0 0
+Instruction #27: 105 0 32 30 0 416.0f 144.0f 0.0f
+Instruction #28: 135 0 1
+
+

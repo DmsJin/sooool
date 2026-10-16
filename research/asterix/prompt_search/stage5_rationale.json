@@ -1,0 +1,15 @@
+{
+  "derived_from": "stage3 development failures; stage4 not inspected for editing",
+  "changes": [
+    "distinguish player from life icons",
+    "require active escape for current-row approach",
+    "explicit opposite horizontal direction with lyres in both adjacent rows"
+  ],
+  "planned_calls": 54,
+  "cases": 18,
+  "repeats_per_case": 3,
+  "human_labels_unchanged": true,
+  "status": "completed with separately authorized upload; confirmation running",
+  "actual_calls": 54,
+  "scope": "development comparison; regression comparison separately in stage6"
+}

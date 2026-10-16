@@ -1,0 +1,13 @@
+{
+  "native_digest_exact_match": true,
+  "digest": "3ec87837f362954216a1d1a65a5f9440c96c6b306620c5f82c35300c6ccf0dde",
+  "observations_verified": 161,
+  "camera_pngs_verified": 161,
+  "final_step": 2706,
+  "scores": {
+    "A": 5,
+    "opponent": 2
+  },
+  "fresh_native_process": true,
+  "model_calls": 0
+}

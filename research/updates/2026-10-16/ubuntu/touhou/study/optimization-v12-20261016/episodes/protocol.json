@@ -1,0 +1,100 @@
+{
+  "kind": "frozen_fresh_past_observation_closed_loop_ablation",
+  "source_commit": "a8c0330",
+  "base": {
+    "provider": "subscription",
+    "mode": "sim",
+    "url": "http://127.0.0.1:18791",
+    "suite": "/home/ubuntu/lzj/coding-agent-suite",
+    "profile": "/home/ubuntu/wzh/touhou-sol-study/profile-control-early-study-v1.json",
+    "speed": 1,
+    "workers": 8,
+    "capacity": 8,
+    "history_frames": 3,
+    "image_stride": 30,
+    "decision_stride": 6,
+    "chunk_size": 1,
+    "max_duration": 48,
+    "max_wall_s": 10800,
+    "engine_sha256": "348e81340d4a09f8b488193daf0b4e395afa2755d34f249585ff5e1ffe787aa4",
+    "profile_note": "Historical observed API ready/terminal paired joint vectors, shared across candidates. Not new prompt latency calibration.",
+    "wait_for_move": true,
+    "intro_observation": true,
+    "structured": true,
+    "lean_native": false,
+    "decision_fanout": 4,
+    "cohort_delay": "empirical_joint",
+    "shared_cohort_inputs": true,
+    "stage_timings": true,
+    "visual_memory_points": 8,
+    "wait_for_winner": true,
+    "pixel_controls": true,
+    "aggressive_native": true,
+    "latency_scale": 1,
+    "max_output_tokens": 512,
+    "early_action_delivery": false,
+    "simulation_terminal_hold": true,
+    "candidate": "tracking_dodge_safe_intercept_v2",
+    "effort": "low"
+  },
+  "jobs": [
+    {
+      "name": "legacy-seed9",
+      "config": {
+        "seed": 9,
+        "delay_seed": 7319
+      }
+    },
+    {
+      "name": "fresh-seed9",
+      "config": {
+        "seed": 9,
+        "delay_seed": 7319,
+        "capture_stride": 6,
+        "history_spacing_frames": 30
+      }
+    },
+    {
+      "name": "legacy-seed10",
+      "config": {
+        "seed": 10,
+        "delay_seed": 7320
+      }
+    },
+    {
+      "name": "fresh-seed10",
+      "config": {
+        "seed": 10,
+        "delay_seed": 7320,
+        "capture_stride": 6,
+        "history_spacing_frames": 30
+      }
+    }
+  ],
+  "episode_workers": 2,
+  "source_sha256": {
+    "policies.py": "f5e52728ea5b54f27d09ec889afb8b5438db1ec4c7b9a69869e1ca0b678f570b",
+    "wire_schema.py": "63d9e039ff222e2574ab63686f1f091c713f3ea6f992419fb0ed65c4533c35c9",
+    "visual_devset.py": "6cff28b72a6f766eb83dd8347cb47dac5b94382e7ddda8089c913e1b597f50df",
+    "run_episode.py": "5f15c0b409abfca8994f120c6b9f2ebc8a19d8f7c311c2bd4f7a3d5e16226c39",
+    "subscription.py": "78db29b30eb301b07c2d8322306babbdf539989648ea3eb1318e73507b277160",
+    "native_envelope.py": "3bab859af9c3978b008b4ba417c7474e7b9bb9a4975239a58e966b6fc8197ee3",
+    "observation_history.py": "aaeb81b4d2f1d9a1b666a3127950aa5c200176437a29f84becebcd3e6aa45f1c"
+  },
+  "profile_sha256": "083045439b4e956618032ce42f200033554852f4c1923d074bea71091a248831",
+  "hypothesis": "Reduce waiting until next observation while preserving roughly30logicalframe history gaps. All action choices remain GPT.",
+  "comparison_limits": [
+    "Same seed/delay seed and candidate; trajectories/model answers diverge, so observations/delay strata need not remain identical.",
+    "Fresh mode removes duplicate logical-frame images and starts with fewer images when spaced history is not yet available; this is a joint observation configuration, not a single isolated timing parameter.",
+    "Historical K4 readiness/terminal profile, not fresh API calibration.",
+    "Four episodes form a development screen, not statistical deployment proof."
+  ],
+  "required_checks": [
+    "Actual native low effort/schema/prompt/image hashes; alloutputs valid and terminal.",
+    "All four complete full-state/visual-clock replays and instrumented trace finals match original engine.",
+    "Report wins, game time, HP, hits/Bombs, ordinary damage rate, longest shot drought, parked collision timing, submission/capture/application cadence, actual image gaps.",
+    "Do not select actions using these private scores; do not alter game reward or physics."
+  ],
+  "paid_calls": 0,
+  "authorization_scope": "Exactly these4subscription simulated episodes,2atonce. No additional K1pipeline,APIorotherfulljobs."
+}

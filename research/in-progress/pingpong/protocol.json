@@ -1,0 +1,84 @@
+{
+  "name": "sooool",
+  "objective": "Online GPT visual decisions that solve robot table tennis under measured inference delay, followed by real API transfer",
+  "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
+  "model": "gpt-6.1-sol",
+  "api_service_tier": "ultrafast",
+  "paid_budget_usd": 30,
+  "paid_admission_ceiling_usd": 27,
+  "profiling_stage_ceiling_usd": 5,
+  "profiling_concurrency": 1,
+  "development": {
+    "auth": "ChatGPT subscription only; never API or purchased-credit fallback",
+    "seeds": [
+      2,
+      5,
+      6
+    ],
+    "initial_level": 1,
+    "initial_slowdown": 10,
+    "initial_observation_stride_control_steps": 10,
+    "initial_virtual_model_capacity": 8,
+    "real_workers_per_episode": 3,
+    "maximum_parallel_episodes": 8,
+    "maximum_real_subscription_workers": 24,
+    "timing": "Measured API delays sampled independently; native computation time affects research wall time only",
+    "selection": "Complete paired seeds; compare win rate, then point share and failure trajectories",
+    "current_runtime": {
+      "maximum_parallel_episodes": 2,
+      "real_workers_per_episode": 1,
+      "maximum_real_subscription_workers": 2,
+      "shared_admission_gap_s": 2,
+      "reason": "Completed seed2 pair showed median subscription turn2.54s and artificial shared admission wait9.29s with zero retries; resume seed5 same virtual API condition with gap2."
+    },
+    "execution_delay_condition": "Optional _executor_ mode measures local native lowering/apply wall duration and blocks controller work while physics and inference deadlines advance. It excludes HTTP transport/queue overhead."
+  },
+  "acceptance_proposal": {
+    "freeze": [
+      "prompt",
+      "policy",
+      "scheduler",
+      "observation format",
+      "model",
+      "difficulty",
+      "speed"
+    ],
+    "held_out_seeds": [
+      151,
+      103,
+      107,
+      109,
+      113,
+      127,
+      131,
+      137,
+      139,
+      149
+    ],
+    "target_wins_out_of_ten": 8,
+    "independent_confirmation": true,
+    "native_fresh_process_replay": true,
+    "real_api_validation_required": true,
+    "budget_limited_validation_must_report_actual_scope": true,
+    "retired_held_out_seeds": [
+      {
+        "seed": 101,
+        "reason": "Real API loss inspected during development, including recorded menus and native counterfactual diagnostics; no longer unseen."
+      }
+    ],
+    "freeze_before_held_out": true,
+    "held_out_evaluation_condition": "Select after paired development and execution-blocking sensitivity; freeze the complete policy and scheduler before all ten acceptance episodes."
+  },
+  "invariants": [
+    "GPT receives real player camera observations and own-state/referee fields",
+    "No hidden ball state or future results are provided to GPT",
+    "No model answer becomes visible before its sampled completion time",
+    "Only results already visible may affect arbitration",
+    "Never apply a previous point's action to a new point",
+    "Serialize environment actions even when model reasoning is concurrent",
+    "Incomplete episodes are not losses or zero scores",
+    "Simulation results are not realtime API results",
+    "No paid requests beyond shared ledger reservations",
+    "Credentials stay in process memory"
+  ]
+}

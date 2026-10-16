@@ -1,0 +1,26 @@
+{
+  "runtime": {
+    "files": 3,
+    "lines": 350
+  },
+  "environments": {
+    "files": 146,
+    "lines": 13391
+  },
+  "vendor": {
+    "files": 12,
+    "lines": 1262
+  },
+  "research": {
+    "files": 570,
+    "lines": 67434
+  },
+  "tests": {
+    "files": 3,
+    "lines": 138
+  },
+  "scripts": {
+    "files": 7,
+    "lines": 313
+  }
+}

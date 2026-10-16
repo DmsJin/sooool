@@ -1,0 +1,294 @@
+{
+  "metric": "human candidate-set agreement; not survival accuracy",
+  "variants": {
+    "decision_table_v12": {
+      "calls": 54,
+      "agrees": 50,
+      "agreement_fraction": 0.9259259259259259,
+      "valid_actions": 54,
+      "per_case": {
+        "C01a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "6": 3
+          }
+        },
+        "C01b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "3": 3
+          }
+        },
+        "C02a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "5": 2,
+            "7": 1
+          }
+        },
+        "C02b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "5": 3
+          }
+        },
+        "C04a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C04b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C05a": {
+          "calls": 3,
+          "agrees": 2,
+          "actions": {
+            "0": 2,
+            "8": 1
+          }
+        },
+        "C05b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "6": 3
+          }
+        },
+        "C06a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "3": 3
+          }
+        },
+        "C06b": {
+          "calls": 3,
+          "agrees": 0,
+          "actions": {
+            "5": 3
+          }
+        },
+        "C07a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C07b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C08a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "2": 3
+          }
+        },
+        "C08b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "2": 3
+          }
+        },
+        "C09a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C09b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "3": 3
+          }
+        },
+        "C10a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C10b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "4": 3
+          }
+        }
+      },
+      "headon_forbidden_count": 0,
+      "headon_cases": [],
+      "emergency_calls": 3,
+      "emergency_failures": 0,
+      "full_case_coverage": true,
+      "meets_screen_target": true
+    },
+    "side_veto_v13": {
+      "calls": 54,
+      "agrees": 49,
+      "agreement_fraction": 0.9074074074074074,
+      "valid_actions": 54,
+      "per_case": {
+        "C01a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "6": 3
+          }
+        },
+        "C01b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "3": 3
+          }
+        },
+        "C02a": {
+          "calls": 3,
+          "agrees": 2,
+          "actions": {
+            "5": 2,
+            "2": 1
+          }
+        },
+        "C02b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "4": 1,
+            "6": 2
+          }
+        },
+        "C04a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "8": 3
+          }
+        },
+        "C04b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C05a": {
+          "calls": 3,
+          "agrees": 2,
+          "actions": {
+            "8": 1,
+            "0": 2
+          }
+        },
+        "C05b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "6": 3
+          }
+        },
+        "C06a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "3": 3
+          }
+        },
+        "C06b": {
+          "calls": 3,
+          "agrees": 0,
+          "actions": {
+            "5": 3
+          }
+        },
+        "C07a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C07b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C08a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "2": 3
+          }
+        },
+        "C08b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "2": 3
+          }
+        },
+        "C09a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "0": 3
+          }
+        },
+        "C09b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "3": 3
+          }
+        },
+        "C10a": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "3": 2,
+            "0": 1
+          }
+        },
+        "C10b": {
+          "calls": 3,
+          "agrees": 3,
+          "actions": {
+            "8": 2,
+            "4": 1
+          }
+        }
+      },
+      "headon_forbidden_count": 0,
+      "headon_cases": [],
+      "emergency_calls": 3,
+      "emergency_failures": 0,
+      "full_case_coverage": true,
+      "meets_screen_target": true
+    }
+  },
+  "gt_revision": "round2",
+  "note": "A fresh frozen repeat is required; a zero observed count is not a guarantee of zero real-world failures."
+}

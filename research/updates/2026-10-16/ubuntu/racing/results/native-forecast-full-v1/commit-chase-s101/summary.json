@@ -1,0 +1,117 @@
+{
+  "status": "complete",
+  "api_cost_usd": 0,
+  "code_driving_policy": false,
+  "seed": 101,
+  "variant": "commit",
+  "game_seconds": 75.16,
+  "calls": 37,
+  "invalid_outputs": 0,
+  "drops": 214,
+  "skipped_inference_slots": 214,
+  "wall_seconds": 694.2071852539957,
+  "stalled_observation_fraction": 0.42231075697211157,
+  "own_speed_integral_m": 72.21180000000004,
+  "public_final_state": {
+    "phase": "over",
+    "done": true,
+    "t_sim": 75.16,
+    "heat": 2,
+    "heat_time_s": 38.92,
+    "race": {
+      "warnings": {
+        "A": 0,
+        "opponent": 0
+      },
+      "max_heats": 3,
+      "heats_won": {
+        "A": 0,
+        "opponent": 2
+      },
+      "heats_to_win": 2
+    },
+    "crashes_this_heat": [],
+    "results": [
+      {
+        "heat": 1,
+        "winner": "B",
+        "decided_by": "finish",
+        "heat_time": 36.24,
+        "winner_finish_time": 36.2349,
+        "grid": {
+          "A": "outer",
+          "B": "inner"
+        },
+        "cars": {
+          "A": {
+            "checkpoints": 7,
+            "finish_time": null,
+            "obstacle_crashes": 0
+          },
+          "B": {
+            "checkpoints": 16,
+            "finish_time": 36.2349,
+            "obstacle_crashes": 0
+          }
+        },
+        "crashes": []
+      },
+      {
+        "heat": 2,
+        "winner": "B",
+        "decided_by": "finish",
+        "heat_time": 38.92,
+        "winner_finish_time": 38.9175,
+        "grid": {
+          "A": "inner",
+          "B": "outer"
+        },
+        "cars": {
+          "A": {
+            "checkpoints": 6,
+            "finish_time": null,
+            "obstacle_crashes": 0
+          },
+          "B": {
+            "checkpoints": 16,
+            "finish_time": 38.9175,
+            "obstacle_crashes": 0
+          }
+        },
+        "crashes": []
+      }
+    ],
+    "own": {
+      "grid": "inner",
+      "grid_side": "inner",
+      "forward_speed": 0.2123,
+      "command": [
+        2.1,
+        0.11
+      ],
+      "held": false,
+      "retired": false
+    },
+    "race_over": true,
+    "step": 7516
+  },
+  "digest": "834b50be6843b9fffd85745b5dd5c5da550a8ad6cb227014f4a780db4112ab66",
+  "won": false,
+  "scores": {
+    "A": {
+      "heats_won": 0,
+      "warnings": 0,
+      "checkpoints": 13,
+      "laps": 0,
+      "obstacle_crashes": 0
+    },
+    "opponent": {
+      "heats_won": 2,
+      "warnings": 0,
+      "checkpoints": 32,
+      "laps": 2,
+      "obstacle_crashes": 0
+    }
+  },
+  "replay_matches": true
+}

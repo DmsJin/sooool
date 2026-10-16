@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>永夜抄风 · 辉夜弹幕练习</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><a class="brand" href="./">永夜练习场 <small>IMPERISHABLE NIGHT · FAN STUDY</small></a><span class="edition">辉夜 / EASY 01</span></header>
+<main>
+<section class="game-shell" aria-label="东方风格游戏画框">
+
+<div class="arena">
+<canvas id="game" width="384" height="448" aria-label="辉夜弹幕游戏画面"></canvas>
+<div class="overlay title-screen" id="overlay">
+<img class="menu-portrait" src="assets/th08/textures/face_st07sp/data/face/st07/face_st07a.png" alt="辉夜原作立绘" draggable="false">
+<div class="menu-content"><span class="overline">SPELL PRACTICE</span><h1 id="title">永夜抄<span>竹取之夜</span></h1><p id="message">蓬莱山辉夜 · 难度一<br>月下六十秒，三道永夜的试炼。</p><button id="start">开始练习 <span>START</span></button><div class="menu-hint">方向键移动 · Z 射击 · Shift 低速 · X 符卡</div></div>
+</div>
+<div id="cutin" class="cutin" aria-hidden="true"><div class="cutin-band"></div><img src="assets/th08/textures/face_st07sp/data/face/st07/face_st07a.png" alt="" draggable="false"><div class="cutin-text"><span>永遠と須臾の罪人</span><strong>蓬莱山 輝夜</strong><em id="spell-name">月之珠 · 静夜</em><small>SPELL CARD ATTACK</small></div></div>
+<div id="spell-result" class="spell-result"></div>
+<div class="human-gauge"><span>人間</span><div><i id="human-bar"></i></div><span>妖怪</span></div>
+</div>
+<canvas id="original-hud" width="640" height="480" aria-hidden="true"></canvas>
+<aside class="hud">
+
+<div class="score-row"><span>HiScore</span><strong id="high-score">000000000</strong></div>
+<div class="score-row score-main"><span>Score</span><strong id="score">000000000</strong></div>
+<div class="hud-rule"></div>
+<div class="score-row"><span>Player</span><strong class="icons pink" id="lives">★ ★ ★</strong></div>
+<div class="score-row"><span>Spell</span><strong class="icons green" id="bombs">◆ ◆ ◆</strong></div>
+<div class="hud-rule"></div>
+<div class="score-row"><span>Power</span><strong class="power"><span>MAX</span></strong></div>
+<div class="score-row"><span>Graze</span><strong id="graze">0000</strong></div>
+<div class="score-row"><span>Point</span><strong id="point">0000/9999</strong></div>
+<div class="score-row"><span>Time</span><strong id="clock">0000/0</strong></div>
+<div class="difficulty">Easy <span>難度 一</span></div>
+
+<div class="hud-seal"><div class="title-moon"></div><div class="vertical-logo"><span>東</span><span>方</span><span>永</span><span>夜</span><span>抄</span></div><small>Imperishable Night</small></div>
+<div class="boss-label"><i></i> <span id="state">READY / 准备就绪</span></div>
+<div class="hud-bottom"><span id="fps">60.00fps</span></div>
+</aside>
+
+</section>
+<div class="toolbar"><div class="control-legend"><kbd>↑ ↓ ← →</kbd> 移动 <kbd>Z</kbd> 射击 <kbd>Shift</kbd> 低速 <kbd>X</kbd> 梦想封印 <kbd>Esc</kbd> 暂停</div><div class="tools"><button id="sound">声音：开</button><label class="volume-label">BGM <input id="bgm-volume" aria-label="BGM 音量" type="range" min="0" max="100" value="45"></label><button id="pause">暂停</button><button id="restart">重新开始</button><button id="fullscreen">全屏 ↗</button></div></div>
+<div class="bgm-caption"><span id="bgm-status" role="status">BGM · 竹取飛翔 ～ Lunatic Princess / ZUN</span><button id="bgm-retry" hidden>播放 BGM</button></div>
+<div class="touch"><div><button data-key="ArrowLeft">←</button><button data-key="ArrowUp">↑</button><button data-key="ArrowDown">↓</button><button data-key="ArrowRight">→</button></div><div><button data-key="KeyZ">Z</button><button data-key="ShiftLeft">慢</button><button data-key="KeyX">X</button></div></div>
+<details class="notebook"><summary><span>弹幕手帖</span><small>三段谱 · 60 秒 · 固定种子</small><b>＋</b></summary><div class="notebook-body"><div class="progress"><div id="progress"></div></div><div class="phases" id="phases"></div><div class="downloads"><a href="chart.json" download="kaguya-lv1-chart.json">下载弹幕谱 ↓</a><a href="touhou-gym-source.zip" download>下载 Gym 源码 ↓</a></div><p>3 残机 / 3 符卡。低速时显示核心判定点。击破辉夜或存活 60 秒完成练习；失焦自动暂停。角色、子弹、HUD、字体、背景贴图与音效使用 TH08 原作素材；BGM 按原作循环点播放。背景运动为轻量重建，弹幕为简化练习谱，符卡标题用于对应视觉主题。</p><div class="asset-links"><a href="https://thwiki.cc/%E4%B8%9C%E6%96%B9%E6%B0%B8%E5%A4%9C%E6%8A%84/%E8%A7%92%E8%89%B2%E7%AB%8B%E7%BB%98" target="_blank" rel="noopener">原作立绘出处 · ZUN / 上海爱丽丝幻乐团 ↗</a></div></div></details>
+</main><footer>TOUHOU FAN STUDY / 非官方同人模拟 · GYMNASIUM ENVIRONMENT</footer>
+
+<script type="module" src="app.mjs"></script>
+</body></html>

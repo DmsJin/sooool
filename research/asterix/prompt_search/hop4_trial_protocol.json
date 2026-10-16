@@ -1,0 +1,20 @@
+{
+  "purpose": "Test complete post-hop freshness guard without V3 neutral landing, plus explicit destination-row safety horizon",
+  "strategy": "destination_guard_v17.txt",
+  "controller": "HopControllerV4",
+  "wrapper": "minimal",
+  "case_regression_calls": 90,
+  "case_agreement_target": 0.85,
+  "headon_allowed": 0,
+  "C05b_must_all_match": true,
+  "game_seeds": [
+    2,
+    5,
+    6
+  ],
+  "game_horizon_seconds": 20,
+  "same_latency_profile_and_rng": true,
+  "stop_percent": 50,
+  "paid_api_calls": 0,
+  "comparison_caveat": "Model replies stochastic; executor and matching prompt instructions both change"
+}

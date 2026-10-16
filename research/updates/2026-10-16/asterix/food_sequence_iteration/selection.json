@@ -1,0 +1,29 @@
+{
+  "provisional_food_chase_candidate": "food_route_v33.txt",
+  "strategy_sha256": "8998fd210835a68c83651fd23fdf8a844b03ca7588b7c00f01eacbd95d93030b",
+  "adopted": false,
+  "restored_case_positive": true,
+  "paired_additional_rewards": {
+    "V28": [
+      100,
+      150
+    ],
+    "V33": [
+      200,
+      150
+    ]
+  },
+  "all_final_lives": 2,
+  "independent_replay_verified": true,
+  "frozen_gate_passed": false,
+  "frozen_scores": {
+    "V28_same_batch": 122,
+    "V33": 121,
+    "V28_historical": 123,
+    "total": 130
+  },
+  "running": "full20-game-second multi-seed comparison",
+  "full_game_verified": false,
+  "new_paid_api_calls": 0,
+  "quota_stop_percent": 80
+}

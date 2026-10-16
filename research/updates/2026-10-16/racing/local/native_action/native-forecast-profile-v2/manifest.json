@@ -1,0 +1,9 @@
+{
+  "paid_api_concurrency": 1,
+  "background_subscription_jobs": false,
+  "image_detail": "auto",
+  "history": "client-managed conversation including encrypted reasoning, store=false",
+  "schema": "forecast+actions",
+  "samples": "development seed101 recorded images, proposals not applied during offline profile",
+  "total_calls": 6
+}

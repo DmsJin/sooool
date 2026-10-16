@@ -1,0 +1,26 @@
+{
+  "prompt": "Revise your own learned memory below into <=220 words for independent concurrent rhythm-game actors. Constraints: finite literal tap JSON; generic executor never corrects timestamps; native API single-image high detail outputting 3-4 taps measured serial median1.94s min1.42s max2.48s. Output length contributes delay. ~20 concurrent actors every120ms receive their own screenshots, raw pending IDs/timestamps and last24 receipts. They may race from stale observations. Prefer few output tokens and future notes with enough lead. Design model-owned deduplication/stable IDs despite independent uncertain pixel measurements. Generic executor first-admitted command ID wins, rejects changed times for existing ID, never re-executes executed IDs; replace_pending true cancels omitted commands. You can choose false/additive or true/complete finite plan. Need general learned policy not any chart sequence, and no code executed by program. Keep own visual calibration but prioritize reliable timely sparse actions. Return only revised memory text.\nMemory for future actors:\n\n- At 390\u00d7844 resolution, the judgment line is the cyan horizontal line through the receptor ovals at **y \u2248 717**, above the key panels. Judge using each note\u2019s **vertical center**, not its glow or edge.\n- Notes descend at approximately **335 pixels/second (0.335 px/ms)**: the observed center moved y\u2248282 \u2192349 \u2192416 over two 200 ms intervals. Motion appears linear vertically; the perspective makes notes widen and move outward horizontally as they approach.\n- From one screenshot captured at absolute external time **T ms**, schedule each visible note at:\n  **tap_ms = round(T + (717 \u2212 note_center_y) / 0.335)**.\n  Use the screenshot\u2019s capture timestamp, not response arrival time or the in-game elapsed display. Scale coordinates if image dimensions change.\n- Assign lanes by the slanted lane boundaries at the note\u2019s height; left to right is **d, f, j, k**. Receptor centers are approximately x=49, 146, 244, 341.\n- Calibration is provisional: three frames support constant speed, but no successful hit confirms the exact judgment center or any input offset. Allow several milliseconds of measurement uncertainty; do not invent latency compensation.\n- Preserve pending exact plans and execution receipts across actors. Before submitting, reconcile visible notes with already scheduled **lane + absolute timestamp** entries; matching pending or executed taps must not be resubmitted. A still-visible note does not prove a prior tap failed.\n- Submit only **finite, literal absolute timestamped taps**. Account for variable API delay by submitting future taps early. If a predicted time has already passed or cannot arrive in time, flag it as missed/unserviceable; do not replace it with an immediate tap or rely on executor correction.",
+  "answer": "Use finite literal tap JSON only; no executable code. Minimize output tokens; prioritize reliable, sparse future taps.\n\nAt 390\u00d7844, judge note centers against cyan receptor line y\u2248717. Provisional speed: 0.335 px/ms. Predict absolute tap time round(T+(717\u2212y)/0.335), using screenshot capture T, never arrival time. Scale coordinates with resolution. Assign d/f/j/k using slanted lane boundaries; receptor x\u224849/146/244/341. Retain visual calibration; adjust only from convincing evidence, never invented latency offsets.\n\nSingle-image high-detail native API calls producing 3\u20134 taps measured serial median 1.94s, range 1.42\u20132.48s; these are observations, not bounds. Twenty actors starting every 120ms still face inference latency. Require lead exceeding 2.48s plus delivery/jitter margin; prefer earlier-visible notes. If visibility provides insufficient lead, abstain/report unserviceable; never emit immediate substitutes.\n\nUse replace_pending:false for additive submissions. Reconcile raw pending IDs/timestamps and last24 receipts first. Reuse matched canonical IDs and exact admitted timestamps; visible notes do not establish failure.\n\nIndependent pixel estimates cannot guarantee identical IDs. Use a shared deterministic lane/time-slot convention with fixed epoch/width, uncertainty guards, and neighboring-slot matching. Abstain near ambiguous boundaries or conflicting matches. Never use actor-local counters. Beyond receipt coverage, avoid potentially executed notes.\n\nFirst-admitted ID wins; changed timestamps are rejected, executed IDs never repeat. Executor never corrects timing.",
+  "meta": {
+    "wall_seconds": 14.825505716988118,
+    "token_usage": {
+      "total": {
+        "totalTokens": 14649,
+        "inputTokens": 14259,
+        "cachedInputTokens": 12160,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 390,
+        "reasoningOutputTokens": 63
+      },
+      "last": {
+        "totalTokens": 14649,
+        "inputTokens": 14259,
+        "cachedInputTokens": 12160,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 390,
+        "reasoningOutputTokens": 63
+      },
+      "modelContextWindow": 475000
+    }
+  }
+}

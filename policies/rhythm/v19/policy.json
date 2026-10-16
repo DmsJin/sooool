@@ -1,0 +1,13 @@
+{
+  "game": "rhythm",
+  "version": "v19",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "weight_training": false,
+  "implementation": "environments/rhythm/experiments/rhythm/model_lean_policy.py",
+  "implementation_sha256": "4b78f5dba820fc01ae3ec0148a942ced3e82cb51ac2f6d10d7d9deecf01a1c74",
+  "recipe": "recipes/rhythm.json",
+  "profile": "profiles/rhythm/native-v17-joint-profile.json",
+  "profile_sha256": "5c8c2e025efa92b7682a04e10732d6e1c2a704bb65701fcd178334b1dcbaaa10",
+  "status": "frozen development policy; see docs/validation.md for portable reproduction results"
+}

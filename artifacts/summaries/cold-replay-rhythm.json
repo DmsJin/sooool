@@ -1,0 +1,25 @@
+{
+  "game": "rhythm",
+  "model_calls": 0,
+  "mode": "saved_action_replay",
+  "captures_compared": 215,
+  "pixel_hash_mismatches": 215,
+  "pixel_note": "Cross-browser/rendering hashes are diagnostic; exact evaluator state is required.",
+  "evaluator": {
+    "state": "result",
+    "time_s": 30.001,
+    "score": 50700,
+    "combo": 18,
+    "max_combo": 18,
+    "judged": 52,
+    "counts": {
+      "perfect": 50,
+      "great": 1,
+      "ok": 0,
+      "miss": 1
+    },
+    "empty_presses": 2,
+    "total_notes": 52
+  },
+  "strict_full_combo": false
+}

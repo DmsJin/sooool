@@ -1,0 +1,23 @@
+{
+  "variants": [
+    "baseline",
+    "active_escape_v4",
+    "priority_escape_v6"
+  ],
+  "cases": [
+    "C01a",
+    "C01b",
+    "C06a",
+    "C06b",
+    "C08a",
+    "C08b"
+  ],
+  "repeats_per_case_per_variant": 5,
+  "calls": 90,
+  "no_further_prompt_edits_during_confirmation": true,
+  "primary_metric": "original candidate-set agreement",
+  "secondary_metric": "RIGHT on C08a, where original trajectory established a safe scoring opportunity; kept separate from original labels",
+  "scope": "fresh responses on previously inspected fixed cases; not unseen trajectories",
+  "quota_stop_percent": 50,
+  "paid_api_spend_usd": 0
+}

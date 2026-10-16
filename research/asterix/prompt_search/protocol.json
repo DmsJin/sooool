@@ -1,0 +1,122 @@
+{
+  "stage1": "3 variants x 9 development cases x 2 repeats = 54 calls",
+  "stage2": "select on development only; frozen baseline-versus-winner on 9 regression cases, repeated",
+  "primary_metric": "unchanged user candidate-action set agreement",
+  "secondary": "separate safety concerns from reward preference; no certified survival labels",
+  "quota_stop_percent": 50,
+  "paid_api_spend_usd": 0,
+  "labels_provided_to_model": false,
+  "future_images_provided_to_model": false,
+  "model": "existing subscription gpt-6.1-sol configuration; not ultrafast API",
+  "status": "completed research checkpoint; v6 provisional; no active inference jobs",
+  "remote_output": "/home/ubuntu/wzh/expts-sol/results/asterix/case-prompt-search-20261015-stage1",
+  "initial_subscription_used_percent": 24,
+  "upload_authorization": "user explicitly approved current and all subsequent Asterix prompt/task uploads to the named server/directory, subscription only, stop at 50%",
+  "case_groups": {
+    "safety_or_retreat": [
+      "C01a",
+      "C02a",
+      "C04a",
+      "C05a",
+      "C06a",
+      "C07a"
+    ],
+    "reward_or_efficiency": [
+      "C08a",
+      "C09a",
+      "C10a"
+    ]
+  },
+  "maximum_concurrent_inference_workers": 8,
+  "stage1_completed_calls": 54,
+  "stage1_agreements": {
+    "baseline": [
+      8,
+      18
+    ],
+    "retreat_v1": [
+      8,
+      18
+    ],
+    "retreat_score_v2": [
+      9,
+      18
+    ]
+  },
+  "adaptive_candidate": "maneuver_v3",
+  "adaptive_words": 169,
+  "stage3_agreements": {
+    "baseline": [
+      11,
+      27
+    ],
+    "maneuver_v3": [
+      15,
+      27
+    ]
+  },
+  "stage2_agreements": {
+    "baseline": [
+      12,
+      27
+    ],
+    "retreat_score_v2": [
+      16,
+      27
+    ]
+  },
+  "prepared_candidate": "active_escape_v4",
+  "completed_action_calls": 582,
+  "completed_perception_diagnostics": 4,
+  "stage5_agreements": {
+    "baseline": [
+      10,
+      27
+    ],
+    "active_escape_v4": [
+      16,
+      27
+    ]
+  },
+  "stage6_agreements": {
+    "baseline": [
+      14,
+      27
+    ],
+    "active_escape_v4": [
+      15,
+      27
+    ]
+  },
+  "candidate_versions": 6,
+  "stage9_full_set": {
+    "baseline": [
+      19,
+      54
+    ],
+    "priority_escape_v6": [
+      30,
+      54
+    ]
+  },
+  "active_confirmation_variants": [
+    "baseline",
+    "active_escape_v4",
+    "priority_escape_v6"
+  ],
+  "action_calls": 672,
+  "perception_calls": 4,
+  "model_calls": 676,
+  "final_subscription_quota": {
+    "windows": [
+      {
+        "name": "primary",
+        "used_percent": 29,
+        "window_minutes": 10080
+      }
+    ],
+    "max_used_percent": 29
+  },
+  "selected_candidate": "priority_escape_v6",
+  "live_policy_replaced": false
+}

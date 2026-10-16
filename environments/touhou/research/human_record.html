@@ -1,0 +1,51 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>东方 · 人类示范录制</title>
+<style>body{margin:0;background:#100d14;color:#eadfea;font:15px system-ui}main{max-width:950px;margin:20px auto}button,input{font:inherit;padding:8px 13px;border-radius:6px;border:1px solid #81657a;background:#30202e;color:inherit}button:disabled{opacity:.4}p{color:#bfaabc}iframe{display:block;width:920px;height:690px;border:0;margin-top:16px}a{color:#e1bde5}#status{white-space:pre-wrap}</style>
+<main><h2>人类示范录制</h2><p>方向键移动 · Z 射击 · Shift 低速 · X 符卡。点击开始后直接在游戏里玩，保持窗口前台。</p>
+<label>种子 <input id="seed" type="number" min="0" max="4294967295" value="1" style="width:100px"></label>
+<button id="begin" disabled>素材加载中…</button> <button id="stop" disabled>结束并保存</button>
+<p id="status">录制原速画面、键位边沿和实际动作帧；没有模型或 API 调用。</p>
+<iframe id="game" src="/game/?research=1" title="原作素材练习画面"></iframe></main>
+<script>
+const $=id=>document.getElementById(id),view=$('game');
+let recording=false,run=null,recorder=null,stream=null,chunks=[],videoCanvas=document.createElement('canvas'),timer=null,eventChain=Promise.resolve(),eventSeq=0,pendingFrames=[],frameInFlight=0,frameDrainResolve=null,frameError=null,lastFrame=-1,lastPaint=0,lastSaved=-1,raf=null;
+videoCanvas.width=640;videoCanvas.height=480;const ctx=videoCanvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+const env=()=>view.contentWindow.research;
+async function post(path,data){const res=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});if(!res.ok)throw new Error(await res.text());return res.json();}
+async function retry(task){for(let attempt=0;;attempt++){try{return await task();}catch(error){if(attempt>=3)throw error;await new Promise(resolve=>setTimeout(resolve,1000*2**attempt));}}}
+function flush(){const rows=env().drainHumanEvents();if(rows.keys.length||rows.actions.length){const payload={id:run.id,batch_seq:eventSeq++,...rows};eventChain=eventChain.then(()=>retry(()=>post('/api/events',payload)));eventChain.catch(e=>{$('status').textContent='动作保存失败，请保留页面：'+e.message;});}return eventChain;}
+function frameData(image){return {png:videoCanvas.toDataURL('image/png'),frame:image.frame,held:image.held,clock:image.clock};}
+function pumpFrames(force=false){
+ while(!frameError&&pendingFrames.length&&frameInFlight<2&&(force||pendingFrames.length>=8)){
+  const items=pendingFrames.splice(0,8);frameInFlight++;
+  retry(()=>post('/api/frames',{id:run.id,items})).catch(error=>{pendingFrames.unshift(...items);frameError=error;}).finally(()=>{frameInFlight--;pumpFrames(!recording);if(frameDrainResolve&&frameInFlight===0&&(pendingFrames.length===0||frameError)){frameDrainResolve();frameDrainResolve=null;}});
+ }
+ if(frameDrainResolve&&frameInFlight===0&&(pendingFrames.length===0||frameError)){frameDrainResolve();frameDrainResolve=null;}
+}
+function paint(now=0){if(!recording)return;if(now-lastPaint>=1000/30){const image=env().captureCanvas();ctx.drawImage(image.canvas,0,0);stream.getVideoTracks()[0].requestFrame();lastPaint=now;lastFrame=image.clock.visual_frame;
+ if(lastFrame-lastSaved>=15){lastSaved=lastFrame;pendingFrames.push(frameData(image));pumpFrames();}
+ if(image.clock.status!=='playing'){finish().catch(e=>{$('status').textContent='保存未完成，请保留页面：'+e.message;});return;}}
+ raf=requestAnimationFrame(paint);}
+async function finish(){if(!recording)return;recording=false;cancelAnimationFrame(raf);clearInterval(timer);$('stop').disabled=true;
+ const final=env().diagnostics(),image=env().captureCanvas();ctx.drawImage(image.canvas,0,0);stream.getVideoTracks()[0].requestFrame();
+ pendingFrames.push(frameData(image));
+ const stopped=new Promise(resolve=>{recorder.addEventListener('stop',resolve,{once:true});recorder.stop();});
+ const eventsSaved=flush();$('status').textContent='正在优先保存录像、结果和动作，请保留页面…';
+ const finalSaved=retry(()=>post('/api/final',{id:run.id,staged_upload:true,...final}));
+ const videoSaved=stopped.then(async()=>{stream.getTracks().forEach(t=>t.stop());const blob=new Blob(chunks,{type:recorder.mimeType});await retry(async()=>{const response=await fetch('/api/video?id='+run.id,{method:'POST',body:blob});if(!response.ok)throw new Error('录像保存失败');});});
+ pumpFrames(true);await Promise.all([eventsSaved,finalSaved,videoSaved]);
+ await retry(()=>post('/api/complete',{id:run.id,event_batches:eventSeq,frames:false}));
+ $('status').innerHTML='录像、结果和动作已保存。正在补齐关键帧，请保留页面…<br><a href="/recordings/'+run.id+'/human.webm" target="_blank">播放录像</a>';
+ await new Promise(resolve=>{frameDrainResolve=resolve;pumpFrames(true);});if(frameError)throw frameError;
+ await retry(()=>post('/api/complete',{id:run.id,event_batches:eventSeq,frames:true}));
+ $('status').innerHTML='已保存：'+run.path+'<br>结果：'+final.state.status+' · '+(final.state.tick/60).toFixed(2)+' 游戏秒<br><a href="/recordings/'+run.id+'/human.webm" target="_blank">播放录像</a> · <a href="/recordings/'+run.id+'/manifest.json" target="_blank">录制信息</a>';
+ $('begin').disabled=false;$('begin').textContent='再录一局';}
+$('begin').onclick=async()=>{try{$('begin').disabled=true;run=await post('/api/start',{seed:Number($('seed').value)});eventChain=Promise.resolve();eventSeq=0;pendingFrames=[];frameInFlight=0;frameDrainResolve=null;frameError=null;chunks=[];lastPaint=0;lastSaved=-1;lastFrame=-1;
+ env().reset(Number($('seed').value),'realtime',1);env().setHuman(true);recording=true;
+ const image=env().captureCanvas();ctx.drawImage(image.canvas,0,0);stream=videoCanvas.captureStream(0);
+ const mime=['video/webm;codecs=vp8','video/webm;codecs=vp9','video/webm'].find(t=>MediaRecorder.isTypeSupported(t));recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:3500000});recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};recorder.start(1000);stream.getVideoTracks()[0].requestFrame();
+ timer=setInterval(()=>{flush();pumpFrames(true);},1000);raf=requestAnimationFrame(paint);$('stop').disabled=false;$('status').textContent='录制中 · 原速 1× · '+run.path;
+ view.contentWindow.focus();view.contentDocument.querySelector('#game').tabIndex=0;view.contentDocument.querySelector('#game').focus();
+ }catch(e){$('status').textContent=e.message;$('begin').disabled=false;}};
+$('stop').onclick=()=>finish().catch(e=>{$('status').textContent=e.message;});
+const ready=setInterval(()=>{try{if(env()?.ready()){clearInterval(ready);$('begin').disabled=false;$('begin').textContent='开始录制';}}catch{}},100);
+</script></html>

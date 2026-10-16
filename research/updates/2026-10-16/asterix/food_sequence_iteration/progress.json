@@ -1,0 +1,168 @@
+{
+  "status": "running",
+  "previous_goal_turn_classification": "progress: gathered full V32/V33 regression results and launched true food-reward diagnostic; current turn verifies first actual positive paired food result and starts broader full-game comparison",
+  "active_remote_job_pid": 3457958,
+  "queued_evaluation_pid": 3313503,
+  "verified_live": true,
+  "current_output": "/home/ubuntu/wzh/expts-sol/results/asterix/food-sequence-v30-paired-r2-20261015",
+  "next_outputs": [
+    "food-sequence-v31-focus-20261015",
+    "food-sequence-v31-regression-20261015",
+    "food-sequence-v31-continuation-20261015"
+  ],
+  "candidate_v30_status": "rejected",
+  "baseline_completed": [
+    {
+      "repeat": 0,
+      "additional_reward": 150,
+      "lives": 2,
+      "pickup_frames": [
+        484,
+        620,
+        687
+      ]
+    },
+    {
+      "repeat": 1,
+      "additional_reward": 150,
+      "lives": 2,
+      "pickup_frames": [
+        472,
+        544,
+        592
+      ]
+    }
+  ],
+  "candidate_v31": "Keeps original V28 scoring paragraph; changes only pickup/next-target handoff D2",
+  "candidate_v31_not_validated": true,
+  "quota_stop_percent": 80,
+  "latest_observed_quota_percent": 33,
+  "new_paid_api_calls": 0,
+  "failed_setup_attempts": "Two setup attempts ended without model dispatch (missing helper path, then missing client import); resolved with existing runtime and explicit PYTHONPATH. Failed output retained.",
+  "active_phase": "Six fresh full20-game-second episodes, V28/V33 on seeds2/5/6, randomized schedule, shared8 native workers",
+  "v30_finished": true,
+  "v30_independently_verified": true,
+  "v30_rewards": [
+    0,
+    150
+  ],
+  "v30_final_lives": [
+    1,
+    2
+  ],
+  "baseline_rewards": [
+    150,
+    150
+  ],
+  "baseline_final_lives": [
+    2,
+    2
+  ],
+  "models_running": true,
+  "driver_pid": 3457958,
+  "next_driver_pid": 3380734,
+  "v31_focus_completed": true,
+  "v31_regression_completed": true,
+  "v31_regression_overall": 47,
+  "v31_regression_total": 52,
+  "v31_same_batch_baseline": 49,
+  "v31_headon_violations": [
+    {
+      "case_id": "C05b",
+      "action": 2
+    }
+  ],
+  "candidate_v31_status": "Rejected for regression: one head-on action and C05b failure; current already-started native diagnostic will drain",
+  "candidate_v32_status": "Queued focused arrival-crossing pilot, no promotion",
+  "v32_gate": "48 focus tasks; only continue if C12 UP-family improves to at least5/6; then104 paired regression tasks, require no headon/landing or C05b failures, C10b2/2, and overall>=paired V28; only then C12a native trajectory comparisons",
+  "prompt_sha256": {
+    "food_route_v28.txt": "20aa17f707b9a626cf8a7a81bd65d292cdccf3eacaa391f656d1c6619eb26d0b",
+    "food_route_v30.txt": "6f4bd555b4521cff03ad58377396d7064a349576570cef74003e1adbf7c4eed3",
+    "food_route_v31.txt": "2fcc9af6cfb5f47098f913d6b540e4993052678850d6c52521436c46cd8822c8",
+    "food_route_v32.txt": "3d396a70e8913857e29ccc5dea62852c392cc6106d2b0ae3d7c68bbd172f3ca6",
+    "food_route_v33.txt": "8998fd210835a68c83651fd23fdf8a844b03ca7588b7c00f01eacbd95d93030b"
+  },
+  "v33_status": "Below adoption gate by one paired sample and two fixed reference samples; zero observed forbidden directions, C10b5/5. Continue actual reward diagnostic without promotion.",
+  "v31_native_complete": true,
+  "v31_additional_rewards": [
+    50,
+    100
+  ],
+  "v31_final_lives": [
+    2,
+    2
+  ],
+  "v31_independently_verified": true,
+  "v33_driver_pid": 3398650,
+  "v33_focus_complete": true,
+  "v33_focus_left_counts": {
+    "V28": 5,
+    "V33": 6,
+    "total": 6
+  },
+  "v32_focus_complete": true,
+  "v32_pilot_gate": {
+    "UP_family_on_C12_out_of_6": {
+      "food_route_v28": 5,
+      "food_route_v32": 6
+    },
+    "continue_to_native_trajectory": true,
+    "not_a_promotion_gate": true
+  },
+  "completion_requires": [
+    "Preserve original frozen preference/safety checks, including no head-on and C10b",
+    "Actual higher food reward without additional life loss in paired native-policy continuations",
+    "Visual confirmation of completing the upper-food pursuit instead of prematurely leaving",
+    "Broaden to complete 5x game trajectories across seeds; single-case action improvement alone is insufficient"
+  ],
+  "v32_regression_complete": true,
+  "v32_regression_correct": 49,
+  "v32_paired_baseline_correct": 51,
+  "v32_regression_total": 52,
+  "v32_status": "Screen failed; no actual C12 trajectory run",
+  "v33_regression_complete": true,
+  "v33_regression_correct": 121,
+  "v33_paired_baseline_correct": 122,
+  "v33_regression_total": 130,
+  "completed_drivers": [
+    3380734,
+    3398650
+  ],
+  "v34_status": "Focused pilot8/9 critical vsV28 9/9; omitted from actual diagnostic",
+  "diagnostic_override": "V33 is below adoption gate by1/130 paired and2/130 fixed reference, but no observed forbidden directions and C10b5/5. Actual reward diagnosis is exploratory, not promotion; original labels and failed gate preserved.",
+  "artifact_download_sessions_complete": true,
+  "v34_focus_complete": true,
+  "v33_actual_diagnostic_completed": true,
+  "v33_actual_diagnostic_independently_verified": true,
+  "actual_diagnostic_rewards": {
+    "V28": [
+      100,
+      150
+    ],
+    "V33": [
+      200,
+      150
+    ]
+  },
+  "actual_diagnostic_final_lives": {
+    "V28": [
+      2,
+      2
+    ],
+    "V33": [
+      2,
+      2
+    ]
+  },
+  "manual_upper_food_pickup_verified": true,
+  "upper_food_reward_frame": 613,
+  "next_reward_frames": [
+    641,
+    679
+  ],
+  "candidate_adopted": false,
+  "promotion_blockers": [
+    "V33 frozen agreement121/130 vs122/130 paired,123/130 historical; independent non-regression unproven",
+    "Complete multi-seed food reward and survival comparison running"
+  ]
+}

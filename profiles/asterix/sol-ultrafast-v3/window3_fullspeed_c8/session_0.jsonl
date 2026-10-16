@@ -1,0 +1,205 @@
+{"episode_id": 0, "obs_id": 0, "obs_env_step": 0, "submitted": true, "worker_id": 0, "worker_service_time_ms": 829.1366199991899, "observation_to_action_latency_ms": 829.1366199991899}
+{"episode_id": 0, "obs_id": 1, "obs_env_step": 4, "submitted": true, "worker_id": 0, "worker_service_time_ms": 828.9492290005, "observation_to_action_latency_ms": 828.9492290005}
+{"episode_id": 0, "obs_id": 2, "obs_env_step": 8, "submitted": true, "worker_id": 0, "worker_service_time_ms": 928.1023829989863, "observation_to_action_latency_ms": 928.1023829989863}
+{"episode_id": 0, "obs_id": 3, "obs_env_step": 12, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1256.6979970015382, "observation_to_action_latency_ms": 1256.6979970015382}
+{"episode_id": 0, "obs_id": 4, "obs_env_step": 16, "submitted": true, "worker_id": 0, "worker_service_time_ms": 902.0111690006161, "observation_to_action_latency_ms": 902.0111690006161}
+{"episode_id": 0, "obs_id": 5, "obs_env_step": 20, "submitted": true, "worker_id": 0, "worker_service_time_ms": 815.41747799929, "observation_to_action_latency_ms": 815.41747799929}
+{"episode_id": 0, "obs_id": 6, "obs_env_step": 24, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1025.8046769995417, "observation_to_action_latency_ms": 1025.8046769995417}
+{"episode_id": 0, "obs_id": 7, "obs_env_step": 28, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1016.962973999398, "observation_to_action_latency_ms": 1016.962973999398}
+{"episode_id": 0, "obs_id": 8, "obs_env_step": 32, "submitted": false}
+{"episode_id": 0, "obs_id": 9, "obs_env_step": 36, "submitted": false}
+{"episode_id": 0, "obs_id": 10, "obs_env_step": 40, "submitted": false}
+{"episode_id": 0, "obs_id": 11, "obs_env_step": 44, "submitted": false}
+{"episode_id": 0, "obs_id": 12, "obs_env_step": 48, "submitted": false}
+{"episode_id": 0, "obs_id": 13, "obs_env_step": 52, "submitted": true, "worker_id": 0, "worker_service_time_ms": 866.5187539991166, "observation_to_action_latency_ms": 866.5187539991166}
+{"episode_id": 0, "obs_id": 14, "obs_env_step": 56, "submitted": true, "worker_id": 0, "worker_service_time_ms": 856.9687339986558, "observation_to_action_latency_ms": 856.9687339986558}
+{"episode_id": 0, "obs_id": 15, "obs_env_step": 60, "submitted": false}
+{"episode_id": 0, "obs_id": 16, "obs_env_step": 64, "submitted": true, "worker_id": 0, "worker_service_time_ms": 839.2118419997132, "observation_to_action_latency_ms": 839.2118419997132}
+{"episode_id": 0, "obs_id": 17, "obs_env_step": 68, "submitted": false}
+{"episode_id": 0, "obs_id": 18, "obs_env_step": 72, "submitted": true, "worker_id": 0, "worker_service_time_ms": 886.4165480008523, "observation_to_action_latency_ms": 886.4165480008523}
+{"episode_id": 0, "obs_id": 19, "obs_env_step": 76, "submitted": true, "worker_id": 0, "worker_service_time_ms": 719.8235260002548, "observation_to_action_latency_ms": 719.8235260002548}
+{"episode_id": 0, "obs_id": 20, "obs_env_step": 80, "submitted": false}
+{"episode_id": 0, "obs_id": 21, "obs_env_step": 84, "submitted": false}
+{"episode_id": 0, "obs_id": 22, "obs_env_step": 88, "submitted": true, "worker_id": 0, "worker_service_time_ms": 866.6597939991334, "observation_to_action_latency_ms": 866.6597939991334}
+{"episode_id": 0, "obs_id": 23, "obs_env_step": 92, "submitted": true, "worker_id": 0, "worker_service_time_ms": 734.1380569996545, "observation_to_action_latency_ms": 734.1380569996545}
+{"episode_id": 0, "obs_id": 24, "obs_env_step": 96, "submitted": true, "worker_id": 0, "worker_service_time_ms": 835.4607609999221, "observation_to_action_latency_ms": 835.4607609999221}
+{"episode_id": 0, "obs_id": 25, "obs_env_step": 100, "submitted": false}
+{"episode_id": 0, "obs_id": 26, "obs_env_step": 104, "submitted": false}
+{"episode_id": 0, "obs_id": 27, "obs_env_step": 108, "submitted": true, "worker_id": 0, "worker_service_time_ms": 998.441873000047, "observation_to_action_latency_ms": 998.441873000047}
+{"episode_id": 0, "obs_id": 28, "obs_env_step": 112, "submitted": true, "worker_id": 0, "worker_service_time_ms": 886.5707479999401, "observation_to_action_latency_ms": 886.5707479999401}
+{"episode_id": 0, "obs_id": 29, "obs_env_step": 116, "submitted": true, "worker_id": 0, "worker_service_time_ms": 883.7304080007016, "observation_to_action_latency_ms": 883.7304080007016}
+{"episode_id": 0, "obs_id": 30, "obs_env_step": 120, "submitted": true, "worker_id": 0, "worker_service_time_ms": 865.279304998694, "observation_to_action_latency_ms": 865.279304998694}
+{"episode_id": 0, "obs_id": 31, "obs_env_step": 124, "submitted": false}
+{"episode_id": 0, "obs_id": 32, "obs_env_step": 128, "submitted": true, "worker_id": 0, "worker_service_time_ms": 906.4324600003602, "observation_to_action_latency_ms": 906.4324600003602}
+{"episode_id": 0, "obs_id": 33, "obs_env_step": 132, "submitted": false}
+{"episode_id": 0, "obs_id": 34, "obs_env_step": 136, "submitted": false}
+{"episode_id": 0, "obs_id": 35, "obs_env_step": 140, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1062.7065209991997, "observation_to_action_latency_ms": 1062.7065209991997}
+{"episode_id": 0, "obs_id": 36, "obs_env_step": 144, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1185.5229980010336, "observation_to_action_latency_ms": 1185.5229980010336}
+{"episode_id": 0, "obs_id": 37, "obs_env_step": 148, "submitted": true, "worker_id": 0, "worker_service_time_ms": 793.6798859991541, "observation_to_action_latency_ms": 793.6798859991541}
+{"episode_id": 0, "obs_id": 38, "obs_env_step": 152, "submitted": false}
+{"episode_id": 0, "obs_id": 39, "obs_env_step": 156, "submitted": false}
+{"episode_id": 0, "obs_id": 40, "obs_env_step": 160, "submitted": false}
+{"episode_id": 0, "obs_id": 41, "obs_env_step": 164, "submitted": false}
+{"episode_id": 0, "obs_id": 42, "obs_env_step": 168, "submitted": true, "worker_id": 0, "worker_service_time_ms": 863.3642639997561, "observation_to_action_latency_ms": 863.3642639997561}
+{"episode_id": 0, "obs_id": 43, "obs_env_step": 172, "submitted": true, "worker_id": 0, "worker_service_time_ms": 946.1035059994174, "observation_to_action_latency_ms": 946.1035059994174}
+{"episode_id": 0, "obs_id": 44, "obs_env_step": 176, "submitted": true, "worker_id": 0, "worker_service_time_ms": 941.7099860002054, "observation_to_action_latency_ms": 941.7099860002054}
+{"episode_id": 0, "obs_id": 45, "obs_env_step": 180, "submitted": true, "worker_id": 0, "worker_service_time_ms": 868.1339649992879, "observation_to_action_latency_ms": 868.1339649992879}
+{"episode_id": 0, "obs_id": 46, "obs_env_step": 184, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1146.0381520009832, "observation_to_action_latency_ms": 1146.0381520009832}
+{"episode_id": 0, "obs_id": 47, "obs_env_step": 188, "submitted": false}
+{"episode_id": 0, "obs_id": 48, "obs_env_step": 192, "submitted": false}
+{"episode_id": 0, "obs_id": 49, "obs_env_step": 196, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1677.559914000085, "observation_to_action_latency_ms": 1677.559914000085}
+{"episode_id": 0, "obs_id": 50, "obs_env_step": 200, "submitted": false}
+{"episode_id": 0, "obs_id": 51, "obs_env_step": 204, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1573.0022299994744, "observation_to_action_latency_ms": 1573.0022299994744}
+{"episode_id": 0, "obs_id": 52, "obs_env_step": 208, "submitted": false}
+{"episode_id": 0, "obs_id": 53, "obs_env_step": 212, "submitted": false}
+{"episode_id": 0, "obs_id": 54, "obs_env_step": 216, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1083.7942639991525, "observation_to_action_latency_ms": 1083.7942639991525}
+{"episode_id": 0, "obs_id": 55, "obs_env_step": 220, "submitted": false}
+{"episode_id": 0, "obs_id": 56, "obs_env_step": 224, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1139.332861001094, "observation_to_action_latency_ms": 1139.332861001094}
+{"episode_id": 0, "obs_id": 57, "obs_env_step": 228, "submitted": false}
+{"episode_id": 0, "obs_id": 58, "obs_env_step": 232, "submitted": true, "worker_id": 0, "worker_service_time_ms": 974.4528400005947, "observation_to_action_latency_ms": 974.4528400005947}
+{"episode_id": 0, "obs_id": 59, "obs_env_step": 236, "submitted": true, "worker_id": 0, "worker_service_time_ms": 888.0265780007903, "observation_to_action_latency_ms": 888.0265780007903}
+{"episode_id": 0, "obs_id": 60, "obs_env_step": 240, "submitted": true, "worker_id": 0, "worker_service_time_ms": 950.5871870005649, "observation_to_action_latency_ms": 950.5871870005649}
+{"episode_id": 0, "obs_id": 61, "obs_env_step": 244, "submitted": false}
+{"episode_id": 0, "obs_id": 62, "obs_env_step": 248, "submitted": false}
+{"episode_id": 0, "obs_id": 63, "obs_env_step": 252, "submitted": false}
+{"episode_id": 0, "obs_id": 64, "obs_env_step": 256, "submitted": true, "worker_id": 0, "worker_service_time_ms": 823.8194389996352, "observation_to_action_latency_ms": 823.8194389996352}
+{"episode_id": 0, "obs_id": 65, "obs_env_step": 260, "submitted": false}
+{"episode_id": 0, "obs_id": 66, "obs_env_step": 264, "submitted": false}
+{"episode_id": 0, "obs_id": 67, "obs_env_step": 268, "submitted": false}
+{"episode_id": 0, "obs_id": 68, "obs_env_step": 272, "submitted": false}
+{"episode_id": 0, "obs_id": 69, "obs_env_step": 276, "submitted": false}
+{"episode_id": 0, "obs_id": 70, "obs_env_step": 280, "submitted": false}
+{"episode_id": 0, "obs_id": 71, "obs_env_step": 284, "submitted": true, "worker_id": 0, "worker_service_time_ms": 858.4572540003137, "observation_to_action_latency_ms": 858.4572540003137}
+{"episode_id": 0, "obs_id": 72, "obs_env_step": 288, "submitted": false}
+{"episode_id": 0, "obs_id": 73, "obs_env_step": 292, "submitted": true, "worker_id": 0, "worker_service_time_ms": 878.3356580006512, "observation_to_action_latency_ms": 878.3356580006512}
+{"episode_id": 0, "obs_id": 74, "obs_env_step": 296, "submitted": true, "worker_id": 0, "worker_service_time_ms": 917.7853519995551, "observation_to_action_latency_ms": 917.7853519995551}
+{"episode_id": 0, "obs_id": 75, "obs_env_step": 300, "submitted": true, "worker_id": 0, "worker_service_time_ms": 952.0837170002778, "observation_to_action_latency_ms": 952.0837170002778}
+{"episode_id": 0, "obs_id": 76, "obs_env_step": 304, "submitted": true, "worker_id": 0, "worker_service_time_ms": 767.4272819986072, "observation_to_action_latency_ms": 767.4272819986072}
+{"episode_id": 0, "obs_id": 77, "obs_env_step": 308, "submitted": true, "worker_id": 0, "worker_service_time_ms": 858.9258840002003, "observation_to_action_latency_ms": 858.9258840002003}
+{"episode_id": 0, "obs_id": 78, "obs_env_step": 312, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1053.7598400005663, "observation_to_action_latency_ms": 1053.7598400005663}
+{"episode_id": 0, "obs_id": 79, "obs_env_step": 316, "submitted": true, "worker_id": 0, "worker_service_time_ms": 960.9172680011397, "observation_to_action_latency_ms": 960.9172680011397}
+{"episode_id": 0, "obs_id": 80, "obs_env_step": 320, "submitted": false}
+{"episode_id": 0, "obs_id": 81, "obs_env_step": 324, "submitted": false}
+{"episode_id": 0, "obs_id": 82, "obs_env_step": 328, "submitted": false}
+{"episode_id": 0, "obs_id": 83, "obs_env_step": 332, "submitted": false}
+{"episode_id": 0, "obs_id": 84, "obs_env_step": 336, "submitted": true, "worker_id": 0, "worker_service_time_ms": 783.780753999963, "observation_to_action_latency_ms": 783.780753999963}
+{"episode_id": 0, "obs_id": 85, "obs_env_step": 340, "submitted": false}
+{"episode_id": 0, "obs_id": 86, "obs_env_step": 344, "submitted": false}
+{"episode_id": 0, "obs_id": 87, "obs_env_step": 348, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1140.967402001479, "observation_to_action_latency_ms": 1140.967402001479}
+{"episode_id": 0, "obs_id": 88, "obs_env_step": 352, "submitted": true, "worker_id": 0, "worker_service_time_ms": 943.9962560009008, "observation_to_action_latency_ms": 943.9962560009008}
+{"episode_id": 0, "obs_id": 89, "obs_env_step": 356, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1013.9673749999929, "observation_to_action_latency_ms": 1013.9673749999929}
+{"episode_id": 0, "obs_id": 90, "obs_env_step": 360, "submitted": true, "worker_id": 0, "worker_service_time_ms": 950.2390060006292, "observation_to_action_latency_ms": 950.2390060006292}
+{"episode_id": 0, "obs_id": 91, "obs_env_step": 364, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1852.9975669989653, "observation_to_action_latency_ms": 1852.9975669989653}
+{"episode_id": 0, "obs_id": 92, "obs_env_step": 368, "submitted": false}
+{"episode_id": 0, "obs_id": 93, "obs_env_step": 372, "submitted": false}
+{"episode_id": 0, "obs_id": 94, "obs_env_step": 376, "submitted": true, "worker_id": 0, "worker_service_time_ms": 854.0509039994504, "observation_to_action_latency_ms": 854.0509039994504}
+{"episode_id": 0, "obs_id": 95, "obs_env_step": 380, "submitted": true, "worker_id": 0, "worker_service_time_ms": 758.2111609990534, "observation_to_action_latency_ms": 758.2111609990534}
+{"episode_id": 0, "obs_id": 96, "obs_env_step": 384, "submitted": true, "worker_id": 0, "worker_service_time_ms": 849.0835840002546, "observation_to_action_latency_ms": 849.0835840002546}
+{"episode_id": 0, "obs_id": 97, "obs_env_step": 388, "submitted": false}
+{"episode_id": 0, "obs_id": 98, "obs_env_step": 392, "submitted": false}
+{"episode_id": 0, "obs_id": 99, "obs_env_step": 396, "submitted": false}
+{"episode_id": 0, "obs_id": 100, "obs_env_step": 400, "submitted": false}
+{"episode_id": 0, "obs_id": 101, "obs_env_step": 404, "submitted": false}
+{"episode_id": 0, "obs_id": 102, "obs_env_step": 408, "submitted": false}
+{"episode_id": 0, "obs_id": 103, "obs_env_step": 412, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1424.409850000302, "observation_to_action_latency_ms": 1424.409850000302}
+{"episode_id": 0, "obs_id": 104, "obs_env_step": 416, "submitted": false}
+{"episode_id": 0, "obs_id": 105, "obs_env_step": 420, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1321.1920960002317, "observation_to_action_latency_ms": 1321.1920960002317}
+{"episode_id": 0, "obs_id": 106, "obs_env_step": 424, "submitted": true, "worker_id": 0, "worker_service_time_ms": 758.0624619986338, "observation_to_action_latency_ms": 758.0624619986338}
+{"episode_id": 0, "obs_id": 107, "obs_env_step": 428, "submitted": true, "worker_id": 0, "worker_service_time_ms": 739.3670980000024, "observation_to_action_latency_ms": 739.3670980000024}
+{"episode_id": 0, "obs_id": 108, "obs_env_step": 432, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1049.0375090012094, "observation_to_action_latency_ms": 1049.0375090012094}
+{"episode_id": 0, "obs_id": 109, "obs_env_step": 436, "submitted": true, "worker_id": 0, "worker_service_time_ms": 919.402583000192, "observation_to_action_latency_ms": 919.402583000192}
+{"episode_id": 0, "obs_id": 110, "obs_env_step": 440, "submitted": true, "worker_id": 0, "worker_service_time_ms": 833.1467209991388, "observation_to_action_latency_ms": 833.1467209991388}
+{"episode_id": 0, "obs_id": 111, "obs_env_step": 444, "submitted": false}
+{"episode_id": 0, "obs_id": 112, "obs_env_step": 448, "submitted": false}
+{"episode_id": 0, "obs_id": 113, "obs_env_step": 452, "submitted": false}
+{"episode_id": 0, "obs_id": 114, "obs_env_step": 456, "submitted": false}
+{"episode_id": 0, "obs_id": 115, "obs_env_step": 460, "submitted": false}
+{"episode_id": 0, "obs_id": 116, "obs_env_step": 464, "submitted": false}
+{"episode_id": 0, "obs_id": 117, "obs_env_step": 468, "submitted": false}
+{"episode_id": 0, "obs_id": 118, "obs_env_step": 472, "submitted": true, "worker_id": 0, "worker_service_time_ms": 838.7758419994498, "observation_to_action_latency_ms": 838.7758419994498}
+{"episode_id": 0, "obs_id": 119, "obs_env_step": 476, "submitted": true, "worker_id": 0, "worker_service_time_ms": 971.0775790008483, "observation_to_action_latency_ms": 971.0775790008483}
+{"episode_id": 0, "obs_id": 120, "obs_env_step": 480, "submitted": true, "worker_id": 0, "worker_service_time_ms": 950.194916998953, "observation_to_action_latency_ms": 950.194916998953}
+{"episode_id": 0, "obs_id": 121, "obs_env_step": 484, "submitted": false}
+{"episode_id": 0, "obs_id": 122, "obs_env_step": 488, "submitted": false}
+{"episode_id": 0, "obs_id": 123, "obs_env_step": 492, "submitted": true, "worker_id": 0, "worker_service_time_ms": 968.4610100011923, "observation_to_action_latency_ms": 968.4610100011923}
+{"episode_id": 0, "obs_id": 124, "obs_env_step": 496, "submitted": true, "worker_id": 0, "worker_service_time_ms": 874.7692859997187, "observation_to_action_latency_ms": 874.7692859997187}
+{"episode_id": 0, "obs_id": 125, "obs_env_step": 500, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1016.6639970011602, "observation_to_action_latency_ms": 1016.6639970011602}
+{"episode_id": 0, "obs_id": 126, "obs_env_step": 504, "submitted": true, "worker_id": 0, "worker_service_time_ms": 833.9195609987655, "observation_to_action_latency_ms": 833.9195609987655}
+{"episode_id": 0, "obs_id": 127, "obs_env_step": 508, "submitted": true, "worker_id": 0, "worker_service_time_ms": 915.4650920008862, "observation_to_action_latency_ms": 915.4650920008862}
+{"episode_id": 0, "obs_id": 128, "obs_env_step": 512, "submitted": false}
+{"episode_id": 0, "obs_id": 129, "obs_env_step": 516, "submitted": false}
+{"episode_id": 0, "obs_id": 130, "obs_env_step": 520, "submitted": false}
+{"episode_id": 0, "obs_id": 131, "obs_env_step": 524, "submitted": true, "worker_id": 0, "worker_service_time_ms": 900.4194100016321, "observation_to_action_latency_ms": 900.4194100016321}
+{"episode_id": 0, "obs_id": 132, "obs_env_step": 528, "submitted": false}
+{"episode_id": 0, "obs_id": 133, "obs_env_step": 532, "submitted": false}
+{"episode_id": 0, "obs_id": 134, "obs_env_step": 536, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1228.425683999376, "observation_to_action_latency_ms": 1228.425683999376}
+{"episode_id": 0, "obs_id": 135, "obs_env_step": 540, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1059.4096320000972, "observation_to_action_latency_ms": 1059.4096320000972}
+{"episode_id": 0, "obs_id": 136, "obs_env_step": 544, "submitted": false}
+{"episode_id": 0, "obs_id": 137, "obs_env_step": 548, "submitted": false}
+{"episode_id": 0, "obs_id": 138, "obs_env_step": 552, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1557.4079480011278, "observation_to_action_latency_ms": 1557.4079480011278}
+{"episode_id": 0, "obs_id": 139, "obs_env_step": 556, "submitted": true, "worker_id": 0, "worker_service_time_ms": 973.1310000006488, "observation_to_action_latency_ms": 973.1310000006488}
+{"episode_id": 0, "obs_id": 140, "obs_env_step": 560, "submitted": true, "worker_id": 0, "worker_service_time_ms": 883.0456779996894, "observation_to_action_latency_ms": 883.0456779996894}
+{"episode_id": 0, "obs_id": 141, "obs_env_step": 564, "submitted": true, "worker_id": 0, "worker_service_time_ms": 868.1984659997397, "observation_to_action_latency_ms": 868.1984659997397}
+{"episode_id": 0, "obs_id": 142, "obs_env_step": 568, "submitted": true, "worker_id": 0, "worker_service_time_ms": 802.7273970001261, "observation_to_action_latency_ms": 802.7273970001261}
+{"episode_id": 0, "obs_id": 143, "obs_env_step": 572, "submitted": false}
+{"episode_id": 0, "obs_id": 144, "obs_env_step": 576, "submitted": false}
+{"episode_id": 0, "obs_id": 145, "obs_env_step": 580, "submitted": true, "worker_id": 0, "worker_service_time_ms": 891.3649979986076, "observation_to_action_latency_ms": 891.3649979986076}
+{"episode_id": 0, "obs_id": 146, "obs_env_step": 584, "submitted": false}
+{"episode_id": 0, "obs_id": 147, "obs_env_step": 588, "submitted": false}
+{"episode_id": 0, "obs_id": 148, "obs_env_step": 592, "submitted": false}
+{"episode_id": 0, "obs_id": 149, "obs_env_step": 596, "submitted": false}
+{"episode_id": 0, "obs_id": 150, "obs_env_step": 600, "submitted": false}
+{"episode_id": 0, "obs_id": 151, "obs_env_step": 604, "submitted": true, "worker_id": 0, "worker_service_time_ms": 845.0741430006019, "observation_to_action_latency_ms": 845.0741430006019}
+{"episode_id": 0, "obs_id": 152, "obs_env_step": 608, "submitted": false}
+{"episode_id": 0, "obs_id": 153, "obs_env_step": 612, "submitted": true, "worker_id": 0, "worker_service_time_ms": 803.4523070000432, "observation_to_action_latency_ms": 803.4523070000432}
+{"episode_id": 0, "obs_id": 154, "obs_env_step": 616, "submitted": true, "worker_id": 0, "worker_service_time_ms": 932.033324999793, "observation_to_action_latency_ms": 932.033324999793}
+{"episode_id": 0, "obs_id": 155, "obs_env_step": 620, "submitted": true, "worker_id": 0, "worker_service_time_ms": 771.1509529999603, "observation_to_action_latency_ms": 771.1509529999603}
+{"episode_id": 0, "obs_id": 156, "obs_env_step": 624, "submitted": true, "worker_id": 0, "worker_service_time_ms": 978.5001710006327, "observation_to_action_latency_ms": 978.5001710006327}
+{"episode_id": 0, "obs_id": 157, "obs_env_step": 628, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1009.1407560012158, "observation_to_action_latency_ms": 1009.1407560012158}
+{"episode_id": 0, "obs_id": 158, "obs_env_step": 632, "submitted": false}
+{"episode_id": 0, "obs_id": 159, "obs_env_step": 636, "submitted": true, "worker_id": 0, "worker_service_time_ms": 981.1121520015149, "observation_to_action_latency_ms": 981.1121520015149}
+{"episode_id": 0, "obs_id": 160, "obs_env_step": 640, "submitted": false}
+{"episode_id": 0, "obs_id": 161, "obs_env_step": 644, "submitted": false}
+{"episode_id": 0, "obs_id": 162, "obs_env_step": 648, "submitted": true, "worker_id": 0, "worker_service_time_ms": 826.7147610004031, "observation_to_action_latency_ms": 826.7147610004031}
+{"episode_id": 0, "obs_id": 163, "obs_env_step": 652, "submitted": false}
+{"episode_id": 0, "obs_id": 164, "obs_env_step": 656, "submitted": true, "worker_id": 0, "worker_service_time_ms": 894.7040600014589, "observation_to_action_latency_ms": 894.7040600014589}
+{"episode_id": 0, "obs_id": 165, "obs_env_step": 660, "submitted": false}
+{"episode_id": 0, "obs_id": 166, "obs_env_step": 664, "submitted": true, "worker_id": 0, "worker_service_time_ms": 983.0284420004318, "observation_to_action_latency_ms": 983.0284420004318}
+{"episode_id": 0, "obs_id": 167, "obs_env_step": 668, "submitted": true, "worker_id": 0, "worker_service_time_ms": 870.1567369989789, "observation_to_action_latency_ms": 870.1567369989789}
+{"episode_id": 0, "obs_id": 168, "obs_env_step": 672, "submitted": false}
+{"episode_id": 0, "obs_id": 169, "obs_env_step": 676, "submitted": true, "worker_id": 0, "worker_service_time_ms": 897.5512509987311, "observation_to_action_latency_ms": 897.5512509987311}
+{"episode_id": 0, "obs_id": 170, "obs_env_step": 680, "submitted": false}
+{"episode_id": 0, "obs_id": 171, "obs_env_step": 684, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1331.1116370005038, "observation_to_action_latency_ms": 1331.1116370005038}
+{"episode_id": 0, "obs_id": 172, "obs_env_step": 688, "submitted": false}
+{"episode_id": 0, "obs_id": 173, "obs_env_step": 692, "submitted": true, "worker_id": 0, "worker_service_time_ms": 786.3424260012835, "observation_to_action_latency_ms": 786.3424260012835}
+{"episode_id": 0, "obs_id": 174, "obs_env_step": 696, "submitted": true, "worker_id": 0, "worker_service_time_ms": 904.320182000447, "observation_to_action_latency_ms": 904.320182000447}
+{"episode_id": 0, "obs_id": 175, "obs_env_step": 700, "submitted": true, "worker_id": 0, "worker_service_time_ms": 816.2841699995624, "observation_to_action_latency_ms": 816.2841699995624}
+{"episode_id": 0, "obs_id": 176, "obs_env_step": 704, "submitted": false}
+{"episode_id": 0, "obs_id": 177, "obs_env_step": 708, "submitted": false}
+{"episode_id": 0, "obs_id": 178, "obs_env_step": 712, "submitted": true, "worker_id": 0, "worker_service_time_ms": 928.200664000542, "observation_to_action_latency_ms": 928.200664000542}
+{"episode_id": 0, "obs_id": 179, "obs_env_step": 716, "submitted": false}
+{"episode_id": 0, "obs_id": 180, "obs_env_step": 720, "submitted": false}
+{"episode_id": 0, "obs_id": 181, "obs_env_step": 724, "submitted": true, "worker_id": 0, "worker_service_time_ms": 852.017834000435, "observation_to_action_latency_ms": 852.017834000435}
+{"episode_id": 0, "obs_id": 182, "obs_env_step": 728, "submitted": true, "worker_id": 0, "worker_service_time_ms": 792.31661599988, "observation_to_action_latency_ms": 792.31661599988}
+{"episode_id": 0, "obs_id": 183, "obs_env_step": 732, "submitted": true, "worker_id": 0, "worker_service_time_ms": 923.4689639997669, "observation_to_action_latency_ms": 923.4689639997669}
+{"episode_id": 0, "obs_id": 184, "obs_env_step": 736, "submitted": false}
+{"episode_id": 0, "obs_id": 185, "obs_env_step": 740, "submitted": true, "worker_id": 0, "worker_service_time_ms": 974.2836599998554, "observation_to_action_latency_ms": 974.2836599998554}
+{"episode_id": 0, "obs_id": 186, "obs_env_step": 744, "submitted": false}
+{"episode_id": 0, "obs_id": 187, "obs_env_step": 748, "submitted": false}
+{"episode_id": 0, "obs_id": 188, "obs_env_step": 752, "submitted": true, "worker_id": 0, "worker_service_time_ms": 918.8389329992788, "observation_to_action_latency_ms": 918.8389329992788}
+{"episode_id": 0, "obs_id": 189, "obs_env_step": 756, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1067.067522999423, "observation_to_action_latency_ms": 1067.067522999423}
+{"episode_id": 0, "obs_id": 190, "obs_env_step": 760, "submitted": false}
+{"episode_id": 0, "obs_id": 191, "obs_env_step": 764, "submitted": false}
+{"episode_id": 0, "obs_id": 192, "obs_env_step": 768, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1029.9157980007294, "observation_to_action_latency_ms": 1029.9157980007294}
+{"episode_id": 0, "obs_id": 193, "obs_env_step": 772, "submitted": true, "worker_id": 0, "worker_service_time_ms": 912.3930219993781, "observation_to_action_latency_ms": 912.3930219993781}
+{"episode_id": 0, "obs_id": 194, "obs_env_step": 776, "submitted": true, "worker_id": 0, "worker_service_time_ms": 1025.1554469996336, "observation_to_action_latency_ms": 1025.1554469996336}
+{"episode_id": 0, "obs_id": 195, "obs_env_step": 780, "submitted": true, "worker_id": 0, "worker_service_time_ms": 854.5040040007734, "observation_to_action_latency_ms": 854.5040040007734}
+{"episode_id": 0, "obs_id": 196, "obs_env_step": 784, "submitted": false}
+{"episode_id": 0, "obs_id": 197, "obs_env_step": 788, "submitted": true, "worker_id": 0, "worker_service_time_ms": 964.947658998426, "observation_to_action_latency_ms": 964.947658998426}
+{"episode_id": 0, "obs_id": 198, "obs_env_step": 792, "submitted": false}
+{"episode_id": 0, "obs_id": 199, "obs_env_step": 796, "submitted": false}
+{"episode_id": 0, "obs_id": 200, "obs_env_step": 800, "submitted": true, "worker_id": 0, "worker_service_time_ms": 869.196056999499, "observation_to_action_latency_ms": 869.196056999499}
+{"episode_id": 0, "obs_id": 201, "obs_env_step": 804, "submitted": false}
+{"episode_id": 0, "obs_id": 202, "obs_env_step": 808, "submitted": true, "worker_id": 0, "worker_service_time_ms": 913.4881720001431, "observation_to_action_latency_ms": 913.4881720001431}
+{"episode_id": 0, "obs_id": 203, "obs_env_step": 812, "submitted": false}
+{"episode_id": 0, "obs_id": 204, "obs_env_step": 816, "submitted": false}

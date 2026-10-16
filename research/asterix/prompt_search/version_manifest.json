@@ -1,0 +1,30 @@
+{
+  "baseline": {
+    "words": 52,
+    "strategy_sha256": "5566184622cca7316e7d4839eecfc5b88e801a4d60c8a2e1d1c2efe6fe1d52d0"
+  },
+  "retreat_v1": {
+    "words": 113,
+    "strategy_sha256": "fbe5eb6ec14f08367acdaa35974b9f8cf5f64ebba72bb2ec8d97e00d34a090e5"
+  },
+  "retreat_score_v2": {
+    "words": 174,
+    "strategy_sha256": "7c70bfba93638afa4c7fe7d330a34f4434f950513c1eb22905cf22d9d4c6ca12"
+  },
+  "maneuver_v3": {
+    "words": 169,
+    "strategy_sha256": "6c1e5fc6833b35f61dda55ff141a98dbadc013cd5792dd9b6aab987f9f28b0c7"
+  },
+  "active_escape_v4": {
+    "words": 186,
+    "strategy_sha256": "a3a7d03eeea562202719d57c441b6fabdd207003d8fd9539b1f1ce17cd214446"
+  },
+  "shape_escape_v5": {
+    "words": 238,
+    "strategy_sha256": "13939a634f395d81f7ea48994575e6c8818e8b843515ef4c10624ab0dcaf0ed1"
+  },
+  "priority_escape_v6": {
+    "words": 178,
+    "strategy_sha256": "5e4904330145abc47e7a38ccb04c0663688540e45f0412a98186d8aac4c16af9"
+  }
+}

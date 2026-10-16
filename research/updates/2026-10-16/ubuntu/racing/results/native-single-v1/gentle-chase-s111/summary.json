@@ -1,0 +1,51 @@
+{
+  "status": "screening_prefix",
+  "api_cost_usd": 0,
+  "code_driving_policy": false,
+  "seed": 111,
+  "variant": "gentle",
+  "game_seconds": 12.0,
+  "calls": 6,
+  "invalid_outputs": 0,
+  "drops": 34,
+  "skipped_inference_slots": 34,
+  "wall_seconds": 30.69068276498001,
+  "stalled_observation_fraction": 0.55,
+  "own_speed_integral_m": 8.528939999999999,
+  "public_final_state": {
+    "phase": "running",
+    "done": false,
+    "t_sim": 12.0,
+    "heat": 1,
+    "heat_time_s": 12.0,
+    "race": {
+      "warnings": {
+        "A": 0,
+        "opponent": 0
+      },
+      "max_heats": 3,
+      "heats_won": {
+        "A": 0,
+        "opponent": 0
+      },
+      "heats_to_win": 2
+    },
+    "crashes_this_heat": [],
+    "results": [],
+    "own": {
+      "grid": "outer",
+      "grid_side": "outer",
+      "forward_speed": 0.0001,
+      "command": [
+        1.7,
+        -0.1
+      ],
+      "held": false,
+      "retired": false
+    },
+    "race_over": false,
+    "step": 1200
+  },
+  "digest": "4aa427c1b07c941094ed52fbe81237279e49ef1c9693d2f51c67a718060cd480",
+  "replay_matches": true
+}

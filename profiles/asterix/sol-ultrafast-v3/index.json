@@ -1,0 +1,158 @@
+{
+  "window3_eighth_c8": {
+    "profile": "/home/ubuntu/wzh/expts-sol/profiles/sol-ultrafast-v3/window3_eighth_c8/profile.json",
+    "summary": {
+      "n_samples": 897,
+      "mean_ms": 937.0520379542093,
+      "std_ms": 204.8240007054542,
+      "min_ms": 698.7078140009544,
+      "max_ms": 3136.8296159998863,
+      "p50_ms": 896.4669479992153,
+      "p90_ms": 1114.1696820002835,
+      "p95_ms": 1250.3561153989717,
+      "p99_ms": 1757.8142432805164,
+      "frame_ms": 133.33333333333334,
+      "mean_effective_frames": 7.027890284656569,
+      "p50_frames": 6.723502109994114,
+      "p90_frames": 8.356272615002126,
+      "p95_frames": 9.377670865492288,
+      "p99_frames": 13.183606824603872,
+      "prob_latency_gt_1_frame": 1.0,
+      "prob_latency_gt_2_frames": 1.0,
+      "prob_latency_gt_3_frames": 1.0
+    },
+    "provenance": {
+      "sources": [
+        {
+          "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-eighth-profile-ab-c8-20261013T224958Z/aware_seed0/requests.jsonl",
+          "sha256": "b4ce285041778f85d371cff4f8fcbef32337531c46cab207ce634113257a6b85",
+          "count": 223,
+          "peak_inflight": 3,
+          "capacity_drops": 0
+        },
+        {
+          "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-eighth-profile-ab-c8-20261013T224958Z/aware_seed1/requests.jsonl",
+          "sha256": "abcd6dbe766f3b0d0337e309314c388227e0c615a4294ec7f9438b1948204d89",
+          "count": 215,
+          "peak_inflight": 3,
+          "capacity_drops": 0
+        },
+        {
+          "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-eighth-profile-ab-c8-20261013T224958Z/unaware_seed0/requests.jsonl",
+          "sha256": "e9fe41dc4eb5c1482de356caa94d2fc0d3c35e290c3fcf92aa3431d9b6ba6b66",
+          "count": 202,
+          "peak_inflight": 3,
+          "capacity_drops": 0
+        },
+        {
+          "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-eighth-profile-ab-c8-20261013T224958Z/unaware_seed1/requests.jsonl",
+          "sha256": "fd5683cffee58d0b9a66b0d14791068f155f92b03429898e7bbc7484dcf98457",
+          "count": 257,
+          "peak_inflight": 4,
+          "capacity_drops": 0
+        }
+      ],
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "reasoning_effort": "low",
+      "concurrency_limit": 8,
+      "observed_peak_inflight": 4,
+      "measured_environment_fps": 7.5,
+      "normal_game_fps": 60,
+      "observation_stride_frames": 4,
+      "image_input": "up to three chronological 224x224 low-detail images",
+      "history": "no conversation history",
+      "input_tokens_range": [
+        312,
+        509
+      ],
+      "timing": "request start through full response stream completion; excludes unmeasured capture/dispatch overhead",
+      "worker_identity": "pooled virtual slot 0; physical request worker IDs were not recorded",
+      "service_time": "request duration proxy; no separate server-side service timing",
+      "censoring": "all submitted requests included, including stale and post-terminal completions",
+      "limitations": [
+        "Mixed aware/unaware short prompts; not calibrated for growing full history or longer model reasoning.",
+        "Temporal model fit to issuance-ordered pooled requests, not physical worker timelines.",
+        "Use IID pooled emissions for the initial virtual eight-worker simulation; shared API bursts remain approximate."
+      ]
+    }
+  },
+  "window3_fullspeed_c8": {
+    "profile": "/home/ubuntu/wzh/expts-sol/profiles/sol-ultrafast-v3/window3_fullspeed_c8/profile.json",
+    "summary": {
+      "n_samples": 491,
+      "mean_ms": 930.3300029531433,
+      "std_ms": 150.59221200707387,
+      "min_ms": 719.8235260002548,
+      "max_ms": 1963.9440490009292,
+      "p50_ms": 900.0580339998123,
+      "p90_ms": 1080.8883589998004,
+      "p95_ms": 1165.2240495004662,
+      "p99_ms": 1571.639498598779,
+      "frame_ms": 16.666666666666668,
+      "mean_effective_frames": 55.8198001771886,
+      "p50_frames": 54.00348203998873,
+      "p90_frames": 64.85330153998802,
+      "p95_frames": 69.91344297002797,
+      "p99_frames": 94.29836991592674,
+      "prob_latency_gt_1_frame": 1.0,
+      "prob_latency_gt_2_frames": 1.0,
+      "prob_latency_gt_3_frames": 1.0
+    },
+    "provenance": {
+      "sources": [
+        {
+          "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-profile-ab-c8-20261013T215756Z/aware_seed0/requests.jsonl",
+          "sha256": "db5f37bd2c36c3747b377386553e676e67a72f43869fba93a7fb4ff72820dfe3",
+          "count": 108,
+          "peak_inflight": 8,
+          "capacity_drops": 97
+        },
+        {
+          "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-profile-ab-c8-20261013T215756Z/aware_seed1/requests.jsonl",
+          "sha256": "1e1ae87a894d19e789f0b952be5bfd21606aaea9fe60d39df6472a1a8d1a2da4",
+          "count": 110,
+          "peak_inflight": 8,
+          "capacity_drops": 91
+        },
+        {
+          "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-profile-ab-c8-20261013T215756Z/unaware_seed0/requests.jsonl",
+          "sha256": "3ec9f4e89a972e9d867becfa771c9af893b8f77f5d59fef5f3d5bd26afb21111",
+          "count": 95,
+          "peak_inflight": 8,
+          "capacity_drops": 77
+        },
+        {
+          "path": "/home/ubuntu/wzh/expts-sol/results/asterix/realtime-profile-ab-c8-20261013T215756Z/unaware_seed1/requests.jsonl",
+          "sha256": "c4967b5522e4932046e9507af903793f28ead97c84734990ced8349dd1f9e808",
+          "count": 178,
+          "peak_inflight": 8,
+          "capacity_drops": 147
+        }
+      ],
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "reasoning_effort": "low",
+      "concurrency_limit": 8,
+      "observed_peak_inflight": 8,
+      "measured_environment_fps": 60.0,
+      "normal_game_fps": 60,
+      "observation_stride_frames": 4,
+      "image_input": "up to three chronological 224x224 low-detail images",
+      "history": "no conversation history",
+      "input_tokens_range": [
+        285,
+        482
+      ],
+      "timing": "request start through full response stream completion; excludes unmeasured capture/dispatch overhead",
+      "worker_identity": "pooled virtual slot 0; physical request worker IDs were not recorded",
+      "service_time": "request duration proxy; no separate server-side service timing",
+      "censoring": "all submitted requests included, including stale and post-terminal completions",
+      "limitations": [
+        "Mixed aware/unaware short prompts; not calibrated for growing full history or longer model reasoning.",
+        "Temporal model fit to issuance-ordered pooled requests, not physical worker timelines.",
+        "Use IID pooled emissions for the initial virtual eight-worker simulation; shared API bursts remain approximate."
+      ]
+    }
+  }
+}

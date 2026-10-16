@@ -1,0 +1,87 @@
+{
+  "status": "complete",
+  "api_cost_usd": 0,
+  "auth": "chatgpt",
+  "control": "lane",
+  "seed": 101,
+  "level": 1,
+  "slowdown": 1.0,
+  "winner": "A",
+  "won": true,
+  "scores": {
+    "A": {
+      "heats_won": 2,
+      "warnings": 0,
+      "checkpoints": 32,
+      "laps": 2,
+      "obstacle_crashes": 0
+    },
+    "opponent": {
+      "heats_won": 0,
+      "warnings": 0,
+      "checkpoints": 19,
+      "laps": 0,
+      "obstacle_crashes": 0
+    }
+  },
+  "steps": 4678,
+  "digest": "ab8ccb812c797f44e099e1b4bdc9483fb6822694b240dc4051279795f28783bc",
+  "game_seconds": 46.78,
+  "calls": 79,
+  "drops": 0,
+  "invalid_output_count": 0,
+  "peak_virtual_inflight": 4,
+  "mean_action_age_game_s": 1.7404566210045662,
+  "wall_seconds": 516.4434872859856,
+  "heat_results": [
+    {
+      "heat": 1,
+      "winner": "A",
+      "decided_by": "finish",
+      "heat_time": 23.56,
+      "winner_finish_time": 23.5553,
+      "grid": {
+        "A": "outer",
+        "B": "inner"
+      },
+      "cars": {
+        "A": {
+          "checkpoints": 16,
+          "finish_time": 23.5553,
+          "obstacle_crashes": 0
+        },
+        "B": {
+          "checkpoints": 10,
+          "finish_time": null,
+          "obstacle_crashes": 0
+        }
+      },
+      "crashes": []
+    },
+    {
+      "heat": 2,
+      "winner": "A",
+      "decided_by": "finish",
+      "heat_time": 23.22,
+      "winner_finish_time": 23.2144,
+      "grid": {
+        "A": "inner",
+        "B": "outer"
+      },
+      "cars": {
+        "A": {
+          "checkpoints": 16,
+          "finish_time": 23.2144,
+          "obstacle_crashes": 0
+        },
+        "B": {
+          "checkpoints": 9,
+          "finish_time": null,
+          "obstacle_crashes": 0
+        }
+      },
+      "crashes": []
+    }
+  ],
+  "replay_matches": true
+}

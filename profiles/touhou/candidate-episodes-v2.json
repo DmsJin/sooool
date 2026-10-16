@@ -1,0 +1,63 @@
+{
+  "base": {
+    "provider": "subscription",
+    "mode": "sim",
+    "url": "http://127.0.0.1:18791",
+    "suite": "/home/ubuntu/lzj/coding-agent-suite",
+    "profile": "/home/ubuntu/wzh/touhou-sol-study/profile-control-early-study-v1.json",
+    "speed": 1,
+    "workers": 8,
+    "capacity": 8,
+    "history_frames": 3,
+    "image_stride": 30,
+    "decision_stride": 6,
+    "chunk_size": 1,
+    "max_duration": 48,
+    "max_wall_s": 10800,
+    "engine_sha256": "348e81340d4a09f8b488193daf0b4e395afa2755d34f249585ff5e1ffe787aa4",
+    "profile_note": "Shared development condition from actual earlier adaptive-prompt early API cohorts with paired terminal slots; not recalibrated new-prompt latency.",
+    "wait_for_move": true,
+    "intro_observation": true,
+    "candidate": "tracking_dodge_adaptive",
+    "seed": 1,
+    "delay_seed": 4119,
+    "structured": true,
+    "lean_native": false,
+    "decision_fanout": 4,
+    "cohort_delay": "empirical_joint",
+    "shared_cohort_inputs": true,
+    "stage_timings": true,
+    "visual_memory_points": 8,
+    "wait_for_winner": true,
+    "pixel_controls": true,
+    "aggressive_native": true,
+    "latency_scale": 1,
+    "max_output_tokens": 512,
+    "early_action_delivery": false,
+    "simulation_terminal_hold": true
+  },
+  "jobs": [
+    {
+      "name": "safe-intercept-seed9",
+      "config": {
+        "candidate": "tracking_dodge_safe_intercept_v2",
+        "seed": 9,
+        "delay_seed": 7319
+      }
+    },
+    {
+      "name": "safe-intercept-seed10",
+      "config": {
+        "candidate": "tracking_dodge_safe_intercept_v2",
+        "seed": 10,
+        "delay_seed": 7320
+      }
+    }
+  ],
+  "frozen_seeds": [
+    9,
+    10
+  ],
+  "promotion": "Selected by fixed case gate in v2; compare same two frozen seeds/delay RNG to baseline. Case gains preliminary and stochastic; no live improvement claim before actual API.",
+  "selection_source_sha256": "958eb02d53fafdfe424d9cdf98554e6cfa39cc060ce751198f367ad3e768579e"
+}

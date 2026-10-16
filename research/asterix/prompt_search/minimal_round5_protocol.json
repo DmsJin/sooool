@@ -1,0 +1,16 @@
+{
+  "variants": [
+    "decision_table_v12",
+    "side_veto_v13"
+  ],
+  "wrapper": "minimal",
+  "tasks": 108,
+  "repeats": 3,
+  "frozen_gt": "human_annotations_round2.json",
+  "target": 0.85,
+  "headon_allowed": 0,
+  "C05b_must_all_match": true,
+  "quota_stop_percent": 50,
+  "paid_api_calls": 0,
+  "changes": "Determine side from newest image; do not assume enemies pass harmlessly through the player during latency; final side-based veto"
+}

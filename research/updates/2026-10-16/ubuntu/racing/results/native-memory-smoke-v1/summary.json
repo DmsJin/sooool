@@ -1,0 +1,180 @@
+{
+  "schema_smoke_not_gameplay": true,
+  "paid_api_calls": 0,
+  "results": [
+    {
+      "index": 0,
+      "commands": [
+        [
+          2.6,
+          -0.08,
+          1.0
+        ]
+      ],
+      "memory": "Starting outer/right lane beside orange. Use a gentle right turn for the approaching bend; preserve passing clearance and reassess steering response.",
+      "scene": "Road bends right ahead. Blue points slightly left of the road tangent; orange alongside on the left is the nearest hazard, with the right wall also close.",
+      "wall_seconds": 17.782403837016318,
+      "auth": "chatgpt",
+      "native_outer": "minimal",
+      "image_input_detail": "auto",
+      "image_sha256": [
+        "68ddced13c45f5f21abc1ba2463d4377d711d8babafd853f18cec9a8b47380f7"
+      ],
+      "api_cost_usd": 0,
+      "token_usage": {
+        "total": {
+          "totalTokens": 6352,
+          "inputTokens": 6186,
+          "cachedInputTokens": 4608,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 166,
+          "reasoningOutputTokens": 82
+        },
+        "last": {
+          "totalTokens": 6352,
+          "inputTokens": 6186,
+          "cachedInputTokens": 4608,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 166,
+          "reasoningOutputTokens": 82
+        },
+        "modelContextWindow": 475000
+      },
+      "full_wall_seconds": 18.39653106802143,
+      "setup_wall_seconds": 0.6129896019992884,
+      "unsubscribe_seconds": 0.0006439290009438992
+    },
+    {
+      "index": 20,
+      "commands": [
+        [
+          2.5,
+          0.14,
+          0.7
+        ]
+      ],
+      "memory": "Left steering 0.24 has already rotated the car toward the bend. Ease steering rather than repeat the strong correction; remain right of orange until safely clear.",
+      "scene": "Road bends left ahead; blue points slightly left of the nearby road tangent while remaining right of centre. Orange ahead-left is the nearest hazard; outer wall is right.",
+      "wall_seconds": 17.478071149002062,
+      "auth": "chatgpt",
+      "native_outer": "minimal",
+      "image_input_detail": "auto",
+      "image_sha256": [
+        "0e80c6e815cf08b7fe923897b188be386b622b327bc217e3b2facc269b9319d9",
+        "4693d232090a3e6abc96f08edb7f8fd3fae7b33bceb1664e7d46c841e8d11e4a",
+        "b263eb792468a5a83eaae4b3351dbe42ae5fcbf51ded986e9ea9f154a042c908"
+      ],
+      "api_cost_usd": 0,
+      "token_usage": {
+        "total": {
+          "totalTokens": 7312,
+          "inputTokens": 7104,
+          "cachedInputTokens": 4608,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 208,
+          "reasoningOutputTokens": 116
+        },
+        "last": {
+          "totalTokens": 7312,
+          "inputTokens": 7104,
+          "cachedInputTokens": 4608,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 208,
+          "reasoningOutputTokens": 116
+        },
+        "modelContextWindow": 475000
+      },
+      "full_wall_seconds": 17.853952903999016,
+      "setup_wall_seconds": 0.37341252600890584,
+      "unsubscribe_seconds": 0.0020085599971935153
+    },
+    {
+      "index": 40,
+      "commands": [
+        [
+          2.3,
+          0.22,
+          0.65
+        ]
+      ],
+      "memory": "Rightward correction finished; left bend now tightens ahead. Existing positive steering is already rotating left, so avoid an excessive additional correction.",
+      "scene": "Road bends left; blue car points slightly right of the upcoming tangent. Nearest hazard is the inside left wall; no opponent visible.",
+      "wall_seconds": 15.614900878979824,
+      "auth": "chatgpt",
+      "native_outer": "minimal",
+      "image_input_detail": "auto",
+      "image_sha256": [
+        "94efcfd67e22916a56e35805f0a34cfebb09db9cf91d0ee0a947f36ce1b72353",
+        "de05db0d3830521c250e0bacdb4b710311503d0591b76cf42bc4095dd490b780",
+        "9c306a827a6af4472585720655ecb0f425f7b4a7284a8b05696ac1109de6b028"
+      ],
+      "api_cost_usd": 0,
+      "token_usage": {
+        "total": {
+          "totalTokens": 7305,
+          "inputTokens": 7186,
+          "cachedInputTokens": 4608,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 119,
+          "reasoningOutputTokens": 38
+        },
+        "last": {
+          "totalTokens": 7305,
+          "inputTokens": 7186,
+          "cachedInputTokens": 4608,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 119,
+          "reasoningOutputTokens": 38
+        },
+        "modelContextWindow": 475000
+      },
+      "full_wall_seconds": 16.001755219011102,
+      "setup_wall_seconds": 0.38561772101093084,
+      "unsubscribe_seconds": 0.0005842399841640145
+    },
+    {
+      "index": 55,
+      "commands": [
+        [
+          -1,
+          0.28,
+          0.7
+        ]
+      ],
+      "memory": "Forward speed collapsed at inner wall. Reverse with left steering to swing nose right; avoid forward acceleration until wall clearance improves. Magenta obstacle blocks ahead-right.",
+      "scene": "Road bends left ahead; blue points left of the local tangent and is stopped against the inner left wall. Magenta obstacle is immediately ahead-right.",
+      "wall_seconds": 18.531052314006956,
+      "auth": "chatgpt",
+      "native_outer": "minimal",
+      "image_input_detail": "auto",
+      "image_sha256": [
+        "9d72368d80117822d6c423e2e85ad375a1c3a0948822f0ea0146e8112ce9ff7f",
+        "5cf60eb3fbaf8cd4da1cf5c944700f26e31bb29eceadb369c0eea0234e013652",
+        "907954d3a6038a7c1ccd393289a2db04b1f10d9c03f42be64508fc10e8fa1e27"
+      ],
+      "api_cost_usd": 0,
+      "token_usage": {
+        "total": {
+          "totalTokens": 7358,
+          "inputTokens": 7166,
+          "cachedInputTokens": 4608,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 192,
+          "reasoningOutputTokens": 107
+        },
+        "last": {
+          "totalTokens": 7358,
+          "inputTokens": 7166,
+          "cachedInputTokens": 4608,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 192,
+          "reasoningOutputTokens": 107
+        },
+        "modelContextWindow": 475000
+      },
+      "full_wall_seconds": 18.928192427003523,
+      "setup_wall_seconds": 0.395881984004518,
+      "unsubscribe_seconds": 0.0007529699942097068
+    }
+  ]
+}

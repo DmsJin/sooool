@@ -1,0 +1,264 @@
+ENTRY #0, VERSION 3
+Name: data/stgenm/stg7enm.png
+Format: 5
+Width: 256
+Height: 256
+ColorKey: 00000000
+MemoryPriority: 10
+HasData: 1
+THTX-Size: 131072
+THTX-Format: 5
+THTX-Width: 256
+THTX-Height: 256
+THTX-Zero: 0
+
+Sprite: 0 64*80+0+0
+Sprite: 1 64*80+0+0
+Sprite: 2 64*80+0+0
+Sprite: 3 64*80+0+0
+Sprite: 4 64*80+0+80
+Sprite: 5 64*80+64+80
+Sprite: 6 64*80+128+80
+Sprite: 7 64*80+192+80
+Sprite: 8 64*80+0+160
+Sprite: 9 64*80+64+160
+Sprite: 10 64*80+128+160
+Sprite: 11 64*80+192+160
+Sprite: 12 80*80+176+0
+
+Script: 0
+Instruction #0: 0 0 24 1
+Instruction #1: 0 0 32 40 4 0.0f -4.0f 0.0f
+Instruction #2: 0 0 3 0
+Instruction #3: 5 0 3 1
+Instruction #4: 10 0 3 2
+Instruction #5: 15 0 3 3
+Instruction #6: 20 0 3 0
+Instruction #7: 25 0 3 1
+Instruction #8: 30 0 3 2
+Instruction #9: 35 0 3 3
+Instruction #10: 40 0 3 0
+Instruction #11: 40 0 32 40 4 0.0f 4.0f 0.0f
+Instruction #12: 45 0 3 1
+Instruction #13: 50 0 3 2
+Instruction #14: 55 0 3 3
+Instruction #15: 60 0 3 0
+Instruction #16: 65 0 3 1
+Instruction #17: 70 0 3 2
+Instruction #18: 75 0 3 3
+Instruction #19: 80 0 4 12 0
+
+Script: 1
+Instruction #0: 0 0 10
+Instruction #1: 0 0 3 4
+Instruction #2: 4 0 3 5
+Instruction #3: 8 0 3 6
+Instruction #4: 12 0 3 7
+Instruction #5: 12 0 2
+
+Script: 2
+Instruction #0: 0 0 3 4
+Instruction #1: 4 0 3 5
+Instruction #2: 8 0 3 6
+Instruction #3: 12 0 3 7
+Instruction #4: 12 0 2
+
+Script: 3
+Instruction #0: 0 0 24 1
+Instruction #1: 0 0 10
+Instruction #2: 0 0 3 7
+Instruction #3: 4 0 3 6
+Instruction #4: 8 0 3 5
+Instruction #5: 12 0 3 4
+Instruction #6: 12 0 32 32 4 0.0f -4.0f 0.0f
+Instruction #7: 12 0 3 0
+Instruction #8: 16 0 3 1
+Instruction #9: 20 0 3 2
+Instruction #10: 24 0 3 3
+Instruction #11: 28 0 3 0
+Instruction #12: 32 0 3 1
+Instruction #13: 36 0 3 2
+Instruction #14: 40 0 3 3
+Instruction #15: 44 0 3 0
+Instruction #16: 44 0 32 32 4 0.0f 4.0f 0.0f
+Instruction #17: 48 0 3 1
+Instruction #18: 52 0 3 2
+Instruction #19: 56 0 3 3
+Instruction #20: 60 0 3 0
+Instruction #21: 64 0 3 1
+Instruction #22: 68 0 3 2
+Instruction #23: 72 0 3 3
+Instruction #24: 76 0 4 68 12
+
+Script: 4
+Instruction #0: 0 0 24 1
+Instruction #1: 0 0 3 7
+Instruction #2: 4 0 3 6
+Instruction #3: 8 0 3 5
+Instruction #4: 12 0 3 4
+Instruction #5: 12 0 32 32 4 0.0f -4.0f 0.0f
+Instruction #6: 12 0 3 0
+Instruction #7: 16 0 3 1
+Instruction #8: 20 0 3 2
+Instruction #9: 24 0 3 3
+Instruction #10: 28 0 3 0
+Instruction #11: 32 0 3 1
+Instruction #12: 36 0 3 2
+Instruction #13: 40 0 3 3
+Instruction #14: 44 0 3 0
+Instruction #15: 44 0 32 32 4 0.0f 4.0f 0.0f
+Instruction #16: 48 0 3 1
+Instruction #17: 52 0 3 2
+Instruction #18: 56 0 3 3
+Instruction #19: 60 0 3 0
+Instruction #20: 64 0 3 1
+Instruction #21: 68 0 3 2
+Instruction #22: 72 0 3 3
+Instruction #23: 76 0 4 60 12
+
+Script: 5
+Instruction #0: 0 0 24 1
+Instruction #1: 0 0 3 8
+Instruction #2: 2 0 3 9
+Instruction #3: 4 0 3 10
+Instruction #4: 6 0 3 11
+Instruction #5: 46 0 4 60 6
+
+Script: 6
+Instruction #0: 0 0 24 1
+Instruction #1: 0 0 3 12
+Instruction #2: 0 0 7 20.0f 0.0f
+Instruction #3: 0 0 8 0
+Instruction #4: 60 0 34 25 4 255
+Instruction #5: 60 0 36 25 4 1.0f 1.0f
+Instruction #6: 60 0 32 60 4 0.0f -4.0f 0.0f
+Instruction #7: 120 0 32 60 4 0.0f 4.0f 0.0f
+Instruction #8: 180 0 4 96 60
+
+
+ENTRY #1, VERSION 3
+Name: data/stgenm/stg7enm2.png
+Format: 5
+Width: 256
+Height: 256
+ColorKey: 00000000
+MemoryPriority: 10
+HasData: 1
+THTX-Size: 131072
+THTX-Format: 5
+THTX-Width: 256
+THTX-Height: 256
+THTX-Zero: 0
+
+Sprite: 13 80*80+0+0
+Sprite: 14 80*80+0+0
+Sprite: 15 80*80+0+0
+Sprite: 16 80*80+0+0
+Sprite: 17 80*80+0+80
+Sprite: 18 80*80+80+80
+Sprite: 19 80*80+160+80
+Sprite: 20 80*80+160+80
+Sprite: 21 80*80+0+160
+Sprite: 22 80*80+80+160
+Sprite: 23 80*80+160+160
+Sprite: 24 80*80+0+160
+
+Script: 7
+Instruction #0: 0 0 24 1
+Instruction #1: 0 0 32 40 4 0.0f -4.0f 0.0f
+Instruction #2: 0 0 3 13
+Instruction #3: 5 0 3 14
+Instruction #4: 10 0 3 15
+Instruction #5: 15 0 3 16
+Instruction #6: 20 0 3 13
+Instruction #7: 25 0 3 14
+Instruction #8: 30 0 3 15
+Instruction #9: 35 0 3 16
+Instruction #10: 40 0 3 13
+Instruction #11: 40 0 32 40 4 0.0f 4.0f 0.0f
+Instruction #12: 45 0 3 14
+Instruction #13: 50 0 3 15
+Instruction #14: 55 0 3 16
+Instruction #15: 60 0 3 13
+Instruction #16: 65 0 3 14
+Instruction #17: 70 0 3 15
+Instruction #18: 75 0 3 16
+Instruction #19: 80 0 4 12 0
+
+Script: 8
+Instruction #0: 0 0 10
+Instruction #1: 0 0 3 17
+Instruction #2: 4 0 3 18
+Instruction #3: 8 0 3 19
+Instruction #4: 12 0 3 20
+Instruction #5: 12 0 2
+
+Script: 9
+Instruction #0: 0 0 3 17
+Instruction #1: 4 0 3 18
+Instruction #2: 8 0 3 19
+Instruction #3: 12 0 3 20
+Instruction #4: 12 0 2
+
+Script: 10
+Instruction #0: 0 0 24 1
+Instruction #1: 0 0 10
+Instruction #2: 0 0 3 20
+Instruction #3: 4 0 3 19
+Instruction #4: 8 0 3 18
+Instruction #5: 12 0 3 17
+Instruction #6: 12 0 32 32 4 0.0f -4.0f 0.0f
+Instruction #7: 12 0 3 13
+Instruction #8: 16 0 3 14
+Instruction #9: 20 0 3 15
+Instruction #10: 24 0 3 16
+Instruction #11: 28 0 3 13
+Instruction #12: 32 0 3 14
+Instruction #13: 36 0 3 15
+Instruction #14: 40 0 3 16
+Instruction #15: 44 0 3 13
+Instruction #16: 44 0 32 32 4 0.0f 4.0f 0.0f
+Instruction #17: 48 0 3 14
+Instruction #18: 52 0 3 15
+Instruction #19: 56 0 3 16
+Instruction #20: 60 0 3 13
+Instruction #21: 64 0 3 14
+Instruction #22: 68 0 3 15
+Instruction #23: 72 0 3 16
+Instruction #24: 76 0 4 68 12
+
+Script: 11
+Instruction #0: 0 0 24 1
+Instruction #1: 0 0 3 20
+Instruction #2: 4 0 3 19
+Instruction #3: 8 0 3 18
+Instruction #4: 12 0 3 17
+Instruction #5: 12 0 32 32 4 0.0f -4.0f 0.0f
+Instruction #6: 12 0 3 13
+Instruction #7: 16 0 3 14
+Instruction #8: 20 0 3 15
+Instruction #9: 24 0 3 16
+Instruction #10: 28 0 3 13
+Instruction #11: 32 0 3 14
+Instruction #12: 36 0 3 15
+Instruction #13: 40 0 3 16
+Instruction #14: 44 0 3 13
+Instruction #15: 44 0 32 32 4 0.0f 4.0f 0.0f
+Instruction #16: 48 0 3 14
+Instruction #17: 52 0 3 15
+Instruction #18: 56 0 3 16
+Instruction #19: 60 0 3 13
+Instruction #20: 64 0 3 14
+Instruction #21: 68 0 3 15
+Instruction #22: 72 0 3 16
+Instruction #23: 76 0 4 60 12
+
+Script: 12
+Instruction #0: 0 0 24 1
+Instruction #1: 0 0 3 21
+Instruction #2: 2 0 3 22
+Instruction #3: 4 0 3 23
+Instruction #4: 6 0 3 24
+Instruction #5: 46 0 4 60 6
+
+

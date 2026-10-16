@@ -1,0 +1,108 @@
+{
+  "matched_case_count": 1,
+  "episodes_per_arm": 1,
+  "paid_api_calls": 0,
+  "arms": {
+    "blind": {
+      "output": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-autoresearch-evidence/model-timing/latency-profile-ablation-v19/latency-ablation-blind-seed79-bb78ab85",
+      "counts": {
+        "perfect": 8,
+        "great": 2,
+        "ok": 1,
+        "miss": 41
+      },
+      "empty_presses": 0,
+      "max_combo": 3,
+      "score": 9700,
+      "full_combo": false,
+      "complete": true,
+      "requests": 203,
+      "errors": 0,
+      "drops": 12,
+      "policy_unchanged": true,
+      "wall_s": 319.90142080001533,
+      "median_command_lead_ms": 543.0,
+      "emitted_commands": 340,
+      "ack_status_counts": {
+        "admitted": 11,
+        "idempotent_id": 33,
+        "executed": 11,
+        "rejected": 253,
+        "expired_before_admission": 43
+      },
+      "profile_sha256": "5c8c2e025efa92b7682a04e10732d6e1c2a704bb65701fcd178334b1dcbaaa10",
+      "chart_sha256": "3ec366ce4bf9ea94f7356581c292224fb81bf0509915ae7cd7603aef5aa87457",
+      "hide_rtt": true
+    },
+    "control": {
+      "output": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-autoresearch-evidence/model-timing/latency-profile-ablation-v19/latency-ablation-control-seed79-a9ee8641",
+      "counts": {
+        "perfect": 49,
+        "great": 1,
+        "ok": 1,
+        "miss": 1
+      },
+      "empty_presses": 2,
+      "max_combo": 20,
+      "score": 50000,
+      "full_combo": false,
+      "complete": true,
+      "requests": 203,
+      "errors": 0,
+      "drops": 12,
+      "policy_unchanged": true,
+      "wall_s": 390.1340040639043,
+      "median_command_lead_ms": 1372.0,
+      "emitted_commands": 254,
+      "ack_status_counts": {
+        "admitted": 53,
+        "idempotent_id": 32,
+        "executed": 53,
+        "rejected": 168,
+        "expired_before_admission": 1
+      },
+      "profile_sha256": "5c8c2e025efa92b7682a04e10732d6e1c2a704bb65701fcd178334b1dcbaaa10",
+      "chart_sha256": "3ec366ce4bf9ea94f7356581c292224fb81bf0509915ae7cd7603aef5aa87457",
+      "hide_rtt": false
+    },
+    "blind-generic": {
+      "output": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-autoresearch-evidence/model-timing/latency-profile-ablation-v19/latency-ablation-blind-generic-seed79-babba6d4",
+      "counts": {
+        "perfect": 10,
+        "great": 0,
+        "ok": 1,
+        "miss": 41
+      },
+      "empty_presses": 0,
+      "max_combo": 3,
+      "score": 10300,
+      "full_combo": false,
+      "complete": true,
+      "requests": 203,
+      "errors": 0,
+      "drops": 12,
+      "policy_unchanged": true,
+      "wall_s": 287.2926215939224,
+      "median_command_lead_ms": 604.0,
+      "emitted_commands": 338,
+      "ack_status_counts": {
+        "admitted": 11,
+        "idempotent_id": 28,
+        "executed": 11,
+        "rejected": 256,
+        "expired_before_admission": 43
+      },
+      "profile_sha256": "5c8c2e025efa92b7682a04e10732d6e1c2a704bb65701fcd178334b1dcbaaa10",
+      "chart_sha256": "3ec366ce4bf9ea94f7356581c292224fb81bf0509915ae7cd7603aef5aa87457",
+      "hide_rtt": true
+    }
+  },
+  "limits": [
+    "One matched case and one episode per arm do not establish performance across charts or strategies.",
+    "Visual calibration and previously tuned150ms expiry/dedup policy remain.",
+    "Public clocks and acknowledgments remain; the model may infer delays.",
+    "This is simulation under the same imposed native timing distribution, not a native API comparison."
+  ],
+  "identical_issued_delay_calendar": true,
+  "paid_budget_bytes_unchanged": true
+}

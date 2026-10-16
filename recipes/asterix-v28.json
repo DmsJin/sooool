@@ -1,0 +1,18 @@
+{
+  "policy": "v28-hop3",
+  "profile": "profiles/asterix/latency_5x_empirical.json",
+  "prompt": "policies/asterix/v28/prompt.txt",
+  "system": "policies/asterix/v28/system.txt",
+  "native_workers": 8,
+  "args": {
+    "seeds": [
+      2
+    ],
+    "max_frames": 3600,
+    "episode_workers": 1,
+    "controller": "v3",
+    "quota_stop_percent": 80,
+    "latency_scale": 1.0,
+    "latency_seed_offset": 42
+  }
+}

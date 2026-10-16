@@ -1,0 +1,22 @@
+{
+  "frozen_before_calls": true,
+  "cases": 26,
+  "candidates": [
+    "tracking_dodge_safe_intercept_v2",
+    "tracking_dodge_visual_v3",
+    "tracking_dodge_corridor_v3"
+  ],
+  "repeats": 2,
+  "calls": 156,
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "envelope": "aggressive",
+  "no_game_reward_changes": true,
+  "no_code_policy": true,
+  "delayed_conditions_s": [
+    2.2042,
+    2.57086
+  ],
+  "instant_condition_s": 0,
+  "evaluation": "Private original-engine paired rollouts; compare each case/repeat on pre-action hits, post-action hits, gross Bombs, shot contact and longest miss. Separate instant from delayed, exclude irrevocable pre-action losses from current action failure. Per-case regressions and variation reported, no hidden gold action."
+}

@@ -1,0 +1,145 @@
+{
+  "status": "in_progress_not_portably_validated",
+  "source_root": "/tmp/sooool-pingpong",
+  "upstream_commit": "1348bf3a4509e372fba3485d4738a8a7a78a2fe1",
+  "source_dirty": false,
+  "files": [
+    {
+      "path": "verify_replay.py",
+      "sha256": "adb6922f4e6cfdafe6c1f4b6ad062e9816ae9218c1f6cb23848494def79f0b00"
+    },
+    {
+      "path": "native_worker.py",
+      "sha256": "ae4d782766ef53a91e5f412344436803c0c4e593773ea3d5f4d5129b0332f579"
+    },
+    {
+      "path": "defer_executor_round.py",
+      "sha256": "cf54e9d12298d976f2cc830fc767f6c72651fe4fe89596873d21e3b1ed6e3d01"
+    },
+    {
+      "path": "calibrate_api_serve_timing.py",
+      "sha256": "42f171eed39360a53b5a5c221d38fbacef9c89420cf5d834c34ab4047b8bfefd"
+    },
+    {
+      "path": "calibrate_serves.py",
+      "sha256": "5dee1ab72a18391d5c53eb17f6d45af908dcddc7056cbb16dc71d93bcfcb8253"
+    },
+    {
+      "path": "policy.py",
+      "sha256": "322ea487c481457b64feab7838a2a656eaa394eb8fe8db17e0fcc6f422c0b01e"
+    },
+    {
+      "path": "README.md",
+      "sha256": "a230d6cf0e34fd16bb41c65dfa5158cd740975350d03ef8735c92a9709b13d0c"
+    },
+    {
+      "path": "wait_watch.py",
+      "sha256": "61b9c67f4428a74f158c20373b067d764afdcc8d4dd437a0e0f5b0424346e667"
+    },
+    {
+      "path": "smoke_menu.py",
+      "sha256": "3ee3cb2954863b0c1946935d05afab9e2e280a7499251c2385e9260e8e42e167"
+    },
+    {
+      "path": "profile_menu.py",
+      "sha256": "88018c120853f42aee8c82c4ce67fcc508435f45660715c9daf1ac821d9c8e37"
+    },
+    {
+      "path": "context_ab.py",
+      "sha256": "2b6028d501b8d251c88e49b8748899a4a7511b157b71187b292693d3ddf6993c"
+    },
+    {
+      "path": "prepare_acceptance.py",
+      "sha256": "4d9f44310724801a382fc35f0327599936512cfc748077678b0ac21c30071542"
+    },
+    {
+      "path": "action_feedback.py",
+      "sha256": "bdc9d2b80c647902d05f9017907b80d8c0305f36fef8ab041fe0e50820851552"
+    },
+    {
+      "path": "check_execution_blocking.py",
+      "sha256": "459b0abbf593eb168e3aaec388a7939d321644546e7418dd464e61e7a43d80a9"
+    },
+    {
+      "path": "calibrate_api_return.py",
+      "sha256": "7007e25a4b230612ed9273022bf8f511083288f556c4460e47ba7cd5f17c0a7a"
+    },
+    {
+      "path": "check_wait_watch.py",
+      "sha256": "e120c643e843bc5deea00f774ffdbd0d125f53e4fd61fe7c15dee272e3a9580a"
+    },
+    {
+      "path": "audit_acceptance.py",
+      "sha256": "73287337980ab5f1bac02e1e40f6e3559fc8caeba3d216ce2d86da1cf26b1487"
+    },
+    {
+      "path": "preflight.py",
+      "sha256": "83435643e228c8b1dee4aaf9f8981d6a80b4107bcba8fe1062e1312591f443cd"
+    },
+    {
+      "path": "test_budget.py",
+      "sha256": "5c64bd2150404abdb1c732c56b076caa79b1da4f8f71d54c1695b0425aad9df5"
+    },
+    {
+      "path": "calibrate_return.py",
+      "sha256": "41fc0004345c46a1f4b6a864e36b68e7d59630442a461ee5ad8911ec5f2cea04"
+    },
+    {
+      "path": "profile_matched.py",
+      "sha256": "68f17fa1973b13b870ad8515a5a9b583038cf8701852886c54ad0d34f28aed38"
+    },
+    {
+      "path": "paid.py",
+      "sha256": "d15ce78a00782793b2041064c2c533382be3a877636c4aa88cfb80842178aba1"
+    },
+    {
+      "path": "subscription.py",
+      "sha256": "b7525b8bd0a2c722e6b4713581f36fe5e0a401f7955d5b3d30eb29d86912efca"
+    },
+    {
+      "path": "freeze.py",
+      "sha256": "dd7d2b71b0888d46561519a12ed4ae831d052156349014ce2c05d4effa59b2d1"
+    },
+    {
+      "path": "check_frozen_round.py",
+      "sha256": "a0fc2ce7f5f40bd8d3a01c88f0e2c7c4b533672c13c3a2f27a3f2c984c81b500"
+    },
+    {
+      "path": "fast_geometry.py",
+      "sha256": "5ab16c009449f48fe2edb7672d95a618a78f2183181bc1ad42fcae89b55b2b56"
+    },
+    {
+      "path": "simulate.py",
+      "sha256": "784f64ac821aa3888e9ab34b271dfaaacf72bd1199fd4486f0b53c51888eb5b5"
+    },
+    {
+      "path": "profile.py",
+      "sha256": "8bb5cd7b68b3131143de1a9458d65b536d7c52f3be46214789fbe04a88796a5a"
+    },
+    {
+      "path": "run_round.py",
+      "sha256": "e134db415c9244ae02b4fd6b9a6c501b182445ae45e4d01c962d79162eaa61c8"
+    },
+    {
+      "path": "candidates.py",
+      "sha256": "e126260af2d45c57d323c6ddf4fa2fbee673272e0c1f76185b47b121cbf1ad50"
+    },
+    {
+      "path": "subscription_quota.py",
+      "sha256": "163e1f1c74b06df1d2dc257a91beb13cf306c7e051166ebeb654f4ec0ec0e295"
+    },
+    {
+      "path": "protocol.json",
+      "sha256": "70e9582802f46372741c79fffc436791ee77dadeac2e12c5f8d1c090683079ef"
+    },
+    {
+      "path": "realtime.py",
+      "sha256": "e765f990c737115c7b7f480b2eb14739e6c8002f03cf88d657439e40153c5ba3"
+    },
+    {
+      "path": "check_fast_geometry.py",
+      "sha256": "e3f3f997e4ce7997d95dad55e80e3238b39eb43e4d0f744c3937beb8df86c853"
+    }
+  ],
+  "note": "Research source snapshot only. Native simulator/service dependencies remain in original upstream; this is not an executable portable recipe."
+}

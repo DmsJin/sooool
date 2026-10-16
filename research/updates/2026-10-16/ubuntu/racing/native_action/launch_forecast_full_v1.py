@@ -1,0 +1,7 @@
+import pathlib,json,subprocess,sys
+root=pathlib.Path(__file__).resolve().parents[1];out=root/'results/native-forecast-full-v1';out.mkdir(exist_ok=False);profile=root/'results/native-forecast-profile-v2/condition.json';p=json.loads(profile.read_text());assert p['valid_outputs']==p['n']==6 and len(p['drain_delays'])==6
+cases=[(v,seed) for seed in [101,111,121,131] for v in ['predict','geometry','commit','gentle','calibrated']];manifest=[]
+for variant,seed in cases:
+ ident=f'{variant}-chase-s{seed}';log=(out/(ident+'.log')).open('w');cmd=[sys.executable,str(root/'native_action/simulate.py'),'--out',str(out/ident),'--profile',str(profile),'--variant',variant,'--camera','chase','--history','3','--chunk','3','--anchor','arrival','--session','--forecast','--capacity','1','--workers','1','--screen-seconds','0','--cadence','.3','--seed',str(seed)]
+ proc=subprocess.Popen(cmd,stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,start_new_session=True);log.close();manifest.append({'id':ident,'pid':proc.pid,'configuration':cmd})
+(out/'manifest.json').write_text(json.dumps({'screen_only_not_full_match':False,'episodes_parallel':20,'max_native_workers':20,'api_profile_serial':True,'paired_publication_and_drain_delays':True,'persistent_model_conversation':True,'one_pending_plan_per_episode':True,'code_driving_policy':False,'cases':manifest},indent=2));print(json.dumps({'episodes_launched':len(manifest),'pids':[m['pid'] for m in manifest]}),flush=True)
