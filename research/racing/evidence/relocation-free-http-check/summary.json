@@ -1,0 +1,30 @@
+{
+  "status": "complete",
+  "match_winner": "A",
+  "won": true,
+  "valid_trial": true,
+  "deterministic": true,
+  "sim_lag": {
+    "late_max_s": 0.24216705560684204,
+    "late_p99_s": 0.08214711185544693,
+    "run_steps": 5578,
+    "run_sim_s": 55.78,
+    "run_wall_s": 55.7901490945369,
+    "period_s": 0.01
+  },
+  "slowdown": 1.0,
+  "calls": 83,
+  "submitted_commands": 269,
+  "applied_commands": 267,
+  "invalid_output_count": 0,
+  "control": "lane",
+  "anchor": "arrival",
+  "system": null,
+  "wall_seconds": 74.13316069357097,
+  "model": null,
+  "service_tier": null,
+  "artificial_delay": true,
+  "harbor_isolation": false,
+  "driver": "camera-reference-executor-preflight-NOT-GPT",
+  "api_cost_usd": 0
+}

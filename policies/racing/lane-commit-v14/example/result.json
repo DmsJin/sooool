@@ -1,0 +1,41 @@
+{
+  "answer": "{\"decision_summary\":\"The right-side obstacle is behind and the road bends left ahead. Maintain the inner left lane and brisk speed.\",\"action\":[[3.4,0.38,1.7]]}",
+  "json_ready_seconds": 0.8963108950119931,
+  "published_seconds": 0.8963133640063461,
+  "response_completed_seconds": 1.0039805179985706,
+  "stream_end_seconds": 1.004142468009377,
+  "wall_seconds": 1.004142468009377,
+  "ttft_seconds": 0.8962477640016004,
+  "usage": {
+    "input_tokens": 1478,
+    "input_tokens_details": {
+      "cache_write_tokens": 1475,
+      "cached_tokens": 0
+    },
+    "output_tokens": 83,
+    "output_tokens_details": {
+      "reasoning_tokens": 35
+    },
+    "total_tokens": 1561
+  },
+  "model": "gpt-6.1-sol",
+  "service_tier": "ultrafast",
+  "charged_upper_usd": 0.029865,
+  "price_caps": {
+    "input": 16.5,
+    "cached_input": 0.66,
+    "output": 66
+  },
+  "decision_summary": "The right-side obstacle is behind and the road bends left ahead. Maintain the inner left lane and brisk speed.",
+  "summary_source": "same actual API output as action",
+  "raw_packet": {
+    "decision_summary": "The right-side obstacle is behind and the road bends left ahead. Maintain the inner left lane and brisk speed.",
+    "action": [
+      [
+        3.4,
+        0.38,
+        1.7
+      ]
+    ]
+  }
+}

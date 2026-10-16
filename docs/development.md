@@ -10,6 +10,8 @@ The current policies were developed by changing prompts, visual memory, observat
 6. Run complete episodes and independent replay. Report development seeds, untouched holdouts, partial prefixes and resumed trajectories separately.
 7. Freeze the selected policy before real-time API transfer, and recalibrate when its workload changes.
 
+Racing provides a concrete selected lineage: [waypoint failures → lane goals → lane commitment → held-out confirmation → real API verification](../research/racing/EVALUATION.md). Its [evaluation record guide](../research/racing/RECORDS.md) specifies what to save and how to promote a candidate. The real API result is hybrid control; historical subscription images were omitted, and that limitation is retained.
+
 ## Lessons worth carrying forward
 
 - Rhythm: the model must plan beyond response delay. Removing prior latency figures and live RTT caused many literal plans to expire. See `environments/rhythm/experiments/rhythm/LATENCY_PROFILE_ABLATION.md`. Visual calibration memory, acknowledgement history and timestamp semantics are part of the policy.

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "visual-lane-commit-1x-s101",
+    "variant": "metric",
+    "slowdown": 1,
+    "control": "lane",
+    "cadence": 0.6,
+    "chunk": 1,
+    "history": 2,
+    "workers": 3,
+    "seed": 101
+  },
+  {
+    "id": "visual-lane-commit-1x-s111",
+    "variant": "metric",
+    "slowdown": 1,
+    "control": "lane",
+    "cadence": 0.6,
+    "chunk": 1,
+    "history": 2,
+    "workers": 3,
+    "seed": 111
+  },
+  {
+    "id": "visual-lane-commit-1x-s121",
+    "variant": "metric",
+    "slowdown": 1,
+    "control": "lane",
+    "cadence": 0.6,
+    "chunk": 1,
+    "history": 2,
+    "workers": 3,
+    "seed": 121
+  }
+]

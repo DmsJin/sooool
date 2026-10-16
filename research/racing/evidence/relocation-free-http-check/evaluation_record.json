@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "policy": "lane-commit-v14",
+  "mode": "preflight",
+  "real_time_api_acceptance": false,
+  "execution_integrity": "verified",
+  "process_returncode": 0,
+  "won": true,
+  "summary": {
+    "status": "complete",
+    "match_winner": "A",
+    "won": true,
+    "valid_trial": true,
+    "deterministic": true,
+    "sim_lag": {
+      "late_max_s": 0.24216705560684204,
+      "late_p99_s": 0.08214711185544693,
+      "run_steps": 5578,
+      "run_sim_s": 55.78,
+      "run_wall_s": 55.7901490945369,
+      "period_s": 0.01
+    },
+    "slowdown": 1.0,
+    "calls": 83,
+    "submitted_commands": 269,
+    "applied_commands": 267,
+    "invalid_output_count": 0,
+    "control": "lane",
+    "anchor": "arrival",
+    "system": null,
+    "wall_seconds": 74.13316069357097,
+    "model": null,
+    "service_tier": null,
+    "artificial_delay": true,
+    "harbor_isolation": false,
+    "driver": "camera-reference-executor-preflight-NOT-GPT",
+    "api_cost_usd": 0
+  },
+  "canonical_final": "service/final.json",
+  "replay_hash_matches": true,
+  "recipe_sha256": "23b1b75d70f906b5ceb2ae73e7cdeb8c27d87a115167465eba0c1eeeb1e04bbd",
+  "profile_sha256": "3c2596933d6a26c839218a7f99af6e23540276c6ccfc6de2f5452fbcd04379ab",
+  "model_calls": "none",
+  "hypothesis": "Verify relocated selected HTTP executor and canonical replay without model calls",
+  "limits": [
+    "hybrid coded visual tracking",
+    "Level 1 only",
+    "historical profile is proxy calibration, not exact current workload"
+  ]
+}

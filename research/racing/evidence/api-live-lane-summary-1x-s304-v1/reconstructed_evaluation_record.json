@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "policy": "lane-commit-v14",
+  "mode": "eval",
+  "real_time_api_acceptance": true,
+  "execution_integrity": "verified",
+  "process_returncode": 0,
+  "won": true,
+  "summary": {
+    "status": "complete",
+    "match_winner": "A",
+    "won": true,
+    "valid_trial": true,
+    "deterministic": true,
+    "sim_lag": {
+      "late_max_s": 0.011550981987966225,
+      "late_p99_s": 0.004124703005654731,
+      "run_steps": 8597,
+      "run_sim_s": 85.97,
+      "run_wall_s": 85.9788546859927,
+      "period_s": 0.01
+    },
+    "slowdown": 1.0,
+    "calls": 137,
+    "submitted_commands": 432,
+    "applied_commands": 432,
+    "invalid_output_count": 0,
+    "control": "lane",
+    "anchor": "arrival",
+    "system": "minimal",
+    "wall_seconds": 100.92172746601864,
+    "model": "gpt-6.1-sol",
+    "service_tier": "ultrafast",
+    "artificial_delay": false,
+    "harbor_isolation": false,
+    "decision_summaries_from_same_API_response": true,
+    "cadence_seconds": 0.6,
+    "image_detail": "low",
+    "controller": "unchanged lane-commit visual tracker"
+  },
+  "canonical_final": "service/final.json",
+  "replay_hash_matches": true,
+  "recipe_sha256": "afd9145c2f05649af0a48522e9fc46bcc269973f5e476833beb8121389e0946b",
+  "profile_sha256": "3c2596933d6a26c839218a7f99af6e23540276c6ccfc6de2f5452fbcd04379ab",
+  "model_calls": "actual API",
+  "hypothesis": "Rebuild index from original recorded actual API run; no new calls",
+  "limits": [
+    "hybrid coded visual tracking",
+    "Level 1 only",
+    "historical profile is proxy calibration, not exact current workload"
+  ]
+}

@@ -1,0 +1,366 @@
+{
+  "scope": "selected early Racing hybrid checkpoint and focused lineage, not exhaustive research history",
+  "new_paid_calls": 0,
+  "files": [
+    {
+      "path": "environments/racing/AGENTS.md",
+      "bytes": 600,
+      "sha256": "d4742fab791f8e1a88183748819033167d6935dffe0ddd9b02e9d052364f977b"
+    },
+    {
+      "path": "environments/racing/explained_api.py",
+      "bytes": 2173,
+      "sha256": "da9f6321c3be708f7e5436cb89014331fe437f048823c84ea10d19005c9946e1"
+    },
+    {
+      "path": "environments/racing/lane.py",
+      "bytes": 3379,
+      "sha256": "76798b23171aa68c90bb92641514c7a5f16f36306c3f6806d21a3e3b500c967e"
+    },
+    {
+      "path": "environments/racing/live.py",
+      "bytes": 14141,
+      "sha256": "ba3d38f1a4fca5d38d63be8f6e082889dbaefc48977691cc8b20b9747626dad6"
+    },
+    {
+      "path": "environments/racing/live_explained.py",
+      "bytes": 14981,
+      "sha256": "94970fc464cdb19c740e43c671a5c290774ffdf8c8b25d5b1a2af5ffdd78527c"
+    },
+    {
+      "path": "environments/racing/requirements.txt",
+      "bytes": 165,
+      "sha256": "fd1bfe4d96a46234c18a9484230e8c97eaae8a1094c71b010a75e4c63169fbe1"
+    },
+    {
+      "path": "environments/racing/run.py",
+      "bytes": 39769,
+      "sha256": "0ba7ee0283781b4cb567d37e7f8213f06c76b200874c8067603f052a0fc0db78"
+    },
+    {
+      "path": "environments/racing/source-provenance.json",
+      "bytes": 1798,
+      "sha256": "77629e853aa2b1a5227007ffbe0bf9365b87da5e1e9faaa87b82c71ed7d72121"
+    },
+    {
+      "path": "environments/racing/test_contracts.py",
+      "bytes": 3478,
+      "sha256": "1d5ab567f6a2e85cd6fbcc7026f355533e1003745de9aa668d5a95fa9c29cd9c"
+    },
+    {
+      "path": "environments/racing/test_explained.py",
+      "bytes": 2008,
+      "sha256": "d0fe82fc9a5446b3adad5f368b7b9c2aeebefd1605ed6034c04596a36c888ad3"
+    },
+    {
+      "path": "environments/racing/test_lane.py",
+      "bytes": 1007,
+      "sha256": "887f2879ae4aa34abdbadbf321e27829e5c70efefb52fd5954cead54e3c2bc31"
+    },
+    {
+      "path": "environments/racing/test_stream.py",
+      "bytes": 2368,
+      "sha256": "b4c4b38cd22a425c8e14fe0e91149cdb04c500fbed9e64bfc54779ec0a5e4db1"
+    },
+    {
+      "path": "environments/racing/waypoints.py",
+      "bytes": 3905,
+      "sha256": "645785f3eec086526214253544cce9ee182d5a939e91ee65819923e50e4ef906"
+    },
+    {
+      "path": "policies/racing/lane-commit-v14/example/image_0.png",
+      "bytes": 3520,
+      "sha256": "ef4feed33517dc1558189aed957bd91889ef43ce58a64dbb111f690a2d7d70f5"
+    },
+    {
+      "path": "policies/racing/lane-commit-v14/example/image_1.png",
+      "bytes": 3573,
+      "sha256": "feb58b54ebf2e75d25b9cb47edf8f8d0c33602bd08492d80061b5a68ad8803ac"
+    },
+    {
+      "path": "policies/racing/lane-commit-v14/example/input.json",
+      "bytes": 5633,
+      "sha256": "7ac5e55baea0519803b1f8d8b460521df0e8f79a678acacdb6f8f1d21418a94e"
+    },
+    {
+      "path": "policies/racing/lane-commit-v14/example/result.json",
+      "bytes": 1302,
+      "sha256": "40a85cbf023fd3cf64712187b2f82147ef3cf8bfcc5a13457319e4bf5c3bcb84"
+    },
+    {
+      "path": "policies/racing/lane-commit-v14/policy.json",
+      "bytes": 917,
+      "sha256": "41c8b7139287cd2363ff469e78af9b206fdeaaa4f6e6573dbdb12c8cf283b36f"
+    },
+    {
+      "path": "policies/racing/lane-commit-v14/preview.png",
+      "bytes": 584424,
+      "sha256": "faee9260eef5560e9deec0ac97b359ae7b06a338318f878c9589cce14be8b843"
+    },
+    {
+      "path": "policies/racing/lane-commit-v14/prompt.txt",
+      "bytes": 2142,
+      "sha256": "50bc3f73ee55936065e717b222195ca396befadc13147e000be5168c58fe8e4f"
+    },
+    {
+      "path": "policies/racing/lane-commit-v14/system.txt",
+      "bytes": 306,
+      "sha256": "520f5b66087a65db01822e640988df720bf6753c5ca3f544e6d9f15b03db9e49"
+    },
+    {
+      "path": "profiles/racing/measurements.jsonl",
+      "bytes": 11742,
+      "sha256": "c1c8e7659ed96fe26d6d68a8e47bb3da32a3c8c641e92155cc1588f39d042288"
+    },
+    {
+      "path": "profiles/racing/profile.json",
+      "bytes": 1021,
+      "sha256": "3c2596933d6a26c839218a7f99af6e23540276c6ccfc6de2f5452fbcd04379ab"
+    },
+    {
+      "path": "research/racing/EVALUATION.md",
+      "bytes": 7016,
+      "sha256": "6a173e863692cd67a75b41736c2955e0d2e5bb7011244ca6b4323e3ee1a1ac78"
+    },
+    {
+      "path": "research/racing/RECORDS.md",
+      "bytes": 4070,
+      "sha256": "49ebbd246bb0a3f37b74a99132c4dccb072e8e91d715ec5898014bf94036efd3"
+    },
+    {
+      "path": "research/racing/VALIDATION.json",
+      "bytes": 584,
+      "sha256": "96791460272851772aced99c5631f421d32e45db87e05f4b9b99859ed70a94d5"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-1x-s204-v1/audit.json",
+      "bytes": 1697,
+      "sha256": "93a182aecad5f302731b3a9c3ac28900786ba4bdfbcd63202413264b1d4bbb17"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-1x-s204-v1/config.json",
+      "bytes": 475,
+      "sha256": "3d929f12d1e0e165e296a6d93fd708a974bd81e365863dd9bee7e99546e4ae59"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-1x-s204-v1/service/final.json",
+      "bytes": 16158,
+      "sha256": "9d4d5664bbf083eef1f712a5d88a91ff111909a82054ded33ef42afeb19be1fe"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-1x-s204-v1/service/replay_check.json",
+      "bytes": 1149,
+      "sha256": "de8dcaa3a2d3f7aa2ade505063214f730693bf11f2e04e359715a89a1f5e99ac"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-1x-s204-v1/summary.json",
+      "bytes": 654,
+      "sha256": "309228cc4710d8fd6abbfaa5700bc882a164b1552cc6021f1e94904ffdc8a018"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-commit-1x-s304-v1/audit.json",
+      "bytes": 1025,
+      "sha256": "ce9494bf7219d144ad665820d257f2a3a4975437d8758253f2b9a48664e8ff17"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-commit-1x-s304-v1/config.json",
+      "bytes": 482,
+      "sha256": "779c0da5132110b6cb0e4d8d2cee5a40d7df48e909d0e10a06c1c9279d9ce3d9"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-commit-1x-s304-v1/service/final.json",
+      "bytes": 14979,
+      "sha256": "9bf1b6dae592240ca04741a526e96d3199480384d22dc9ac3f3d42c9b2c4b7b3"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-commit-1x-s304-v1/service/replay_check.json",
+      "bytes": 1148,
+      "sha256": "51da0f648ae7ff17a8d1ad5f41a1dc011724afba0cb226d1a566dc81a2492301"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-commit-1x-s304-v1/summary.json",
+      "bytes": 657,
+      "sha256": "6b09ca32d417e9feb1720a6a1b677e5551ccfa2d329030454cfedb76c2fd9b20"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-summary-1x-s304-v1/config.json",
+      "bytes": 508,
+      "sha256": "95482fa917cb6660d030644febaa5fd5d3c8a851ed146a68b9fca1586ef43329"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-summary-1x-s304-v1/cross_host_replay_check.json",
+      "bytes": 1542,
+      "sha256": "e26ffec409666128aa10a5945f1ab143bfb5fc3820dab547728bec440c5dd07c"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-summary-1x-s304-v1/decision_video_audit.json",
+      "bytes": 63134,
+      "sha256": "ab1aa5ea0d143b649dc3344e1093dc6df364d3fc77c4c287e060f376c9f39a4c"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-summary-1x-s304-v1/edit_audit.json",
+      "bytes": 1586,
+      "sha256": "6c889695707ccd4457e71352a1d8bf719679eefd8af2d30afbb9fec763ed1ea5"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-summary-1x-s304-v1/reconstructed_evaluation_record.json",
+      "bytes": 1596,
+      "sha256": "4f46b2a54c58dfa65a3f1dc5aa797ea4916f3b4f197e3e3950da49fc18eefe67"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-summary-1x-s304-v1/render_audit.json",
+      "bytes": 601,
+      "sha256": "ec3c618f1d8833f3ddb511899f553592489f5d84f7c2f58420a699446bd3cf38"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-summary-1x-s304-v1/service/final.json",
+      "bytes": 21791,
+      "sha256": "dd98a536f09160943ea980974b9f3ae577a2246f4e5603a2c8be02148fdf52b6"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-summary-1x-s304-v1/service/replay_check.json",
+      "bytes": 1147,
+      "sha256": "3787f8e4a41bc57816966777f09f1e4b0f8b9deb802f7e91a08bb2453fb320b2"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-summary-1x-s304-v1/summary.json",
+      "bytes": 816,
+      "sha256": "25d64fc3a7ca1cc12afb7c33613d71c28cd076a8e998ece74ca7a348a7b5a68d"
+    },
+    {
+      "path": "research/racing/evidence/api-live-lane-summary-1x-s304-v1/video_heat_frames.json",
+      "bytes": 378,
+      "sha256": "5ee41e05468bb81e1e3b0361ed7af2d31c837972e39150003b048d7a007902f6"
+    },
+    {
+      "path": "research/racing/evidence/fixed-grid-baseline.json",
+      "bytes": 10134,
+      "sha256": "b132a0e7cf74f9925dc51279467a15cfdb5ecde90b3163a99ee121dd9a5a1b60"
+    },
+    {
+      "path": "research/racing/evidence/fixed-minus038.json",
+      "bytes": 17746,
+      "sha256": "455cdbc0279837766c40106d6d3caedbec00ad6cb02c89d20f6517b10f15df00"
+    },
+    {
+      "path": "research/racing/evidence/fixed-plus038.json",
+      "bytes": 15280,
+      "sha256": "4538fbb1263a6c7b723092c09a7deaa12a5615b47831466b2290c6e55e1771a1"
+    },
+    {
+      "path": "research/racing/evidence/outer-prompt-ab.json",
+      "bytes": 1144,
+      "sha256": "151cf8bcb0319178b031b2ae907b06fdb0228f2ec2f1dbc338aa8db89d5fbfb2"
+    },
+    {
+      "path": "research/racing/evidence/relocation-free-http-check/evaluation_record.json",
+      "bytes": 1501,
+      "sha256": "b2866789b6278969738a7a0a43c50d6517c2604d1417325689a4e62bd27f2327"
+    },
+    {
+      "path": "research/racing/evidence/relocation-free-http-check/manifest.json",
+      "bytes": 9935,
+      "sha256": "49f0b96dc0cf9a2b48b3eda2398e82ff5c24e5ffc12c71c6ec745d8808edca52"
+    },
+    {
+      "path": "research/racing/evidence/relocation-free-http-check/service/final.json",
+      "bytes": 14850,
+      "sha256": "26e2277e8c1803dd9b38df0dd158009ad84e4517211c55a8c90bed2e07024d21"
+    },
+    {
+      "path": "research/racing/evidence/relocation-free-http-check/service/replay_check.json",
+      "bytes": 1150,
+      "sha256": "32f2e04bdbe0deb8100bcf7856979af8fd7aef0c996f85babae76d3feec9170c"
+    },
+    {
+      "path": "research/racing/evidence/relocation-free-http-check/summary.json",
+      "bytes": 710,
+      "sha256": "38cc57ac429bd760b13c71075d9a4bf596f5aac109cb6ee794d801aa7079ef17"
+    },
+    {
+      "path": "research/racing/evidence/round10_visual_lane/groups.json",
+      "bytes": 178,
+      "sha256": "470d0f595f39fbd9e384c721497d1f2c64cc7a1b8a1fc1373a44c5a6086eddf1"
+    },
+    {
+      "path": "research/racing/evidence/round10_visual_lane/matrix.json",
+      "bytes": 593,
+      "sha256": "b94995d84b9ab78970a7ef9885a30143a7893cb5efeff2ab58545b9fe16d5bc9"
+    },
+    {
+      "path": "research/racing/evidence/round10_visual_lane/status.json",
+      "bytes": 8568,
+      "sha256": "8b92be011882c40a3753c82a91cbdd95e9c88d5e1ac90d97662ab72e5dc51509"
+    },
+    {
+      "path": "research/racing/evidence/round11_lane_commit/groups.json",
+      "bytes": 178,
+      "sha256": "eefbce35ea59e60cbcb0f190117f9478bdac3b99f5e17c90b22ec4db1e4c990e"
+    },
+    {
+      "path": "research/racing/evidence/round11_lane_commit/matrix.json",
+      "bytes": 614,
+      "sha256": "265777088351d3d4784c4873440aacb8e7068db5cd783da020155163f16397ea"
+    },
+    {
+      "path": "research/racing/evidence/round11_lane_commit/status.json",
+      "bytes": 7923,
+      "sha256": "534e8aaad25fac68d5f4a3aa6427e27dc51c2b4e4c397cb859d86dbe23606825"
+    },
+    {
+      "path": "research/racing/evidence/round13_lane_commit_holdout/groups.json",
+      "bytes": 178,
+      "sha256": "eefbce35ea59e60cbcb0f190117f9478bdac3b99f5e17c90b22ec4db1e4c990e"
+    },
+    {
+      "path": "research/racing/evidence/round13_lane_commit_holdout/matrix.json",
+      "bytes": 638,
+      "sha256": "f05503d6126c1dbfc8ee4997e0e1dc8909f22b9825b0329d78750f1bbdb6bb6c"
+    },
+    {
+      "path": "research/racing/evidence/round13_lane_commit_holdout/status.json",
+      "bytes": 7659,
+      "sha256": "b291789c6e0ace676d7e7f8d9f12466be67135ad7d1c07dbfb57108ca6f67a84"
+    },
+    {
+      "path": "research/racing/evidence/round9_curve_cap/groups.json",
+      "bytes": 182,
+      "sha256": "447b61fc573f60d9dbb8cf5d6b21cb9e94face13c2b929d378cd46377314eb3a"
+    },
+    {
+      "path": "research/racing/evidence/round9_curve_cap/matrix.json",
+      "bytes": 626,
+      "sha256": "3cd750dc758c744512fc6a525288f41a5e7a92eb374f536ade782f124c6f859d"
+    },
+    {
+      "path": "research/racing/evidence/round9_curve_cap/status.json",
+      "bytes": 9044,
+      "sha256": "160e72782ed81177245913f3674d94ae4c35f80d6317559533d4803dc71304ed"
+    },
+    {
+      "path": "research/racing/selection.json",
+      "bytes": 182100,
+      "sha256": "9c81d56ce394c3ef442cf30000c7a39aaa55352dbda01c701a5759c9653c7c17"
+    },
+    {
+      "path": "recipes/racing.json",
+      "bytes": 917,
+      "sha256": "41c8b7139287cd2363ff469e78af9b206fdeaaa4f6e6573dbdb12c8cf283b36f"
+    },
+    {
+      "path": "scripts/racing.py",
+      "bytes": 9876,
+      "sha256": "88be5f043a33490eb50d841a63c8b10a1a67662bf94e3731e14b163cb6b58656"
+    },
+    {
+      "path": "docs/racing.md",
+      "bytes": 8951,
+      "sha256": "2e24edb9ab34af20ff9c3a2be89f2cc827dec2056acf36419998c568ccf68358"
+    },
+    {
+      "path": "artifacts/videos/racing-seed304-win-loss-win.mp4",
+      "bytes": 15319191,
+      "sha256": "098728c3b71de584215aee6a4db878124b020b4fc7e3ea27bbdbddacb7274a62"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "condition": [
+      "metric",
+      1,
+      2,
+      1,
+      "arrival",
+      "lane",
+      0.6,
+      8
+    ],
+    "n": 3,
+    "complete": true,
+    "wins": 3
+  }
+]
