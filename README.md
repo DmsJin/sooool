@@ -2,27 +2,27 @@
 
 **GPT-Sol plays games in real time, agent as policy, frame by frame. The game does not pause while reasoning.**
 
+<table>
+<tr>
+<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-SOL choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="105"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
+<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-SOL playing table tennis with both camera views and live public decision summaries" height="105"></a><br><b>PingPong</b> · Real-time API · 1×</td>
+</tr>
+<tr>
+<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-Sol dodging Kaguya's bullet patterns with live English decision summaries" height="105"></a><br><b>Touhou</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-Sol selecting racing targets through bends and obstacles, with live decisions" height="105"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
+</tr>
+<tr>
+<td colspan="2" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-Sol collecting food in Asterix alongside original public decision summaries" height="105"></a><br><b>Asterix</b> · 12 FPS</td>
+</tr>
+</table>
+
 Sooool! uses an auto-research loop to get GPT-Sol to play real-time games, in both computer use and robotic settings. GPT-Sol sees the  current observation (visual frames), decides what to do, and sends an action. Then it sees what happened and decides the next action again. The environment keeps moving while the model thinks, so a good decision can arrive too late.
 
 The gameplay decisions come from GPT-Sol on each turn. The surrounding code handles observations, timing and execution, with each game declaring its control setup below.
 
-<table>
-<tr>
-<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-Sol dodging Kaguya's bullet patterns with live English decision summaries" width="440"></a><br><b>Touhou</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-Sol selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
-</tr>
-<tr>
-<td colspan="2" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-Sol collecting food in Asterix alongside original public decision summaries" width="600"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
-</tr>
-<tr>
-<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-SOL choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
-<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-SOL playing table tennis with both camera views and live public decision summaries" width="440"></a><br><b>PingPong</b> · Real-time API · 1×</td>
-</tr>
-</table>
-
 You can watch GPT-Sol dodge a screen full of bullets, race a rival, collect food in Atari Asterix, play robot table tennis, or hit notes in time with the music. Then inspect its decisions, change the policy, and send it back into the game.
 
-**Simulated latency. Real model decisions.** During development, cheaper inference drives fresh decisions from actual game frames, with actions delivered under a measured API latency profile. Freeze a candidate, then evaluate it with the real API while the game clock keeps running. The repository includes the environments, prompts, profiles, runners and experiment records for this loop.
+**Develop, freeze, evaluate.** During development, cheaper inference drives fresh decisions from actual game frames, with actions delivered under a measured API latency profile. Freeze a candidate, then evaluate it with the real API while the game clock keeps running. The repository includes the environments, prompts, profiles, runners and experiment records for this loop.
 
 ## Games
 
@@ -33,7 +33,7 @@ You can watch GPT-Sol dodge a screen full of bullets, race a rival, collect food
 | **Rhythm** | Hit the right key at the right time. | Native browser/audio API capture at 1×, with DFJK inputs. |
 | **PingPong** | Serve, return, win the point. | Real-time API at 1×. GPT-Sol selects shot placement; rules handle serving and execution. [Setup](docs/tabletennis.md). |
 | **Badminton** | Place the shot. Recover for the next one. | Tactical goals with native mechanics; real-time API at S3. [Setup and control boundary](docs/badminton.md). |
-| **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | Historical delay simulation at 5× slowdown, with model actions applied unchanged. |
+| **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | 12 FPS; retained development replay, with model actions applied unchanged. |
 
 The GIFs are continuous excerpts at their source playback speed. Racing uses hybrid steering. Touhou, Racing, PingPong and Asterix show original public decision summaries. Rhythm shows original English action-plus-commentary responses; its 17s run has two empty presses and is not a full combo. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
 

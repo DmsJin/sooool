@@ -87,6 +87,42 @@ class RunnerTests(unittest.TestCase):
             self.assertEqual(json.loads((out/'summary.json').read_text())['status'],'interrupted')
             self.assertIn('error_type',(out/'decisions.jsonl').read_text())
 
+    def test_api_early_action_applies_once_but_request_slot_waits_for_terminal(self):
+        recipe=json.loads((ROOT/'recipes/asterix.json').read_text())
+        class Clock:
+            now=0.
+            def monotonic(self):return self.now
+            def sleep(self,seconds):self.now+=seconds
+        clock=Clock()
+        class Client:
+            provider='openai_api'
+            published=False
+            def poll_action(self):
+                if clock.now>=.25 and not self.published:
+                    self.published=True
+                    return {'directory':'call-00000','chosen':2,'reason':'Chase food.'}
+        class Delayed:
+            def done(self):return clock.now>=.75
+            def result(self):return {'answer':'{"action":2,"reason":"Chase food."}','chosen':2,'reason':'Chase food.','meta':{}}
+        class Pool:
+            def __init__(self,**kwargs):self.calls=0
+            def submit(self,*args):
+                self.calls+=1
+                return Delayed()
+            def shutdown(self,**kwargs):pass
+        with tempfile.TemporaryDirectory() as d,patch.object(runner,'ThreadPoolExecutor',Pool),patch.object(runner,'time',clock):
+            out=Path(d)/'episode'
+            summary=runner.run_episode(recipe,out,5,12,'task',[.5],Client(),'realtime',env_factory=fake_env)
+            steps=[json.loads(x) for x in (out/'steps.jsonl').read_text().splitlines()]
+            self.assertEqual([s['action'] for s in steps],[0]*3+[2]*9)
+            self.assertEqual(summary['calls'],1)
+            self.assertEqual(summary['paid_api_calls'],1)
+            self.assertEqual(summary['new_subscription_calls'],0)
+            actions=json.loads((out/'actions.json').read_text())
+            self.assertEqual(len(actions),1)
+            self.assertEqual(actions[0]['frame'],3)
+            self.assertTrue(json.loads((out/'deliveries.json').read_text())[0]['terminal_pending'])
+
     def test_schema_keeps_english_punctuation_and_rejects_bad_action(self):
         self.assertEqual(runner.parse_decision('{"action":2,"reason":"Food is in the player’s row."}','action_reason')[0],2)
         with self.assertRaises(ValueError):runner.parse_decision('{"action":true,"reason":"Move."}','action_reason')

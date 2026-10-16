@@ -7,6 +7,25 @@ from unittest.mock import patch
 from runtime import cli
 
 class RealtimeCLI(unittest.TestCase):
+    def test_paid_asterix_requires_budget_before_transport(self):
+        with patch.object(sys,'argv',['sol','eval','asterix','--provider','api']),patch.object(cli,'asterix') as game:
+            with self.assertRaises(SystemExit):cli.main()
+            game.assert_not_called()
+
+    def test_paid_asterix_uses_explicit_wall_duration_and_api_manifest(self):
+        with tempfile.TemporaryDirectory() as d:
+            out=Path(d)/'run'
+            def freeze(game,recipe,path,mode):
+                path.mkdir()
+                (path/'manifest.json').write_text(json.dumps({'game':game,'recipe':recipe,'mode':mode}))
+            argv=['sol','eval','asterix','--provider','api','--budget-usd','5','--wall-seconds','60','--output',str(out)]
+            with patch.object(sys,'argv',argv),patch.object(cli,'freeze',side_effect=freeze),patch.object(cli,'asterix',return_value={}) as game:
+                cli.main()
+                self.assertEqual(game.call_args.args[2].duration,12)
+                manifest=json.loads((out/'manifest.json').read_text())
+                self.assertEqual(manifest['mode'],'realtime_api')
+                self.assertEqual(manifest['recipe']['provider'],'openai_api')
+
     def test_eval_dispatch_preserves_each_games_provider_and_recipe(self):
         for game,extra,mode in [('asterix',[],'real_time_subscription'),('touhou',['--budget-usd','1'],'realtime_api')]:
             with self.subTest(game=game),tempfile.TemporaryDirectory() as d:

@@ -21,7 +21,35 @@ This uses actual ChatGPT subscription inference and a continuously advancing 12-
 
 Each trial retains the exact task, model public output, capture frame, delivery frame, actual capture-to-apply duration, frame lag, applied action, rewards/lives, source snapshot and evaluation record. Interrupted calls preserve partial artifacts; authentication failures cannot fall back to paid API. The default quota stop is 80%. Record retain/reject decisions with `sol record`; see [the recording protocol](evaluation-records.md).
 
-A paid ultrafast API trial requires the user's own secure credentials, explicit per-run spending budget, complete-response and early-action calibration, failure/usage accounting, and fresh real-time validation. The original API research utilities remain available at [the fixed Asterix source checkpoint](https://github.com/sooool-project/sooool/tree/053545c1c27e6beccb80598e7a4d57f80865afc1/research/asterix/realtime-source). This release does not expose an unvalidated paid API launcher or inherit an old budget authorization.
+### Explicit paid API trial at 12 FPS
+
+```bash
+# Example only: obtain authorization for the new USD cap before running.
+# Key comes from OPENAI_API_KEY or hidden terminal input, never arguments.
+uv run sol eval asterix --provider api --seed 5 --wall-seconds 60 \
+  --budget-usd 5 --max-calls 100 --output runs/asterix-api-60s
+uv run python scripts/render_asterix_decisions.py \
+  runs/asterix-api-60s/seed-5 runs/asterix-api-60s/replay.mp4 --music
+```
+
+This explicit transport uses `gpt-6.1-sol / low / ultrafast`, three past screenshots,
+V28 and the same unchanged held actions. It has one in-flight request. A complete,
+schema-valid action and public English summary apply at the next 12-FPS tick;
+stream termination and billing settlement finish before another request is admitted.
+The game keeps advancing during both phases. The API path uses the task directly,
+without the Codex coding wrapper. `--wall-seconds 60` means 720 raw frames / 12
+game seconds; `--duration 60` instead means 3,600 frames / 300 actual seconds.
+
+Each run has a persistent capped ledger unless `--ledger` explicitly selects a
+shared cumulative ledger. The shared Responses client reserves conservative
+costs before sending, settles terminal usage, verifies model/tier, and blocks
+admission on unknown accounting. Interrupted runs retain all evidence and cannot
+be promoted to successful API evaluations. Reused API/accounting source files
+are included in the frozen manifest. Offline transport checks are separate from
+fresh paid validation: the new full API episode has **not yet been run**.
+The existing README Asterix media remains a historical development replay until
+a new recorded API result replaces it. A rendered replay reconstructs saved
+actions and checks every reward/life; it is not an original screen recording.
 
 ## Touhou: actual realtime API evaluation
 

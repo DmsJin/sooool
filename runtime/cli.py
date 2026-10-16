@@ -39,9 +39,14 @@ def freeze(game,recipe,out, mode="subscription_with_simulated_profile"):
                 data=p.read_bytes();sources[rel]=hashlib.sha256(data).hexdigest()
                 if p.suffix in ('.py','.js','.mjs','.json','.txt','.md','.css','.html','.toml'):
                     target=out/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)
+    if game=='asterix' and recipe.get('provider')=='openai_api':
+        for name in ('api_client.py','budget.py'):
+            rel='environments/touhou/research/'+name
+            data=(ROOT/rel).read_bytes();sources[rel]=hashlib.sha256(data).hexdigest()
+            target=out/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)
     (out/'manifest.json').write_text(json.dumps({'game':game,'recipe':recipe,'source_sha256':sources,
         'mode':mode,'real_time_api_acceptance':False,
-        'transport_adapter':'portable app-server; original gameplay policy and timing retained',
+        'transport_adapter':'streaming Responses API; direct model actions' if game=='asterix' and recipe.get('provider')=='openai_api' else 'portable app-server; original gameplay policy and timing retained',
         'created_at_unix':time.time()},indent=2))
 
 def rhythm(recipe,out,a):
@@ -68,6 +73,9 @@ def touhou(recipe,out,a):
     return summary
 
 def asterix(recipe,out,a):
+    if getattr(a,'provider',None)=='api':
+        from runtime.asterix_api import evaluate
+        return evaluate(ROOT,recipe,out,a)
     sys.path.insert(0,str(ROOT/'environments/asterix'))
     from runner import run_recipe
     from runtime.subscription import SubscriptionClient
@@ -134,11 +142,13 @@ def main():
     p=argparse.ArgumentParser(epilog='Racing: sol simulate racing, sol eval racing, sol profile racing; see docs/racing.md. Badminton: sol simulate badminton, sol eval badminton, sol preflight badminton, sol audit badminton, sol report badminton; see docs/badminton.md. PingPong: sol eval pingpong, sol report pingpong; see docs/tabletennis.md.');sub=p.add_subparsers(dest='command',required=True)
     d=sub.add_parser('doctor');d.add_argument('--game',choices=['all','rhythm','touhou','asterix'],default='all');d.add_argument('--auth',action='store_true');d.add_argument('--browser-executable')
     e=sub.add_parser('simulate');e.add_argument('game',choices=['rhythm','touhou','asterix']);e.add_argument('--output',type=Path);e.add_argument('--seed',type=int);e.add_argument('--duration',type=float);e.add_argument('--browser-executable');e.add_argument('--recipe',type=Path)
-    v=sub.add_parser('eval',help='Continuous evaluation: Asterix subscription or Touhou/Rhythm API (explicit budget)')
+    v=sub.add_parser('eval',help='Continuous evaluation: Asterix subscription/API or Touhou/Rhythm API (explicit budget)')
     v.add_argument('game',choices=['touhou','asterix','rhythm']);v.add_argument('--output',type=Path);v.add_argument('--seed',type=int)
     v.add_argument('--recipe',type=Path);v.add_argument('--browser-executable');v.add_argument('--budget-usd',help='Required for paid API evaluation')
     v.add_argument('--max-calls',type=int,default=100);v.add_argument('--ledger',type=Path)
     v.add_argument('--duration',type=float);v.add_argument('--audio',type=Path,help='Optional local audio; Rhythm defaults to bundled17s preview')
+    v.add_argument('--provider',choices=['subscription','api'],help='Asterix transport; default subscription')
+    v.add_argument('--wall-seconds',type=float,help='Asterix actual running time at 12 raw FPS')
     r=sub.add_parser('record',help='Append an immutable evaluation record to a chosen registry')
     r.add_argument('--decision',choices=['retain','reject','diagnostic']);r.add_argument('--note');r.add_argument('run',type=Path);r.add_argument('--registry',type=Path,default=ROOT/'artifacts/touhou/evaluations.jsonl')
     c=sub.add_parser('profile',help='Strictly serial API profiling of retained unique observations')
@@ -164,7 +174,13 @@ def main():
         if a.decision is not None or a.note is not None:p.error('--decision and --note apply to Asterix assessments')
         from runtime.touhou_records import append_record
         print(json.dumps({'appended':append_record(a.run,a.registry),'registry':str(a.registry)}));return
-    if a.command in ('eval','profile') and a.game in ('touhou','rhythm'):
+    paid_asterix=a.command=='eval' and a.game=='asterix' and a.provider=='api'
+    if a.command=='eval':
+        if a.game!='asterix' and (a.provider is not None or a.wall_seconds is not None):p.error('--provider and --wall-seconds apply to Asterix')
+        if a.wall_seconds is not None:
+            if a.duration is not None or not math.isfinite(a.wall_seconds) or a.wall_seconds<=0:p.error('Use one positive --wall-seconds or --duration')
+            a.duration=a.wall_seconds/5
+    if a.command in ('eval','profile') and (a.game in ('touhou','rhythm') or paid_asterix):
         from decimal import Decimal,InvalidOperation
         if a.budget_usd is None:p.error('--budget-usd is required for paid API evaluation')
         try:a.budget_usd=Decimal(a.budget_usd)
@@ -185,7 +201,8 @@ def main():
     expected=('api','realtime') if a.command=='eval' else ('subscription','sim')
     if a.game=='touhou' and (recipe['args'].get('provider'),recipe['args'].get('mode'))!=expected:
         p.error('Recipe provider/mode must match the explicitly selected command')
-    freeze(a.game,recipe,out,mode=('realtime_api' if a.game in ('touhou','rhythm') else 'real_time_subscription') if a.command=='eval' else 'subscription_with_simulated_profile')
+    if paid_asterix:recipe={**recipe,'provider':'openai_api','model':'gpt-6.1-sol','effort':'low','service_tier':'ultrafast','max_output_tokens':512}
+    freeze(a.game,recipe,out,mode=('realtime_api' if a.game in ('touhou','rhythm') or paid_asterix else 'real_time_subscription') if a.command=='eval' else 'subscription_with_simulated_profile')
     (out/'transport').mkdir()
     os.environ['SOL_NATIVE_LOG_ROOT']=str(out/'transport')
     try:
