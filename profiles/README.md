@@ -6,7 +6,7 @@ Default simulation recipes select one exact profile each; older profiles are arc
 |---|---|---|
 | Rhythm `native-v17-joint-profile.json` | 179 completed `(api_rtt_s, frame_age_s, transport_overhead_s)` rows | Whole-row empirical resampling; continuous virtual seconds; sampled future delays hidden |
 | Touhou `profile-control-early-study-v1.json` | 19 four-candidate joint readiness/terminal cohorts and image-count strata | Whole-vector resampling, at 60 visual-clock frames/s; terminal slots remain occupied |
-| Asterix `latency_5x_empirical.json` | 596 capture-to-complete delays with source file hashes | Empirical IID, `ceil(seconds × 12)` raw frames at 5× slowdown; long tails retained |
+| Asterix `latency_v16_actual_5x_512cap.json` | 536 valid capture-to-complete delays from the historical V16 API campaign | Empirical IID, `ceil(seconds × 12)` raw frames at 5× slowdown; long tails retained |
 
 Asterix's earlier 1/8-speed `sol-ultrafast-v*` directories include `profile.json`, fitted quantile distribution and temporal burst companions. Their original interpolated inverse-CDF sampler is retained under `vendor/`; they are not silently selected for V28 5× simulation.
 
@@ -17,3 +17,5 @@ Touhou's newer `profile-control-tracking-safe-intercept-v2-transport-v1.json` tr
 ## Racing
 
 `racing/profile.json` and `measurements.jsonl` preserve the 32 strictly serial paid API measurements used for early development. Minimum 0.984s, median 1.350s, P95 2.258s. This measured one-frame direct steering, not the selected two-frame lane-goal workload or concurrent traffic; its use in current simulations is explicitly a historical proxy. `scripts/racing.py profile` measures selected-policy recorded inputs serially and saves a new profile without overwriting this reference. See [Racing](../docs/racing.md).
+
+The selected Asterix serial recipe uses the historical V16 valid-response sample list, with delay RNG seed `91 + game_seed`. It retains long tails and does not model provider failures. `latency_5x_empirical.json` remains the earlier 596-row calibration reference and is not the selected recipe. Native realtime evaluation records actual subscription time instead of sampling this profile.

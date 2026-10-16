@@ -21,7 +21,7 @@ Start with `environments/touhou/research/run_episode.py`, `scheduler.py`, `polic
 
 ## Asterix
 
-Start with `environments/asterix/simulate_5x.py` (12 raw FPS/empirical timing/observation history), `hop_controller_v3.py` (atomic-hop semantics), and `policies/asterix/v28/prompt.txt`. The root launcher supplies the portable native pool; prefer `sol simulate asterix` to historical standalone commands. `research/asterix/development-source/` and the optional development archive preserve candidate evaluation and human annotations. `policies/asterix/v28` contains the selected default.
+Start with `environments/asterix/runner.py` (one shared serial development/evaluation loop), `direct_action_transport.py` (unchanged model commands), `simulate_5x.py` (pixels, clock quantization and replay), and `policies/asterix/v28/` (exact strategy, timing preamble and public output format). `sol simulate asterix` uses virtual sampled delay; `sol eval asterix` uses actual wall time. `runtime/evaluation.py` writes run records and appended researcher assessments. `docs/asterix-autoresearch.md` and `research/asterix/evaluation-history.jsonl` explain the selected path; inactive source lives at a fixed historical commit.
 
 ## Racing
 

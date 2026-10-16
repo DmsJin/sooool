@@ -1,0 +1,29 @@
+{
+  "runtime_source_commit": "0bcfc455e24245ffd3f7225a059bf4aeae965ce8",
+  "checks": [
+    {
+      "mode": "simulation",
+      "source_files_verified": 14,
+      "requests": 44,
+      "applied_actions": 43,
+      "direct_actions_unchanged": true
+    },
+    {
+      "mode": "realtime",
+      "source_files_verified": 14,
+      "requests": 4,
+      "applied_actions": 3,
+      "direct_actions_unchanged": true
+    }
+  ],
+  "native_cli": "0.162.1",
+  "python": "3.10.22",
+  "gymnasium": "0.29.1",
+  "ale_py": "0.8.1",
+  "pillow": "12.1.1",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "provider": "chatgpt_subscription",
+  "paid_api_calls": 0,
+  "scope": "Fresh portable subscription evaluation under source snapshot. Realtime is a five-game-second smoke, not full acceptance."
+}

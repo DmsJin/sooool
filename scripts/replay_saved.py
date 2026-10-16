@@ -68,7 +68,9 @@ def asterix(root):
     with tempfile.TemporaryDirectory(prefix='asterix-replay-')as d:
         view=Path(d)
         for name in ('summary.json','steps.jsonl'):shutil.copy2(root/name,view/name)
-        shutil.copy2(root/('requests.jsonl'if(root/'requests.jsonl').exists()else 'issued.jsonl'),view/'requests.jsonl')
+        issued=next((root/name for name in ('requests.jsonl','issued.jsonl','decisions.jsonl') if (root/name).exists()),None)
+        if issued is None:raise ValueError('No saved request records')
+        shutil.copy2(issued,view/'requests.jsonl')
         return {'game':'asterix','mode':'saved_action_replay',**verify_replay(view)}
 
 def main():

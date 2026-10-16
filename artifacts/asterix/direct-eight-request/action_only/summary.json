@@ -1,0 +1,26 @@
+{
+  "episodes": [
+    {
+      "seed": 5,
+      "score": 400.0,
+      "frames": 880,
+      "game_seconds": 14.666666666666666,
+      "virtual_wall_seconds": 73.33333333333333,
+      "lives": 0,
+      "reset_noops": 29,
+      "calls": 219,
+      "replayed_calls": 0,
+      "new_subscription_calls": 219,
+      "completed_prefix_calls": 219,
+      "resume_frame_raw": 880,
+      "drops": 1,
+      "peak_virtual_inflight": 8,
+      "status": "natural_end",
+      "error": null,
+      "native_wall_seconds": 624.0239059659943,
+      "paid_api_calls": 0,
+      "condition": "action_only"
+    }
+  ],
+  "paid_api_calls": 0
+}

@@ -1,0 +1,20 @@
+{
+  "seed": 5,
+  "score": 250.0,
+  "frames": 1200,
+  "game_seconds": 20.0,
+  "virtual_wall_seconds": 100.0,
+  "lives": 1,
+  "reset_noops": 29,
+  "calls": 44,
+  "replayed_calls": 0,
+  "new_subscription_calls": 44,
+  "completed_prefix_calls": 44,
+  "resume_frame_raw": 1200,
+  "drops": 256,
+  "peak_virtual_inflight": 1,
+  "status": "horizon",
+  "error": null,
+  "native_wall_seconds": 247.63056404300733,
+  "paid_api_calls": 0
+}

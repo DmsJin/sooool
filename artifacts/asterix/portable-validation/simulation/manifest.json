@@ -1,0 +1,45 @@
+{
+  "game": "asterix",
+  "recipe": {
+    "policy": "v28-direct-serial-english",
+    "profile": "profiles/asterix/latency_v16_actual_5x_512cap.json",
+    "prompt": "policies/asterix/v28/prompt.txt",
+    "task_prefix": "policies/asterix/v28/task-prefix.txt",
+    "output_instructions": "policies/asterix/v28/output-format.txt",
+    "output_format": "action_reason",
+    "system": "policies/asterix/v28/system.txt",
+    "native_workers": 1,
+    "args": {
+      "seeds": [
+        5
+      ],
+      "max_frames": 1200,
+      "episode_workers": 1,
+      "virtual_capacity": 1,
+      "controller": "direct",
+      "quota_stop_percent": 80,
+      "latency_scale": 1.0,
+      "latency_seed_offset": 91
+    }
+  },
+  "source_sha256": {
+    "environments/asterix/direct_action_transport.py": "52efa15b3a1b43ea27a7eff3c003a47b34dc3fcc460400ef81c8486dfb0674a0",
+    "environments/asterix/runner.py": "bd2cc513ed3a26af81769d348b361e0c47655b27c8ecf124521010d096621492",
+    "environments/asterix/simulate_5x.py": "bcf21ca4bca647a0d55592dbdafe77a9026f06f8dd1524e5b8f0e5c6c8b1474f",
+    "runtime/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime/cli.py": "b2e75404427268c782a11c07e567319545ce5a7e2d2f369b401088cb1542bc69",
+    "runtime/evaluation.py": "47383a5233e38891826a276bcf866846b004bff57668555e504c067fd7a38e2f",
+    "runtime/subscription.py": "7e0c8ea1469025a91d1b8de35f3bab7a93d0dcf145812b245410138f08146e0b",
+    "policies/asterix/v28/output-format.txt": "ad6a1e96d0687cf83ede51c2f7656676bb2a6cbf23068e22002e6c2dcf90e838",
+    "policies/asterix/v28/policy.json": "de767b5e46718ad1d02fa7038f8ae1807e86133bca04f95755d618af25aee611",
+    "policies/asterix/v28/prompt.txt": "92a42d643be0d08108025d71715c6230c43b3837e0afdd7a3c65eb599192dee9",
+    "policies/asterix/v28/status.json": "fae36bdbd22a0f29ff597baec0bee212506a5e085855f63bb3befb6268cdc48e",
+    "policies/asterix/v28/system.txt": "520f5b66087a65db01822e640988df720bf6753c5ca3f544e6d9f15b03db9e49",
+    "policies/asterix/v28/task-prefix.txt": "d26299bb1759a1be739f348b60ef3e08cc682461d8b63d1149d2cb9b90b7e824",
+    "profiles/asterix/latency_v16_actual_5x_512cap.json": "731efae3ef75ce1a379b9ec8b35d5fd5afbf25836c64cdc671ebd11ae3f6539d"
+  },
+  "mode": "subscription_with_simulated_profile",
+  "real_time_api_acceptance": false,
+  "transport_adapter": "portable app-server; frozen recipe and direct visual model actions",
+  "created_at_unix": 1792149824.914221
+}

@@ -21,16 +21,17 @@ def asterix(root,out,ffmpeg):
     summary=json.loads((root/'summary.json').read_text());steps=rows(root/'steps.jsonl')
     env,obs,info,noops=make_env(summary['seed']);assert noops==summary['reset_noops']
     encoder=encode(out,'320x460',12,ffmpeg);score=0
+    label='REALTIME REPLAY 5x' if summary.get('mode')=='realtime' else 'SIM REPLAY 5x'
     try:
         for frame,step in enumerate(steps):
             image=Image.new('RGB',(320,460),'#111722');image.paste(Image.fromarray(obs).resize((320,420),Image.Resampling.NEAREST),(0,40))
-            ImageDraw.Draw(image).text((6,5),f'SIM 5x | game {frame/60:.2f}s | score {int(score)}\nseed {summary["seed"]} | lives {info.get("lives")}',fill='white')
+            ImageDraw.Draw(image).text((6,5),f'{label} | game {frame/60:.2f}s | score {int(score)}\nseed {summary["seed"]} | lives {info.get("lives")}',fill='white')
             encoder.stdin.write(image.tobytes());obs,reward,done,truncated,info=env.step(step['action']);score+=reward
             assert step['frame']==frame and reward==step['reward']and score==step['score']and info.get('lives')==step['lives']
         assert score==summary['score']and len(steps)==summary['frames']
     finally:env.close();encoder.stdin.close()
     if encoder.wait():raise RuntimeError('Encoder failed')
-    return {'kind':'verified_applied_action_replay','game':'asterix','fps':12,'slowdown':5,'frames':len(steps),'summary':summary,'model_calls':0}
+    return {'kind':'verified_applied_action_replay','game':'asterix','fps':12,'slowdown':5,'source_mode':summary.get('mode','historical_profile_simulation'),'frames':len(steps),'summary':summary,'model_calls':0}
 
 def touhou(root,out,ffmpeg):
     from PIL import Image
