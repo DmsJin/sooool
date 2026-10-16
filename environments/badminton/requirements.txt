@@ -1,0 +1,5 @@
+# Separate Python 3.11 environment; the root workspace pins another NumPy version.
+mujoco==3.3.7
+numpy==2.2.6
+Pillow==11.3.0
+imageio-ffmpeg==0.6.0

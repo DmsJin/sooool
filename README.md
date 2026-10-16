@@ -119,6 +119,19 @@ Large videos and input archives are optional and checksummed in [the evidence in
 
 ## Other games
 
+Badminton now includes the working **tactical-v1** policy: SOL selects shot direction,
+shot type and recovery, while the camera-only native reference continuously handles
+serving and racket execution. It uses EGL GPU rendering, L1/S2 and historical API latency
+injection. Subscription simulation runs with **Fast disabled**.
+See [Badminton setup, control boundary and reproduction](docs/badminton.md).
+The [GPU validation record](artifacts/badminton/README.md) separates historical
+replays from the new rule/SOL comparison.
+
+```bash
+python scripts/badminton.py simulate --source sol --seed 101 --duration 60 --output runs/badminton-sol101
+python scripts/badminton.py audit --output runs/badminton-sol101
+```
+
 Rhythm keeps its existing environment, policy and recipe:
 
 ```bash

@@ -1,5 +1,11 @@
 # Profile inventory
 
+Badminton uses `badminton/tactical-api-100.json`: the unchanged 100 serial API
+Ultrafast samples from `badminton_tactical_003`. Generation mean 2.006s, P95
+2.862s. The clock excludes token preflight and local accounting. This historical
+profile schedules S2 tactical decisions; subscription simulation itself disables
+Fast and does not measure new API latency. See [Badminton](../docs/badminton.md).
+
 Default simulation recipes select one exact profile each; older profiles are archived separately for development provenance.
 
 | Default | Raw representation | Sampling and clock |

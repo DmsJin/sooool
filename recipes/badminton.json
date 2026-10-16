@@ -1,0 +1,21 @@
+{
+  "game": "badminton",
+  "policy": "tactical-v1",
+  "profile": "profiles/badminton/tactical-api-100.json",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "subscription_service_tier": "default",
+  "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
+  "args": {
+    "level": 1,
+    "slowdown": 2,
+    "seed": 101,
+    "duration": 60,
+    "source": "sol",
+    "profile_info": "show"
+  },
+  "physics_hz": 100,
+  "observation_hz_game_time": 10,
+  "clock_mode": "subscription_with_simulated_profile",
+  "control": "SOL tactical preferences over continuous camera-only reference execution"
+}

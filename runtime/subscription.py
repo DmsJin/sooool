@@ -65,6 +65,9 @@ class SubscriptionClient:
         system_path=self.workspace/'system.txt';system_path.write_text(self.base)
         settings['model_instructions_file']=str(system_path)
         settings['features.skip_host_skill_discovery']=True
+        if self.service_tier == 'default':
+            settings['service_tier']='default'
+            settings['features.fast_mode']=False
         command = [executable, 'app-server', '--stdio']
         for key,value in settings.items():
             command += ['-c', key+'='+json.dumps(value)]
@@ -82,6 +85,13 @@ class SubscriptionClient:
             auth = self._rpc('account/read',{'refreshToken':False})
             if (auth.get('account') or {}).get('type') != 'chatgpt':
                 raise RuntimeError('ChatGPT subscription login required; API authentication is rejected.')
+            if self.service_tier == 'default':
+                config=self._rpc('config/read',{'includeLayers':False})['config']
+                if config.get('service_tier') != 'default' or config.get('features',{}).get('fast_mode') is not False:
+                    raise RuntimeError('Native configuration did not disable Fast for default-tier simulation')
+                (self.output/'subscription-settings.json').write_text(json.dumps({
+                    'requested_service_tier':'default','native_config_service_tier':config['service_tier'],
+                    'native_config_fast_mode':config['features']['fast_mode']},indent=2))
             (self.output/'transport.json').write_text(json.dumps({'auth':'chatgpt',
                 'model':'gpt-6.1-sol','effort':'low','base_instructions_sha256':hashlib.sha256(self.base.encode()).hexdigest(),
                 'base_instructions':self.base,'direct_api_calls':0,'adapter':'portable app-server'},indent=2))
@@ -144,6 +154,13 @@ class SubscriptionClient:
             **({'serviceTier':self.service_tier} if self.service_tier else {})})
         if r.get('model')!='gpt-6.1-sol' or r.get('reasoningEffort')!='low':
             raise RuntimeError('Native model/effort mismatch')
+        if self.service_tier == 'default':
+            (directory/'subscription-settings.json').write_text(json.dumps({
+                'native_thread_service_tier':r['serviceTier'],
+                'instruction_sources':r['instructionSources']},indent=2))
+            # Codex 0.162.1 returns null for an explicitly selected default-tier thread.
+            if r['serviceTier'] not in (None, 'default') or r['instructionSources']:
+                raise RuntimeError('Unexpected native tier or additional instruction sources')
         tid=r['thread']['id']
         contents=[{'type':'text','text':prompt}]
         for i,data in enumerate(images):

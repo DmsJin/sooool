@@ -1,0 +1,55 @@
+{
+  "checkpoint": "source_tactical_005",
+  "source_artifact": "badminton_tactical_003/comparison.json",
+  "benchmark_revision": "042dd23727728fbcf305df05e09f7bad18930ce0",
+  "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
+  "protocol": {
+    "level": 1,
+    "slowdown": 2,
+    "physics_hz": 100,
+    "observation_hz_game_time": 10,
+    "seeds": [
+      101,
+      111,
+      121
+    ],
+    "game_seconds_per_episode": 60,
+    "episodes": 12,
+    "native_mechanical_planning_compute_injected": false
+  },
+  "groups": {
+    "rules": {
+      "episodes": 3,
+      "points_for": 10,
+      "points_against": 8,
+      "legal_returns": 47,
+      "incoming": 55,
+      "calls": 0
+    },
+    "sol_profile": {
+      "episodes": 3,
+      "points_for": 4,
+      "points_against": 17,
+      "legal_returns": 43,
+      "incoming": 60,
+      "calls": 135
+    },
+    "sol_no_profile": {
+      "episodes": 3,
+      "points_for": 4,
+      "points_against": 12,
+      "legal_returns": 51,
+      "incoming": 63,
+      "calls": 139
+    },
+    "sol_frozen": {
+      "episodes": 3,
+      "points_for": 3,
+      "points_against": 13,
+      "legal_returns": 53,
+      "incoming": 65,
+      "calls": 17
+    }
+  },
+  "evidence_class": "fixed_window_development_screen"
+}
