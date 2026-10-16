@@ -1,6 +1,6 @@
 # Develop the Touhou policy
 
-The loop is: measure the API condition, develop with subscription calls under an explicit delay model, inspect failures, freeze a candidate, then run actual realtime API evaluation. [The case study](touhou-research-record.md) follows the selected early v2 checkpoint through that loop.
+The task-policy training loop is: measure the API condition, practice with subscription calls under an explicit delay model, inspect failures, refine the strategy, freeze a candidate, then run actual realtime API evaluation. Repeated practice on a fixed encounter is intentional; track transfer to unseen conditions separately. Base-model weights remain frozen. See [latency-aware learning and control](latency-aware-learning.md). [The case study](touhou-research-record.md) follows the selected early v2 checkpoint through that loop.
 
 ## Install and inspect the environment
 

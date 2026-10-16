@@ -15,7 +15,9 @@ uv run sol doctor --game rhythm --auth
 uv run sol simulate rhythm --seed 20261016 --output runs/rhythm-dev-001
 ```
 
-Simulation makes new subscription-model decisions. It imposes the retained
+Simulation makes new subscription-model decisions. `--seed` selects the delay
+sampling sequence; the recipe retains a fixed chart, so changing this seed
+does not create a new chart. It imposes the retained
 joint distribution of API action-readiness, image age, transport and terminal
 request occupancy. A 50ms content/timestamp displacement is explicitly injected
 to represent the diagnosed screenshot delay; its future draws stay private.

@@ -46,7 +46,9 @@ We developed these policies by giving Codex a goal in **Goal mode** and letting 
 3. **Try, inspect, revise.** The agent runs episodes, reads trajectories and replays, changes the instructions or permitted control setup, and compares candidates. Human feedback can steer the next experiment.
 4. **Freeze and verify.** Select a candidate from the recorded comparisons, freeze its configuration, and test it against the real clock. Keep the failures, timing, costs and outcomes alongside the wins.
 
-Codex runs the research loop; GPT-Sol makes the online gameplay decisions. The demos use selected configurations from that process. Concurrency, game speed and control abstractions are recorded per experiment.
+Codex runs the research loop; GPT-Sol makes the online gameplay decisions. Repeated play trains the task policy through prompts, memory and strategy search, with base-model weights frozen. The demos show the resulting task skills under their recorded game speeds and control abstractions.
+
+**Keep decisions flowing while the model thinks.** Overlapping requests lets the system observe again before earlier inference finishes. The policy learns to predict when its actions will arrive and plan ahead; staggered requests sustain decision cadence, while same-observation races provide additional chances to meet a deadline. [Latency-aware learning and control](docs/latency-aware-learning.md) explains the two mechanisms and their evaluation.
 
 **[Check autoresearch summaries →](docs/autoresearch-summaries.md)**
 
@@ -102,7 +104,7 @@ Did it dodge where the bullet was, instead of where it was going? Did it commit 
 
 Inspect the replay, change the prompt or control representation, evaluate the candidate, and keep the evidence. Freeze a candidate before real-time evaluation. The research records preserve failed attempts alongside the selected policies.
 
-No model weights were trained for the selected Touhou policy. Its behavior was developed through prompts, human feedback and repeated evaluation.
+The selected Touhou policy was trained through repeated play, prompt and memory refinement, human feedback and evaluation. Its base-model weights remain frozen; the learned artifact is the task policy.
 
 - [Touhou research](docs/touhou-research-record.md): feedback, policy changes and the selected boss-defeat run.
 - [Racing experiments](research/racing/EVALUATION.md): candidate policies, full cohorts and transfer to real-time gameplay.

@@ -1,6 +1,6 @@
 # Reuse the development process
 
-The current policies were developed by changing prompts, visual memory, observation history, control representation, scheduling and executors. No new SOL model weights are included or claimed.
+The current policies were trained through repeated interaction and search over prompts, visual memory, observation history, control representation, scheduling and executors. The task policy is the learned artifact; SOL base-model weights remain frozen. [Latency-aware learning and control](latency-aware-learning.md) describes how task practice and overlapping inference work together.
 
 1. Validate the original engine and controller using deterministic tests and replay. Privileged truth belongs only to offline evaluation.
 2. Freeze an observation/action contract: exact pixels, public timestamps, history, allowed feedback, and action schema. Keep API and subscription task inputs aligned.
