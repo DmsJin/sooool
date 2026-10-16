@@ -185,7 +185,8 @@ def main():
         if not a.budget_usd.is_finite() or a.budget_usd<=0 or a.max_calls<1:p.error('Budget and max-calls must be positive')
     if a.command=='profile':
         from runtime.touhou_profile import profile
-        return profile(ROOT,a)
+        profile(ROOT,a)
+        return
     if a.command=='doctor':return doctor(a)
     if a.duration is not None and (not math.isfinite(a.duration) or a.duration<=0 or a.game=='asterix' and round(a.duration*60)<1):
         p.error('--duration must be finite and positive')

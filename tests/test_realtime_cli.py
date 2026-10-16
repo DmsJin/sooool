@@ -16,3 +16,8 @@ class RealtimeCLI(unittest.TestCase):
         with patch.object(sys,'argv',['sol','simulate','touhou','--recipe',str(cli.ROOT/'recipes/touhou-realtime.json')]),patch.object(cli,'touhou') as sim,patch.object(cli,'touhou_realtime') as live:
             with self.assertRaises(SystemExit):cli.main()
             sim.assert_not_called();live.assert_not_called()
+
+    def test_profile_console_success_returns_none_not_an_exit_error(self):
+        with patch.object(sys,'argv',['sol','profile','touhou','--episode','unused','--budget-usd','1']),patch('runtime.touhou_profile.profile',return_value={'complete':True}) as run:
+            self.assertIsNone(cli.main())
+            run.assert_called_once()

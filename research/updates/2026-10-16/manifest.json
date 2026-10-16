@@ -1,7 +1,13 @@
 {
   "date": "2026-10-16",
   "scope": "Retained development checkpoint after policy retirement. Source hashes refer to the original collection; packaged hashes describe retained records. Filtered evidence is a subset, not a complete unmodified source snapshot.",
-  "omitted": [],
+  "omitted": [
+    {
+      "path_prefix": "touhou/local-source/",
+      "reason": "Duplicate and unselected source snapshots removed from the active package. Selected v2 source and case study live under environments/touhou and docs/touhou-research-record.md.",
+      "historical_main_commit": "053545c"
+    }
+  ],
   "files": [
     {
       "path": "rhythm/source/LATENCY_PROFILE_ABLATION.md",
