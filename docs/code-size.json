@@ -1,26 +1,41 @@
 {
+  "source_extensions": [
+    ".css",
+    ".html",
+    ".js",
+    ".jsx",
+    ".mjs",
+    ".py",
+    ".ts",
+    ".tsx"
+  ],
+  "scope": "Tracked code, excluding JSON data, prose, binary media and ignored run environments.",
   "runtime": {
-    "files": 3,
-    "lines": 350
+    "files": 4,
+    "lines": 370
   },
   "environments": {
-    "files": 146,
-    "lines": 13391
+    "files": 163,
+    "lines": 15852
   },
   "vendor": {
     "files": 12,
     "lines": 1262
   },
   "research": {
-    "files": 570,
-    "lines": 67434
+    "files": 319,
+    "lines": 29483
   },
   "tests": {
-    "files": 3,
-    "lines": 138
+    "files": 6,
+    "lines": 281
   },
   "scripts": {
-    "files": 7,
-    "lines": 313
+    "files": 10,
+    "lines": 592
+  },
+  "asterix_active_runtime": {
+    "files": 3,
+    "lines": 277
   }
 }

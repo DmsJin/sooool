@@ -51,6 +51,6 @@ For the selected condition, zero-model replay checked all 1,200 game frames and 
 
 ## 5. Transfer to an actual clock
 
-`sol simulate asterix` is development with historical sampled API delays. `sol eval asterix` uses a continuously advancing clock and actual subscription response time. The same direct action transport is used in both. The simulation's 500 points are not a real-time API result; native subscription timing is not ultrafast API timing. Fresh portable validation is recorded separately in [validation](validation.md).
+`sol simulate asterix` is development with historical sampled API delays. `sol eval asterix` uses a continuously advancing clock and actual subscription response time. The same direct action transport is used in both. The simulation's 500 points are not a real-time API result; native subscription timing is not ultrafast API timing. Fresh portable validation is recorded separately in [validation](validation.md): a new 20-second simulation scored 300/one life, and a five-second actual-clock subscription smoke scored 50/three lives. The fresh lower score remains in the record.
 
 The next research questions are repeated serial trials, additional seeds, long-tail sensitivity, missed food, and actual real-time performance. Each belongs in a new evaluation record rather than being inferred from this one successful clip.

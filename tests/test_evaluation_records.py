@@ -5,6 +5,13 @@ import unittest
 from runtime.evaluation import assess,record_run
 
 class Records(unittest.TestCase):
+    def test_partial_summary_is_interrupted_without_a_failure_sidecar(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)
+            (p/'manifest.json').write_text(json.dumps({'game':'asterix','mode':'subscription_with_simulated_profile','recipe':{}}))
+            (p/'summary.json').write_text(json.dumps({'episodes':[{'status':'interrupted','error':{'message':'timeout'}}]}))
+            self.assertEqual(record_run(p)['status'],'interrupted')
+
     def test_failures_and_append_only_decisions_keep_provenance(self):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)

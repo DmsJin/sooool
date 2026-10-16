@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 import numpy as np
@@ -18,6 +19,20 @@ class FakeEnv:
 def fake_env(seed):return FakeEnv(),np.zeros((210,160,3),dtype=np.uint8),{'lives':3},0
 
 class RunnerTests(unittest.TestCase):
+    def test_partial_episode_is_retained_in_run_aggregate(self):
+        recipe=json.loads((ROOT/'recipes/asterix.json').read_text())
+        class Client:
+            def close(self):pass
+        def fail(recipe,out,*args):
+            out.mkdir()
+            (out/'summary.json').write_text('{"status":"interrupted","score":50}')
+            raise RuntimeError('provider timeout')
+        with tempfile.TemporaryDirectory() as d,patch.object(runner,'run_episode',side_effect=fail):
+            out=Path(d)
+            with self.assertRaises(RuntimeError):
+                runner.run_recipe(ROOT,recipe,out,SimpleNamespace(seed=5,duration=20),lambda **kw:Client())
+            self.assertEqual(json.loads((out/'summary.json').read_text())['episodes'][0]['score'],50)
+
     def test_saved_outputs_reproduce_selected_whole_trajectory(self):
         recipe=json.loads((ROOT/'recipes/asterix.json').read_text())
         task,delays=runner.build_task(ROOT,recipe,'simulation')

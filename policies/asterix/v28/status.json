@@ -9,6 +9,19 @@
   "lives": 2,
   "public_english_rationale": true,
   "independent_full_game_confirmation": false,
-  "realtime_transfer": "pending fresh portable validation",
-  "reference": "artifacts/asterix/serial-selected/english_reason/verification.json"
+  "realtime_transfer": "Five-game-second actual subscription clock smoke passed; full-game and ultrafast API acceptance unestablished",
+  "reference": "artifacts/asterix/serial-selected/english_reason/verification.json",
+  "portable_fresh_simulation": {
+    "score": 300,
+    "lives": 1,
+    "game_seconds": 20,
+    "trials": 1
+  },
+  "portable_fresh_realtime_smoke": {
+    "score": 50,
+    "lives": 3,
+    "game_seconds": 5,
+    "wall_seconds": 25.00025869300589,
+    "trials": 1
+  }
 }

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "run": "/home/ubuntu/wzh/expts-sol/runtime/case-prompt-search-20261015/sooool-selected-portable-20261016/runs/fresh-portable-simulation",
+  "created_at_unix": 1792150157.131593,
+  "game": "asterix",
+  "mode": "subscription_with_simulated_profile",
+  "recipe": {
+    "policy": "v28-direct-serial-english",
+    "profile": "profiles/asterix/latency_v16_actual_5x_512cap.json",
+    "prompt": "policies/asterix/v28/prompt.txt",
+    "task_prefix": "policies/asterix/v28/task-prefix.txt",
+    "output_instructions": "policies/asterix/v28/output-format.txt",
+    "output_format": "action_reason",
+    "system": "policies/asterix/v28/system.txt",
+    "native_workers": 1,
+    "args": {
+      "seeds": [
+        5
+      ],
+      "max_frames": 1200,
+      "episode_workers": 1,
+      "virtual_capacity": 1,
+      "controller": "direct",
+      "quota_stop_percent": 80,
+      "latency_scale": 1.0,
+      "latency_seed_offset": 91
+    }
+  },
+  "manifest_sha256": "f80c8f4fc60a8fca238d78e55ac23a3d3b937e7f630314862c4117730ea673b7",
+  "summary": {
+    "episodes": [
+      {
+        "seed": 5,
+        "score": 300.0,
+        "lives": 1,
+        "frames": 1200,
+        "game_seconds": 20.0,
+        "reset_noops": 29,
+        "calls": 44,
+        "new_subscription_calls": 44,
+        "replayed_calls": 0,
+        "drops": 256,
+        "peak_inflight": 1,
+        "status": "horizon",
+        "error": null,
+        "mode": "simulation",
+        "provider": "chatgpt_subscription",
+        "paid_api_calls": 0,
+        "environment_wall_seconds": 320.77008921900415,
+        "virtual_wall_seconds": 100.0,
+        "max_frame_lag_seconds": null,
+        "limitation": "Historical valid-response API latency; no provider-failure simulation."
+      }
+    ],
+    "mode": "simulation",
+    "paid_api_calls": 0
+  },
+  "status": "completed",
+  "performance_is_independently_confirmed": false
+}

@@ -42,6 +42,8 @@ Both Asterix modes use 12 raw FPS, a 5× slowdown, and a default 20-game-second 
 
 These are single seed-5 trials under historical sampled API delays. Serial requests improved observed survival; action-only scoring declined. They motivate the selected recipe, without establishing a causal concurrency effect. The 26-case prompt comparison and these games are different evidence types. [Raw campaign records](artifacts/asterix/) retain failures, source hashes, applied actions and replay checks.
 
+Fresh portable validation completed 20 game seconds at **300 points/one life**, and a five-game-second actual-clock subscription smoke completed at **50 points/three lives**. These new runs are recorded separately from the historical 500-point demonstration.
+
 Every new run snapshots its code/recipe and emits `evaluation-record.json`; `sol record` appends retain/reject/diagnostic decisions. [Validation](docs/validation.md) distinguishes historical records, cold replay, fresh portable simulation, and actual-clock trials. [Real-time evaluation](docs/realtime.md) describes the clocks and remaining API transfer work.
 
 ## Racing: SOL develops, then evaluates in real time

@@ -9,10 +9,13 @@ def record_run(out):
     out = Path(out)
     manifest = json.loads((out/'manifest.json').read_text())
     summary = json.loads((out/'summary.json').read_text()) if (out/'summary.json').exists() else None
+    interrupted=bool((out/'failure.json').exists() or any(
+        e.get('error') or e.get('status') in ('interrupted','stopped_or_error')
+        for e in (summary or {}).get('episodes',[])))
     row = {'schema_version':1, 'run':str(out), 'created_at_unix':time.time(),
         'game':manifest['game'], 'mode':manifest['mode'], 'recipe':manifest['recipe'],
         'manifest_sha256':hashlib.sha256((out/'manifest.json').read_bytes()).hexdigest(),
-        'summary':summary, 'status':'interrupted' if (out/'failure.json').exists() else 'completed' if summary is not None else 'incomplete',
+        'summary':summary, 'status':'interrupted' if interrupted else 'completed' if summary is not None else 'incomplete',
         'performance_is_independently_confirmed':False}
     (out/'evaluation-record.json').write_text(json.dumps(row,indent=2)+'\n')
     return row

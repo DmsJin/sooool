@@ -4,8 +4,11 @@
   "native_codex_version": "codex-cli 0.162.1",
   "browser": "Chromium 145.0.7632.6 / Playwright 1.58.0",
   "dependency_lock": "uv.lock",
-  "source_default_checkout_bytes": 16292075,
+  "source_default_checkout_bytes": 59766301,
   "subscription_auth": "existing ChatGPT sign-in; no paid API fallback",
   "native_machine_isolation": "portable read-only app-server; original bubblewrap seat isolation not claimed",
-  "ubuntu_browser_system_dependencies": "Ubuntu validation used pre-existing isolated Chromium libraries via LD_LIBRARY_PATH. On a new host install Playwright system dependencies with playwright install --with-deps chromium; those OS libraries are not bundled."
+  "ubuntu_browser_system_dependencies": "Ubuntu validation used pre-existing isolated Chromium libraries via LD_LIBRARY_PATH. On a new host install Playwright system dependencies with playwright install --with-deps chromium; those OS libraries are not bundled.",
+  "asterix_selected_source": "Single-request V28 direct actions with brief public English summaries",
+  "asterix_locked_replay": "1200 frames, 44 image sets, 500 points/two lives",
+  "asterix_fresh_portable_validation": "20-second simulation300/one life;5-second actual subscription clock50/three lives; no paidAPI"
 }

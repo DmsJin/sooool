@@ -18,5 +18,6 @@
   "original_v28_prompt_sha256": "20aa17f707b9a626cf8a7a81bd65d292cdccf3eacaa391f656d1c6619eb26d0b",
   "output_format": "action_reason",
   "max_inflight": 1,
-  "adaptation": "Removed statements promising automatic four-frame release or stale-row filtering; original food/safety priorities retained."
+  "adaptation": "Removed statements promising automatic four-frame release or stale-row filtering; original food/safety priorities retained.",
+  "portable_validation": "artifacts/asterix/portable-validation/"
 }

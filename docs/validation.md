@@ -35,3 +35,16 @@ The new portable loop passes a whole-trajectory zero-model confirmation using th
 The root tests additionally cover an actual-clock loop with a delayed response, no game pause during model waiting, invalid-reply interruption preservation, exact selected task bytes, schema validation and append-only assessment provenance. Real subscription checks are recorded separately under `artifacts/asterix/portable-validation/` as they complete. A short realtime smoke test verifies transport/clock behavior, not 20-second realtime reliability.
 
 The desktop-managed CLI on the local machine timed out at app-server initialization before any model request. The standalone native 0.162.1 executable on the existing Ubuntu experiment host passed subscription authentication. `SOL_CODEX_BIN` must point to a functioning native app-server executable; a matching version string alone is insufficient.
+
+## Fresh selected-policy portable runs
+
+Both commands completed using the standalone native CLI 0.162.1 and real ChatGPT subscription replies. No paid API calls occurred. [Frozen manifests, public outputs and assessments](../artifacts/asterix/portable-validation/) record the exact source; its runtime hashes match immutable commit `0bcfc45`.
+
+| Mode | New model calls | Result | Clock |
+|---|---:|---|---|
+| Fresh portable simulation, seed 5 | 44 | 20 game seconds, 300 points, one life | Historical sampled API delays; native computation paused outside virtual time |
+| Actual-clock subscription smoke, seed 5 | 4 | 5 game seconds, 50 points, three lives | 25.00026 wall seconds; maximum frame lag 4.29ms; three unchanged model actions applied |
+
+The fresh simulation did not reproduce the historical 500-point score. Both use the selected strategy, but the original suite transport and portable app-server are separately recorded conditions, and model decisions are stochastic. The historical replay remains the demonstration; it is not substituted for the fresh trial. The short actual-clock test verifies functional transport and continuous timing, not full-game reliability or ultrafast API latency.
+
+The source host used Python 3.10.22, Gymnasium 0.29.1 and ALE 0.8.1 for these real calls. Local locked-environment replay used Python 3.12.3, Gymnasium 1.2.3 and ALE 0.11.2 and reproduced the selected trajectory exactly. Both successful and interrupted migration checks remain explicitly distinguished. The merged Racing dispatch and subsequent failure-record fixes do not change the successful Asterix action path; their tests remain part of the final branch.

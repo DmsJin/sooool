@@ -1,0 +1,28 @@
+{
+  "episodes": [
+    {
+      "seed": 5,
+      "score": 300.0,
+      "lives": 1,
+      "frames": 1200,
+      "game_seconds": 20.0,
+      "reset_noops": 29,
+      "calls": 44,
+      "new_subscription_calls": 44,
+      "replayed_calls": 0,
+      "drops": 256,
+      "peak_inflight": 1,
+      "status": "horizon",
+      "error": null,
+      "mode": "simulation",
+      "provider": "chatgpt_subscription",
+      "paid_api_calls": 0,
+      "environment_wall_seconds": 320.77008921900415,
+      "virtual_wall_seconds": 100.0,
+      "max_frame_lag_seconds": null,
+      "limitation": "Historical valid-response API latency; no provider-failure simulation."
+    }
+  ],
+  "mode": "simulation",
+  "paid_api_calls": 0
+}

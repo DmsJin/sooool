@@ -173,7 +173,12 @@ def run_recipe(root, recipe, out, args, client_factory, mode='simulation'):
     episodes = []
     try:
         for seed in seeds:
-            episodes.append(run_episode(recipe, out/f'seed-{seed}', seed, horizon, task, delays, client, mode))
+            try:
+                episodes.append(run_episode(recipe, out/f'seed-{seed}', seed, horizon, task, delays, client, mode))
+            except BaseException:
+                partial=out/f'seed-{seed}'/'summary.json'
+                if partial.exists():episodes.append(json.loads(partial.read_text()))
+                raise
     finally:
         client.close()
         (out/'summary.json').write_text(json.dumps({'episodes':episodes, 'mode':mode, 'paid_api_calls':0},indent=2)+'\n')
