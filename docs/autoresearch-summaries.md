@@ -6,7 +6,7 @@ The README demos came out of Goal mode research sessions: a human supplied the g
 |---|---|---|
 | Asterix | [Autoresearch summary](asterix-autoresearch.md) | Visual-policy iterations, human annotations, direct-action execution, serial versus concurrent requests, and public decision summaries. |
 | Touhou | [Research summary](touhou-research-record.md) | Human feedback, the selected early checkpoint, development gates and real-time boss-defeat evidence. |
-| Racing | [Iteration and evaluation summary](../research/racing/EVALUATION.md) | Failed candidates, lane-commit development, frozen confirmation and hybrid real-time API evaluation. |
+| Racing | [Iteration and evaluation summary](../research/racing/EVALUATION.md) | Selected GPT-guided strategy: 7/7 recorded wins versus 3/7 fixed grid-aware wins on the same seeds; six subscription/profile runs and one real-time API run. |
 | Rhythm | [Selected v21 case study](rhythm-autoresearch.md) | Current model-owned absolute tap times, calibration, and the 17s native API result: 24 Perfect / 1 Great / 0 Miss, with two empty presses. |
 | Badminton | [Setup and evaluation records](badminton.md) | Tactical goals, native mechanics, GPU simulation and real-time API validation. |
 | PingPong | [Tactical control and evidence](tabletennis.md) | Four-worker 1x actual API decisions over asynchronous native planning; seed 11 won 5:1, seed 12 lost 3:5. Earlier S=10 direct-action records remain historical. |

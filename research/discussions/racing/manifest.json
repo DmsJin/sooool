@@ -4,5 +4,7 @@
   "records": 1460,
   "messages": 182,
   "omitted_interactive_inputs": 264,
-  "scope": "visible exported messages/tools only; hidden reasoning excluded; secrets redacted; local research archive, review before public release"
+  "scope": "visible exported messages/tools only; hidden reasoning excluded; secrets redacted; local research archive, review before public release",
+  "conversation_sha256": "8166704a9356a449909c5effd164bb6756ad117ee61b8ce1524e26ed89e999c3",
+  "packaging_note": "Added historical-scope header to conversation.md; exported conversation body and original source_sha256 preserved."
 }

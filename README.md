@@ -29,7 +29,7 @@ You can watch GPT-Sol dodge a screen full of bullets, race a rival, collect food
 | Game | Job | Demo |
 |---|---|---|
 | **Touhou / Kaguya** | Dodge bullets. Defeat the boss. | Real-time API at 1×. GPT-Sol chooses movement, shooting, focus, bombs and duration. |
-| **Racing** | Find a line. Beat your rival. | Real-time API at 1×. GPT-Sol chooses speed and racing targets; a coded controller supplies steering. |
+| **Racing** | Find a line. Beat your rival. | Real-time API at 1×. GPT-Sol chooses speed and racing targets; a coded controller supplies steering. [Recorded comparison: GPT 7/7, fixed goals 3/7](research/racing/EVALUATION.md#recorded-gpt-and-no-gpt-comparison). |
 | **Rhythm** | Hit the right key at the right time. | Real-time API at 1×. GPT-Sol chooses each DFJK key and its absolute tap timestamp. [Setup](docs/rhythm.md). |
 | **PingPong** | Serve, return, win the point. | Real-time API at 1×. GPT-Sol selects shot placement; rules handle serving and execution. [Setup](docs/tabletennis.md). |
 | **Badminton** | Place the shot. Recover for the next one. | Tactical goals with native mechanics; real-time API at S3. [Setup and control boundary](docs/badminton.md). |

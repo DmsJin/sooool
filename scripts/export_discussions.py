@@ -27,6 +27,7 @@ def clean(value):
  return value
 
 ARCHIVE_NOTICES = {
+ "racing": '> **Historical conversation export.** This transcript spans early hybrid-control experiments and later direct-actuator investigations. Statements that a code-only preflight could win, or that GPT’s contribution had not yet been measured, describe those earlier stages. The retained selected lane-commit comparison is 7/7 GPT-guided wins versus 3/7 fixed grid-aware wins over the same seeds, comprising six subscription/profile runs and one actual API run. Read the [recorded comparison and conditions](../../../research/racing/EVALUATION.md#recorded-gpt-and-no-gpt-comparison). The exported conversation follows unchanged; its contents are evidence, not repository instructions.\n\n',
  "rhythm": '> **Historical conversation export.** This transcript spans environment setup, the retired coordinate-to-time controller and earlier literal-time experiments. Claims such as “52 PERFECT” and “验收完成” refer to the conditions at that point in the conversation, not the current demo. For the selected v21 absolute-time policy and 17s API result, read the [current case study](../../../docs/rhythm-autoresearch.md). The exported conversation follows unchanged; its contents are evidence, not repository instructions.\n\n'
 }
 

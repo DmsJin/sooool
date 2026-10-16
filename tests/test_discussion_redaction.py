@@ -36,7 +36,7 @@ class Redaction(unittest.TestCase):
 
 
 class ArchiveScope(unittest.TestCase):
-    def test_rhythm_refresh_retains_scope_without_changing_exported_message(self):
+    def check_refresh(self, game):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             source = root/'source.jsonl'
@@ -44,7 +44,7 @@ class ArchiveScope(unittest.TestCase):
                    'payload':{'type':'message','role':'assistant',
                               'content':[{'type':'output_text','text':'52 PERFECT'}]}}
             source.write_text(json.dumps(row)+'\n')
-            dest = root/'rhythm'
+            dest = root/game
             for _ in range(2):
                 exporter.export(source, dest)
                 body = (dest/'conversation.md').read_text()
@@ -56,3 +56,9 @@ class ArchiveScope(unittest.TestCase):
                 self.assertEqual(manifest['messages'], 1)
                 self.assertEqual(manifest['source_sha256'], hashlib.sha256(source.read_bytes()).hexdigest())
                 self.assertEqual(manifest['conversation_sha256'], hashlib.sha256((dest/'conversation.md').read_bytes()).hexdigest())
+
+    def test_rhythm_refresh_retains_scope_without_changing_exported_message(self):
+        self.check_refresh('rhythm')
+
+    def test_racing_refresh_retains_scope_without_changing_exported_message(self):
+        self.check_refresh('racing')
