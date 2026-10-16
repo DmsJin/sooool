@@ -76,13 +76,6 @@ def _contacts(bp, ref, state, times, positions):
     return [index for _, index in sorted(candidates)]
 
 
-def _legal_return(bp, position, incoming, normal, head_velocity):
-    """Screen a public flight with the rehearsed head speed and the actual net height."""
-    land, clearance = _flights(bp, position[None], incoming[None], normal[None],
-                              np.array([max(0., float(head_velocity @ normal))]), bp.DT)
-    return bool(clearance[0] > 0 and abs(land[0, 0]) <= bp.COURT_X and 0 < land[0, 1] <= bp.COURT_Y)
-
-
 def _goal(bp, choice):
     return np.array([{"left": -1, "center": 0, "right": 1}[choice["side"]] * .75 * bp.COURT_X,
                      {"clear": .85 * bp.COURT_Y, "drop": .75 * bp.SHORT_Y,
@@ -132,29 +125,29 @@ def _flights(bp, positions, incoming, normals, speeds, dt):
     return positions[:, :2] + distance[:, None] * heading, net - bp.NET_TOP
 
 
-def _goal_search(bp, ref, state, choice, prediction, original=None, *, target=None, speed_ratio=None,
-                 failed_contact=None, contact_time=None):
-    """Choose a legal flight nearest one goal across the remaining contact window.
+def _goal_search(bp, ref, state, choice, prediction, original=None, *, target=None,
+                 contact_time=None, min_contact=None, base=None, height_range=(.65, 2.95)):
+    """Propose a public flight; native robot rehearsals decide whether to install it.
 
-    Coarse contacts span the window at 50 ms. The best region is refined at the
-    native 10 ms command resolution. Travel and ready-pose speed estimates rank
-    candidates; they never veto a fixed-policy best-effort stroke.
+    Coarse contacts span the window at 50 ms, refined at native 10 ms resolution.
+    Travel and ready-pose estimates rank proposals without claiming delivery.
     """
     times, positions, velocities = prediction
     target = _goal(bp, choice) if target is None else np.asarray(target)
     now = state["step"] * bp.STEP + (ref.lead + 2) * bp.STEP
-    valid = np.flatnonzero((times - now >= .22) & (positions[:, 2] >= .65) & (positions[:, 2] <= 2.95)
+    valid = np.flatnonzero((times - now >= .22) & (positions[:, 2] >= height_range[0])
+                          & (positions[:, 2] <= height_range[1])
                           & (positions[:, 1] >= -(bp.COURT_Y + .7)) & (positions[:, 1] < -.35)
                           & (abs(positions[:, 0]) <= bp.COURT_X + .9))
     valid = valid[abs(times[valid] - np.round(times[valid] * 100) / 100) <= bp.DT * .51]
-    if failed_contact is not None:
-        valid = valid[abs(times[valid] - failed_contact) >= .08]
     if contact_time is not None:
         valid = valid[np.round(times[valid] * 100) == round(contact_time * 100)]
+    if min_contact is not None:
+        valid = valid[times[valid] >= min_contact]
     if not len(valid):
         return None
     contacts = np.unique(np.r_[valid[::5], valid[-1], valid[np.argmax(positions[valid, 2])]])
-    base = np.asarray(state["robot_base_xy"])
+    current_base = np.asarray(state["robot_base_xy"])
 
     def score(indices, normals, speeds, dt):
         # Camera and delivery errors hurt short shots disproportionately. Check a slower, lower launch too.
@@ -163,8 +156,9 @@ def _goal_search(bp, ref, state, choice, prediction, original=None, *, target=No
         lower = np.column_stack((normals[:, :2] * (np.cos(lower_pitch) / horizontal)[:, None], np.sin(lower_pitch)))
         remaining = times[indices] - now
         ready_speed = np.clip(2.2 * remaining - .2, .6, bp.HEAD_MAX)
-        delivered = np.minimum(speeds, ready_speed) if speed_ratio is None else speeds * speed_ratio
-        upper = speeds if speed_ratio is None else delivered * 1.03
+        # This search proposes flights. The native rehearsal decides deliverability.
+        delivered = speeds
+        upper = speeds
         all_lands, all_clearances = _flights(
             bp, np.tile(positions[indices], (3, 1)), np.tile(velocities[indices], (3, 1)),
             np.vstack((normals, lower, normals)), np.r_[delivered, delivered * .85, upper], dt)
@@ -176,7 +170,8 @@ def _goal_search(bp, ref, state, choice, prediction, original=None, *, target=No
                  & (abs(land[:, 0]) <= bp.COURT_X - .04) & (land[:, 1] >= .04)
                  & (land[:, 1] <= bp.COURT_Y - .04))
         unique, inverse = np.unique(indices, return_inverse=True)
-        travel = np.array([bp.base_time(float(np.linalg.norm(bp.stance(positions[i]) - base)), ref.vmax, ref.amax)
+        travel = np.array([bp.base_time(float(np.linalg.norm(
+            (bp.stance(positions[i]) if base is None else base) - current_base)), ref.vmax, ref.amax)
                            for i in unique])[inverse]
         errors = np.sum(((land - target) / [bp.COURT_X, bp.COURT_Y]) ** 2, axis=1)
         risk = (8 * np.maximum(0., travel + .12 - remaining) ** 2
@@ -231,11 +226,12 @@ def _goal_search(bp, ref, state, choice, prediction, original=None, *, target=No
                 goal_choice=dict(choice), **_placement(bp, choice, target, landing, normal),
                 net_clearance_m=float(clearances[best]),
                 delivery={"preparation_s": float(times[i] - now),
-                          "base_travel_s": bp.base_time(float(np.linalg.norm(bp.stance(positions[i]) - base)), ref.vmax, ref.amax),
+                          "base_travel_s": bp.base_time(float(np.linalg.norm(
+                              (bp.stance(positions[i]) if base is None else base) - current_base)), ref.vmax, ref.amax),
                           "requested_head_speed_mps": float(speed),
-                          "predicted_head_speed_mps": (min(float(speed), bp.head_cap(float(times[i] - now)))
-                                                       if speed_ratio is None else float(speed * speed_ratio)),
-                          "ready_head_speed_estimate_mps": bp.head_cap(float(times[i] - now))})
+                          "predicted_head_speed_mps": float(speed),
+                          "ready_head_speed_estimate_mps": bp.head_cap(float(times[i] - now))},
+                incoming=velocities[i], **({} if base is None else {"base": np.asarray(base)}))
 
 
 class TacticalPlayer:
@@ -251,9 +247,13 @@ class TacticalPlayer:
         self.intent_expires = None
         self.selection = self.feedback = self.action_feedback = None
         self.intercepted = None
+        self.candidates = []
+        self.pending = self.last_ack = self.retry_after = None
 
     def reset_point(self, point):
         self.point = point
+        self.pending = self.last_ack = self.retry_after = None
+        self.candidates = []
         self.intent = self.intent_id = self.intent_expires = None
         self.intercepted = None
         ref = self.reference
@@ -268,8 +268,6 @@ class TacticalPlayer:
         self.intent_expires = source_game_time + intent["horizon_game_s"]
 
     def _command(self, state, plan):
-        ref = self.reference
-        ref.plan = plan
         self.selection = {**plan["selection"], **{key: plan[key] for key in (
             "goal_status", "predicted_landing", "target_error_m", "net_clearance_m", "delivery") if key in plan},
             "selected_target": plan["target"].tolist()}
@@ -277,9 +275,54 @@ class TacticalPlayer:
             "requested_choice", "requested_target", "goal_status", "predicted_landing", "target_error_m", "delivery")
             if key in self.selection})
         contact_frame = round(plan["t"] * 100)
-        ref.sent = {"k_c": contact_frame, "checked": False}
         return {"type": "act", "t": (contact_frame - state["step"]) / 100,
                 **{key: [round(float(x), 4) for x in plan[key]] for key in ("pos", "normal", "vel")}}
+
+    def acknowledge(self, ack):
+        """Only an installed, rehearsed candidate becomes the active stroke."""
+        if ack is None or ack["point"] != self.point or ack["source_frame"] == self.last_ack:
+            return
+        self.last_ack = ack["source_frame"]
+        self.pending = None
+        if ack["status"] == "installed":
+            plan = dict(ack["plan"])
+            for key in ("pos", "normal", "vel", "target", "incoming", "base"):
+                if key in plan:
+                    plan[key] = np.asarray(plan[key])
+            self.reference.plan = plan
+            self.retry_after = None
+        else:
+            self.retry_after = ack["earliest_contact"] + .10
+
+    def _propose(self, state, plan, prediction):
+        """Offer bounded alternatives without changing the installed stroke."""
+        bp, ref = self.bp, self.reference
+        plans = [plan]
+        current = np.asarray(state["robot_base_xy"])
+        min_contact = self.retry_after
+        if "replaces_contact" in plan:
+            min_contact = (plan["replaces_contact"] if min_contact is None else
+                           max(plan["replaces_contact"], min_contact))
+        comfortable = _goal_search(bp, ref, state, plan["goal_choice"], prediction,
+            target=plan["target"], height_range=(1.1, 1.6),
+            min_contact=min_contact)
+        if comfortable is None:
+            comfortable = _goal_search(bp, ref, state, plan["goal_choice"], prediction,
+                target=plan["target"], min_contact=plan["t"] + .15)
+        anchor = comfortable if comfortable is not None else plan
+        stance = current + .75 * (bp.stance(anchor["pos"]) - current)
+        held = _goal_search(bp, ref, state, plan["goal_choice"], prediction,
+                            target=plan["target"], contact_time=anchor["t"], base=stance,
+                            min_contact=min_contact)
+        for alternative in (held, comfortable):
+            if alternative is not None:
+                alternative["selection"] = dict(plan["selection"])
+                if "replaces_contact" in plan:
+                    alternative["replaces_contact"] = plan["replaces_contact"]
+                plans.append(alternative)
+        self.candidates = plans
+        self.pending = state["step"]
+        return self._command(state, plan)
 
     def _rally(self, view):
         ref, bp, state = self.reference, self.bp, view["state"]
@@ -288,6 +331,7 @@ class TacticalPlayer:
         t0 = round(now - state["t_since_played"], 3)
         flight = (state["point"], t0)
         if ref.flight != flight:
+            self.pending = self.retry_after = None
             ref.flight, ref.plan, ref.sent = flight, None, None
             ref.obs, ref.t_min = [], None
         observation = view["observation"]
@@ -326,90 +370,53 @@ class TacticalPlayer:
             return {"type": "move", "base": base}
         if len(ref.obs) < 4:
             return None
+        if self.pending is not None:
+            self.feedback["reason"] = "awaiting_rehearsal"
+            return None
         plan = ref.plan
         if plan is not None:
             remaining = plan["t"] - now
             index = int(np.argmin(abs(times - plan["t"])))
             shift = float(np.linalg.norm(positions[index] - plan["pos"]))
-            rehearsal = state["command"]
-            matched = (isinstance(rehearsal, dict) and rehearsal["phase"] == "approach"
-                       and state["step"] + round(rehearsal["contact_in_s"] * 100) == round(plan["t"] * 100))
-            pose_failed = matched and (
-                rehearsal["pos_error_rehearsed_m"] is not None and rehearsal["pos_error_rehearsed_m"] > .04
-                or "pose not delivered" in rehearsal["stroke"])
             self.feedback.update(contact_frame=round(plan["t"] * 100), remaining_s=remaining,
-                                 contact_shift_m=shift, predicted_contact=positions[index].tolist(),
-                                 goal_status=plan.get("goal_status"), predicted_landing=plan.get("predicted_landing"),
-                                 target_error_m=plan.get("target_error_m"))
+                                 contact_shift_m=shift, predicted_contact=positions[index].tolist())
             if remaining <= bp.LAST_REFINE_S:
                 self.feedback["reason"] = "contact_committed"
                 return None
-            if (matched and not pose_failed and shift < bp.REFINE_M and remaining > .35
-                    and not plan.get("speed_checked")):
-                plan["speed_checked"] = True
-                delivered = np.asarray(rehearsal["vel_rehearsed"])
-                normal = np.asarray(plan["normal"])
-                if not _legal_return(bp, positions[index], velocities[index], normal, delivered):
-                    ratio = max(0., float(delivered @ normal) / float(np.asarray(plan["vel"]) @ normal))
-                    replacement = _goal_search(bp, ref, state, plan["goal_choice"], prediction, plan,
-                                               target=plan["target"], speed_ratio=ratio, contact_time=plan["t"])
-                    if replacement is not None:
-                        replacement["selection"] = plan["selection"]
-                        replacement["speed_checked"] = True
-                        replacement["pose_repaired"] = plan.get("pose_repaired", False)
-                        self.feedback.update(repaired=True, reason="head_speed_feedback",
-                                             selected_contact_frame=round(replacement["t"] * 100),
-                                             selected_pos=replacement["pos"].tolist(), selected_target=plan["target"].tolist())
-                        self.action_feedback = dict(self.feedback)
-                        return self._command(state, replacement)
-            if shift < bp.REFINE_M and not pose_failed:
+            if shift < .03:
                 self.feedback["reason"] = "contact_stable"
                 return None
-            self.feedback["reason"] = "pose_not_delivered" if pose_failed else "stale_contact"
-            if pose_failed and plan.get("pose_repaired"):
-                # Rehearsing another identical correction restarts an already moving arm again.
-                self.feedback["reason"] = "pose_correction_already_attempted_keep_swing"
-                return None
-            replacement = None
-            if not pose_failed and matched:
-                normal = np.asarray(plan["normal"])
-                if _legal_return(bp, positions[index], velocities[index], normal, np.asarray(rehearsal["vel_rehearsed"])):
-                    replacement = {**plan, "pos": positions[index]}
+            # Repair geometry at the same contact first; every replacement is rehearsed.
+            replacement = _goal_search(bp, ref, state, plan["goal_choice"], prediction,
+                                       target=plan["target"], contact_time=plan["t"],
+                                       base=plan.get("base"), min_contact=self.retry_after)
             if replacement is None:
-                replacement = _goal_search(bp, ref, state, plan["goal_choice"], prediction, target=plan["target"],
-                                           failed_contact=plan["t"] if pose_failed else None)
-                if replacement is not None:
-                    replacement["selection"] = plan["selection"]
-                    replacement["pose_repaired"] = pose_failed or plan.get("pose_repaired", False)
-                    replacement["speed_checked"] = plan.get("speed_checked", False)
-            self.feedback.update(search_seconds=time.perf_counter() - started,
-                                 search="selected" if replacement is not None else "placement_unavailable_keep_swing")
+                min_contact = plan["t"] + .15
+                if self.retry_after is not None:
+                    min_contact = max(min_contact, self.retry_after)
+                replacement = _goal_search(bp, ref, state, plan["goal_choice"], prediction,
+                                           target=plan["target"], min_contact=min_contact)
             if replacement is None:
+                self.feedback["reason"] = "no_repair_keep_swing"
                 return None
-            self.feedback.update(repaired=True, selected_contact_frame=round(replacement["t"] * 100),
-                                 selected_pos=replacement["pos"].tolist(), selected_target=list(replacement["target"]))
-            self.action_feedback = dict(self.feedback)
-            return self._command(state, replacement)
+            replacement["selection"] = dict(plan["selection"])
+            replacement["replaces_contact"] = plan["t"]
+            self.feedback.update(repaired=True, reason="contact_repair",
+                                 selected_contact_frame=round(replacement["t"] * 100))
+            return self._propose(state, replacement, prediction)
         opp = bp.backtrack(position, velocity, max(0., at - t0))[:2]
         fixed_choice = _fixed_choice(bp, ref, opp, candidates, times, positions, now)
-        rule = _goal_search(bp, ref, state, fixed_choice, prediction)
+        rule = _goal_search(bp, ref, state, fixed_choice, prediction, min_contact=self.retry_after)
         if fixed_choice["shot"] == "smash" and (rule is None or rule["goal_status"] != "exact"):
             fixed_choice = {**fixed_choice, "shot": "drop" if opp[1] > bp.BACK_Y else "clear"}
-            rule = _goal_search(bp, ref, state, fixed_choice, prediction)
+            rule = _goal_search(bp, ref, state, fixed_choice, prediction, min_contact=self.retry_after)
         branch = "under_pressure" if not any(times[i] - now >= bp.T_OK for i in candidates) else (
             "opponent_back" if opp[1] > bp.BACK_Y else "normal")
         choice = self.intent[branch] if self.intent is not None else fixed_choice
         target = _goal(bp, choice)
         preferred = rule if self.intent is None or choice == fixed_choice else _goal_search(
-            bp, ref, state, choice, prediction, rule)
+            bp, ref, state, choice, prediction, rule, min_contact=self.retry_after)
         plan = preferred if preferred is not None else rule
-        if plan is None:
-            selected = bp.choose(times, positions, velocities, now + (ref.lead + 2) * bp.STEP,
-                                 np.asarray(state["robot_base_xy"]), ref.vmax, ref.amax, ref.rng, opp=opp)
-            if selected is not None:
-                contact, pos, v_in, options, rule_target = selected
-                plan = dict(t=float(contact), pos=pos, normal=options[0][0], vel=options[0][1], target=rule_target,
-                            goal_choice=dict(choice))
         self.feedback.update(reason="stroke_selected" if plan is not None else "placement_unavailable",
                              search_seconds=time.perf_counter() - started)
         if plan is None:
@@ -426,13 +433,14 @@ class TacticalPlayer:
         if preferred is None:
             plan["goal_status"] = "rule_fallback"
             plan["goal_choice"], plan["target"] = dict(choice), target
-        return self._command(state, plan)
+        return self._propose(state, plan, prediction)
 
     def act(self, view):
         state = view["state"]
         if state["point"] != self.point:
             self.reset_point(state["point"])
         self.selection = self.feedback = self.action_feedback = None
+        self.candidates = []
         if self.intent_expires is not None and state["step"] / 100 >= self.intent_expires:
             self.intent = self.intent_id = self.intent_expires = None
         ref = self.reference

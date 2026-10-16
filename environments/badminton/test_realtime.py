@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 import struct
+import sys
 import tempfile
 import time
 from types import SimpleNamespace
@@ -13,6 +14,7 @@ from .api import TacticalAPI, decode_response
 from . import realtime
 from .realtime import _control, run_realtime
 from .realtime_report import audit_realtime, decision_panel
+from environments.touhou.research.budget import BudgetError
 
 ROOT = Path(__file__).resolve().parents[2]
 PACKET = {**{branch: {"side": "left", "shot": "clear"} for branch in ("normal", "under_pressure", "opponent_back")},
@@ -42,22 +44,44 @@ class Stream:
 
 
 class RealtimeBoundaryTests(unittest.TestCase):
+    def test_profile_and_matches_share_one_budget_cap(self):
+        """A match cannot reset the profiling spend by opening another client."""
+        recipe = json.loads((ROOT / "recipes/badminton-realtime.json").read_text())
+        image = b"\x89PNG\r\n\x1a\n" + b"\x00" * 8 + struct.pack(">II", 1920, 720)
+        with tempfile.TemporaryDirectory() as temp:
+            ledger = Path(temp) / "budget.json"
+            profile = TacticalAPI("test-only", Path(temp) / "profile", 15, recipe,
+                                  ledger_path=ledger, stage="profile")
+            reservation = profile.ledger.reserve("profile", "14.50")
+            profile.ledger.settle(reservation, "14.50")
+            profile.close()
+            match = TacticalAPI("test-only", Path(temp) / "match", 15, recipe, ledger_path=ledger)
+            with patch.object(match.session, "post") as post, self.assertRaises(BudgetError):
+                match.act("public", image, SPEC, Path(temp) / "request", self.fail)
+            post.assert_not_called()
+            self.assertEqual(match.ledger.snapshot()["committed_usd"], "14.50")
+            match.close()
+
     def test_goal_contact_keeps_absolute_time_and_native_serve_keeps_its_lead(self):
         """Prevent the realtime adapter from adding lead twice to a goal contact."""
         for selection, contact in (({"kind": "rally"}, 2.2), (None, 2.34)):
             with self.subTest(selection=selection), tempfile.TemporaryDirectory() as temp:
                 Path(temp, "images").mkdir()
+                acknowledgements = []
+                acknowledgement = {"plan": "INTERNAL_ROBOT_REHEARSAL"}
                 player = SimpleNamespace(point=1, reference=SimpleNamespace(lead=14), selection=selection,
-                    intent=None, intent_id=None, feedback=None,
+                    intent=None, intent_id=None, feedback=None, candidates=[], acknowledge=acknowledgements.append,
                     act=lambda view: {"type": "act", "t": 1.2})
                 sport = SimpleNamespace(worker_call=lambda *args: {"png": b"camera"})
                 with patch.object(realtime, "_player", player), \
                         patch.object(realtime, "_sport", sport), \
                         patch.object(_control, "spec", SPEC, create=True), \
                         patch.object(_control, "slowdown", 3, create=True):
-                    row = _control({}, {"step": 100, "point": 1}, {}, None, None, None,
+                    row = _control({}, {"step": 100, "point": 1, "control_ack": acknowledgement}, {}, None, None, None,
                                    "", [], {"summary": {}}, temp, 0.)
                 self.assertEqual(row["command"]["contact_at_game_time"], contact)
+                self.assertEqual(acknowledgements, [acknowledgement])
+                self.assertNotIn("control_ack", row["snapshot"]["state"])
 
     def test_summary_and_tactics_are_validated_together(self):
         self.assertEqual(decode_response(json.dumps(PACKET), SPEC)["brief"], PACKET["brief"])
@@ -98,7 +122,7 @@ class RealtimeBoundaryTests(unittest.TestCase):
                 client.close()
 
     def test_panel_waits_for_acceptance_and_clears_intent_at_point_boundary(self):
-        initial = {"brief": "Waiting", "intent": None}
+        initial = {"brief": "Waiting", "intent": None, "source": "sol"}
         history = []
         self.assertEqual(decision_panel([{"event": "request_issued"}], initial, history), initial)
         accepted = {"event": "intent_accepted", "brief": PACKET["brief"], "intent": {k: v for k, v in PACKET.items() if k != "brief"},
@@ -129,9 +153,69 @@ class RealtimeBoundaryTests(unittest.TestCase):
             self.assertEqual(next(iter(ledger["requests"].values()))["status"], "unknown")
             client.close()
 
+    def test_diagnosis_completion_tracks_source_cases_and_retains_return_counts(self):
+        """Long-lived diagnosis contract: completion follows cases, independent of score gains."""
+        from . import diagnostics
+        strokes = [{"initial": {"stroke_id": [point, 1.], "requested_choice": PACKET["normal"]},
+                    "outcome": {"returned": point == 1}} for point in (1, 2, 3)]
+        env = SimpleNamespace(match=SimpleNamespace(g="native-state"))
+        replay = [(env, 200, [{"event": "observation", "state": {
+            "point": point, "ball_state": "coming to you", "t_since_played": 1.}}], {})
+            for point in (1, 2, 3)]
+        run = {"config": {}, "recipe": {}, "profile": {}}
+        for settled in (True, False):
+            with self.subTest(settled=settled), tempfile.TemporaryDirectory() as temp:
+                source = Path(temp) / "source"
+                source.mkdir()
+                (source / "audit.json").write_text(json.dumps({"goal_strokes": strokes}))
+                (source / "run.json").write_text(json.dumps(run))
+                outcome = {"diagnostic_outcome": {"returned": True} if settled else None,
+                           "clock_valid": True, "invalid": 0, "late_plans": 0}
+                with patch.object(diagnostics, "_replay", return_value=replay), \
+                        patch.object(diagnostics, "run_realtime", return_value=outcome) as rerun, \
+                        patch.dict(sys.modules, {"wc": SimpleNamespace(snapshot=lambda state: state)}):
+                    result = diagnostics.diagnose_receptions(source, Path(temp) / "diagnosis")
+                self.assertEqual(rerun.call_count, 3)
+                self.assertEqual(result["incoming"], 3)
+                self.assertEqual(result["model_calls"], 0)
+                self.assertEqual(result["complete"], settled)
+                self.assertEqual(result["legal_returns"], 3 if settled else 0)
+                self.assertEqual(result["preserved_legal_returns"], 1 if settled else 0)
+
 
 @unittest.skipUnless(os.environ.get("BADMINTON_ENV_ROOT"), "Requires the pinned GPU/native runtime")
 class NativeClockTests(unittest.TestCase):
+    def test_simulation_delivers_at_modeled_readiness_without_paid_calls(self):
+        """Long-lived simulation contract: model compute does not replace sampled API delay."""
+        from .runner import run_episode
+        intent = {key: value for key, value in PACKET.items() if key != "brief"}
+        class Subscription:
+            def __init__(self, **kwargs):
+                pass
+            def act(self, *args):
+                return json.dumps(intent), {"wall_seconds": .001}
+            def close(self):
+                pass
+        profile = {"source": "api", "service_tier": "ultrafast", "usable_for_simulation": True,
+                   "terminal_calls": 1, "samples": [{"latency_ms": 100, "service_ms": 200}],
+                   "summary": {"p95": 100}}
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / "simulation"
+            config = {"level": 1, "slowdown": 3, "stop_file": str(Path(temp) / "STOP")}
+            with patch("runtime.subscription.SubscriptionClient", Subscription), \
+                    patch.object(realtime, "TacticalAPI") as paid:
+                summary = run_episode(config, "sol", 101, output, 200, profile)
+            paid.assert_not_called()
+            events = [json.loads(line) for line in (output / "events.jsonl").read_text().splitlines()]
+            issued = next(event for event in events if event["event"] == "request_issued")
+            accepted = next(event for event in events if event["event"] == "intent_accepted")
+            self.assertEqual(issued["frame"], 0)
+            self.assertEqual(accepted["frame"], 4)
+            self.assertAlmostEqual(accepted["capture_to_accept_seconds"], .12)
+            self.assertEqual(summary["mode"], "subscription_with_simulated_profile")
+            self.assertEqual(summary["actual_api_calls"], 0)
+            self.assertEqual(summary["stop_reason"], "game_time_limit")
+
     def test_audit_checks_observations_after_same_frame_command_application(self):
         """A live capture at the effect step includes the command that just took effect."""
         from .native import Action, BadmintonEnvironment
@@ -156,7 +240,7 @@ class NativeClockTests(unittest.TestCase):
                 (directory / "run.json").write_text(json.dumps({"seed": 101, "window_steps": 1,
                     "config": {"level": 1, "slowdown": 3}}))
                 (directory / "summary.json").write_text(json.dumps({"frames": 1, "points_for": 0,
-                    "points_against": 0, "native_match_completed": False}))
+                    "points_against": 0, "native_match_completed": False, "mode": "realtime_fixed"}))
                 (directory / "events.jsonl").write_text("\n".join(json.dumps(e) for e in events))
                 self.assertTrue(audit_realtime(directory)["matched"])
             finally:
@@ -168,8 +252,9 @@ class NativeClockTests(unittest.TestCase):
         config = {**recipe["args"], "max_game_seconds": 8, "observation_stride": 1}
         prompts = []
         class DelayedAPI:
-            def __init__(self, *args):
+            def __init__(self, *args, **kwargs):
                 self.ledger = self
+                self.request_ids = []
                 self.calls = 0
             def act(self, prompt, image, spec, directory, publish):
                 prompts.append(prompt)
@@ -191,6 +276,8 @@ class NativeClockTests(unittest.TestCase):
             events = [json.loads(line) for line in (Path(temp) / "run/events.jsonl").read_text().splitlines()]
             issued = next(e for e in events if e["event"] == "request_issued")
             accepted = next(e for e in events if e["event"] == "intent_accepted")
+            self.assertEqual(issued["frame"], 0, "Request the strategy during preparation")
+            self.assertEqual(summary["planning_lead_steps"], 14)
             for event in events:
                 if event["event"] == "intent_accepted":
                     self.assertEqual(event["brief"], f'request-{event["id"]:05d}')
