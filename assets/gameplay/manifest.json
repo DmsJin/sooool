@@ -1,0 +1,80 @@
+{
+  "playback_speed": 1,
+  "continuous_clips": true,
+  "new_model_calls": 0,
+  "notes": "Highlights selected from existing recordings. No frame reordering or speed changes within clips. GIF has no audio. See each clip for source timing and control conditions.",
+  "clips": [
+    {
+      "game": "rhythm",
+      "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e33-7274-7441-8ed6-354bedae48a2/rhythm-autoresearch-evidence/native-api-episode-03.webm",
+      "start_seconds": 23,
+      "duration_seconds": 8,
+      "width": 240,
+      "fps": 15,
+      "crop": null,
+      "mode": "Native browser/audio API capture, 1x; episode 03. GIF is silent.",
+      "source_sha256": "2f0be47d10cfcb17ab9274d12a8b1934b5d441f3b1db9a8ed552a28d98ac914d",
+      "gif_sha256": "1bc8e11ee6e3a3f4ac841aced73d12648c9d97839ee3b4646142ee794d589f8e",
+      "bytes": 3439200,
+      "public_decision_summary_visible": false,
+      "decision_summary_video_status": "pending; current clip is gameplay only"
+    },
+    {
+      "game": "touhou",
+      "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e38-8ae9-7c13-8e41-d214caeb01a5/kaguya-api-english-race4-v3/kaguya-english-race4.mp4",
+      "start_seconds": 49,
+      "duration_seconds": 7,
+      "width": 640,
+      "fps": 12,
+      "crop": null,
+      "mode": "Source-harness realtime API, 1x; native English public decision summaries.",
+      "source_sha256": "3ee7443179388ad6ab9b0ff94ca3f4460844ac9a686fd2ffa993e45df0fecdc4",
+      "gif_sha256": "f32e42afba6537918c81f28102cb3c56fe7ce6fa62af23e9008726d1c9df1c39",
+      "bytes": 4895075,
+      "public_decision_summary_visible": true
+    },
+    {
+      "game": "pingpong",
+      "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e72-5bc8-77c3-b8b9-1ac9724b2c33/sooool/api-final-marginserve-5-2-S10.mp4",
+      "start_seconds": 234,
+      "duration_seconds": 12,
+      "width": 640,
+      "fps": 20,
+      "crop": "440:240:65:95",
+      "mode": "Replay of recorded final 5:2 API match at official S=10 slowdown; cropped spectator view. Not a live screen capture; review pauses omitted in source export.",
+      "source_sha256": "0cf80dbe025cdf4fba23679a313eab715a2069d482e698204bf4a73f45a72506",
+      "gif_sha256": "181b812b82fa7b564cb35d7462d6e8574002767b538ce947371c3ca0e8aee69b",
+      "bytes": 761549,
+      "public_decision_summary_visible": false,
+      "decision_summary_video_status": "pending; current clip is gameplay only"
+    },
+    {
+      "game": "racing",
+      "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e84-6151-70f1-bec1-fc05fea1f2fa/racing-win-loss-win/racing-seed304-win-loss-win-music.mp4",
+      "start_seconds": 14,
+      "duration_seconds": 8,
+      "width": 640,
+      "fps": 15,
+      "crop": null,
+      "mode": "Realtime API with coded steering, 1x; within original heat 2. Source video reordered heats win/loss/win, but this clip is continuous within a single heat.",
+      "source_sha256": "644a8209da42399764b83dbce55072b9fae6f35f8e5694115029d21ab6effabf",
+      "gif_sha256": "7fc5aff8175aa9cd2ed7b0689077feb1c2cc6bd9a2fb2124c5dea936ebd19425",
+      "bytes": 3248044,
+      "public_decision_summary_visible": true
+    },
+    {
+      "game": "asterix",
+      "source": "/home/zihan/papers/latency/.codex-worktrees/sooool-readme-gameplay/assets/asterix/v28-serial-english.mp4",
+      "start_seconds": 60,
+      "duration_seconds": 10,
+      "width": 720,
+      "fps": 15,
+      "crop": null,
+      "mode": "Historical sampled-delay simulation replay, 5x slowdown; V28 serial direct actions with original public English decision summaries. Source playback speed retained.",
+      "public_decision_summary_visible": true,
+      "source_sha256": "b0c6e026fba2583da4ebb43daf39e9339347e20e38ac01e178adb29fbd4b9335",
+      "gif_sha256": "8076edf807c7e46ed5adbd310a2440d5183207a9353c24844cc2af46e57e26ff",
+      "bytes": 503728
+    }
+  ]
+}
