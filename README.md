@@ -3,10 +3,10 @@
 <p align="center"><strong>Can GPT-6 Sol (a coding agent) play real-time games, where the world keeps moving while it thinks?</strong></p>
 
 <p align="center">
-<a href="#autoresearch-for-latency-awareness">Autoresearch for latency awareness</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#how-the-latency-simulator-works">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#find-your-way-around-the-code">Code guide</a> · <a href="#citation">Citation</a>
+<a href="#autoresearch-for-latency-aware-agents">Autoresearch for latency-aware agents</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#how-the-latency-simulator-works">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#find-your-way-around-the-code">Code guide</a> · <a href="#citation">Citation</a>
 </p>
 
-Sooool! uses an autoresearch loop to get GPT-6 Sol, working as Agent as Policy, to play real-time games. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks. To understand the method, start with [Autoresearch for latency awareness](#autoresearch-for-latency-awareness). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
+Sooool! uses an autoresearch loop to get GPT-6 Sol, working as Agent as Policy, to play real-time games. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks. To understand the method, start with [Autoresearch for latency-aware agents](#autoresearch-for-latency-aware-agents). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
 
 <table>
 <tr>
@@ -25,7 +25,7 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol, working as Agent as Policy, 
 
 These are selected runs, not win-rate estimates. Captions distinguish actual API play from simulation and replay, and state the game speed. [Clip sources and editing details](assets/gameplay/README.md).
 
-## Autoresearch for latency awareness
+## Autoresearch for latency-aware agents
 
 We give Codex a game, a goal, an experiment budget, and feedback. It tries to improve how GPT-6 Sol plays under response delays: anticipating where a bullet will move or whether a target will still be useful when an action arrives.
 
