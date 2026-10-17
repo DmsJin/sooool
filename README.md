@@ -23,7 +23,7 @@ Click a preview to watch the video.
 
 These clips come from individual runs, rather than repeated win-rate tests. Each caption identifies how that run was timed. The Asterix clip is a replay of a delay-simulated run; the Touhou, Racing, Rhythm, and PingPong clips used actual API calls while the game was running. The Badminton clip replays a recorded real-time API run at 3x slowdown. Racing uses a steering controller, and PingPong uses a controller to execute shots. [Clip sources and editing details](assets/gameplay/README.md).
 
-[Overview](#what-is-sooool) · [Autoresearch](#autoresearch) · [How a game runs](#how-a-game-runs) · [Latency simulator](#how-the-latency-simulator-works) · [Games & results](#games-and-controls) · [Quick start](#quick-start) · [Code guide](#find-your-way-around-the-code)
+[Overview](#what-is-sooool) · [Autoresearch](#autoresearch) · [How a game runs](#how-a-game-runs) · [Latency simulator](#how-the-latency-simulator-works) · [Games & results](#games-and-controls) · [Quick start](#quick-start) · [Code guide](#find-your-way-around-the-code) · [Citation](#citation)
 
 To understand the method, start with [Autoresearch](#autoresearch). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
 
@@ -245,5 +245,19 @@ Other games have their own setup requirements: [Rhythm](docs/rhythm.md), [Racing
 [Detailed file map](docs/file-map.md) · [Evaluation records](docs/evaluation-records.md) · [Optional evidence downloads](artifacts/README.md)
 
 Large evidence archives are optional. Short explanations shown with actions are model-written public summaries, not internal reasoning transcripts. Media sources and editing are documented with each artifact.
+
+## Citation
+
+If you use Sooool in your research, please cite this repository:
+
+```bibtex
+@misc{wang2026sooool,
+  title        = {Sooool!},
+  author       = {Wang, Zihan and Li, Xinyuan and Li, Zeju and {Yuxiang} and Gui, Chi and Pei, Jiaxin and Li, Manling},
+  year         = {2026},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/sooool-project/sooool}
+}
+```
 
 This is a private research package. Repository access does not grant an additional license to upstream code or media. See [source and media provenance](docs/provenance.md) before redistribution.
