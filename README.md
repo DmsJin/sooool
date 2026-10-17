@@ -10,22 +10,22 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with
 
 <table>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-6 Sol dodging Kaguya's bullet patterns with live English decision summaries" width="440"></a><br><b>Touhou</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-6 Sol playing table tennis with both camera views and live public decision summaries" width="440"></a><br><b>PingPong</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="The coding agent dodging Kaguya's bullet patterns with live English decision summaries" width="440"></a><br><b>Touhou</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="The coding agent playing table tennis with both camera views and live public decision summaries" width="440"></a><br><b>PingPong</b> · Real-time API · 1×</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol collecting food in Asterix alongside original public decision summaries" width="440"></a><br><b>Asterix</b> · Simulation replay · 5× slowdown</td>
-<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" width="440"></a><br><b>Badminton</b> · Real-time API replay · 3× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="The coding agent collecting food in Asterix alongside original public decision summaries" width="440"></a><br><b>Asterix</b> · Simulation replay · 5× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="The coding agent playing badminton: opening serve and rally, with both camera views and original English decision summaries" width="440"></a><br><b>Badminton</b> · Real-time API replay · 3× slowdown</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-6 Sol choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-6 Sol selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="The coding agent choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="The coding agent selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · 1×</td>
 </tr>
 </table>
 
 ## Autoresearch for latency-aware agents
 
-We give Codex a game, a goal, an experiment budget, and feedback. It tries to improve how GPT-6 Sol plays under response delays: anticipating where a bullet will move or whether a target will still be useful when an action arrives.
+We give Codex a game, a goal, an experiment budget, and feedback. It tries to improve how the coding agent plays under response delays: anticipating where a bullet will move or whether a target will still be useful when an action arrives.
 
 1. **Find a failure.** Run the game and inspect screenshots, actions, timing, and outcomes.
 2. **Propose a change.** Revise the gameplay instructions, memory, or permitted control settings to address a specific problem.
@@ -33,7 +33,7 @@ We give Codex a game, a goal, an experiment budget, and feedback. It tries to im
 4. **Keep or reject it.** Check safety as well as score, then test promising candidates through complete games.
 5. **Test in real time.** Fix the selected strategy and settings, run with actual response delays, and use the results to guide the next experiment.
 
-**For example,** in Touhou the model often chased where the boss had been before it started thinking. Codex tested instructions that anticipated the boss's next position. Some changes increased damage but caused more hits, so they were rejected. Adding safety checks for the action's start, movement path, and stopped position produced a candidate that passed comparisons on 12 fixed cases, then went on to full-game simulation and real-time testing. [Full case study](docs/touhou-research-record.md).
+**For example,** in Touhou the coding agent often chased where the boss had been before it started thinking. Codex tested instructions that anticipated the boss's next position. Some changes increased damage but caused more hits, so they were rejected. Adding safety checks for the action's start, movement path, and stopped position produced a candidate that passed comparisons on 12 fixed cases, then went on to full-game simulation and real-time testing. [Full case study](docs/touhou-research-record.md).
 
 A **policy** is the gameplay instructions, fixed notes supplied with each request (called memory), output format, and request settings. Codex improves the prompts and settings without changing the model's weights. Autoresearch took place in Codex Goal mode with human guidance; `sol simulate` runs one game experiment, while Codex handles the analysis and edits across experiments. [Research stories for each game](docs/autoresearch-summaries.md).
 
@@ -41,9 +41,9 @@ A **policy** is the gameplay instructions, fixed notes supplied with each reques
 
 Take Touhou as an example:
 
-1. **Capture.** The runner collects up to three recent screenshots with their frame numbers. Comparing the images helps the model judge which way the boss and bullets are moving.
-2. **Ask.** Send those images with the game instructions, controls already in effect, historical delay information, and the model's own earlier position estimates. The model does not receive hidden game coordinates or the delay drawn for this request.
-3. **Answer.** GPT-6 Sol returns JSON containing its visual estimates and an action plan.
+1. **Capture.** The runner collects up to three recent screenshots with their frame numbers. Comparing the images helps the agent judge which way the boss and bullets are moving.
+2. **Ask.** Send those images with the game instructions, controls already in effect, historical delay information, and the agent's own earlier position estimates. The agent does not receive hidden game coordinates or the delay drawn for this request.
+3. **Answer.** The coding agent returns JSON containing its visual estimates and an action plan.
 4. **Execute.** The runner checks the format, waits until the answer is allowed to take effect, and applies the chosen buttons. The position estimates do not become automatic dodge or tracking commands.
 
 One action in the plan might be:
@@ -82,7 +82,7 @@ Development uses subscription calls to try strategies under delays measured from
 
 A **latency profile** stores measured response times, including slow replies. The simulator draws from it to decide when each new answer becomes available.
 
-Suppose a screenshot is taken at frame 100 and the drawn delay is half a second. At 60 FPS, the answer can be used at frame 130. Until then, the game advances with the controls already in effect. If the model finishes early, its answer waits; if it is still computing at frame 130, virtual time waits for it. The model never sees the drawn delay.
+Suppose a screenshot is taken at frame 100 and the drawn delay is half a second. At 60 FPS, the answer can be used at frame 130. Until then, the game advances with the controls already in effect. If the agent finishes early, its answer waits; if it is still computing at frame 130, virtual time waits for it. The agent never sees the drawn delay.
 
 In real-time evaluation, a three-second response means the game also moves forward for three seconds. Asterix uses subscription response times for this test and keeps its declared slowdown; other games have separate [setup guides](docs/release-guide.md).
 
@@ -92,14 +92,16 @@ The simulator also accounts for concurrent requests: Touhou samples groups of de
 
 ## Games and controls
 
-| Game | What GPT-6 Sol decides | What the surrounding code does |
-|---|---|---|
-| **Touhou / Kaguya** | Movement, shooting, focus, bombs, and duration | Runs the game, captures screenshots, checks and applies actions |
-| **PingPong** | Where to place a shot | Controllers handle serving and execute the robot's motion |
-| **Atari Asterix** | Which direction to hold | Applies the model's action unchanged until a newer one replaces it |
-| **Badminton** | Shot placement and recovery goals | Controllers handle contact planning and native game mechanics |
-| **Rhythm** | DFJK keys and the times to press them | Forwards the chosen tap times and records execution |
-| **Racing** | Speed, racing targets, offset, and lookahead | A visual controller supplies steering and limits speed through bends |
+The coding agent chooses button presses in screen-based games and tactical goals in robot games. Each game defines what it sees, what it returns, and how the code carries out its decisions.
+
+| Game | Agent input | Agent action | Code execution |
+|---|---|---|---|
+| [Touhou / Kaguya](docs/touhou-research-record.md) | Up to three recent screenshots, frame times, and prior controls | Movement, shooting, focus, bombs, and duration | Apply the chosen buttons for the specified duration |
+| [PingPong](docs/tabletennis.md) | Two camera views, public feedback, and a camera-based opponent estimate | Choose one of four return-placement plans | Track the ball, serve, plan contact, and execute joint motion |
+| [Asterix](docs/asterix-autoresearch.md) | Three timestamped screenshots and applied-action history | Joystick direction | Hold the chosen direction until a newer reply replaces it |
+| [Badminton](docs/badminton.md) | Four recent frames from two cameras and public feedback | Conditional shot goals, recovery position, and goal duration | Select the applicable goal, plan a reachable contact and swing, and execute the stroke |
+| [Rhythm](docs/rhythm.md) | Game screenshot, public clock, and pending taps | DFJK keys and absolute tap times | Queue and execute the specified taps |
+| [Racing](docs/racing.md) | Recent front-camera views, telemetry, and camera-derived road measurements | Speed, lane offset, and lookahead | Steer toward the goal and limit speed through bends |
 
 Evaluators may inspect game state to score outcomes. [Observation boundaries](docs/observation-contract.md).
 
