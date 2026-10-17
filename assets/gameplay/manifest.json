@@ -66,18 +66,20 @@
     },
     {
       "game": "asterix",
-      "source": "assets/asterix/v28-serial-english.mp4",
-      "start_seconds": 60,
+      "source": "assets/asterix/v28-api-60s.mp4",
+      "start_seconds": 50,
       "duration_seconds": 10,
       "width": 720,
-      "fps": 15,
+      "fps": 12,
       "crop": null,
-      "mode": "Historical sampled-delay simulation replay, 5x slowdown; V28 serial direct actions with original public English decision summaries. Source playback speed retained.",
+      "mode": "Fresh Responses API, gpt-6.1-sol / low / ultrafast; V28 serial direct actions at 12 raw FPS (5x slowdown). Verified saved-action replay with original public English summaries; full run 60 wall seconds, 300 points, two lives.",
       "public_decision_summary_visible": true,
-      "source_sha256": "b0c6e026fba2583da4ebb43daf39e9339347e20e38ac01e178adb29fbd4b9335",
-      "gif_sha256": "8076edf807c7e46ed5adbd310a2440d5183207a9353c24844cc2af46e57e26ff",
-      "bytes": 503728,
-      "original_source_path": "/home/zihan/papers/latency/.codex-worktrees/sooool-readme-gameplay/assets/asterix/v28-serial-english.mp4"
+      "source_sha256": "3be78deb2fdd96bec440d890a466c28ec00508d2ab6396bd38b0d302bedfbd6b",
+      "gif_sha256": "27c3d947c7e8c7c278d3496c33c3ad7c1ce98a4873ae82bbf1b5f9a67f92189e",
+      "bytes": 432384,
+      "full_run": "assets/asterix/v28-api-60s.mp4",
+      "recording_run": "artifacts/asterix/api-validation/20261017/repeat-run",
+      "provenance": "assets/asterix/v28-api-60s.provenance.json"
     },
     {
       "game": "badminton",

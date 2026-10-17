@@ -1,0 +1,9 @@
+{
+  "authorized_total_usd": "10",
+  "prior_ledger": "/home/zihan/papers/latency/.codex-worktrees/sooool-asterix-api-video/runs/asterix-api60-budget-20261016.json",
+  "prior_ledger_sha256": "29cc7d8875a06a5cd4fe491edc9d023a0b33db113278c308aa96131aa4868def",
+  "prior_conservative_commitment_usd": "0.27747",
+  "new_ledger_cap_usd": "9.72253",
+  "prior_actual_usage_known": false,
+  "condition": "User requested a retry after diagnosis. Preserve the old blocked ledger; fully deduct its conservative reservation from the authorized total. This is not terminal-usage reconciliation or a zero-cost claim."
+}

@@ -1,0 +1,30 @@
+{
+  "source_run": "artifacts/asterix/api-validation/20261017/repeat-run",
+  "mode": "realtime_api",
+  "source_manifest_sha256": "0f0aac963d7c6e85a223cf3a2f9812a5087a5cd1eef2d059decc8cf9577d9fca",
+  "video_sha256": "3be78deb2fdd96bec440d890a466c28ec00508d2ab6396bd38b0d302bedfbd6b",
+  "duration_seconds": 60,
+  "raw_fps": 12,
+  "game_seconds": 12,
+  "slowdown": 5,
+  "seed": 5,
+  "score": 300,
+  "lives": 2,
+  "paid_api_calls": 31,
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "service_tier": "ultrafast",
+  "rendering": "Saved-action replay; all 720 step rewards, cumulative scores and lives verified. Not an original screen capture.",
+  "music": "Original procedural arcade composition generated locally by scripts/polish_asterix_video.py; no external recordings.",
+  "audio_loudness_lufs": -24,
+  "visual_edit_region": [
+    0,
+    60,
+    320,
+    420
+  ],
+  "visual_edit": "brightness +0.025, contrast 1.10, saturation 1.30, gamma 1.07",
+  "gameplay_actions_changed": false,
+  "reason_text_changed": false,
+  "new_model_calls_during_rendering": 0
+}

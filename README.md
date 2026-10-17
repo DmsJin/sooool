@@ -12,7 +12,7 @@
 <td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-Sol selecting racing targets through bends and obstacles, with live decisions" height="105"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-Sol collecting food in Asterix alongside original public decision summaries" height="105"></a><br><b>Asterix</b> · 12 FPS</td>
+<td width="50%" align="center"><a href="assets/asterix/v28-api-60s.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-Sol playing Asterix with real API decisions: 300 points, two lives, 60 wall seconds at 12 FPS" height="105"></a><br><b>Asterix</b> · Real-time API replay · 12 FPS · 300 points</td>
 <td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" height="105"></a><br><b>Badminton</b> · Real-time API replay · S3 slowdown · 15s</td>
 </tr>
 </table>
@@ -36,9 +36,11 @@ You can watch GPT-Sol dodge a screen full of bullets, race a rival, collect food
 | **Rhythm** | Hit the right key at the right time. | Real-time API at 1×. GPT-Sol chooses each DFJK key and its absolute tap timestamp. [Setup](docs/rhythm.md). |
 | **PingPong** | Serve, return, win the point. | Real-time API at 1×. GPT-Sol selects shot placement; rules handle serving and execution. [Setup](docs/tabletennis.md). |
 | **Badminton** | Place the shot. Recover for the next one. | Actual API at 3× slowdown (S3); SOL selects tactical goals, native mechanics execute them. [Setup](docs/badminton.md) · [Evidence](artifacts/badminton/README.md). |
-| **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | 12 FPS; retained development replay, with model actions applied unchanged. |
+| **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | Real-time API at 12 FPS (5× slowdown); 300 points/two lives over 60 wall seconds, with model actions applied unchanged. |
 
 The GIFs are continuous excerpts at their source playback speed. Racing uses hybrid steering. Touhou, Racing, PingPong, Badminton and Asterix show original public decision summaries. Rhythm shows original English action-plus-commentary responses; its 17s run has two empty presses and is not a full combo. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
+
+The Asterix preview links to the full **60-second real-time API replay**: seed 5, V28, `gpt-6.1-sol / low / ultrafast`, one request in flight, **300 points/two lives**. All 720 recorded step rewards and lives were verified during rendering; music was added locally. An earlier run under the same conditions scored 50 points/one life. These are two recorded trials, not a reliability estimate. [Runs, timing and costs](artifacts/asterix/api-validation/20261017/README.md).
 
 The Badminton clip shows the opening serve and rally from one seed-101, L1/S3 match. The full match lost **8:11**, with **90/97 legal returns**, **47 confirmed Ultrafast responses**, zero rule fallbacks across 90 controlled rally strokes, and four serve failures. Its native replay matched all 27,609 steps. [Protocol and evidence](artifacts/badminton/README.md).
 

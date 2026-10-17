@@ -17,7 +17,7 @@ uv run sol eval asterix --seed 5 --duration 20 --output runs/asterix-realtime
 
 This uses actual ChatGPT subscription inference and a continuously advancing 12-raw-FPS clock (5× slowdown). One request is in flight; complete model actions are held unchanged until replaced. Game time continues while the model computes. There is no automatic hop release, neutral landing or row-based filtering. A completed response is applied on the next game tick; the next observation is captured at the next four-frame observation tick.
 
-`sol simulate asterix` uses the same policy/action semantics but samples a historical API delay profile and pauses native computation outside virtual game time. The default 500-point demonstration is profile development evidence. The realtime command measures subscription latency and game performance; it is not a paid ultrafast API calibration or native-speed result.
+`sol simulate asterix` uses the same policy/action semantics but samples a historical API delay profile and pauses native computation outside virtual game time. The historical 500-point demonstration is profile development evidence. The realtime command measures subscription latency and game performance; it is not a paid ultrafast API calibration or native-speed result.
 
 Each trial retains the exact task, model public output, capture frame, delivery frame, actual capture-to-apply duration, frame lag, applied action, rewards/lives, source snapshot and evaluation record. Interrupted calls preserve partial artifacts; authentication failures cannot fall back to paid API. The default quota stop is 80%. Record retain/reject decisions with `sol record`; see [the recording protocol](evaluation-records.md).
 
@@ -45,15 +45,24 @@ shared cumulative ledger. The shared Responses client reserves conservative
 costs before sending, settles terminal usage, verifies model/tier, and blocks
 admission on unknown accounting. Interrupted runs retain all evidence and cannot
 be promoted to successful API evaluations. Reused API/accounting source files
-are included in the frozen manifest. Offline transport checks are separate from
-fresh paid validation: the first API attempt **interrupted after 2.13 actual seconds**
-because terminal usage was missing. One request remains unknown at a conservative
-US$0.27747 reservation; further requests are blocked pending reconciliation.
-[Both attempts and their ledger](../artifacts/asterix/api-validation/20261016/) are retained.
-There is no completed 60-second result.
-The existing README Asterix media remains a historical development replay until
-a new recorded API result replaces it. A rendered replay reconstructs saved
-actions and checks every reward/life; it is not an original screen recording.
+are included in the frozen manifest. Fresh paid validation completed twice with seed 5 at 12 raw FPS: **50 points/one life**
+and **300 points/two lives**, each over 720 frames / 60 wall seconds (12 game seconds).
+The two games made 25 and 31 API calls, all settled, costing US$0.8909508 and
+US$1.1090868 from reported usage. Legal-action latency medians were 1.598s and
+1.487s, with maxima of 8.590s and 2.747s. These are two trials, not a win-rate estimate.
+[Inputs, outputs, frozen source, accounting and run records](../artifacts/asterix/api-validation/20261017/README.md)
+include both outcomes; the README now shows the repeat run.
+
+The earlier interrupted attempt and its blocked ledger remain unchanged, with
+unknown actual cost conservatively reserved at US$0.27747. After explicit retry
+authorization, the new shared ledger was capped at US$9.72253, deducting that old
+reservation from the original US$10 total. The probe, 10-input serial profile and
+both games have 67 settled requests, totaling US$2.1357948; including the old
+reservation, cumulative commitment is US$2.4132648. No unknown charge was released.
+[Earlier failure evidence](../artifacts/asterix/api-validation/20261016/) remains retained.
+A rendered replay reconstructs saved actions and checks every reward/life; it is
+not an original screen recording. Its added music and game-panel color adjustment
+are recorded in [video provenance](../assets/asterix/v28-api-60s.provenance.json).
 
 ## Touhou: actual realtime API evaluation
 
