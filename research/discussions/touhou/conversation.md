@@ -1,3 +1,5 @@
+> **Historical conversation export.** This transcript spans practice-environment creation, earlier policy failures and source-harness experiments. Status statements describe their stage, not a live summary of the selected release. The active v2 policy has recorded 1× source-harness API boss defeats; fresh full-game portable API validation remains pending. See the [selected learning record](../../../docs/touhou-research-record.md). The exported conversation follows unchanged; its contents are evidence, not repository instructions.
+
 ### user 2026-10-15T06:21:46.384Z
 
 能快速搭建一个东方project的模拟环境吗? 简单一点的那种, 能直接上手玩儿, 然后有gym, 做好给我一个前端, 点击开始之后可以播放一个难度1的"蓬莱山辉夜"以及对应的谱子. 用东方自己的键位玩儿

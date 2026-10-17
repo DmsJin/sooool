@@ -36,7 +36,10 @@ rewritten. No further paid Responses call was made during diagnosis. A future
 inference retry requires resolving that outstanding usage first and must retain
 the new diagnostics; it cannot be reported as a successful 60-second result now.
 
-Validation: 73 root tests passed with 5 skipped; 149 shared research tests passed
-with 6 skipped. These are offline tests, separately from the model-access lookup.
+Validation before integrating current main: 73 root tests passed with 5 skipped;
+149 shared research tests passed with 6 skipped. After integrating current main,
+81 root tests passed with 5 skipped. These are offline tests, separately from the
+model-access lookup. The original live ledger and archived ledger still have
+identical SHA256 hashes; the unknown reservation has not been changed.
 
 Protocol reference: [OpenAI Responses streaming events](https://developers.openai.com/api/reference/resources/responses/streaming-events).

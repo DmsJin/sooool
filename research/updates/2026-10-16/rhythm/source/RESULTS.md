@@ -1,3 +1,5 @@
+> **Historical research snapshot — not the active Rhythm workflow.** This report describes the retired coordinate-to-time controller. Its three all-PERFECT runs are not results of the current model-owned absolute-time policy. Use the [current workflow](../../../../../docs/rhythm.md) and [selected case study](../../../../../docs/rhythm-autoresearch.md). The original report follows unchanged.
+
 # DFJK 实时视觉策略实验结果
 
 验收完成：冻结策略通过真实 `gpt-6.1-sol / ultrafast / low` API，在原生音频时钟、原速 1× 下连续三局达到 **100% 加权准确率、零漏键、零空按**。

@@ -4,8 +4,10 @@ A fast-looking answer is useless if the note has already passed. This case
 follows the **selected route to the released v21 policy**: SOL makes each online
 visual decision, while Codex runs experiments, inspects failures and changes
 prompts and permitted environment conditions. Humans supply objectives,
-budgets and feedback, including the final 2.5s preview request. No model weights
-are trained. This is human-steered autoresearch, with actual model calls.
+budgets and feedback, including the final 2.5s preview request. The task policy
+is trained through interaction, model-authored memory revisions and strategy
+search, with base-model weights frozen. This is human-steered autoresearch,
+with actual model calls.
 
 The released strategy is an earlier selected candidate, not a claim that the
 last development candidate was best. This walkthrough is a curated adopted
@@ -48,6 +50,12 @@ real-time play. Prompts evolve from failures: read higher notes, preserve exact
 pending payloads, keep IDs stable, distinguish adjacent eighths and reason from
 the image's capture clock rather than response time.
 
+The bounded actor pool overlaps requests on successive screenshots to sustain
+decision cadence while earlier requests are still thinking. Each response
+predicts future literal tap times; the executor retains pending commands and
+applies those times unchanged. This is the throughput/latency distinction
+described in [latency-aware learning and control](latency-aware-learning.md).
+
 The selected v21 simulation case completed 52 notes over 30s with 51 Perfect,
 1 Good,zero Miss andzero empty presses. A separate real 8s API trial then scored
 10/10 Perfect with zero misses or empty presses. This validated the short path,
@@ -87,8 +95,11 @@ a secretly faster model or wider judgment window.
 
 The selected run used 85 real API requests with zero errors. Action-ready latency
 median 1.421s,SD 0.282s,max 2.400s;cost USD 2.230575. Sources and chart were verified
-unchanged through the run. This is one successful near-perfect reused-chart
-trial, not a full combo or repeated-success estimate.
+unchanged through the run. The earlier 30s/52-note development charts differ from this 17s/25-note
+demonstration input. For the final approach-duration comparison, both 17s runs
+use the same aligned chart, as recorded in the [frozen design](../artifacts/rhythm/selected/source-freeze.json).
+This successful near-perfect task demonstration has two empty presses; repeated
+success and fresh-chart transfer remain separate measurements.
 
 The remaining errors are visible: the first screenshot still showed GO, and
 its first-note plan was early; a second ID clicked that already-hit note again.

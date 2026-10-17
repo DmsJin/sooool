@@ -46,7 +46,12 @@ def freeze(game,recipe,out, mode="subscription_with_simulated_profile"):
             target=out/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)
     (out/'manifest.json').write_text(json.dumps({'game':game,'recipe':recipe,'source_sha256':sources,
         'mode':mode,'real_time_api_acceptance':False,
-        'transport_adapter':'streaming Responses API; direct model actions' if game=='asterix' and recipe.get('provider')=='openai_api' else 'portable app-server; original gameplay policy and timing retained',
+        'transport_adapter':{
+            'subscription_with_simulated_profile':'native app-server subscription; sampled virtual timing',
+            'real_time_subscription':'native app-server subscription; continuously advancing wall clock',
+            'realtime_api':'streamed paid API; continuously advancing wall clock',
+            'serial_api_profile':'strictly serial paid API on retained inputs; no gameplay actions',
+        }.get(mode,'Transport is declared in the recipe and transport-specific run records'),
         'created_at_unix':time.time()},indent=2))
 
 def rhythm(recipe,out,a):
@@ -171,7 +176,7 @@ def main():
             if a.decision is None or a.note is None:p.error('Asterix assessments require --decision and --note')
             from runtime.evaluation import assess
             print(json.dumps(assess(a.run,a.decision,a.note),indent=2));return
-        if a.decision is not None or a.note is not None:p.error('--decision and --note apply to Asterix assessments')
+        if a.decision is not None or a.note is not None:p.error('--decision and --note apply to Asterix/Rhythm assessments')
         from runtime.touhou_records import append_record
         print(json.dumps({'appended':append_record(a.run,a.registry),'registry':str(a.registry)}));return
     paid_asterix=a.command=='eval' and a.game=='asterix' and a.provider=='api'

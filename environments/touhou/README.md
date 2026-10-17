@@ -16,7 +16,7 @@ BGM 由原 `thbgm.dat` 提取，OGG 长 179.97786848072562 秒，Web Audio Buffe
 
 ## 直接玩
 
-`python3 -m http.server 8787 --directory dist`，浏览器打开 http://localhost:8787 。
+`python3 -m http.server 8787 --bind 127.0.0.1 --directory dist`，浏览器打开 http://localhost:8787 。
 
 方向键移动，Z 射击/确认，Shift 低速，X 符卡清屏，Esc 暂停。点击开始后获取键盘操作；失焦自动暂停。手机支持屏幕按钮。
 击破 Boss 为 `won`，存活 60 秒为 `survived`，残机耗尽为 `lost`。前两种均完成练习。声音按钮控制辉夜 BGM 与原版音效。
@@ -69,7 +69,7 @@ finally:
 node --test tests/engine.test.mjs
 .venv/bin/python tests/check_gym.py
 # 本地检查服务使用 8791 端口（需要 Playwright/Chromium）：
-python3 -m http.server 8791 --directory dist
+python3 -m http.server 8791 --bind 127.0.0.1 --directory dist
 python3 tests/browser_check.py
 python3 tests/th08_presentation_check.py
 ```

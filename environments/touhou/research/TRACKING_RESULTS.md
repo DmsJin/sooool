@@ -1,3 +1,5 @@
+> **Retained source-harness research record.** This report/protocol describes its original experiment stage. “Current”, “ongoing”, “selected” and acceptance statements below belong to that stage; use the [selected Touhou learning record](../../../docs/touhou-research-record.md) for the released policy, actual API wins and current launcher status. The original report follows unchanged.
+
 # 辉夜追踪 benchmark：第二轮实时结果
 
 完成两轮 prompt 迭代与真实 API 复测。默认 seed 1 的原速实时局从 59.30 秒缩短到 51.05 秒（8.25 秒，13.9%），但中弹从 1 次增加到 2 次。指定中段改善明显，开局仍有新的长空枪；不能据此宣称稳定胜率或全面提升。

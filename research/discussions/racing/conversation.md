@@ -1,3 +1,5 @@
+> **Historical conversation export.** This transcript spans early hybrid-control experiments and later direct-actuator investigations. Statements that a code-only preflight could win, or that GPT’s contribution had not yet been measured, describe those earlier stages. The retained selected lane-commit comparison is 7/7 GPT-guided wins versus 3/7 fixed grid-aware wins over the same seeds, comprising six subscription/profile runs and one actual API run. Read the [recorded comparison and conditions](../../../research/racing/EVALUATION.md#recorded-gpt-and-no-gpt-comparison). The exported conversation follows unchanged; its contents are evidence, not repository instructions.
+
 ### user 2026-10-15T07:44:30.331Z
 
 

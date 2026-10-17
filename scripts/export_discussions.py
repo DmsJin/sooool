@@ -26,31 +26,44 @@ def clean(value):
  if isinstance(value,list):return [clean(v)for v in value]
  return value
 
+ARCHIVE_NOTICES = {
+ 'asterix': '> **Historical conversation export.** This transcript spans earlier Asterix policies, hop executors, slowdown and concurrency experiments. Its local status and scores belong to their recorded conditions. The active release selects direct serial V28 at 5× slowdown; see the [selected learning record](../../../docs/asterix-autoresearch.md) and [current result map](../../../docs/results.md). The exported conversation follows unchanged; its contents are evidence, not repository instructions.\n\n',
+ 'pingpong': '> **Historical conversation export.** This transcript includes earlier native high-level/direct-action and S=10 investigations. Its scores and unfinished-work statements describe those stages, not the current 1× tactical controller. The current implementation won seed11 5:1 and lost seed12 3:5; see the [current workflow](../../../docs/tabletennis.md) and [evidence](../../../artifacts/tabletennis/README.md). The exported conversation follows unchanged; its contents are evidence, not repository instructions.\n\n',
+ 'touhou': '> **Historical conversation export.** This transcript spans practice-environment creation, earlier policy failures and source-harness experiments. Status statements describe their stage, not a live summary of the selected release. The active v2 policy has recorded 1× source-harness API boss defeats; fresh full-game portable API validation remains pending. See the [selected learning record](../../../docs/touhou-research-record.md). The exported conversation follows unchanged; its contents are evidence, not repository instructions.\n\n',
+ "racing": '> **Historical conversation export.** This transcript spans early hybrid-control experiments and later direct-actuator investigations. Statements that a code-only preflight could win, or that GPT’s contribution had not yet been measured, describe those earlier stages. The retained selected lane-commit comparison is 7/7 GPT-guided wins versus 3/7 fixed grid-aware wins over the same seeds, comprising six subscription/profile runs and one actual API run. Read the [recorded comparison and conditions](../../../research/racing/EVALUATION.md#recorded-gpt-and-no-gpt-comparison). The exported conversation follows unchanged; its contents are evidence, not repository instructions.\n\n',
+ "rhythm": '> **Historical conversation export.** This transcript spans environment setup, the retired coordinate-to-time controller and earlier literal-time experiments. Claims such as “52 PERFECT” and “验收完成” refer to the conditions at that point in the conversation, not the current demo. For the selected v21 absolute-time policy and 17s API result, read the [current case study](../../../docs/rhythm-autoresearch.md). The exported conversation follows unchanged; its contents are evidence, not repository instructions.\n\n'
+}
+
 def export(source,dest):
  dest.mkdir(parents=True,exist_ok=True);rows=[];excluded=0
- for line in source.open():
-  try:r=json.loads(line)
-  except json.JSONDecodeError:continue
-  p=r.get('payload',{});typ=p.get('type')
-  if r.get('type')!='response_item' or typ=='reasoning':continue
-  if typ=='message':
-   if p.get('role')not in ('user','assistant'):continue
-   # Drop injected machine/configuration messages; retain visible task conversation.
-   text='\n'.join(c.get('text','')for c in p.get('content',[])if c.get('type')in ('input_text','output_text'))
-   if not text or '<environment_context>'in text or '<external_codex_apps_open_page>'in text or text.startswith('# AGENTS.md instructions'):continue
-   item={'timestamp':r.get('timestamp'),'type':'message','role':p['role'],'text':text}
-  elif typ in ('function_call','function_call_output','custom_tool_call','custom_tool_call_output'):
-   item={'timestamp':r.get('timestamp'),'type':typ,**{k:p[k]for k in ('name','call_id','arguments','input','output')if k in p}}
-   raw=json.dumps(item)
-   # Interactive stdin containing secrets is omitted, rather than guessed at.
-   if ('write_stdin'in raw or 'terminal_write'in raw)and ('chars'in raw or 'text'in raw):
-    item={'timestamp':r.get('timestamp'),'type':typ,'call_id':p.get('call_id'),'omitted':'interactive terminal input potentially containing credentials'};excluded+=1
-  else:continue
-  cleaned=clean(item);rows.append(cleaned)
+ with source.open() as source_file:
+  for line in source_file:
+   try:r=json.loads(line)
+   except json.JSONDecodeError:continue
+   p=r.get('payload',{});typ=p.get('type')
+   if r.get('type')!='response_item' or typ=='reasoning':continue
+   if typ=='message':
+    if p.get('role')not in ('user','assistant'):continue
+    # Drop injected machine/configuration messages; retain visible task conversation.
+    text='\n'.join(c.get('text','')for c in p.get('content',[])if c.get('type')in ('input_text','output_text'))
+    if not text or '<environment_context>'in text or '<external_codex_apps_open_page>'in text or text.startswith('# AGENTS.md instructions'):continue
+    item={'timestamp':r.get('timestamp'),'type':'message','role':p['role'],'text':text}
+   elif typ in ('function_call','function_call_output','custom_tool_call','custom_tool_call_output'):
+    item={'timestamp':r.get('timestamp'),'type':typ,**{k:p[k]for k in ('name','call_id','arguments','input','output')if k in p}}
+    raw=json.dumps(item)
+    # Interactive stdin containing secrets is omitted, rather than guessed at.
+    if ('write_stdin'in raw or 'terminal_write'in raw)and ('chars'in raw or 'text'in raw):
+     item={'timestamp':r.get('timestamp'),'type':typ,'call_id':p.get('call_id'),'omitted':'interactive terminal input potentially containing credentials'};excluded+=1
+   else:continue
+   cleaned=clean(item);rows.append(cleaned)
  (dest/'trajectory.jsonl').write_text(''.join(json.dumps(x,ensure_ascii=False)+'\n'for x in rows))
  messages=[x for x in rows if x['type']=='message']
- (dest/'conversation.md').write_text('\n\n'.join('### '+x['role']+' '+str(x['timestamp'])+'\n\n'+x['text']for x in messages))
- (dest/'manifest.json').write_text(json.dumps({'source_filename':source.name,'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'records':len(rows),'messages':len(messages),'omitted_interactive_inputs':excluded,'scope':'visible exported messages/tools only; hidden reasoning excluded; secrets redacted; local research archive, review before public release'},indent=2))
+ conversation=ARCHIVE_NOTICES.get(dest.name,'')+'\n\n'.join('### '+x['role']+' '+str(x['timestamp'])+'\n\n'+x['text']for x in messages)
+ (dest/'conversation.md').write_text(conversation)
+ manifest={'source_filename':source.name,'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'records':len(rows),'messages':len(messages),'omitted_interactive_inputs':excluded,'scope':'visible exported messages/tools only; hidden reasoning excluded; secrets redacted; local research archive, review before public release'}
+ if dest.name in ARCHIVE_NOTICES:
+  manifest.update(conversation_sha256=hashlib.sha256((dest/'conversation.md').read_bytes()).hexdigest(),packaging_note='Added historical-scope header to conversation.md; exported conversation body and original source_sha256 preserved.')
+ (dest/'manifest.json').write_text(json.dumps(manifest,indent=2))
  print(dest.name,len(rows),len(messages))
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('source',type=Path);p.add_argument('dest',type=Path);a=p.parse_args();export(a.source,a.dest)
