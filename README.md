@@ -23,6 +23,8 @@ Click a preview to watch the video.
 
 These clips come from individual runs, rather than repeated win-rate tests. Each caption identifies how that run was timed. The Asterix clip replays a fresh real-time API run at 12 FPS (5× slowdown); Touhou, Racing, Rhythm, and PingPong also used actual API calls while the game was running. The Badminton clip replays a recorded real-time API run at 3x slowdown. Racing uses a steering controller, and PingPong uses a controller to execute shots. [Clip sources and editing details](assets/gameplay/README.md).
 
+PingPong and Badminton MP4s include quiet locally generated background music; GIF previews are silent. [Music provenance](assets/gameplay/sports-music-provenance.json).
+
 [Overview](#what-is-sooool) · [Autoresearch](#autoresearch) · [How a game runs](#how-a-game-runs) · [Latency simulator](#how-the-latency-simulator-works) · [Games & results](#games-and-controls) · [Quick start](#quick-start) · [Code guide](#find-your-way-around-the-code)
 
 To understand the method, start with [Autoresearch](#autoresearch). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
