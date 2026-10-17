@@ -60,7 +60,7 @@ These commands cover Touhou, Rhythm, and Asterix; `sol profile` is available for
 |---|---|---|
 | `sol profile` | Send saved inputs one at a time and measure response times. No game actions are executed. | Paid API calls with a budget cap |
 | `sol simulate` | **Simulation:** use sampled delays to schedule new decisions; virtual time can wait for the agent. | ChatGPT subscription calls and a latency profile |
-| `sol eval` | **Live API/subscription run:** the game keeps running while the agent responds. | Touhou/Rhythm: paid API with a budget cap. Asterix: subscription, 5× slowdown. |
+| `sol eval` | **Live API/subscription run:** the game keeps running while the agent responds. | API or subscription calls; paid API calls require a budget cap. |
 
 **Replay** can restore a fixed starting state before candidates make new decisions, or reproduce a saved action sequence to check timing and make videos. Replaying saved actions makes no new decisions and is not a new performance result. [Development and replay workflow](docs/development.md).
 
