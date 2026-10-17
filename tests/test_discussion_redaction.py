@@ -1,4 +1,7 @@
 import importlib.util
+import hashlib
+import json
+import tempfile
 from pathlib import Path
 import unittest
 
@@ -30,3 +33,41 @@ class Redaction(unittest.TestCase):
         marker = "OPENSSH " + "PRIVATE KEY"
         key = f"-----BEGIN {marker}-----\nexample\n-----END {marker}-----"
         self.assertEqual(exporter.scrub(key), "[REDACTED_PRIVATE_KEY]")
+
+
+class ArchiveScope(unittest.TestCase):
+    def check_refresh(self, game):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root/'source.jsonl'
+            row = {'type':'response_item','timestamp':'2026-10-15T00:00:00Z',
+                   'payload':{'type':'message','role':'assistant',
+                              'content':[{'type':'output_text','text':'52 PERFECT'}]}}
+            source.write_text(json.dumps(row)+'\n')
+            dest = root/game
+            for _ in range(2):
+                exporter.export(source, dest)
+                body = (dest/'conversation.md').read_text()
+                self.assertTrue(body.startswith('> **Historical conversation export.**'))
+                self.assertEqual(body.count('Historical conversation export'), 1)
+                self.assertEqual(body.split('\n\n',1)[1],
+                                 '### assistant 2026-10-15T00:00:00Z\n\n52 PERFECT')
+                manifest = json.loads((dest/'manifest.json').read_text())
+                self.assertEqual(manifest['messages'], 1)
+                self.assertEqual(manifest['source_sha256'], hashlib.sha256(source.read_bytes()).hexdigest())
+                self.assertEqual(manifest['conversation_sha256'], hashlib.sha256((dest/'conversation.md').read_bytes()).hexdigest())
+
+    def test_rhythm_refresh_retains_scope_without_changing_exported_message(self):
+        self.check_refresh('rhythm')
+
+    def test_racing_refresh_retains_scope_without_changing_exported_message(self):
+        self.check_refresh('racing')
+
+    def test_asterix_refresh_retains_scope_without_changing_exported_message(self):
+        self.check_refresh('asterix')
+
+    def test_pingpong_refresh_retains_scope_without_changing_exported_message(self):
+        self.check_refresh('pingpong')
+
+    def test_touhou_refresh_retains_scope_without_changing_exported_message(self):
+        self.check_refresh('touhou')

@@ -1,5 +1,7 @@
 # SOL researches a realtime Touhou policy
 
+This task uses the repository’s simplified Touhou-inspired Kaguya practice arena with original-game presentation assets, rather than the original commercial game’s engine or exact spell-card patterns. [Environment scope](../environments/touhou/README.md).
+
 The selected controller is **`tracking_dodge_safe_intercept_v2`**, an early checkpoint that earned promotion through a fixed development gate and live API evaluation. The release follows that checkpoint. A larger version number is not the selection criterion.
 
 SOL sees chronological screenshots and its own previously returned controls, then chooses every direction, Z/Shift/X key and duration. The game keeps advancing during API inference. There is no target servo, coded dodge, automatic bomb or prerecorded action script in a live evaluation. `player`, `boss` and `aim_x` are the model's visual estimates for auditing; the executor consumes only `plan`.
@@ -22,7 +24,7 @@ flowchart LR
     G --> C
 ```
 
-The human supplied the task, spending limit, behavior feedback, a demonstrated trajectory and review. SOL implemented the environment/harness, inspected recorded failures, formulated candidate prompt changes, collected subscription answers, evaluated the fixed cases and ran the API tests. This is agent-driven prompt research with human guidance; it does not train model weights or claim an experiment without human input.
+The human supplied the task, spending limit, behavior feedback, a demonstrated trajectory and review. SOL implemented the environment/harness, inspected recorded failures, formulated candidate prompt changes, collected subscription answers, evaluated the fixed cases and ran the API tests. This is task-policy training through agent-driven exploration and human guidance, with base-model weights frozen. Repeatedly practicing the same encounter is how the policy learns delayed tracking, safe movement and defensive timing. The online actor still chooses each action from new screenshots; the learned strategy is retained in the policy rather than a prerecorded action sequence. See [latency-aware learning](latency-aware-learning.md).
 
 ### 1. Establish timing before interpreting scores
 
@@ -31,6 +33,8 @@ Early 1× development rounds repeatedly lost or survived without defeating the b
 The first frozen single-action realtime attempt lost at 53.98 game seconds with 450 boss HP remaining despite 25 valid requests. A single earlier simulated win had not survived confirmation. This motivated further research instead of declaring success.
 
 Profiling used **serial API calls** on varied retained observations. Development used actual subscription model answers, while the simulator imposed a recorded delay condition. When a subscription answer took longer to compute, virtual game time waited at its scheduled delivery event. Wall-clock subscription time was recorded separately. A simulated win was therefore evidence for a candidate, not realtime acceptance.
+
+Touhou uses same-observation races to give a decision multiple chances to become ready before its control deadline. This is distinct from the staggered observations used to sustain cadence in Rhythm: four race candidates are four attempts at one observation, not four different observations. The policy predicts the action-start state from its delayed input.
 
 In the race controller, complete legal JSON can apply before a response's terminal event. The losing responses must still drain and settle. Their slots and fee reservations remain occupied until then. Readiness, terminal occupancy and mechanical application are separate events.
 
@@ -72,7 +76,7 @@ The append-only [record index](../artifacts/touhou/evaluations.jsonl) is authori
 | Native English, four-way | Actual API, seed 1, 1× | Defeat 58.47s; 2 hits | 2.35s | 72 / 18 | $1.74 |
 | Previous portable simulation | Subscription + historical timing, seed 9 | Loss 48.82s; boss 260 HP | Not actual API timing | 68 / 16 | Subscription |
 
-An earlier English four-way attempt was interrupted by conservative budget admission. Its 30 billed calls and $0.6976908 cost are retained separately; two rejected admissions were never billed. It has no completed game outcome and is not counted as a policy loss. The two-/four-way comparison above is one episode per condition: it did not establish a median-latency benefit or a stable win-rate improvement. Seed1 is a development/demo seed, not held out.
+An earlier English four-way attempt was interrupted by conservative budget admission. Its 30 billed calls and $0.6976908 cost are retained separately; two rejected admissions were never billed. It has no completed game outcome and is not counted as a policy loss. The two-/four-way comparison above is one episode per condition, so it does not estimate a race-specific performance gain. The demonstrated objective is successful control despite inference delay: the selected four-way run defeated the boss at 1×. Seed 1 is a practiced development/demo encounter; success here demonstrates the learned encounter policy, while transfer to unseen encounters and a stable success rate require their own evaluations.
 
 Fresh CLI validation is appended to the index rather than replacing the previous portable loss or retroactively relabeling these source-harness results.
 

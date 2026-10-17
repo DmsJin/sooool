@@ -4,5 +4,7 @@
   "records": 3130,
   "messages": 536,
   "omitted_interactive_inputs": 206,
-  "scope": "Filtered visible development subset from the selected-policy phase; retired policy records omitted; original external sessions unchanged."
+  "scope": "Filtered visible development subset from the selected-policy phase; retired policy records omitted; original external sessions unchanged.",
+  "conversation_sha256": "e59ecb7d2fa5ebc1252e1d5c56b3ca9445c678c2cbf4ff25acdd94d60ebeab44",
+  "packaging_note": "Added historical-scope header to conversation.md; exported conversation body and original source_sha256 preserved."
 }

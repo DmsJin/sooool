@@ -26,6 +26,6 @@ Require completed execution, valid canonical trial where available, independentl
 2. Freeze before fresh confirmation seeds. Reused seeds and video retakes remain reused seeds.
 3. Calibrate the exact workload, including output format and concurrent occupancy, before treating simulated timing as a prediction of API behavior.
 4. Run real-time API verification with the frozen candidate and bounded budget. Check model/tier, inputs, finish/checkpoint evidence, physics wall time and replay independently.
-5. Publish both the useful behavior and its limits. Separate coded tracking from GPT decisions; include a matched no-model baseline before claiming a model advantage.
+5. Publish the observed model and no-model outcomes together with their conditions. The retained selected-policy comparison is 7/7 GPT-guided wins versus 3/7 fixed grid-aware wins over the same seeds; report its mixed execution modes and timing/load differences. Separate coded tracking from GPT decisions. Use matched conditions to estimate a causal effect size; an observed performance difference may be reported with its limitations. See [the recorded comparison](EVALUATION.md#recorded-gpt-and-no-gpt-comparison).
 
 Video is supporting evidence. State whether it is live capture or verified replay, which waits were omitted, whether speed changed, and whether heat order was edited. Evaluation tables always use original records and original chronology.

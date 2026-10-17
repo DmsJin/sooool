@@ -1,3 +1,5 @@
+> **Retained source-harness research record.** This report/protocol describes its original experiment stage. “Current”, “ongoing”, “selected” and acceptance statements below belong to that stage; use the [selected Touhou learning record](../../../docs/touhou-research-record.md) for the released policy, actual API wins and current launcher status. The original report follows unchanged.
+
 # Frozen V2 tracking hypotheses
 
 Frozen before the second collection. Use the same 12 public cases, two repeats, original images/memories, observed delay summaries and unchanged baseline `tracking_dodge_adaptive`. New candidates are `tracking_dodge_safe_intercept_v2` and `tracking_dodge_safe_corridor_v2`. Both append fewer than 1,300 characters to the original baseline instead of the long V1 exposition. No engine/executor/controls/action contract changes. All existing strategies, including V1, remain byte identical.

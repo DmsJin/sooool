@@ -15,7 +15,9 @@ uv run sol doctor --game rhythm --auth
 uv run sol simulate rhythm --seed 20261016 --output runs/rhythm-dev-001
 ```
 
-Simulation makes new subscription-model decisions. It imposes the retained
+Simulation makes new subscription-model decisions. `--seed` selects the delay
+sampling sequence; the recipe retains a fixed chart, so changing this seed
+does not create a new chart. It imposes the retained
 joint distribution of API action-readiness, image age, transport and terminal
 request occupancy. A 50ms content/timestamp displacement is explicitly injected
 to represent the diagnosed screenshot delay; its future draws stay private.
@@ -53,7 +55,9 @@ monotonic clock, pending literal plans, the last 2 raw receipts, recent observed
 RTTs, request version and the frozen model-authored memory. Public calibration
 states receptor y=717 and speed 0.2404px/ms. The memory says image timestamps
 are approximately 50ms later than their content; GPT must account for this in
-its output. It never receives chart notes, audio-clock truth or future delays.
+its output. The formula in the frozen memory is guidance for GPT, not a program
+that the executor evaluates. It never receives chart notes, audio-clock truth
+or future delays. See [the frozen policy notes](../policies/rhythm/v21/README.md).
 
 ```json
 {"v":2,"a":[["k18","k",4804,4954]]}

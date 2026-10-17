@@ -28,19 +28,32 @@ The earlier lane-goal checkpoint also had a real API seed204 2:0 win; its [separ
 | Frozen action-only lane-commit | 304 | 2:0 | 82 | 260/260 | Canonical valid trial and deterministic replay |
 | Same-response English summary + lane-commit | 304, reused | 2:1 | 137 | 432/432 | Canonical valid trial and deterministic replay |
 
-Both are actual `gpt-6.1-sol / low / ultrafast` API runs with legal camera inputs, Level 1, 1x physics, no imposed model delay and zero own warnings. Winning heats finish normally through all checkpoints. The simulator/referee/reward were not changed. Replay verifies trajectory consistency; it does not establish that GPT is necessary. Streaming releases valid complete JSON before response drain when identity is already known, while retaining accounting/occupancy until completion.
+Both are actual `gpt-6.1-sol / low / ultrafast` API runs with legal camera inputs, Level 1, 1x physics, no imposed model delay and zero own warnings. Winning heats finish normally through all checkpoints. The simulator/referee/reward were not changed. Replay verifies trajectory consistency; the model-versus-baseline comparison is reported separately below. Streaming releases valid complete JSON before response drain when identity is already known, while retaining accounting/occupancy until completion.
 
-## Check what the coded controller can do alone
+## Recorded GPT and no-GPT comparison
 
-These are free no-GPT HTTP matches at 1x, retaining the visual tracker, curvature cap, goal expiry and imposed historical API delays. They are not paid API evaluations.
+**The selected GPT-guided strategy won 7/7 recorded matches on the seven tested seeds; the fixed grid-aware no-GPT baseline won 3/7.** Both use the same lane-controller class and camera metrics. On seeds 111, 121, 301 and 303 the baseline lost and the GPT-guided strategy won. This is positive evidence for the GPT-guided strategy’s performance in this tested setup; a controller that sometimes wins alone does not account for the full observed result.
+
+| Seeds | Fixed grid-aware baseline | Selected GPT strategy | GPT execution / evidence |
+|---|---:|---:|---|
+| 101 / 111 / 121 | 1/3 | 3/3 | Subscription + sampled API delays; [development records](evidence/round11_lane_commit/status.json) |
+| 301 / 302 / 303 | 1/3 | 3/3 | Subscription + sampled API delays; [frozen confirmation records](evidence/round13_lane_commit_holdout/status.json) |
+| 304 | 1/1 | 1/1 | Actual continuously advancing API; [selected result](evidence/api-live-lane-commit-1x-s304-v1/summary.json) |
+| **Recorded total** | **3/7** | **7/7** | Same seven seeds; execution conditions differ across cohorts |
+
+The baseline’s [per-seed outcomes](evidence/fixed-grid-baseline.json) match those seed groups. The six subscription results used numeric camera measurements because their historical image adapter omitted image contents, as disclosed above. The seed304 API run did receive images. The English-summary retake on seed304 is a separate successful variant, not an eighth seed in this total.
+
+The baseline matches ran at 1× wall-clock physics with zero GPT calls, retaining the visual tracker, curvature cap, goal expiry and imposed historical API delays. The historical GPT cohorts were not rerun under identical timing and concurrent load, their goal parameters differ, and the rule baseline was not exhaustively tuned. Those limits constrain attribution of an exact effect size and generalization; they do not erase the observed 7/7 versus 3/7 result. A timing-matched comparison and more seeds would refine that result.
+
+### Additional fixed-goal baselines
 
 | Fixed-goal baseline | Match wins over seeds 101/111/121/301/302/303/304 | Observation |
 |---|---:|---|
-| Speed 3.2, lookahead 2.0, offset ±0.38 from each heat's initial grid | 3/7 | The code can win without GPT. [Record](evidence/fixed-grid-baseline.json) |
+| Speed 3.2, lookahead 2.0, offset ±0.38 from each heat's initial grid | 3/7 | Fixed grid-aware reference for the 3/7 versus 7/7 comparison above. [Record](evidence/fixed-grid-baseline.json) |
 | `[3.4, +0.38, 1.7]` every heat | 0/7 | Collision warnings; constant left offset conflicts with the opponent. [Record](evidence/fixed-plus038.json) |
 | `[3.4, -0.38, 1.7]` every heat | 0/7 full matches; 7/7 first heats won | After grid exchange, second-heat collisions cause disqualification. [Record](evidence/fixed-minus038.json) |
 
-This does **not** isolate GPT's causal gain: the historical model cohorts were not rerun with identical concurrency/timing, parameters differ, and no tuned rule search was performed. It does motivate a matched grid-aware baseline and broader seed evaluation before a claim of model advantage.
+The constant-offset variants did not win any complete matches. Their first-heat successes must not be counted as full-match wins or confused with the selected GPT strategy’s 7/7 complete-match results.
 
 ## Presentation and selection
 

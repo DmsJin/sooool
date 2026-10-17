@@ -1,5 +1,6 @@
 """Rebuild README highlights from the local source paths in the manifest. No model calls."""
 import argparse
+import hashlib
 import json
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
@@ -26,10 +27,15 @@ def build(item):
                          f'[0:v]{filt}[v];[v][1:v]paletteuse=dither=sierra2_4a:diff_mode=rectangle',
                          '-loop', '0', str(target)], check=True)
     palette.unlink()
-    # A compact full-colour companion for manual playback and sharing.
-    subprocess.run(cmd + ['-vf', filt, '-an', '-c:v', 'libx264', '-crf', '20',
-                         '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(OUT / (name + '.mp4'))], check=True)
-    item.update(bytes=target.stat().st_size)
+    # Some games retain their complete source video at the companion path.
+    # Rebuild its GIF without replacing the original video with a silent cut.
+    companion = OUT / (name + '.mp4')
+    if source.resolve() != companion.resolve():
+        subprocess.run(cmd + ['-vf', filt, '-an', '-c:v', 'libx264', '-crf', '20',
+                             '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(companion)], check=True)
+    item.update(bytes=target.stat().st_size,
+                source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
+                gif_sha256=hashlib.sha256(target.read_bytes()).hexdigest())
     print(name, target.stat().st_size, flush=True)
     return item
 

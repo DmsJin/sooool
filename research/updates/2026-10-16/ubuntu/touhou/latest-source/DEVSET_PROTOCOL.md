@@ -1,3 +1,5 @@
+> **Retained source-harness research record.** This report/protocol describes its original experiment stage. “Current”, “ongoing”, “selected” and acceptance statements below belong to that stage; use the [selected Touhou learning record](../../../../../../docs/touhou-research-record.md) for the released policy, actual API wins and current launcher status. The original report follows unchanged.
+
 # Visual tracking and delayed-dodge development set
 
 The objective remains defeating Kaguya at the original 1x game speed. Surviving the timer alone is a failure. All player decisions belong to GPT; the executor only applies its requested keys and durations. Physics, hitboxes, bullet timing and difficulty stay unchanged.

@@ -4,10 +4,10 @@
 
 `sol eval badminton --budget-usd 15 --ledger outputs/badminton-budget.json --env-file /absolute/path/to/.env --output outputs/badminton-api101`
 runs one L1, seed-101 native match. It uses one serial `gpt-6.1-sol / low / ultrafast`
-request and a continuously advancing S3 clock. Camera control and native stroke
+request and a continuously advancing S3 clock. S3 means 3× slowdown: one game second takes three wall seconds. Camera control and native stroke
 planning run off the physics process. Limits, preparation timing, public English
 summaries and verified replay video are described in [Badminton](badminton.md).
-Run `sol preflight badminton` with an explicit output directory before paid use.
+Run `sol preflight badminton` with an explicit output directory before paid use. The latest retained goal-v2 API match completed 8:11 with 90/97 legal returns and matching native replay. It predates the latest public-input acknowledgement filter correction; [the evidence record](../artifacts/badminton/realtime-rerun-005.json) identifies the exact run conditions.
 
 ## Asterix
 
@@ -32,7 +32,7 @@ uv run sol eval touhou --seed 1 --budget-usd 5 --max-calls 100 \
   --output runs/touhou-api-001
 ```
 
-The default recipe uses `gpt-6.1-sol / low`, actual API streaming, a four-way first-complete-legal race, four in-flight slots, three past screenshots, native English public summaries and the original 1× game engine. Every selected key and duration comes from GPT. The game advances throughout inference. `--budget-usd` is required; an existing shared ledger must be explicitly selected with `--ledger` and counts toward that cumulative cap.
+The default recipe uses `gpt-6.1-sol / low`, actual API streaming, a four-way first-complete-legal race, four in-flight slots, three past screenshots, native English public summaries and the original 1× game engine. The race gives each observation multiple chances to produce a legal plan before its deadline; it is one of the [latency-aware control mechanisms](latency-aware-learning.md), distinct from staggered observation pipelines. Every selected key and duration comes from GPT. The game advances throughout inference. `--budget-usd` is required; an existing shared ledger must be explicitly selected with `--ledger` and counts toward that cumulative cap.
 
 `sol simulate touhou` uses a ChatGPT subscription and modeled profile timing. It rejects API recipes rather than falling back to a paid provider. `sol profile touhou --episode RUN/episode ...` makes strictly serial API requests on deduplicated frozen inputs; returned actions are not executed. These commands measure different conditions.
 
@@ -42,13 +42,19 @@ An early legal JSON response can be applied while its terminal event is pending.
 
 The current policy accepts only short public summaries, not internal reasoning traces. A summary and action are displayed atomically from the same selected response. The display panel is outside the actor's observation. Postprocessed videos must retain their original timing and label added audio or rendering changes.
 
-## Other games
+## Rhythm: model-owned absolute tap times
 
-Rhythm retains its original real-time research paths:
+`sol eval rhythm --budget-usd 5 --max-calls 90 --output runs/rhythm-api-001`
+uses the selected v21 policy and a continuously advancing browser/audio clock.
+GPT chooses each key and absolute tap timestamp in the executor’s monotonic
+clock domain. The executor preserves those timestamps and handles timed key
+delivery; it does not calculate tap times from note coordinates.
 
-- Rhythm model-owned timing: `environments/rhythm/experiments/rhythm/model_native.py`; prior cropped-coordinate campaign: `realtime_v2.py`. Native audio evaluation additionally needs the authorized audio resource and continuous audio/browser clocks.
-
-Their original commands retain their declared resource and budget assumptions. The root `sol eval asterix` uses the shared native loop; `sol eval racing` delegates to the selected Racing driver. Historical and fresh results must remain separately labeled.
+The selected native API episode achieved 24 Perfect, 1 Great and zero Miss over
+a 17-second preview at 1× audio speed, with 2.5s visual approach. Two empty
+presses broke the combo. See [the current workflow](rhythm.md) for commands,
+calibration, budgets and portability limits, and [the case study](rhythm-autoresearch.md)
+for the selected experiment. Historical and fresh runs retain separate records.
 
 ## Racing
 
