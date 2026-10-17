@@ -198,7 +198,7 @@ More commands: [Release guide](docs/release-guide.md) · Comparing strategies: [
 
 ```bibtex
 @misc{wang2026sooool,
-  title        = {Sooool!},
+  title        = {{Sooool! Can coding agents play real-time games?}},
   author       = {Wang, Zihan and Li, Xinyuan and Li, Zeju and Lin, Yuxiang and Gui, Chi and Pei, Jiaxin and Li, Manling},
   year         = {2026},
   url          = {https://github.com/sooool-project/sooool}
