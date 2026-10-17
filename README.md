@@ -179,7 +179,6 @@ Other games have their own setup requirements: [Rhythm](docs/rhythm.md), [Racing
   title        = {Sooool!},
   author       = {Wang, Zihan and Li, Xinyuan and Li, Zeju and Lin, Yuxiang and Gui, Chi and Pei, Jiaxin and Li, Manling},
   year         = {2026},
-  howpublished = {GitHub repository},
   url          = {https://github.com/sooool-project/sooool}
 }
 ```
