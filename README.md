@@ -10,22 +10,22 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with
 
 <table>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="The coding agent dodging Kaguya's bullet patterns with live English decision summaries" width="390"></a><br><b>Touhou</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="The coding agent playing table tennis with both camera views and live public decision summaries" width="390"></a><br><b>PingPong</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="The coding agent dodging Kaguya's bullet patterns with live English decision summaries" width="390"></a><br><b>Touhou</b> · Live API/subscription run · 1×</td>
+<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="The coding agent playing table tennis with both camera views and live public decision summaries" width="390"></a><br><b>PingPong</b> · Live API/subscription run · 1×</td>
 </tr>
 <tr>
 <td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="The coding agent collecting food in Asterix alongside original public decision summaries" width="390"></a><br><b>Asterix</b> · Simulation replay · 5× slowdown</td>
-<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="The coding agent playing badminton: opening serve and rally, with both camera views and original English decision summaries" width="390"></a><br><b>Badminton</b> · Real-time API replay · 3× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="The coding agent playing badminton: opening serve and rally, with both camera views and original English decision summaries" width="390"></a><br><b>Badminton</b> · Live API/subscription run (replay) · 3× slowdown</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="The coding agent choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="243"></a><br><b>Rhythm</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="The coding agent selecting racing targets through bends and obstacles, with live decisions" width="390"></a><br><b>Racing</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="The coding agent choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="243"></a><br><b>Rhythm</b> · Live API/subscription run · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="The coding agent selecting racing targets through bends and obstacles, with live decisions" width="390"></a><br><b>Racing</b> · Live API/subscription run · 1×</td>
 </tr>
 </table>
 
 ## Latency profiling and simulation
 
-Our workflow is **profile → simulate → eval**: measure target API latency, develop strategies with subscription calls on a reproducible virtual clock, then test selected strategies against a real-time game clock.
+Our workflow is **profile → simulate → eval**: measure target API latency, develop strategies with subscription calls on a reproducible virtual clock, then test selected strategies in a live API/subscription run.
 
 ### Profile the latency
 
@@ -50,17 +50,17 @@ During development, subscription calls produce new decisions while the simulator
 
 This lets Codex compare strategies under the same delay conditions, even when the actual subscription calls take different amounts of time.
 
-### Test in real time
+### Live API/subscription run
 
-Fix the selected strategy and run it with actual response times. A three-second response means the game also moves forward for three seconds. Touhou and Rhythm use the paid API; Asterix uses subscription response times and keeps its declared slowdown.
+Fix the selected strategy and run it with actual response times. The game keeps running while the agent responds: a three-second response means the game also moves forward for three seconds.
 
-For Touhou and Rhythm, the commands divide the work like this:
+These commands cover Touhou, Rhythm, and Asterix; `sol profile` is available for Touhou and Rhythm:
 
 | Command | What happens | What it uses |
 |---|---|---|
 | `sol profile` | Send saved inputs one at a time and measure response times. No game actions are executed. | Paid API calls with a budget cap |
-| `sol simulate` | Play a new game and use sampled delays to schedule answers. Virtual time can wait for the agent. | ChatGPT subscription calls and a latency profile |
-| `sol eval` | Play with a continuously running clock and actual response times. | Paid API calls with a budget cap |
+| `sol simulate` | **Simulation:** use sampled delays to schedule new decisions; virtual time can wait for the agent. | ChatGPT subscription calls and a latency profile |
+| `sol eval` | **Live API/subscription run:** the game keeps running while the agent responds. | Touhou/Rhythm: paid API with a budget cap. Asterix: subscription, 5× slowdown. |
 
 **Replay** can restore a fixed starting state before candidates make new decisions, or reproduce a saved action sequence to check timing and make videos. Replaying saved actions makes no new decisions and is not a new performance result. [Development and replay workflow](docs/development.md).
 
@@ -74,7 +74,7 @@ With the simulator, Codex can try changes, compare strategies, and inspect failu
 4. **Keep or reject it.** Check safety as well as score, then test promising candidates through complete games.
 5. **Test in real time.** Fix the selected strategy and settings, run with actual response delays, and use the results to guide the next experiment.
 
-**For example,** in Touhou the coding agent often chased where the boss had been before it started thinking. Codex tested instructions that anticipated the boss's next position. Some changes increased damage but caused more hits, so they were rejected. Adding safety checks for the action's start, movement path, and stopped position produced a candidate that passed comparisons on 12 fixed cases, then went on to full-game simulation and real-time testing. [Full case study](docs/touhou-research-record.md).
+**For example,** in Touhou the coding agent often chased where the boss had been before it started thinking. Codex tested instructions that anticipated the boss's next position. Some changes increased damage but caused more hits, so they were rejected. Adding safety checks for the action's start, movement path, and stopped position produced a candidate that passed comparisons on 12 fixed cases, then went on to full-game simulation and a live API/subscription run. [Full case study](docs/touhou-research-record.md).
 
 A **policy** is the gameplay instructions, fixed notes supplied with each request (called memory), output format, and request settings. Codex improves the prompts and settings without changing the model's weights.
 
@@ -101,7 +101,7 @@ An answer can take seconds. Sending requests while earlier ones are still waitin
 
 More requests also mean more calls, cost, and potentially outdated answers. Asterix's serial setup followed limited trials in which overlapping requests appeared to encourage repeated movement. [Request ordering, capacity, and experiment details](docs/latency-aware-learning.md).
 
-A **recipe** is a JSON file selecting a policy, latency profile, and run settings. See the selected recipes: [Touhou simulation](recipes/touhou.json), [Touhou real-time](recipes/touhou-realtime.json), [Rhythm](recipes/rhythm.json), and [Asterix](recipes/asterix.json).
+A **recipe** is a JSON file selecting a policy, latency profile, and run settings. See the selected recipes: [Touhou simulation](recipes/touhou.json), [Touhou live run](recipes/touhou-realtime.json), [Rhythm](recipes/rhythm.json), and [Asterix](recipes/asterix.json).
 
 ### Action example
 
@@ -145,12 +145,12 @@ Evaluators may inspect game state to score outcomes. [Observation boundaries](do
 
 | Game | Result | Execution |
 |---|---|---|
-| **Touhou** | Boss defeated in 58.47 game seconds, two hits | Real-time API, 1× |
-| **PingPong** | Won 5:1 on seed 11; lost 3:5 on seed 12 | Real-time API, 1× |
-| **Asterix** | 500 points, two lives after 20 game seconds | Sampled-delay simulation, 5× slowdown |
-| **Badminton** | Lost 8:11 | Real-time API, 3× slowdown |
-| **Rhythm** | 24 Perfect, 1 Great, zero Miss, two empty presses | Real-time API, 1× music |
-| **Racing** | Won 2:0 on seed 304 | Real-time API, 1×, coded steering |
+| **Touhou** | Boss defeated in 58.47 game seconds, two hits | Live API/subscription run, 1× |
+| **PingPong** | Won 5:1 on seed 11; lost 3:5 on seed 12 | Live API/subscription run, 1× |
+| **Asterix** | 500 points, two lives after 20 game seconds | Simulation, 5× slowdown |
+| **Badminton** | Lost 8:11 | Live API/subscription run, 3× slowdown |
+| **Rhythm** | 24 Perfect, 1 Great, zero Miss, two empty presses | Live API/subscription run, 1× music |
+| **Racing** | Won 2:0 on seed 304 | Live API/subscription run, 1×, coded steering |
 
 ## Quick start
 
@@ -163,7 +163,7 @@ uv run sol doctor --game touhou --auth
 uv run sol simulate touhou --output runs/touhou-dev-001
 ```
 
-To test Touhou in real time, provide an API key through `OPENAI_API_KEY` or the hidden prompt, and set a spending limit:
+For a live API/subscription run of Touhou, provide an API key through `OPENAI_API_KEY` or the hidden prompt, and set a spending limit:
 
 ```bash
 uv run sol eval touhou \
