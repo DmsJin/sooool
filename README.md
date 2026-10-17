@@ -180,8 +180,6 @@ Racing also retains a [recorded GPT and fixed-goal comparison](research/racing/E
 | **Rhythm** | Inspired by Tencent’s [Rhythm Master / 节奏大师](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993); implemented here as a custom four-lane DFJK browser game and practice chart. |
 | **Touhou / Kaguya** | Follows [Touhou Eiyashou ~ Imperishable Night](https://www16.big.or.jp/~zun/html/th08top.html) by ZUN / Team Shanghai Alice; implemented here as a simplified Kaguya practice encounter with original-game presentation assets. |
 
-Environment and media attribution details are recorded in [source and media provenance](docs/provenance.md).
-
 ## Quick start
 
 Start with Touhou in the latency simulator. The tested setup uses Linux, Python 3.10-3.12, Chromium dependencies, and a standalone Codex CLI signed in with a ChatGPT subscription that supports the configured model. The tested CLI version is 0.162.1.
