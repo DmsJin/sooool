@@ -3,7 +3,7 @@
 <p align="center"><strong>Can GPT-6 Sol (a coding agent) play real-time games, where the world keeps moving while it thinks?</strong></p>
 
 <p align="center">
-<a href="#autoresearch-for-latency-aware-agents">Autoresearch for latency-aware agents</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#how-the-latency-simulator-works">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#find-your-way-around-the-code">Code guide</a> · <a href="#citation">Citation</a>
+<a href="#autoresearch-for-latency-aware-agents">Autoresearch for latency-aware agents</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#latency-simulator">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#code-guide">Code guide</a> · <a href="#citation">Citation</a>
 </p>
 
 Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with Agent as Policy. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks.
@@ -14,12 +14,12 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with
 <td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-6 Sol playing table tennis with both camera views and live public decision summaries" width="440"></a><br><b>PingPong</b> · Real-time API · 1×</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol collecting food in Asterix alongside original public decision summaries" width="440"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
-<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" width="440"></a><br><b>Badminton</b> · Real-time API replay · S3 slowdown · 15s</td>
+<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol collecting food in Asterix alongside original public decision summaries" width="440"></a><br><b>Asterix</b> · Simulation replay · 5× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" width="440"></a><br><b>Badminton</b> · Real-time API replay · 3× slowdown</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-6 Sol choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
-<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-6 Sol selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
+<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-6 Sol choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-6 Sol selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · 1×</td>
 </tr>
 </table>
 
@@ -56,21 +56,21 @@ This means: move right, keep shooting, use slow focused movement, do not use a b
 
 In Touhou, movement stops when the plan ends; shooting and focus keep their last settings. A newer accepted decision replaces the unfinished plan. Older observations cannot override a decision already accepted from a newer one.
 
-### Several requests can be waiting at once
+### Concurrent requests
 
 An answer can take seconds. Sending requests while earlier ones are still waiting can keep decisions coming more often, or provide several chances to get an answer sooner. The selected configurations use three patterns:
 
 | Game | Requests | How answers are used |
 |---|---|---|
 | **Touhou** | Send the same observation to **four requests at once**. Start another group after a winner takes effect, movement finishes, and enough slots are free. | Use the first valid answer; the other answers for that observation cannot replace it. |
-| **Rhythm** | Try a new screenshot **every 0.2 seconds**, with **up to 16 requests waiting**. Skip sending when full. | Execute the model's tap times, skip expired taps, and prevent duplicate presses using action IDs. |
 | **Asterix** | **One request at a time.** Observe again after the previous reply. | Hold the chosen direction until a new answer replaces it. |
+| **Rhythm** | Try a new screenshot **every 0.2 seconds**, with **up to 16 requests waiting**. Skip sending when full. | Execute the model's tap times, skip expired taps, and prevent duplicate presses using action IDs. |
 
 More requests also mean more calls, cost, and potentially outdated answers. Asterix's serial setup followed limited trials in which overlapping requests appeared to encourage repeated movement. [Request ordering, capacity, and experiment details](docs/latency-aware-learning.md).
 
 A **recipe** is a JSON file selecting a policy, latency profile, and run settings. See the selected recipes: [Touhou simulation](recipes/touhou.json), [Touhou real-time](recipes/touhou-realtime.json), [Rhythm](recipes/rhythm.json), and [Asterix](recipes/asterix.json).
 
-## How the latency simulator works
+## Latency simulator
 
 Development uses subscription calls to try strategies under delays measured from the target API. For Touhou and Rhythm, the commands divide the work like this:
 
@@ -92,29 +92,25 @@ The simulator also accounts for concurrent requests: Touhou samples groups of de
 
 ## Games and controls
 
-[Current results and execution conditions](docs/results.md) lists each selected strategy, game speed, and supporting records. Touhou is a simplified Kaguya practice encounter rather than the full original game.
-
 | Game | What GPT-6 Sol decides | What the surrounding code does |
 |---|---|---|
 | **Touhou / Kaguya** | Movement, shooting, focus, bombs, and duration | Runs the game, captures screenshots, checks and applies actions |
-| **Racing** | Speed, racing targets, offset, and lookahead | A visual controller supplies steering and limits speed through bends |
-| **Rhythm** | DFJK keys and the times to press them | Forwards the chosen tap times and records execution |
 | **PingPong** | Where to place a shot | Controllers handle serving and execute the robot's motion |
-| **Badminton** | Shot placement and recovery goals | Controllers handle contact planning and native game mechanics |
 | **Atari Asterix** | Which direction to hold | Applies the model's action unchanged until a newer one replaces it |
+| **Badminton** | Shot placement and recovery goals | Controllers handle contact planning and native game mechanics |
+| **Rhythm** | DFJK keys and the times to press them | Forwards the chosen tap times and records execution |
+| **Racing** | Speed, racing targets, offset, and lookahead | A visual controller supplies steering and limits speed through bends |
 
 The game actors do not receive hidden game coordinates or future sampled delays. Evaluators may inspect game state to score outcomes. [Observation boundaries](docs/observation-contract.md).
 
-Selected results are listed below. Each result keeps its original clock and control setup.
-
 | Game | Result | Execution |
 |---|---|---|
-| **Touhou** | Boss defeated in 58.47 game seconds, two hits | Actual API, 1x |
-| **Rhythm** | 24 Perfect, 1 Great, zero Miss, two empty presses | Actual API, 1x music |
-| **PingPong** | Won 5:1 on seed 11; lost 3:5 on seed 12 | Actual API, 1x |
-| **Badminton** | Lost 8:11 | Actual API, 3x slowdown |
-| **Racing** | Won 2:0 on seed 304 | Actual API, 1x, coded steering |
-| **Asterix** | 500 points, two lives after 20 game seconds | Sampled-delay simulation, 5x slowdown |
+| **Touhou** | Boss defeated in 58.47 game seconds, two hits | Real-time API, 1× |
+| **PingPong** | Won 5:1 on seed 11; lost 3:5 on seed 12 | Real-time API, 1× |
+| **Asterix** | 500 points, two lives after 20 game seconds | Sampled-delay simulation, 5× slowdown |
+| **Badminton** | Lost 8:11 | Real-time API, 3× slowdown |
+| **Rhythm** | 24 Perfect, 1 Great, zero Miss, two empty presses | Real-time API, 1× music |
+| **Racing** | Won 2:0 on seed 304 | Real-time API, 1×, coded steering |
 
 The portable launcher has not reproduced the original Touhou and Rhythm results: its fresh Touhou simulation lost, full paid Touhou evaluation is pending, and its live Rhythm run failed. A fresh Asterix simulation scored 300. [Full results and comparisons](docs/results.md) · [Validation history](docs/validation.md).
 
@@ -155,9 +151,11 @@ uv run sol eval touhou \
 
 Runs save their configuration and source snapshot, model inputs and outputs, applied actions, timing, and results. The Touhou real-time runner also records video and API costs. [Real-time setup and budgets](docs/realtime.md).
 
-Other games have their own setup requirements: [Rhythm](docs/rhythm.md), [Racing](docs/racing.md), [PingPong](docs/tabletennis.md), [Badminton](docs/badminton.md), and [Asterix](docs/release-guide.md). The [release guide](docs/release-guide.md) includes profiling commands; the [development guide](docs/development.md) explains how to compare candidates.
+Game setup: [Touhou](docs/realtime.md) · [PingPong](docs/tabletennis.md) · [Asterix](docs/release-guide.md) · [Badminton](docs/badminton.md) · [Rhythm](docs/rhythm.md) · [Racing](docs/racing.md)
 
-## Find your way around the code
+More commands: [Release guide](docs/release-guide.md) · Comparing strategies: [Development guide](docs/development.md)
+
+## Code guide
 
 | Path | Start here to understand... |
 |---|---|
