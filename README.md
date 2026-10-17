@@ -1,8 +1,8 @@
 # Sooool!
 
-**Can a coding agent play real-time games, where the world keeps moving while it thinks?**
+**Can GPT-6 Sol play real-time games, where the world keeps moving while it thinks?**
 
-Sooool! uses an autoresearch loop to get GPT-Sol to play real-time games. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks: a bullet gets closer, an opponent changes direction, or a note passes. A good move can arrive too late.
+Sooool! uses an autoresearch loop to get GPT-6 Sol, working as a coding agent, to play real-time games. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks: a bullet gets closer, an opponent changes direction, or a note passes. A good move can arrive too late.
 
 We give Codex a game, a goal, and an experiment budget, then let it work through trial and error. It plays, looks at what went wrong, changes its strategy, and tries again. During these experiments, a latency simulator recreates the delays measured from actual API calls. Selected strategies are then tested against a real-time game clock, with the game running while the agent thinks.
 
@@ -10,15 +10,15 @@ The games include bullet dodging, racing, rhythm games, and simulated robot spor
 
 <table>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-Sol dodging Kaguya's bullet patterns with live English decision summaries" width="440"></a><br><b>Touhou</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-Sol selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
+<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-6 Sol dodging Kaguya's bullet patterns with live English decision summaries" width="440"></a><br><b>Touhou</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-6 Sol selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
 </tr>
 <tr>
-<td colspan="2" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-Sol collecting food in Asterix alongside original public decision summaries" width="600"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
+<td colspan="2" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol collecting food in Asterix alongside original public decision summaries" width="600"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-SOL choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
-<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-SOL playing table tennis with both camera views and live public decision summaries" width="440"></a><br><b>PingPong</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-6 Sol choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
+<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-6 Sol playing table tennis with both camera views and live public decision summaries" width="440"></a><br><b>PingPong</b> · Real-time API · 1×</td>
 </tr>
 </table>
 
@@ -26,7 +26,7 @@ These clips come from individual runs, rather than repeated win-rate tests. Each
 
 ## Two loops: researching a strategy and playing a game
 
-Codex does two kinds of work. As the researcher, it reads results, proposes changes, edits prompts or permitted control settings, and runs comparisons. During a game, GPT-Sol reads screenshots and chooses actions. These are two roles in the process, not two separately trained models.
+Codex does two kinds of work. As the researcher, it reads results, proposes changes, edits prompts or permitted control settings, and runs comparisons. During a game, GPT-6 Sol reads screenshots and chooses actions. These are two roles in the process, not two separately trained models.
 
 The **research loop** is:
 
@@ -99,7 +99,7 @@ This is what autoresearch means here: turn a failure into a hypothesis, test a c
 
 ## Games and controls
 
-| Game | What GPT-Sol decides | What the surrounding code does |
+| Game | What GPT-6 Sol decides | What the surrounding code does |
 |---|---|---|
 | **Touhou / Kaguya** | Movement, shooting, focus, bombs, and duration | Runs the game, captures screenshots, checks and applies actions |
 | **Racing** | Speed, racing targets, offset, and lookahead | A visual controller supplies steering and limits speed through bends |
