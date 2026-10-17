@@ -6,6 +6,12 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol, working as a coding agent, t
 
 We give Codex a game, a goal, and an experiment budget, then let it work through trial and error. It plays, looks at what went wrong, changes its strategy, and tries again. During these experiments, a latency simulator recreates the delays measured from actual API calls. Selected strategies are then tested against a real-time game clock, with the game running while the agent thinks.
 
+[Demos](#demos) · [Autoresearch](#autoresearch) · [How a game runs](#how-a-game-runs) · [Latency simulator](#how-the-latency-simulator-works) · [Games & results](#games-and-controls) · [Quick start](#quick-start) · [Code guide](#find-your-way-around-the-code)
+
+To understand the method, start with [Autoresearch](#autoresearch). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
+
+## Demos
+
 The games include bullet dodging, racing, rhythm games, and simulated robot sports. Watch a few of the selected runs below.
 
 <table>
@@ -25,11 +31,11 @@ The games include bullet dodging, racing, rhythm games, and simulated robot spor
 
 These clips come from individual runs, rather than repeated win-rate tests. Each caption identifies how that run was timed. The Asterix clip is a replay of a delay-simulated run; the Touhou, Racing, Rhythm, and PingPong clips used actual API calls while the game was running. The Badminton clip replays a recorded real-time API run at 3x slowdown. Racing uses a steering controller, and PingPong uses a controller to execute shots. [Clip sources and editing details](assets/gameplay/README.md).
 
-## Two loops: researching a strategy and playing a game
+## Autoresearch
 
-Codex does two kinds of work. As the researcher, it reads results, proposes changes, edits prompts or permitted control settings, and runs comparisons. During a game, GPT-6 Sol reads screenshots and chooses actions. These are two roles in the process, not two separately trained models.
+We ask Codex to improve how GPT-6 Sol plays a game through repeated experiments. It studies failed runs, proposes a change, edits the gameplay instructions or permitted control settings, and tests whether the change helps. Humans supply the goal, budget, constraints, and feedback.
 
-The **research loop** is:
+Here is how an autoresearch session proceeds:
 
 1. **Give it a goal.** Choose a game, an objective, a budget, and rules about what it may change. Humans can provide demonstrations and feedback along the way.
 2. **Find out what failed.** Codex inspects screenshots, actions, timing, and outcomes. Did it mistake a friendly effect for a bullet? Did it chase where the opponent used to be? Did it react too late?
@@ -37,7 +43,13 @@ The **research loop** is:
 4. **Keep or reject it.** A change that scores more points but causes more deaths may fail the comparison. Promising candidates also have to work through complete games.
 5. **Test in real time.** Fix the selected strategy and its settings, then run it with the actual response delays. Record what happened, including failures, and use those results to guide the next experiment.
 
-Inside each experiment, the **gameplay loop** is simpler:
+The selected Touhou strategy was developed through repeated play, prompt and memory refinement, and experiments. Its base-model weights remain frozen. These autoresearch sessions were carried out in Codex Goal mode with human guidance. Running `sol simulate` starts one game experiment; Codex carries out the analysis, edits, and comparisons across experiments.
+
+[See a concrete Touhou example below](#an-example-learning-to-stop-chasing-the-boss), or [read the autoresearch stories for each game](docs/autoresearch-summaries.md).
+
+## How a game runs
+
+During each experiment, GPT-6 Sol plays by repeating these steps:
 
 ```text
 See the game screen → choose an action → apply it when ready → see what changed
@@ -46,12 +58,6 @@ See the game screen → choose an action → apply it when ready → see what ch
 ```
 
 The instructions, recent screenshots, and allowed feedback tell the model what it can see and do. Each game defines its controls: in Touhou, for example, the model chooses movement, shooting, focus, bombs, and how long to hold them. Other games let it choose targets that a controller carries out.
-
-The selected Touhou strategy was developed through repeated play, prompt and memory refinement, and experiments. Its base-model weights remain frozen. The outer research loop was carried out in Codex Goal mode sessions with human guidance. Running `sol simulate` starts a game experiment; it does not, by itself, start the full strategy-editing research loop.
-
-[Read the research stories for each game](docs/autoresearch-summaries.md).
-
-## How a game runs
 
 ### From screenshots to actions
 
@@ -166,7 +172,7 @@ Racing also retains a [recorded GPT and fixed-goal comparison](research/racing/E
 
 Environment and media attribution details are recorded in [source and media provenance](docs/provenance.md).
 
-## Run your first experiment
+## Quick start
 
 Start with Touhou in the latency simulator. The tested setup uses Linux, Python 3.10-3.12, Chromium dependencies, and a standalone Codex CLI signed in with a ChatGPT subscription that supports the configured model. The tested CLI version is 0.162.1.
 
@@ -209,14 +215,14 @@ Other games have their own setup requirements: [Rhythm](docs/rhythm.md), [Racing
 
 | Path | Start here to understand... |
 |---|---|
-| `runtime/cli.py` | How `simulate`, `profile`, and `eval` launch a run |
-| `runtime/subscription.py` | How screenshots and instructions are sent through the Codex CLI |
-| `environments/` | Game engines, observation interfaces, and action execution |
-| `policies/` | The gameplay instructions and expected response formats |
-| `recipes/` | Which strategy and settings an experiment uses |
-| `profiles/` | The measured delays used by the simulator |
-| `research/` | Hypotheses, comparisons, and research history |
-| `artifacts/`, `assets/` | Run records, replay evidence, videos, and demo clips |
+| [`runtime/cli.py`](runtime/cli.py) | How `simulate`, `profile`, and `eval` launch a run |
+| [`runtime/subscription.py`](runtime/subscription.py) | How screenshots and instructions are sent through the Codex CLI |
+| [`environments/`](environments/) | Game engines, observation interfaces, and action execution |
+| [`policies/`](policies/) | The gameplay instructions and expected response formats |
+| [`recipes/`](recipes/) | Which strategy and settings an experiment uses |
+| [`profiles/`](profiles/) | The measured delays used by the simulator |
+| [`research/`](research/) | Hypotheses, comparisons, and research history |
+| [`artifacts/`](artifacts/), [`assets/`](assets/) | Run records, replay evidence, videos, and demo clips |
 
 [Detailed file map](docs/file-map.md) · [Evaluation records](docs/evaluation-records.md) · [Optional evidence downloads](artifacts/README.md)
 
