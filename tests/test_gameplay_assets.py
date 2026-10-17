@@ -3,6 +3,8 @@ import hashlib
 import importlib.util
 from pathlib import Path
 import tempfile
+import shutil
+import subprocess
 import unittest
 from unittest.mock import patch
 
@@ -49,6 +51,34 @@ class GameplayAssetsTests(unittest.TestCase):
         calls, video = self.rebuild(retained_at_companion=False)
         self.assertEqual(calls, 3)
         self.assertEqual(video, b'generated asset')
+
+
+    @unittest.skipUnless(shutil.which('ffmpeg'), 'ffmpeg required for media integration')
+    def test_uniform_canvas_pads_without_stretching_or_overwriting_audio_video(self):
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            output = root / 'assets/gameplay'
+            output.mkdir(parents=True)
+            source = output / 'fixture.mp4'
+            subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'lavfi', '-i',
+                'color=c=red:size=160x120:rate=5:duration=1', '-f', 'lavfi', '-i',
+                'sine=frequency=440:duration=1', '-c:v', 'libx264', '-pix_fmt', 'yuv420p',
+                '-c:a', 'aac', '-shortest', str(source)], check=True)
+            original = source.read_bytes()
+            item = dict(game='fixture', source='assets/gameplay/fixture.mp4',
+                        start_seconds=0, duration_seconds=1, fps=5, width=160, height=90)
+            with patch.object(builder, 'ROOT', root), patch.object(builder, 'OUT', output):
+                builder.build(item)
+            self.assertEqual(source.read_bytes(), original)
+            with Image.open(output / 'fixture.gif') as gif:
+                self.assertEqual(gif.size, (160, 90))
+                frame = gif.convert('RGB')
+                border = frame.getpixel((5, 45))
+                self.assertLessEqual(max(abs(a-b) for a, b in zip(border, (12, 20, 32))), 3)
+                center = frame.getpixel((80, 45))
+                self.assertGreater(center[0], 200)
+                self.assertLess(max(center[1:]), 30)
 
 
 if __name__ == '__main__':

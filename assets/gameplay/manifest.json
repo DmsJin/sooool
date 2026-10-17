@@ -2,7 +2,7 @@
   "playback_speed": 1,
   "continuous_clips": true,
   "new_model_calls": 0,
-  "notes": "Highlights selected from existing recordings. No frame reordering or speed changes within clips. GIF has no audio. See each clip for source timing and control conditions. Playback speed is relative to each retained source; Asterix source gameplay is at 5x slowdown. Absolute source paths for other games are historical machine paths and may need remapping.",
+  "notes": "Highlights retain original clip timing and public summaries. All GIFs rebuild from bundled MP4 companions on a uniform 640x360 canvas, preserving aspect ratio with padding. Source MP4s and their audio are not overwritten. Original recording paths and cuts remain in original_source/original_start_seconds where relevant.",
   "clips": [
     {
       "game": "rhythm",
@@ -14,24 +14,29 @@
       "crop": null,
       "mode": "Selected literal-time native API17s;2.5s approach;24P/1Great/0Miss/2empty;continuous compositor capture plus original remuxed audio",
       "source_sha256": "e9db3acfb10b41b56c40e85eec06a20d7a3c27f99557c32f179483f0e405dec0",
-      "gif_sha256": "1ae8117f90674ebb5ce0f6253c6fd21c698c1aaf0780700afcae1b53623983e1",
-      "bytes": 1199179,
+      "gif_sha256": "ecc3b4f1f494c1e12ef0a36d7de4b5ae891672f63441caf9021f1be2160816ca",
+      "bytes": 1453569,
       "public_decision_summary_visible": true,
-      "decision_summary_video_status": "Original English same-response public explanations visible"
+      "decision_summary_video_status": "Original English same-response public explanations visible",
+      "height": 360
     },
     {
       "game": "touhou",
-      "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e38-8ae9-7c13-8e41-d214caeb01a5/kaguya-api-english-race4-v3/kaguya-english-race4.mp4",
-      "start_seconds": 49,
+      "source": "assets/gameplay/touhou.mp4",
+      "start_seconds": 0,
       "duration_seconds": 7,
       "width": 640,
       "fps": 12,
       "crop": null,
       "mode": "Source-harness realtime API, 1x; native English public decision summaries.",
-      "source_sha256": "3ee7443179388ad6ab9b0ff94ca3f4460844ac9a686fd2ffa993e45df0fecdc4",
-      "gif_sha256": "f32e42afba6537918c81f28102cb3c56fe7ce6fa62af23e9008726d1c9df1c39",
-      "bytes": 4895075,
-      "public_decision_summary_visible": true
+      "source_sha256": "46a7afd0d41632110d8f1371973a469e2cbbe52810cdcd845d821b8ec62189d3",
+      "gif_sha256": "992753938ab7715fab77c0ec832aa270a7408fad600e8d39747a0e9c52a7ca0d",
+      "bytes": 4780983,
+      "public_decision_summary_visible": true,
+      "original_source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e38-8ae9-7c13-8e41-d214caeb01a5/kaguya-api-english-race4-v3/kaguya-english-race4.mp4",
+      "original_start_seconds": 49,
+      "original_source_sha256": "3ee7443179388ad6ab9b0ff94ca3f4460844ac9a686fd2ffa993e45df0fecdc4",
+      "height": 360
     },
     {
       "game": "pingpong",
@@ -54,38 +59,47 @@
       "source_sha256": "a6995ffd8e61b88ba4b4f6d31e94baa273e4391fcacfa9183328485e69e62df4",
       "audio": "Original soft electronic sports groove (112 BPM), -24 LUFS target; original video stream unchanged.",
       "music_provenance": "assets/gameplay/sports-music-provenance.json",
-      "gif_sha256": "839aba925424513ad63445f708bb03a3a769cdee5e4fd47979ae9cc3cac99e24"
+      "gif_sha256": "6f5207d276ff396c0c5e2038b3acdf35363a61ea6fe22c88befb3d3f6b6fe077",
+      "height": 360
     },
     {
       "game": "racing",
-      "source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e84-6151-70f1-bec1-fc05fea1f2fa/racing-win-loss-win/racing-seed304-win-loss-win-music.mp4",
-      "start_seconds": 14,
+      "source": "assets/gameplay/racing.mp4",
+      "start_seconds": 0,
       "duration_seconds": 8,
       "width": 640,
       "fps": 15,
       "crop": null,
       "mode": "Realtime API with coded steering, 1x; within original heat 2. Source video reordered heats win/loss/win, but this clip is continuous within a single heat.",
-      "source_sha256": "644a8209da42399764b83dbce55072b9fae6f35f8e5694115029d21ab6effabf",
-      "gif_sha256": "7fc5aff8175aa9cd2ed7b0689077feb1c2cc6bd9a2fb2124c5dea936ebd19425",
-      "bytes": 3248044,
-      "public_decision_summary_visible": true
+      "source_sha256": "8398f470aabf681ab55381e2c54130e652bf23a8d02bbe2f54f42e21fc6c4c13",
+      "gif_sha256": "9d87bb26d7dcc68897846f2c5a3d3f87a4c7683791704f7bcb8daaa745ebd6ad",
+      "bytes": 4240302,
+      "public_decision_summary_visible": true,
+      "original_source": "/home/zihan/.codex/visualizations/2026/10/15/01a13e84-6151-70f1-bec1-fc05fea1f2fa/racing-win-loss-win/racing-seed304-win-loss-win-music.mp4",
+      "original_start_seconds": 14,
+      "original_source_sha256": "644a8209da42399764b83dbce55072b9fae6f35f8e5694115029d21ab6effabf",
+      "height": 360
     },
     {
       "game": "asterix",
-      "source": "assets/asterix/v28-api-60s.mp4",
-      "start_seconds": 50,
+      "source": "assets/gameplay/asterix.mp4",
+      "start_seconds": 0,
       "duration_seconds": 10,
-      "width": 720,
+      "width": 640,
       "fps": 12,
       "crop": null,
       "mode": "Fresh Responses API, gpt-6.1-sol / low / ultrafast; V28 serial direct actions at 12 raw FPS (5x slowdown). Verified saved-action replay with original public English summaries; full run 60 wall seconds, 300 points, two lives.",
       "public_decision_summary_visible": true,
-      "source_sha256": "3be78deb2fdd96bec440d890a466c28ec00508d2ab6396bd38b0d302bedfbd6b",
-      "gif_sha256": "27c3d947c7e8c7c278d3496c33c3ad7c1ce98a4873ae82bbf1b5f9a67f92189e",
-      "bytes": 432384,
+      "source_sha256": "de3745b2605de520ef1d01bfb2d5784d0338b547bc84854cfdf06a4027634ef7",
+      "gif_sha256": "b42e25060b7a6a9bad4af90a258e8c6384fe6fd260119ee4de87fc0a34b528b4",
+      "bytes": 562788,
       "full_run": "assets/asterix/v28-api-60s.mp4",
       "recording_run": "artifacts/asterix/api-validation/20261017/repeat-run",
-      "provenance": "assets/asterix/v28-api-60s.provenance.json"
+      "provenance": "assets/asterix/v28-api-60s.provenance.json",
+      "original_source": "assets/asterix/v28-api-60s.mp4",
+      "original_start_seconds": 50,
+      "original_source_sha256": "3be78deb2fdd96bec440d890a466c28ec00508d2ab6396bd38b0d302bedfbd6b",
+      "height": 360
     },
     {
       "game": "badminton",
@@ -96,20 +110,28 @@
       "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
       "start_seconds": 0,
       "duration_seconds": 15,
-      "width": 960,
+      "width": 640,
       "fps": 12,
       "crop": null,
       "mode": "Actual gpt-6.1-sol / low / ultrafast, L1/seed 101, S3 slowdown. Verified native action replay of the opening serve and rally; full match lost 8:11 with 90/97 legal returns. Source playback speed retained.",
       "source_fps": "100/3",
       "public_decision_summary_visible": true,
       "decision_summary_video_status": "Original public English summaries from the same API responses as the tactical goals; both camera views and score remain visible.",
-      "bytes": 2742708,
+      "bytes": 1551226,
       "original_source": "outputs/sooool_badminton_realtime_rerun_005/sol-s3-101/realtime-s3.mp4",
       "original_start_seconds": 6,
       "source_sha256": "26caa30e4d40f4d1f5c27a825848152f2b5c31ef37667e7f5d20f8d1f6d7ba1c",
       "audio": "Original soft electronic sports groove (112 BPM), -24 LUFS target; original video stream unchanged.",
       "music_provenance": "assets/gameplay/sports-music-provenance.json",
-      "gif_sha256": "855bcef258b0dedf596fb1b37d3c5a22ce433669f697a830b04b39f499336675"
+      "gif_sha256": "ec90a5e860ebad02b61c4d8ea4657957d31088ba5c119ba8e742728fae0dfc4d",
+      "height": 360
     }
-  ]
+  ],
+  "preview_canvas": {
+    "width": 640,
+    "height": 360,
+    "fit": "contain",
+    "background": "#0c1420",
+    "timing": "Original per-clip frame rate and duration retained."
+  }
 }
