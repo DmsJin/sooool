@@ -10,28 +10,39 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with
 
 <table>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="The coding agent dodging Kaguya's bullet patterns with live English decision summaries" width="440"></a><br><b>Touhou</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="The coding agent playing table tennis with both camera views and live public decision summaries" width="440"></a><br><b>PingPong</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="The coding agent dodging Kaguya's bullet patterns with live English decision summaries" width="390"></a><br><b>Touhou</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="The coding agent playing table tennis with both camera views and live public decision summaries" width="390"></a><br><b>PingPong</b> · Real-time API · 1×</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="The coding agent collecting food in Asterix alongside original public decision summaries" width="440"></a><br><b>Asterix</b> · Simulation replay · 5× slowdown</td>
-<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="The coding agent playing badminton: opening serve and rally, with both camera views and original English decision summaries" width="440"></a><br><b>Badminton</b> · Real-time API replay · 3× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="The coding agent collecting food in Asterix alongside original public decision summaries" width="390"></a><br><b>Asterix</b> · Simulation replay · 5× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="The coding agent playing badminton: opening serve and rally, with both camera views and original English decision summaries" width="390"></a><br><b>Badminton</b> · Real-time API replay · 3× slowdown</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="The coding agent choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="The coding agent selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="The coding agent choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="243"></a><br><b>Rhythm</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="The coding agent selecting racing targets through bends and obstacles, with live decisions" width="390"></a><br><b>Racing</b> · Real-time API · 1×</td>
 </tr>
 </table>
 
 ## Latency profiling and simulation
 
-We first measure how long decisions take, then use those measurements to develop strategies in the simulator. Selected strategies are tested against a real-time game clock.
+Our workflow is **profile → simulate → eval**: measure target API latency, develop strategies with subscription calls on a reproducible virtual clock, then test selected strategies against a real-time game clock.
 
 ### Profile the latency
 
 Send representative screenshots and prompts to the target API and record when a valid action is ready and when the response finishes. These can be different: an action may be usable while the request is still finishing and occupying a slot. Keep the individual timings, including slow replies, in a **latency profile**.
 
 Start with requests sent one at a time. Concurrent runs provide additional measurements of how requests finish together and how long they keep their slots. Touhou's selected profile uses groups of four readiness and completion times; Rhythm also includes screenshot age and transport overhead. Some profiles combine measurements from earlier workloads with modeled timing. Changing the prompt, image setup, or concurrency may require new measurements. [Profiles and measurement sources](profiles/README.md) · [Timing details](docs/timing.md).
+
+We computed the latency profiles below; timings may vary across API setups, and simulated mode lets you reproduce our timing setup.
+
+| Game / selected profile | Samples | Timing endpoint | Mean (ms) | Std (ms) |
+|---|---:|---|---:|---:|
+| [Touhou (modeled)](profiles/touhou/profile-control-tracking-safe-intercept-v2-transport-v1.json) | 19 four-way cohorts | Earliest legal action in each cohort + apply overhead | 2638.9 | 372.6 |
+| [PingPong (proxy)](research/updates/2026-10-16/ubuntu/pingpong/results/profile-stream-serial-v1/profile.json) | 12 serial calls | Legal action JSON ready (`delays_s`) | 1326.8 | 552.9 |
+| [Asterix](profiles/asterix/latency_v16_actual_5x_512cap.json) | 536 valid calls | Capture to full completion | 1665.4 | 1373.2 |
+| [Badminton](profiles/badminton/conditional-api-10.json) | 10 serial calls | Legal action JSON ready (`latency_ms`) | 2070.7 | 323.8 |
+| [Rhythm](profiles/rhythm/selected-native-joint.json) | 85 joint rows | Legal action JSON ready (`api_rtt_s`) | 1432.7 | 282.2 |
+| [Racing (proxy)](profiles/racing/profile.json) | 32 serial calls | Full response | 1472.1 | 378.6 |
 
 ### Build the simulator
 
