@@ -3,7 +3,7 @@
 <p align="center"><strong>Can GPT-6 Sol (a coding agent) play real-time games, where the world keeps moving while it thinks?</strong></p>
 
 <p align="center">
-<a href="#autoresearch-for-latency-aware-agents">Autoresearch for latency-aware agents</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#latency-simulator">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#code-guide">Code guide</a> · <a href="#citation">Citation</a>
+<a href="#latency-profiling-and-simulation">Latency profiling and simulation</a> · <a href="#autoresearch-for-latency-aware-agents">Autoresearch for latency-aware agents</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#games-and-controls">Games &amp; controls</a> · <a href="#results">Results</a> · <a href="#quick-start">Quick start</a> · <a href="#code-guide">Code guide</a> · <a href="#citation">Citation</a>
 </p>
 
 Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with Agent as Policy. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks.
@@ -23,9 +23,39 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with
 </tr>
 </table>
 
+## Latency profiling and simulation
+
+We first measure how long decisions take, then use those measurements to develop strategies in the simulator. Selected strategies are tested against a real-time game clock.
+
+### Profile the latency
+
+Send representative screenshots and prompts to the target API and record when a valid action is ready and when the response finishes. These can be different: an action may be usable while the request is still finishing and occupying a slot. Keep the individual timings, including slow replies, in a **latency profile**.
+
+Start with requests sent one at a time. Concurrent runs provide additional measurements of how requests finish together and how long they keep their slots. Touhou's selected profile uses groups of four readiness and completion times; Rhythm also includes screenshot age and transport overhead. Some profiles combine measurements from earlier workloads with modeled timing. Changing the prompt, image setup, or concurrency may require new measurements. [Profiles and measurement sources](profiles/README.md) · [Timing details](docs/timing.md).
+
+### Build the simulator
+
+During development, subscription calls produce new decisions while the simulator draws delays from the profile. Suppose a screenshot is taken at frame 100 and the drawn delay is half a second. At 60 FPS, the answer can be used at frame 130. Until then, the game advances with the controls already in effect. If the agent finishes early, its answer waits; if it is still computing at frame 130, virtual time waits for it. The agent never sees the drawn delay.
+
+This lets Codex compare strategies under the same delay conditions, even when the actual subscription calls take different amounts of time.
+
+### Test in real time
+
+Fix the selected strategy and run it with actual response times. A three-second response means the game also moves forward for three seconds. Touhou and Rhythm use the paid API; Asterix uses subscription response times and keeps its declared slowdown.
+
+For Touhou and Rhythm, the commands divide the work like this:
+
+| Command | What happens | What it uses |
+|---|---|---|
+| `sol profile` | Send saved inputs one at a time and measure response times. No game actions are executed. | Paid API calls with a budget cap |
+| `sol simulate` | Play a new game and use sampled delays to schedule answers. Virtual time can wait for the agent. | ChatGPT subscription calls and a latency profile |
+| `sol eval` | Play with a continuously running clock and actual response times. | Paid API calls with a budget cap |
+
+**Replay** can restore a fixed starting state before candidates make new decisions, or reproduce a saved action sequence to check timing and make videos. Replaying saved actions makes no new decisions and is not a new performance result. [Development and replay workflow](docs/development.md).
+
 ## Autoresearch for latency-aware agents
 
-We give Codex a game, a goal, an experiment budget, and feedback. It tries to improve how the coding agent plays under response delays: anticipating where a bullet will move or whether a target will still be useful when an action arrives.
+With the simulator, Codex can try changes, compare strategies, and inspect failures before testing in real time. We give it a game, a goal, an experiment budget, and feedback. It improves how the coding agent plays under response delays: anticipating where a bullet will move or whether a target will still be useful when an action arrives.
 
 1. **Find a failure.** Run the game and inspect screenshots, actions, timing, and outcomes.
 2. **Propose a change.** Revise the gameplay instructions, memory, or permitted control settings to address a specific problem.
@@ -72,26 +102,6 @@ This means: move right, keep shooting, use slow focused movement, do not use a b
 
 In Touhou, movement stops when the plan ends; shooting and focus keep their last settings. A newer accepted decision replaces the unfinished plan. Older observations cannot override a decision already accepted from a newer one.
 
-## Latency simulator
-
-Development uses subscription calls to try strategies under delays measured from the target API. For Touhou and Rhythm, the commands divide the work like this:
-
-| Command | What happens | What it uses |
-|---|---|---|
-| `sol profile` | Send saved inputs one at a time and measure response times. No game actions are executed. | Paid API calls with a budget cap |
-| `sol simulate` | Play a new game and use sampled delays to schedule answers. Virtual time can wait for the model. | ChatGPT subscription calls and a latency profile |
-| `sol eval` | Play with a continuously running clock and actual response times. | Paid API calls with a budget cap |
-
-A **latency profile** stores measured response times, including slow replies. The simulator draws from it to decide when each new answer becomes available.
-
-Suppose a screenshot is taken at frame 100 and the drawn delay is half a second. At 60 FPS, the answer can be used at frame 130. Until then, the game advances with the controls already in effect. If the agent finishes early, its answer waits; if it is still computing at frame 130, virtual time waits for it. The agent never sees the drawn delay.
-
-In real-time evaluation, a three-second response means the game also moves forward for three seconds. Asterix uses subscription response times for this test and keeps its declared slowdown; other games have separate [setup guides](docs/release-guide.md).
-
-The simulator also accounts for concurrent requests: Touhou samples groups of delays together, while Rhythm includes screenshot age. Changing prompts, images, or concurrency may require a new profile. Simulated scores do not establish real-time success. [Timing and calibration details](docs/timing.md).
-
-**Replay** can restore a fixed starting state before candidates make new decisions, or reproduce an entire saved action sequence to check timing and make videos. The latter makes no new decisions and is not a new performance result. [Development and replay workflow](docs/development.md).
-
 ## Games and controls
 
 The coding agent chooses button presses in screen-based games and tactical goals in robot games.
@@ -105,7 +115,9 @@ The coding agent chooses button presses in screen-based games and tactical goals
 | [Rhythm](docs/rhythm.md) | Screenshot, public clock, pending taps | DFJK keys, absolute tap times | Queue and execute specified taps |
 | [Racing](docs/racing.md) | Front-camera views, telemetry, visual road measurements | Speed, lane offset, lookahead | Steer toward goal, limit speed through bends |
 
-### Game environments
+Evaluators may inspect game state to score outcomes. [Observation boundaries](docs/observation-contract.md).
+
+## Game environments
 
 | Game | Implementation | Source / inspiration |
 |---|---|---|
@@ -116,7 +128,7 @@ The coding agent chooses button presses in screen-based games and tactical goals
 | **Rhythm** | Our four-lane browser game | Inspired by [Rhythm Master](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993) |
 | **Racing** | Upstream environment; our agent interface and steering controller | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) |
 
-Evaluators may inspect game state to score outcomes. [Observation boundaries](docs/observation-contract.md).
+## Results
 
 | Game | Result | Execution |
 |---|---|---|
