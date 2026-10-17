@@ -1,6 +1,6 @@
 <h1 align="center">Sooool!</h1>
 
-<p align="center"><strong>Can GPT Sol play real-time games, where the world keeps moving while it thinks?</strong></p>
+<p align="center"><strong>&#xA0;GPT Sol doing real-time tasks. World keeps moving while it thinks.</strong></p>
 
 <p align="center">
 <a href="#latency-profiling-and-simulation">Latency profiling and simulation</a> · <a href="#autoresearch-for-latency-aware-agents">Autoresearch for latency-aware agents</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#games-and-controls">Games &amp; controls</a> · <a href="https://github.com/sooool-project/sooool/blob/main/docs/results.md">Results</a> · <a href="#quick-start">Quick start</a> · <a href="#code-guide">Code guide</a> · <a href="#citation">Citation</a>
