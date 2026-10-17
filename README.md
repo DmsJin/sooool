@@ -10,16 +10,16 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol, working as Agent as Policy, 
 
 <table>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-6 Sol dodging Kaguya's bullet patterns with live English decision summaries" width="440"></a><br><b>Touhou</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-6 Sol playing table tennis with both camera views and live public decision summaries" width="440"></a><br><b>PingPong</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-6 Sol dodging Kaguya's bullet patterns with live English decision summaries" width="390"></a><br><b>Touhou</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-6 Sol playing table tennis with both camera views and live public decision summaries" width="390"></a><br><b>PingPong</b> · Real-time API · 1×</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol collecting food in Asterix alongside original public decision summaries" width="440"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
-<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" width="440"></a><br><b>Badminton</b> · Real-time API replay · S3 slowdown · 15s</td>
+<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol collecting food in Asterix alongside original public decision summaries" width="390"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" width="390"></a><br><b>Badminton</b> · Real-time API replay · S3 slowdown · 15s</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-6 Sol choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
-<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-6 Sol selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
+<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-6 Sol choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="243"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
+<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-6 Sol selecting racing targets through bends and obstacles, with live decisions" width="390"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
 </tr>
 </table>
 
@@ -74,7 +74,7 @@ A **recipe** is a JSON file selecting a policy, latency profile, and run setting
 
 ## How the latency simulator works
 
-Development uses subscription calls to try strategies under delays measured from the target API. For Touhou and Rhythm, the commands divide the work like this:
+Our workflow is **profile → simulate → eval**: measure target API latency, develop with slower subscription inference on a reproducible virtual clock, then evaluate in realtime. For Touhou and Rhythm, the commands divide the work like this:
 
 | Command | What happens | What it uses |
 |---|---|---|
@@ -91,6 +91,17 @@ In real-time evaluation, a three-second response means the game also moves forwa
 The simulator also accounts for concurrent requests: Touhou samples groups of delays together, while Rhythm includes screenshot age. Changing prompts, images, or concurrency may require a new profile. Simulated scores do not establish real-time success. [Timing and calibration details](docs/timing.md).
 
 **Replay** can restore a fixed starting state before candidates make new decisions, or reproduce an entire saved action sequence to check timing and make videos. The latter makes no new decisions and is not a new performance result. [Development and replay workflow](docs/development.md).
+
+We computed the latency profiles below; timings may vary across API setups, and simulated mode lets you reproduce our timing setup.
+
+| Game / selected profile | Samples | Timing endpoint | Mean (ms) | Std (ms) |
+|---|---:|---|---:|---:|
+| [Touhou (modeled)](profiles/touhou/profile-control-tracking-safe-intercept-v2-transport-v1.json) | 19 four-way cohorts | Earliest legal action in each cohort + apply overhead | 2638.9 | 372.6 |
+| [Rhythm](profiles/rhythm/selected-native-joint.json) | 85 joint rows | Legal action JSON ready (`api_rtt_s`) | 1432.7 | 282.2 |
+| [Asterix](profiles/asterix/latency_v16_actual_5x_512cap.json) | 536 valid calls | Capture to full completion | 1665.4 | 1373.2 |
+| [Racing (proxy)](profiles/racing/profile.json) | 32 serial calls | Full response | 1472.1 | 378.6 |
+| [Badminton](profiles/badminton/conditional-api-10.json) | 10 serial calls | Legal action JSON ready (`latency_ms`) | 2070.7 | 323.8 |
+| [PingPong (proxy)](research/updates/2026-10-16/ubuntu/pingpong/results/profile-stream-serial-v1/profile.json) | 12 serial calls | Legal action JSON ready (`delays_s`) | 1326.8 | 552.9 |
 
 ## Games and controls
 
