@@ -18,8 +18,8 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with
 <td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="The coding agent selecting racing targets through bends and obstacles, with live decisions" width="390"></a><br><b>Racing</b> · Live API/subscription run · 1×</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/asterix/v28-api-60s.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol playing Asterix with real API decisions: 300 points, two lives, 60 wall seconds at 12 FPS" height="105"></a><br><b>Asterix</b> · Live API/subscription run (replay) · 12 FPS</td>
-<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="The coding agent playing badminton: opening serve and rally, with both camera views and original English decision summaries" width="390"></a><br><b>Badminton</b> · Live API/subscription run (replay) · 3× slowdown</td>
+<td width="50%" align="center"><a href="assets/asterix/v28-api-60s.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol playing Asterix with real API decisions: 300 points, two lives, 60 wall seconds at 12 FPS" width="390"></a><br><b>Asterix</b> · Live API/subscription run (replay) · 12 FPS</td>
+<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="The coding agent playing badminton: opening serve and rally, with both camera views and original English decision summaries" width="390"></a><br><b>Badminton</b> · Live API/subscription run (replay) · 33.3 game steps/s (3× slowdown)</td>
 </tr>
 </table>
 
