@@ -1,0 +1,35 @@
+{
+  "status": "completed",
+  "output": "/home/zihan/papers/latency/outputs/asterix-api-profile-20261017T002522Z",
+  "samples_completed": 10,
+  "new_profile_usd": "0.1037712",
+  "cumulative_conservative_usd": "1.3041780",
+  "failure": null,
+  "latency": {
+    "ttft_s": {
+      "n": 10,
+      "min": 1.0233107823878527,
+      "median": 1.592229169793427,
+      "mean": 1.7181231275200843,
+      "p90_nearest_rank": 2.3983877561986446,
+      "max": 2.734624905511737
+    },
+    "legal_action_s": {
+      "n": 10,
+      "min": 1.0233264118432999,
+      "median": 1.592254290357232,
+      "mean": 1.7181565823033451,
+      "p90_nearest_rank": 2.3984094634652138,
+      "max": 2.734642557799816
+    },
+    "total_s": {
+      "n": 10,
+      "min": 1.105537585914135,
+      "median": 1.6855898788198829,
+      "mean": 1.8124720420688392,
+      "p90_nearest_rank": 2.5054914709180593,
+      "max": 2.883327081799507
+    }
+  },
+  "note": "Small serial frozen-input sample, not gameplay; latency includes prompt/image inference. Cache state not controlled."
+}

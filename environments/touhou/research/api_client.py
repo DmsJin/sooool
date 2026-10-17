@@ -3,6 +3,7 @@ import base64
 import hashlib
 import json
 import math
+import re
 import struct
 import time
 
@@ -10,6 +11,17 @@ from .budget import BudgetLedger, reservation_usd, usage_usd
 
 MODEL = "gpt-6.1-sol"
 TIER = "ultrafast"
+
+
+class ResponseStreamError(RuntimeError):
+    """Public transport metadata without provider messages or private content."""
+    def __init__(self, message, diagnostics):
+        super().__init__(message)
+        self.diagnostics = diagnostics
+
+
+def safe_code(value):
+    return value if isinstance(value,str) and re.fullmatch(r"[A-Za-z0-9_.-]{1,200}",value) else None
 
 
 def png_content(data, detail="high"):
@@ -100,11 +112,33 @@ class ApiClient:
         early_attempted = False
         callback_error = None
         early_callback_s = None
+        event_counts = {}
+        provider_error_code = None
+        provider_response_id = None
+        http_status = None
+        provider_request_id = None
+        content_type = None
+        def failure(message, code):
+            diagnostics = {"http_status":http_status,"provider_request_id":provider_request_id,
+                "content_type":content_type,
+                "provider_response_id":provider_response_id,"terminal_event":terminal,
+                "terminal_status":safe_code((response_obj or {}).get("status")),
+                "provider_error_code":code,"event_counts":dict(event_counts),
+                "incomplete_reason":safe_code(((response_obj or {}).get("incomplete_details") or {}).get("reason")),
+                "output_text_chars":len(text),"has_terminal_usage":bool((response_obj or {}).get("usage"))}
+            return ResponseStreamError(message+": "+code,diagnostics)
         try:
             with self.session.post("https://api.openai.com/v1/responses", headers={"Authorization": "Bearer " + self.key, "Content-Type": "application/json"}, json=payload, stream=True, timeout=(15, 120)) as response:
                 # Do not log HTTP response bodies: provider errors can include input.
+                http_status = response.status_code
+                headers = getattr(response,"headers",{})
+                provider_request_id = safe_code(headers.get("x-request-id"))
                 if response.status_code != 200:
-                    raise RuntimeError("Responses HTTP status " + str(response.status_code))
+                    raise failure("Responses HTTP status "+str(response.status_code),"http_error")
+                media_type = headers.get("Content-Type","").split(";",1)[0].strip().lower()
+                content_type = media_type if re.fullmatch(r"[a-z0-9.+-]{1,50}/[a-z0-9.+-]{1,50}",media_type) else None
+                if content_type and content_type != "text/event-stream":
+                    raise failure("Expected SSE response","unexpected_content_type")
                 for raw in response.iter_lines(chunk_size=1):
                     if not raw or not raw.startswith(b"data:"):
                         continue
@@ -112,7 +146,18 @@ class ApiClient:
                     if data == b"[DONE]":
                         continue
                     event = json.loads(data)
+                    if not isinstance(event,dict):
+                        raise failure("Expected SSE event object","invalid_event_object")
                     kind = event.get("type")
+                    if safe_code(kind):event_counts[kind] = event_counts.get(kind,0)+1
+                    meta = event.get("response")
+                    if isinstance(meta,dict):
+                        provider_response_id = safe_code(meta.get("id")) or provider_response_id
+                        error = meta.get("error")
+                        if isinstance(error,dict):provider_error_code = safe_code(error.get("code")) or provider_error_code
+                    if kind == "error":
+                        error = event.get("error") if isinstance(event.get("error"),dict) else event
+                        provider_error_code = safe_code(error.get("code")) or "stream_error"
                     if kind in ("response.refusal.delta", "response.refusal.done"):
                         refused = True
                     if kind == "response.output_text.delta":
@@ -149,12 +194,20 @@ class ApiClient:
                                 finally:
                                     early_callback_s=time.perf_counter()-callback_started
                     if kind in ("response.completed", "response.failed", "response.incomplete"):
-                        response_obj = event.get("response")
+                        if not isinstance(event.get("response"),dict):
+                            raise failure("Expected terminal response object","invalid_terminal_response")
+                        response_obj = event["response"]
                         terminal = kind
                 elapsed = time.perf_counter() - start
                 if stage_timing is not None:stage_timing["network_completed_wall_s"] = time.monotonic() - timing_origin
             if not response_obj or not response_obj.get("usage"):
-                raise RuntimeError("Terminal response usage missing")
+                if provider_error_code:
+                    raise failure("API reported failure without terminal usage",provider_error_code)
+                if terminal == "response.failed":
+                    raise failure("API response failed without terminal usage","failed_without_usage")
+                if terminal is None:
+                    raise failure("Stream ended without a terminal event","missing_terminal_event")
+                raise failure("Terminal response usage missing","missing_terminal_usage")
             if response_obj.get("model") != MODEL or response_obj.get("service_tier") != TIER:
                 raise RuntimeError("Response model/tier mismatch; reconcile usage manually")
             usage = response_obj["usage"]
@@ -168,7 +221,9 @@ class ApiClient:
             if refused:
                 raise RuntimeError("Response refused the action request")
             if terminal != "response.completed":
-                raise RuntimeError("Response ended without completion")
+                raise failure("Response ended without completion",provider_error_code or "response_not_completed")
+            if provider_error_code:
+                raise failure("API reported a stream error",provider_error_code)
             if on_legal_action is not None:
                 schema_validator.validate(strict_json(text))
                 canonical = ''.join(content.get('text','') for item in response_obj.get('output',[]) for content in item.get('content',[]) if content.get('type')=='output_text')

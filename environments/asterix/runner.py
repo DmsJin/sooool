@@ -45,6 +45,10 @@ def build_task(root, recipe, mode):
             'Actual subscription computation wall time DOES advance this real-time game.')
         prefix = prefix.replace('Measured previous API complete-response delay:',
             'Historical API context only; live subscription latency is measured in this run. Previous API delay:')
+        if recipe.get('provider') == 'openai_api':
+            prefix = prefix.replace('available when your actual subscription response completes;',
+                'available when your complete legal action JSON arrives;')
+            prefix = prefix.replace('subscription', 'API')
     task = prefix + (root / recipe['prompt']).read_text().strip() + '\n'
     if recipe['output_format'] == 'action_reason':
         replacements = {
@@ -72,6 +76,7 @@ def run_episode(recipe, out, seed, horizon, task, delays, client, mode, env_fact
     requests, pending, deliveries = [], None, []
     score, frames, drops, error = 0., 0, 0, None
     max_lag, status = 0., 'horizon'
+    admitted_before = client.admitted_count() if hasattr(client, 'admitted_count') else 0
     started = time.monotonic()
     pool = ThreadPoolExecutor(max_workers=1)
 
@@ -92,13 +97,26 @@ def run_episode(recipe, out, seed, horizon, task, delays, client, mode, env_fact
                 if pending is not None:
                     row, future = pending
                     available = frame >= row['action_ready_frame'] if mode == 'simulation' else future.done()
-                    if available:
-                        result = future.result()
-                        ready = [{'seq': row['seq'], 'obs_frame': row['obs_frame'], 'chosen': result['chosen']}]
-                        deliveries.append({'frame': frame, 'seq': row['seq'], 'capture_to_apply_s':
-                            frame/FPS-row['obs_frame']/FPS, 'mode': mode,
-                            'actual_capture_to_apply_s':time.monotonic()-started-row['capture_wall_seconds']})
+                    # Verify a terminal failure before claiming a new action was applied on this tick.
+                    result = future.result() if available else None
+                    early = client.poll_action() if mode == 'realtime' and hasattr(client, 'poll_action') else None
+                    if early is not None:
+                        if early['directory'] != f'call-{row["seq"]:05d}':
+                            raise ValueError('Early action belongs to a different request')
+                        ready = [{'seq': row['seq'], 'obs_frame': row['obs_frame'], 'chosen': early['chosen']}]
                         row['delivery_frame'] = frame
+                        row['early_action'] = early
+                        deliveries.append({'frame': frame, 'seq': row['seq'], 'mode': mode,
+                            'capture_to_apply_s': (frame-row['obs_frame'])/FPS,
+                            'actual_capture_to_apply_s':time.monotonic()-started-row['capture_wall_seconds'],
+                            'terminal_pending': not future.done()})
+                    if available:
+                        if row['delivery_frame'] is None:
+                            ready = [{'seq': row['seq'], 'obs_frame': row['obs_frame'], 'chosen': result['chosen']}]
+                            deliveries.append({'frame': frame, 'seq': row['seq'], 'capture_to_apply_s':
+                                frame/FPS-row['obs_frame']/FPS, 'mode': mode,
+                                'actual_capture_to_apply_s':time.monotonic()-started-row['capture_wall_seconds']})
+                            row['delivery_frame'] = frame
                         pending = None
                 action = movement.advance(frame, ready)
                 if frame % 4 == 0:
@@ -143,18 +161,24 @@ def run_episode(recipe, out, seed, horizon, task, delays, client, mode, env_fact
                 try:
                     log.write(json.dumps({**row, **future.result()})+'\n')
                 except BaseException as exc:
-                    log.write(json.dumps({**row, 'error_type':type(exc).__name__})+'\n')
+                    early = row.get('early_action')
+                    applied = {'chosen':early['chosen'], 'reason':early['reason'],
+                        'answer':json.dumps({'action':early['chosen'],'reason':early['reason']})} if early else {}
+                    log.write(json.dumps({**row, **applied, 'error_type':type(exc).__name__})+'\n')
                     error = error or {'type':type(exc).__name__, 'message':str(exc)};status = 'interrupted'
         (out/'actions.json').write_text(json.dumps(movement.applied)+'\n')
         (out/'ignored_commands.json').write_text('[]\n')
         (out/'deliveries.json').write_text(json.dumps(deliveries)+'\n')
+        paid = getattr(client, 'provider', None) == 'openai_api'
         summary = {'seed':seed, 'score':score, 'lives':info['lives'], 'frames':frames, 'game_seconds':frames/60,
-            'reset_noops':noops, 'calls':len(requests), 'new_subscription_calls':len(requests), 'replayed_calls':0,
+            'reset_noops':noops, 'calls':len(requests), 'new_subscription_calls':0 if paid else len(requests), 'replayed_calls':0,
             'drops':drops, 'peak_inflight':int(bool(requests)), 'status':status, 'error':error,
-            'mode':mode, 'provider':'chatgpt_subscription', 'paid_api_calls':0,
+            'mode':mode, 'provider':'openai_api' if paid else 'chatgpt_subscription',
+            'paid_api_calls':client.admitted_count()-admitted_before if paid and hasattr(client,'admitted_count') else len(requests) if paid else 0,
             'environment_wall_seconds':elapsed, 'virtual_wall_seconds':frames/FPS,
             'max_frame_lag_seconds':max_lag if mode == 'realtime' else None,
             'limitation': 'Historical valid-response API latency; no provider-failure simulation.' if mode == 'simulation'
+                else 'Actual API response latency at 12 raw FPS.' if paid
                 else 'Actual subscription response latency; no paid ultrafast API claim.'}
         (out/'summary.json').write_text(json.dumps(summary, indent=2)+'\n')
     if error:
@@ -165,6 +189,8 @@ def run_episode(recipe, out, seed, horizon, task, delays, client, mode, env_fact
 def run_recipe(root, recipe, out, args, client_factory, mode='simulation'):
     if (recipe['args']['controller'],recipe['native_workers'],recipe['args']['virtual_capacity'],recipe['args']['episode_workers']) != ('direct',1,1,1):
         raise ValueError('Selected Asterix requires one request and unchanged direct model actions')
+    recipe = dict(recipe)
+    if getattr(args, 'provider', None) == 'api':recipe['provider'] = 'openai_api'
     task, delays = build_task(root, recipe, mode)
     (out/'task.txt').write_text(task)
     seeds = [args.seed] if args.seed is not None else recipe['args']['seeds']
@@ -181,5 +207,6 @@ def run_recipe(root, recipe, out, args, client_factory, mode='simulation'):
                 raise
     finally:
         client.close()
-        (out/'summary.json').write_text(json.dumps({'episodes':episodes, 'mode':mode, 'paid_api_calls':0},indent=2)+'\n')
-    return {'episodes':episodes, 'mode':mode, 'paid_api_calls':0}
+        summary = {'episodes':episodes, 'mode':mode, 'paid_api_calls':sum(e.get('paid_api_calls',0) for e in episodes)}
+        (out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+    return summary

@@ -35,11 +35,11 @@
     },
     {
       "game": "pingpong",
-      "source": "assets/tabletennis/seed11-full.mp4",
+      "source": "assets/gameplay/pingpong.mp4",
       "recording_run": "runs/tabletennis/api-ultrafast-rally-mw4-s1-001",
       "recording_repository_base": "bf6428147e4253a6eae1d3822eb87a8f492ac8e0",
       "recording_source": "The run's source_snapshot contains the uncommitted gameplay implementation at capture time; replay styling is offline only.",
-      "start_seconds": 20,
+      "start_seconds": 0,
       "duration_seconds": 12,
       "width": 640,
       "fps": 20,
@@ -48,7 +48,13 @@
       "full_match": "assets/tabletennis/seed11-full.mp4",
       "public_decision_summary_visible": true,
       "decision_summary_video_status": "Latest accepted public summary with observation age, NEXT policy and actual execution ID; not private reasoning or an instantaneous frame explanation.",
-      "bytes": 2928290
+      "bytes": 3998035,
+      "original_source": "assets/tabletennis/seed11-full.mp4",
+      "original_start_seconds": 20,
+      "source_sha256": "a6995ffd8e61b88ba4b4f6d31e94baa273e4391fcacfa9183328485e69e62df4",
+      "audio": "Original soft electronic sports groove (112 BPM), -24 LUFS target; original video stream unchanged.",
+      "music_provenance": "assets/gameplay/sports-music-provenance.json",
+      "gif_sha256": "839aba925424513ad63445f708bb03a3a769cdee5e4fd47979ae9cc3cac99e24"
     },
     {
       "game": "racing",
@@ -66,27 +72,29 @@
     },
     {
       "game": "asterix",
-      "source": "assets/asterix/v28-serial-english.mp4",
-      "start_seconds": 60,
+      "source": "assets/asterix/v28-api-60s.mp4",
+      "start_seconds": 50,
       "duration_seconds": 10,
       "width": 720,
-      "fps": 15,
+      "fps": 12,
       "crop": null,
-      "mode": "Historical sampled-delay simulation replay, 5x slowdown; V28 serial direct actions with original public English decision summaries. Source playback speed retained.",
+      "mode": "Fresh Responses API, gpt-6.1-sol / low / ultrafast; V28 serial direct actions at 12 raw FPS (5x slowdown). Verified saved-action replay with original public English summaries; full run 60 wall seconds, 300 points, two lives.",
       "public_decision_summary_visible": true,
-      "source_sha256": "b0c6e026fba2583da4ebb43daf39e9339347e20e38ac01e178adb29fbd4b9335",
-      "gif_sha256": "8076edf807c7e46ed5adbd310a2440d5183207a9353c24844cc2af46e57e26ff",
-      "bytes": 503728,
-      "original_source_path": "/home/zihan/papers/latency/.codex-worktrees/sooool-readme-gameplay/assets/asterix/v28-serial-english.mp4"
+      "source_sha256": "3be78deb2fdd96bec440d890a466c28ec00508d2ab6396bd38b0d302bedfbd6b",
+      "gif_sha256": "27c3d947c7e8c7c278d3496c33c3ad7c1ce98a4873ae82bbf1b5f9a67f92189e",
+      "bytes": 432384,
+      "full_run": "assets/asterix/v28-api-60s.mp4",
+      "recording_run": "artifacts/asterix/api-validation/20261017/repeat-run",
+      "provenance": "assets/asterix/v28-api-60s.provenance.json"
     },
     {
       "game": "badminton",
-      "source": "outputs/sooool_badminton_realtime_rerun_005/sol-s3-101/realtime-s3.mp4",
+      "source": "assets/gameplay/badminton.mp4",
       "recording_run": "outputs/sooool_badminton_realtime_rerun_005/sol-s3-101",
       "recording_repository_base": "06633f3b911da6bce57e8bd618ac1a0a6907e01d",
       "recording_source": "The retained source.tgz and source_snapshot identify the uncommitted execution code. Later PR fixes are not part of this recorded run.",
       "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
-      "start_seconds": 6,
+      "start_seconds": 0,
       "duration_seconds": 15,
       "width": 960,
       "fps": 12,
@@ -95,7 +103,13 @@
       "source_fps": "100/3",
       "public_decision_summary_visible": true,
       "decision_summary_video_status": "Original public English summaries from the same API responses as the tactical goals; both camera views and score remain visible.",
-      "bytes": 2154513
+      "bytes": 2742708,
+      "original_source": "outputs/sooool_badminton_realtime_rerun_005/sol-s3-101/realtime-s3.mp4",
+      "original_start_seconds": 6,
+      "source_sha256": "26caa30e4d40f4d1f5c27a825848152f2b5c31ef37667e7f5d20f8d1f6d7ba1c",
+      "audio": "Original soft electronic sports groove (112 BPM), -24 LUFS target; original video stream unchanged.",
+      "music_provenance": "assets/gameplay/sports-music-provenance.json",
+      "gif_sha256": "855bcef258b0dedf596fb1b37d3c5a22ce433669f697a830b04b39f499336675"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "mode": "serial_api_profile",
+  "source": "/home/zihan/papers/latency/.codex-worktrees/sooool-asterix-api-video/runs/asterix-realtime-approved-20261017/seed-5",
+  "selected_call_indices": [
+    0,
+    3,
+    5,
+    8,
+    11,
+    13,
+    16,
+    19,
+    21,
+    24
+  ],
+  "selection": "10 evenly spread retained observations; unchanged prompt and screenshots",
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "tier": "ultrafast",
+  "endpoint": "https://api.openai.com/v1/responses",
+  "max_new_calls": 10,
+  "cumulative_ledger": "/home/zihan/papers/latency/.codex-worktrees/sooool-asterix-api-video/runs/asterix-requested-retry-20261017/ledger.json",
+  "prior_unknown_reserved_usd": "0.27747",
+  "ledger_cap_usd": "9.72253",
+  "gameplay_actions_executed": false,
+  "retries": 0
+}

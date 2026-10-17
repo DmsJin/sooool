@@ -40,7 +40,7 @@ $10.1178768 cumulative spend under its $15 cap.
 
 [Watch the 15-second opening serve and rally](../../assets/gameplay/badminton.mp4).
 The excerpt is source seconds 6–21, with original S3 speed, both cameras, and
-same-response English summaries. The opening point ultimately finished 1:0;
+same-response English summaries. Quiet locally generated background music was added to the committed excerpt; its original video stream and timing are unchanged. [Music provenance](../../assets/gameplay/sports-music-provenance.json). The opening point ultimately finished 1:0;
 the short excerpt shows its beginning. The full 13:48.27 video is a verified
 native replay of actual API controls at 100/3 FPS, rendered without model calls.
 
