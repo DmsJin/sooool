@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "endpoint": "/v1/models/gpt-6.1-sol",
+  "http_status": 200,
+  "provider_request_id": "7792831a-5bce-4c20-a9d5-cd000e9b2d88",
+  "generation_requests": 0,
+  "model_id": "gpt-6.1-sol",
+  "error_code": null,
+  "error_type": null,
+  "executed_at_utc": "2026-10-17T00:03:29.209971+00:00"
+}

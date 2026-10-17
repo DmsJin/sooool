@@ -1,0 +1,41 @@
+{
+  "answer": "{\"action\":2,\"reason\":\"The yellow player has rounded food to the right in the same row, with no visible lyre threatening the intercept.\"}",
+  "meta": {
+    "request_id": "5231d797c3764722905197199c427b78",
+    "provider_response_id": "resp_0b78b85361a0105d016ad2be860ff887d2bea27be158da3be3",
+    "ttft_s": 2.325300158932805,
+    "legal_action_s": 2.3253302853554487,
+    "total_s": 2.4173740409314632,
+    "prepare_s": 0.053608279675245285,
+    "valid": true,
+    "usage": {
+      "input_tokens": 1721,
+      "input_tokens_details": {
+        "cache_write_tokens": 1718,
+        "cached_tokens": 0
+      },
+      "output_tokens": 103,
+      "output_tokens_details": {
+        "reasoning_tokens": 59
+      },
+      "total_tokens": 1824
+    },
+    "usd": "0.031986",
+    "shape": {
+      "model": "gpt-6.1-sol",
+      "tier": "ultrafast",
+      "effort": "low",
+      "max_output_tokens": 512,
+      "detail": "high",
+      "prompt_sha256": "b4d0ef1d7829dfdf51ca30785ac350ab051c0c7c240fd0e594879e7d4925a57f",
+      "images": [
+        "f06150cdbf4ea79350e4ff251668c6943142951701fd9b470f0350e3c444df21"
+      ],
+      "schema_sha256": "9f40d13260f4e2cbdf17d87676c32a63f34552f56616617922296a2e4c6c93e9",
+      "preserve_schema_order": false,
+      "schema_order_sha256": "9f40d13260f4e2cbdf17d87676c32a63f34552f56616617922296a2e4c6c93e9"
+    },
+    "early_legal_delivered": true,
+    "early_callback_s": 2.1843239665031433e-05
+  }
+}

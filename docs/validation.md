@@ -47,9 +47,15 @@ Both commands completed using the standalone native CLI 0.162.1 and real ChatGPT
 | Fresh portable simulation, seed 5 | 44 | 20 game seconds, 300 points, one life | Historical sampled API delays; native computation paused outside virtual time |
 | Actual-clock subscription smoke, seed 5 | 4 | 5 game seconds, 50 points, three lives | 25.00026 wall seconds; maximum frame lag 4.29ms; three unchanged model actions applied |
 
-The fresh simulation did not reproduce the historical 500-point score. Both use the selected strategy, but the original suite transport and portable app-server are separately recorded conditions, and model decisions are stochastic. The historical replay remains the demonstration; it is not substituted for the fresh trial. The short actual-clock test verifies functional transport and continuous timing, not full-game reliability or ultrafast API latency.
+The fresh simulation did not reproduce the historical 500-point score. Both use the selected strategy, but the original suite transport and portable app-server are separately recorded conditions, and model decisions are stochastic. The historical replay remains available as development evidence; the current README demonstration uses the later paid API repeat documented below. The short actual-clock test verifies functional transport and continuous timing, not full-game reliability or ultrafast API latency.
 
 The source host used Python 3.10.22, Gymnasium 0.29.1 and ALE 0.8.1 for these real calls. Local locked-environment replay used Python 3.12.3, Gymnasium 1.2.3 and ALE 0.11.2 and reproduced the selected trajectory exactly. Both successful and interrupted migration checks remain explicitly distinguished. The merged Racing dispatch and subsequent failure-record fixes do not change the successful Asterix action path; their tests remain part of the final branch.
+
+## Fresh Asterix paid API validation
+
+Two seed-5 V28 trials completed 720 frames / 60 wall seconds at 12 raw FPS (5× slowdown). The first scored 50 points/one life with 25 settled calls; the repeat scored 300 points/two lives with 31 settled calls. Each used `gpt-6.1-sol / low / ultrafast`, one in-flight request and unchanged held model actions. Recorded wall times were 60.001717s and 60.000341s. Neither trial establishes native-speed performance or an independent reliability estimate.
+
+The full repeat-run video is a saved-action replay, with all 720 rewards, scores and life counts checked against ALE. It preserves 60-second timing; its original procedural music and game-panel color adjustment are documented separately. Both raw run archives include prompts, PNG inputs, public responses, transport metadata, applied actions, source snapshots and frozen manifests. The earlier unknown reservation remains charged; all 67 requests in the new cumulative ledger are settled. [Run table, budgets and replay instructions](../artifacts/asterix/api-validation/20261017/README.md).
 
 ## Selected v2 realtime workflow
 

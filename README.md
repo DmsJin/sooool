@@ -1,9 +1,9 @@
 <h1 align="center">Sooool! Agent as Real-Time Policies</h1>
 
-<p align="center"><strong>Can GPT-6 Sol play real-time games, where the world keeps moving while it thinks?</strong></p>
+<p align="center"><strong>&#xA0;GPT Sol doing real-time tasks. World keeps moving while it thinks.</strong></p>
 
 <p align="center">
-<a href="#latency-profiling-and-simulation">Latency profiling and simulation</a> · <a href="#autoresearch-for-latency-aware-agents">Autoresearch for latency-aware agents</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#games-and-controls">Games &amp; controls</a> · <a href="#results">Results</a> · <a href="#quick-start">Quick start</a> · <a href="#code-guide">Code guide</a> · <a href="#citation">Citation</a>
+<a href="#latency-profiling-and-simulation">Latency profiling and simulation</a> · <a href="#autoresearch-for-latency-aware-agents">Autoresearch for latency-aware agents</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#games-and-controls">Games &amp; controls</a> · <a href="https://github.com/sooool-project/sooool/blob/main/docs/results.md">Results</a> · <a href="#quick-start">Quick start</a> · <a href="#code-guide">Code guide</a> · <a href="#citation">Citation</a>
 </p>
 
 Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with Agent as Policy. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks.
@@ -14,12 +14,12 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with
 <td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="The coding agent playing table tennis with both camera views and live public decision summaries" width="390"></a><br><b>PingPong</b> · Real-time API · 1×</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="The coding agent collecting food in Asterix alongside original public decision summaries" width="390"></a><br><b>Asterix</b> · Simulation replay · 5× slowdown</td>
-<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="The coding agent playing badminton: opening serve and rally, with both camera views and original English decision summaries" width="390"></a><br><b>Badminton</b> · Real-time API replay · 3× slowdown</td>
-</tr>
-<tr>
 <td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="The coding agent choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="243"></a><br><b>Rhythm</b> · Real-time API · 1×</td>
 <td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="The coding agent selecting racing targets through bends and obstacles, with live decisions" width="390"></a><br><b>Racing</b> · Real-time API · 1×</td>
+</tr>
+<tr>
+<td width="50%" align="center"><a href="assets/asterix/v28-api-60s.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol playing Asterix with real API decisions: 300 points, two lives, 60 wall seconds at 12 FPS" height="105"></a><br><b>Asterix</b> · Real-time API replay · 12 FPS</td>
+<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="The coding agent playing badminton: opening serve and rally, with both camera views and original English decision summaries" width="390"></a><br><b>Badminton</b> · Real-time API replay · 3× slowdown</td>
 </tr>
 </table>
 
@@ -141,18 +141,7 @@ Evaluators may inspect game state to score outcomes. [Observation boundaries](do
 | **Rhythm** | Our four-lane browser game | Inspired by [Rhythm Master](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993) |
 | **Racing** | Upstream environment; our agent interface and steering controller | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) |
 
-## Results
-
-| Game | Result | Execution |
-|---|---|---|
-| **Touhou** | Boss defeated in 58.47 game seconds, two hits | Real-time API, 1× |
-| **PingPong** | Won 5:1 on seed 11; lost 3:5 on seed 12 | Real-time API, 1× |
-| **Asterix** | 500 points, two lives after 20 game seconds | Sampled-delay simulation, 5× slowdown |
-| **Badminton** | Lost 8:11 | Real-time API, 3× slowdown |
-| **Rhythm** | 24 Perfect, 1 Great, zero Miss, two empty presses | Real-time API, 1× music |
-| **Racing** | Won 2:0 on seed 304 | Real-time API, 1×, coded steering |
-
-The portable launcher has not reproduced the original Touhou and Rhythm results: its fresh Touhou simulation lost, full paid Touhou evaluation is pending, and its live Rhythm run failed. A fresh Asterix simulation scored 300. [Full results and comparisons](docs/results.md) · [Validation history](docs/validation.md).
+[Full results and comparisons](https://github.com/sooool-project/sooool/blob/main/docs/results.md) · [Validation history](https://github.com/sooool-project/sooool/blob/main/docs/validation.md).
 
 ## Quick start
 

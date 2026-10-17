@@ -17,11 +17,52 @@ uv run sol eval asterix --seed 5 --duration 20 --output runs/asterix-realtime
 
 This uses actual ChatGPT subscription inference and a continuously advancing 12-raw-FPS clock (5× slowdown). One request is in flight; complete model actions are held unchanged until replaced. Game time continues while the model computes. There is no automatic hop release, neutral landing or row-based filtering. A completed response is applied on the next game tick; the next observation is captured at the next four-frame observation tick.
 
-`sol simulate asterix` uses the same policy/action semantics but samples a historical API delay profile and pauses native computation outside virtual game time. The default 500-point demonstration is profile development evidence. The realtime command measures subscription latency and game performance; it is not a paid ultrafast API calibration or native-speed result.
+`sol simulate asterix` uses the same policy/action semantics but samples a historical API delay profile and pauses native computation outside virtual game time. The historical 500-point demonstration is profile development evidence. The realtime command measures subscription latency and game performance; it is not a paid ultrafast API calibration or native-speed result.
 
 Each trial retains the exact task, model public output, capture frame, delivery frame, actual capture-to-apply duration, frame lag, applied action, rewards/lives, source snapshot and evaluation record. Interrupted calls preserve partial artifacts; authentication failures cannot fall back to paid API. The default quota stop is 80%. Record retain/reject decisions with `sol record`; see [the recording protocol](evaluation-records.md).
 
-A paid ultrafast API trial requires the user's own secure credentials, explicit per-run spending budget, complete-response and early-action calibration, failure/usage accounting, and fresh real-time validation. The original API research utilities remain available at [the fixed Asterix source checkpoint](https://github.com/sooool-project/sooool/tree/053545c1c27e6beccb80598e7a4d57f80865afc1/research/asterix/realtime-source). This release does not expose an unvalidated paid API launcher or inherit an old budget authorization.
+### Explicit paid API trial at 12 FPS
+
+```bash
+# Example only: obtain authorization for the new USD cap before running.
+# Key comes from OPENAI_API_KEY or hidden terminal input, never arguments.
+uv run sol eval asterix --provider api --seed 5 --wall-seconds 60 \
+  --budget-usd 5 --max-calls 100 --output runs/asterix-api-60s
+uv run python scripts/render_asterix_decisions.py \
+  runs/asterix-api-60s/seed-5 runs/asterix-api-60s/replay.mp4 --music
+```
+
+This explicit transport uses `gpt-6.1-sol / low / ultrafast`, three past screenshots,
+V28 and the same unchanged held actions. It has one in-flight request. A complete,
+schema-valid action and public English summary apply at the next 12-FPS tick;
+stream termination and billing settlement finish before another request is admitted.
+The game keeps advancing during both phases. The API path uses the task directly,
+without the Codex coding wrapper. `--wall-seconds 60` means 720 raw frames / 12
+game seconds; `--duration 60` instead means 3,600 frames / 300 actual seconds.
+
+Each run has a persistent capped ledger unless `--ledger` explicitly selects a
+shared cumulative ledger. The shared Responses client reserves conservative
+costs before sending, settles terminal usage, verifies model/tier, and blocks
+admission on unknown accounting. Interrupted runs retain all evidence and cannot
+be promoted to successful API evaluations. Reused API/accounting source files
+are included in the frozen manifest. Fresh paid validation completed twice with seed 5 at 12 raw FPS: **50 points/one life**
+and **300 points/two lives**, each over 720 frames / 60 wall seconds (12 game seconds).
+The two games made 25 and 31 API calls, all settled, costing US$0.8909508 and
+US$1.1090868 from reported usage. Legal-action latency medians were 1.598s and
+1.487s, with maxima of 8.590s and 2.747s. These are two trials, not a win-rate estimate.
+[Inputs, outputs, frozen source, accounting and run records](../artifacts/asterix/api-validation/20261017/README.md)
+include both outcomes; the README now shows the repeat run.
+
+The earlier interrupted attempt and its blocked ledger remain unchanged, with
+unknown actual cost conservatively reserved at US$0.27747. After explicit retry
+authorization, the new shared ledger was capped at US$9.72253, deducting that old
+reservation from the original US$10 total. The probe, 10-input serial profile and
+both games have 67 settled requests, totaling US$2.1357948; including the old
+reservation, cumulative commitment is US$2.4132648. No unknown charge was released.
+[Earlier failure evidence](../artifacts/asterix/api-validation/20261016/) remains retained.
+A rendered replay reconstructs saved actions and checks every reward/life; it is
+not an original screen recording. Its added music and game-panel color adjustment
+are recorded in [video provenance](../assets/asterix/v28-api-60s.provenance.json).
 
 ## Touhou: actual realtime API evaluation
 

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "run": "/home/zihan/papers/latency/.codex-worktrees/sooool-asterix-api-video/runs/asterix-api60-seed5-20261016",
+  "created_at_unix": 1792194610.0433104,
+  "game": "asterix",
+  "mode": "realtime_api",
+  "recipe": {
+    "policy": "v28-direct-serial-english",
+    "profile": "profiles/asterix/latency_v16_actual_5x_512cap.json",
+    "prompt": "policies/asterix/v28/prompt.txt",
+    "task_prefix": "policies/asterix/v28/task-prefix.txt",
+    "output_instructions": "policies/asterix/v28/output-format.txt",
+    "output_format": "action_reason",
+    "system": "policies/asterix/v28/system.txt",
+    "native_workers": 1,
+    "args": {
+      "seeds": [
+        5
+      ],
+      "max_frames": 1200,
+      "episode_workers": 1,
+      "virtual_capacity": 1,
+      "controller": "direct",
+      "quota_stop_percent": 80,
+      "latency_scale": 1.0,
+      "latency_seed_offset": 91
+    },
+    "provider": "openai_api",
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "service_tier": "ultrafast",
+    "max_output_tokens": 512
+  },
+  "manifest_sha256": "480b45dd84c0a999d7df0aceaa8fab99a404239957e10c70df3304658276d780",
+  "summary": null,
+  "status": "interrupted",
+  "performance_is_independently_confirmed": false
+}
