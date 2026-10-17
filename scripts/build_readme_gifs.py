@@ -17,7 +17,12 @@ def build(item):
     filt = f"fps={item['fps']},"
     if item.get('crop'):
         filt += 'crop=' + item['crop'] + ','
-    filt += f"scale={item['width']}:-2:flags=lanczos"
+    if item.get('height'):
+        width, height = item['width'], item['height']
+        filt += (f"scale={width}:{height}:force_original_aspect_ratio=decrease:flags=lanczos,"
+                 f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2:color=0x0c1420,setsar=1")
+    else:
+        filt += f"scale={item['width']}:-2:flags=lanczos"
     cmd = ['ffmpeg', '-v', 'error', '-y', '-ss', str(item['start_seconds']),
            '-t', str(item['duration_seconds']), '-i', str(source)]
     palette = OUT / (name + '-palette.png')
