@@ -251,5 +251,3 @@ If you use Sooool in your research, please cite this repository:
   url          = {https://github.com/sooool-project/sooool}
 }
 ```
-
-This is a private research package. Repository access does not grant an additional license to upstream code or media. See [source and media provenance](docs/provenance.md) before redistribution.
