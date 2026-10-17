@@ -245,7 +245,7 @@ If you use Sooool in your research, please cite this repository:
 ```bibtex
 @misc{wang2026sooool,
   title        = {Sooool!},
-  author       = {Wang, Zihan and Li, Xinyuan and Li, Zeju and {Yuxiang} and Gui, Chi and Pei, Jiaxin and Li, Manling},
+  author       = {Wang, Zihan and Li, Xinyuan and Li, Zeju and Lin, Yuxiang and Gui, Chi and Pei, Jiaxin and Li, Manling},
   year         = {2026},
   howpublished = {GitHub repository},
   url          = {https://github.com/sooool-project/sooool}
