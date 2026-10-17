@@ -21,7 +21,7 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol, working as a coding agent, t
 
 We give Codex a game, a goal, and an experiment budget, then let it work through trial and error. It plays, looks at what went wrong, changes its strategy, and tries again. During these experiments, a latency simulator recreates the delays measured from actual API calls. Selected strategies are then tested against a real-time game clock, with the game running while the agent thinks.
 
-The games include bullet dodging, racing, rhythm games, and simulated robot sports. Watch a few of the selected runs below.
+The games include bullet dodging, racing, rhythm games, and simulated robot sports. The gallery shows a few of the selected runs.
 
 These clips come from individual runs, rather than repeated win-rate tests. Each caption identifies how that run was timed. The Asterix clip replays a fresh real-time API run at 12 FPS (5× slowdown); Touhou, Racing, Rhythm, and PingPong also used actual API calls while the game was running. The Badminton clip replays a recorded real-time API run at 3x slowdown. Racing uses a steering controller, and PingPong uses a controller to execute shots. [Clip sources and editing details](assets/gameplay/README.md).
 
