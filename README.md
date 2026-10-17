@@ -126,8 +126,6 @@ The portable launcher has not reproduced the original Touhou and Rhythm results:
 
 ## Quick start
 
-Start with Touhou in the latency simulator. The tested setup uses Linux, Python 3.10-3.12, Chromium dependencies, and a standalone Codex CLI signed in with a ChatGPT subscription that supports the configured model. The tested CLI version is 0.162.1.
-
 ```bash
 uv sync --locked --python 3.12
 uv run playwright install --with-deps chromium
