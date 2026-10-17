@@ -1,22 +1,12 @@
 <h1 align="center">Sooool!</h1>
 
-<p align="center"><strong>Can GPT-6 Sol play real-time games, where the world keeps moving while it thinks?</strong></p>
+<p align="center"><strong>Can GPT-6 Sol (a coding agent) play real-time games, where the world keeps moving while it thinks?</strong></p>
 
 <p align="center">
-<a href="#what-is-sooool">Overview</a> · <a href="#autoresearch-for-latency-awareness">Autoresearch for latency awareness</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#how-the-latency-simulator-works">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#find-your-way-around-the-code">Code guide</a> · <a href="#citation">Citation</a>
+<a href="#autoresearch-for-latency-awareness">Autoresearch for latency awareness</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#how-the-latency-simulator-works">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#find-your-way-around-the-code">Code guide</a> · <a href="#citation">Citation</a>
 </p>
 
-To understand the method, start with [Autoresearch for latency awareness](#autoresearch-for-latency-awareness). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
-
-## What is Sooool?
-
-Sooool! uses an autoresearch loop to get GPT-6 Sol, working as a coding agent, to play real-time games. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks: a bullet gets closer, an opponent changes direction, or a note passes. A good move can arrive too late.
-
-We give Codex a game, a goal, and an experiment budget, then let it work through trial and error. It plays, looks at what went wrong, changes its strategy, and tries again. During these experiments, a latency simulator recreates the delays measured from actual API calls. Selected strategies are then tested against a real-time game clock, with the game running while the agent thinks.
-
-## Demos
-
-Click a preview to watch the video.
+Sooool! uses an autoresearch loop to get GPT-6 Sol, working as Agent as Policy, to play real-time games. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks. To understand the method, start with [Autoresearch for latency awareness](#autoresearch-for-latency-awareness). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
 
 <table>
 <tr>
@@ -33,39 +23,25 @@ Click a preview to watch the video.
 </tr>
 </table>
 
-These clips come from individual runs, rather than repeated win-rate tests. Each caption identifies how that run was timed. The Asterix clip replays a fresh real-time API run at 12 FPS (5× slowdown); Touhou, Racing, Rhythm, and PingPong also used actual API calls while the game was running. The Badminton clip replays a recorded real-time API run at 3x slowdown. Racing uses a steering controller, and PingPong uses a controller to execute shots. [Clip sources and editing details](assets/gameplay/README.md).
+These are selected runs, not win-rate estimates. Captions distinguish actual API play from simulation and replay, and state the game speed. [Clip sources and editing details](assets/gameplay/README.md).
 
-PingPong and Badminton MP4s include quiet locally generated background music; GIF previews are silent. [Music provenance](assets/gameplay/sports-music-provenance.json).
+PingPong and Badminton MP4s include a soft original electronic BGM; GIF previews are silent. [Music provenance](assets/gameplay/sports-music-provenance.json).
 
 ## Autoresearch for latency awareness
 
-We ask Codex to improve how GPT-6 Sol plays a game through repeated experiments. It studies failed runs, proposes a change, edits the gameplay instructions or permitted control settings, and tests whether the change helps. The aim is to account for what happens while the model thinks: where a bullet will move, when a note must be pressed, or whether a target will still be useful when the action arrives. Humans supply the goal, budget, constraints, and feedback.
+We give Codex a game, a goal, an experiment budget, and feedback. It tries to improve how GPT-6 Sol plays under response delays: anticipating where a bullet will move or whether a target will still be useful when an action arrives.
 
-Here is how an autoresearch session proceeds:
+1. **Find a failure.** Run the game and inspect screenshots, actions, timing, and outcomes.
+2. **Propose a change.** Revise the gameplay instructions, memory, or permitted control settings to address a specific problem.
+3. **Compare.** Test the candidate against the previous strategy on the same cases and timing conditions.
+4. **Keep or reject it.** Check safety as well as score, then test promising candidates through complete games.
+5. **Test in real time.** Fix the selected strategy and settings, run with actual response delays, and use the results to guide the next experiment. Keep failures alongside wins.
 
-1. **Give it a goal.** Choose a game, an objective, a budget, and rules about what it may change. Humans can provide demonstrations and feedback along the way.
-2. **Find out what failed.** Codex inspects screenshots, actions, timing, and outcomes. Did it mistake a friendly effect for a bullet? Did it chase where the opponent used to be? Did it react too late?
-3. **Try a specific change.** It revises the gameplay instructions or an allowed control setting, then compares the candidate with the previous strategy on the same cases and timing conditions.
-4. **Keep or reject it.** A change that scores more points but causes more deaths may fail the comparison. Promising candidates also have to work through complete games.
-5. **Test in real time.** Fix the selected strategy and its settings, then run it with the actual response delays. Record what happened, including failures, and use those results to guide the next experiment.
+**For example,** in Touhou the model often chased where the boss had been before it started thinking. Codex tested instructions that anticipated the boss's next position. Some changes increased damage but caused more hits, so they were rejected. Adding safety checks for the action's start, movement path, and stopped position produced a candidate that passed comparisons on 12 fixed cases, then went on to full-game simulation and real-time testing. [Full case study](docs/touhou-research-record.md).
 
-Here, a **policy** is the gameplay instructions, fixed notes supplied with each request (called memory), output format, and request settings. The selected Touhou policy was developed through repeated play, prompt and memory refinement, and experiments. Its base-model weights remain frozen. These autoresearch sessions were carried out in Codex Goal mode with human guidance. Running `sol simulate` starts one game experiment; Codex carries out the analysis, edits, and comparisons across experiments.
-
-[See a concrete Touhou example below](#an-example-learning-to-stop-chasing-the-boss), or [read the autoresearch stories for each game](docs/autoresearch-summaries.md).
+A **policy** is the gameplay instructions, fixed notes supplied with each request (called memory), output format, and request settings. The selected Touhou policy changed these rather than model weights. Autoresearch took place in Codex Goal mode with human guidance; `sol simulate` runs one game experiment, while Codex handles the analysis and edits across experiments. [Research stories for each game](docs/autoresearch-summaries.md).
 
 ## How a game runs
-
-During each experiment, GPT-6 Sol plays by repeating these steps:
-
-```text
-See the game screen → choose an action → apply it when ready → see what changed
-         ↑                                                        |
-         +--------------------------------------------------------+
-```
-
-The instructions, recent screenshots, and allowed feedback tell the model what it can see and do. Each game defines its controls: in Touhou, for example, the model chooses movement, shooting, focus, bombs, and how long to hold them. Other games let it choose targets that a controller carries out.
-
-### From screenshots to actions
 
 Take Touhou as an example:
 
@@ -82,83 +58,41 @@ One action in the plan might be:
 
 This means: move right, keep shooting, use slow focused movement, do not use a bomb, and hold for 12 game frames (0.2 seconds at 60 FPS). The model chooses both the direction and the duration.
 
-Once the plan ends, movement stops and shooting/focus keep their last settings while the runner waits for another answer. A newer accepted decision replaces the unfinished part of the previous plan. An answer based on an older observation cannot override a decision already accepted from a newer one.
+In Touhou, movement stops when the plan ends; shooting and focus keep their last settings. A newer accepted decision replaces the unfinished plan. Older observations cannot override a decision already accepted from a newer one.
 
 ### Several requests can be waiting at once
 
-Waiting for an answer can take seconds. We tried different ways to keep decisions coming, rather than assuming one request at a time would work for every game. The selected configurations use three different patterns:
+An answer can take seconds. Sending requests while earlier ones are still waiting can keep decisions coming more often, or provide several chances to get an answer sooner. The selected configurations use three patterns:
 
-| Game | When requests are sent | What happens to the answers |
+| Game | Requests | How answers are used |
 |---|---|---|
-| **Touhou** | Send the same screenshots and prompt to **four requests at once**. Wait for a valid answer to take effect and its movement to finish before sending the next group; enough request slots must also be free. | Use the first valid answer for that observation. Other answers for the same observation cannot replace it. |
-| **Rhythm** | Try to send a new screenshot **every 0.2 seconds**, with **up to 16 requests waiting at once**. Skip sending when all slots are occupied. | Answers specify keys and tap times. The executor follows those times, skips expired taps, and uses action IDs to prevent duplicate presses. |
-| **Asterix** | Allow **one request at a time**. Capture the next observation after the previous answer arrives. | Hold the chosen direction unchanged until the model replaces it. There is no automatic stop or row hop. |
+| **Touhou** | Send the same observation to **four requests at once**. Start another group after a winner takes effect, movement finishes, and enough slots are free. | Use the first valid answer; the other answers for that observation cannot replace it. |
+| **Rhythm** | Try a new screenshot **every 0.2 seconds**, with **up to 16 requests waiting**. Skip sending when full. | Execute the model's tap times, skip expired taps, and prevent duplicate presses using action IDs. |
+| **Asterix** | **One request at a time.** Observe again after the previous reply. | Hold the chosen direction until a new answer replaces it. |
 
-Touhou's real-time configuration allows four requests in total; its simulation allows eight so older requests can finish after a winner has been used. Choosing a winner does not immediately free the other requests' slots. Rhythm overlaps decisions from successive observations instead of racing several answers to the same screenshot. Its older answers cannot cancel or replace newer instructions, though they can still add a tap that is valid and has not already been scheduled.
+More requests also mean more calls, cost, and potentially outdated answers. Asterix's serial setup followed limited trials in which overlapping requests appeared to encourage repeated movement. [Request ordering, capacity, and experiment details](docs/latency-aware-learning.md).
 
-The prompts also ask the model to anticipate where the boss and bullets will be when its action arrives. [Latency-aware learning and control](docs/latency-aware-learning.md) describes this strategy development alongside request scheduling.
-
-Concurrency can help an answer arrive sooner or keep observations flowing while earlier requests are waiting. It also means more calls, more cost, and more answers that may already be out of date. Asterix's serial setup was selected after overlapping requests appeared to encourage repeated movement; the limited trials motivate that choice rather than proving it is always better.
-
-Each **recipe** is a JSON file that selects the strategy, latency profile, and run settings. These are the selected configurations, not fixed rules for all experiments: [Touhou simulation](recipes/touhou.json), [Touhou real-time](recipes/touhou-realtime.json), [Rhythm](recipes/rhythm.json), and [Asterix](recipes/asterix.json). The [games and controls table](#games-and-controls) below explains what the model chooses and what each game's controller handles.
+A **recipe** is a JSON file selecting a policy, latency profile, and run settings. See the selected recipes: [Touhou simulation](recipes/touhou.json), [Touhou real-time](recipes/touhou-realtime.json), [Rhythm](recipes/rhythm.json), and [Asterix](recipes/asterix.json).
 
 ## How the latency simulator works
 
-We want to try strategies under realistic delays without requiring every development run to use the target API. Development runs use the subscription model to make decisions and the latency simulator to decide when those decisions take effect.
-
-For Touhou and Rhythm, the three commands divide the work like this:
+Development uses subscription calls to try strategies under delays measured from the target API. For Touhou and Rhythm, the commands divide the work like this:
 
 | Command | What happens | What it uses |
 |---|---|---|
-| `sol profile` | Send saved screenshots and prompts to the API, one request at a time, and measure how long answers take. No game actions are executed. | Paid API calls with a budget cap |
-| `sol simulate` | Play a new game. Use measured delays to decide when each answer can affect the game; virtual time can wait for the model. | ChatGPT subscription calls and a latency profile |
-| `sol eval` | Play with a continuously running game clock. The actual time taken by each answer affects the outcome. | Paid API calls with a budget cap |
+| `sol profile` | Send saved inputs one at a time and measure response times. No game actions are executed. | Paid API calls with a budget cap |
+| `sol simulate` | Play a new game and use sampled delays to schedule answers. Virtual time can wait for the model. | ChatGPT subscription calls and a latency profile |
+| `sol eval` | Play with a continuously running clock and actual response times. | Paid API calls with a budget cap |
 
-Asterix supports subscription calls and an explicitly selected paid API path for real-time evaluation at 12 FPS. The other games have separate commands and dependencies in their [setup guides](docs/release-guide.md).
+A **latency profile** stores measured response times, including slow replies. The simulator draws from it to decide when each new answer becomes available.
 
+Suppose a screenshot is taken at frame 100 and the drawn delay is half a second. At 60 FPS, the answer can be used at frame 130. Until then, the game advances with the controls already in effect. If the model finishes early, its answer waits; if it is still computing at frame 130, virtual time waits for it. The model never sees the drawn delay. Both game time and actual computing time are recorded.
 
-### 1. Measure the delay (`sol profile`)
+In real-time evaluation, a three-second response means the game also moves forward for three seconds. Asterix supports subscription response times and an explicitly selected paid API path, both at 12 FPS (5× slowdown); other games have separate [setup guides](docs/release-guide.md).
 
-Send representative screenshots and instructions to the target API and record how long answers take. Keep the individual measurements, including slow responses, in a **latency profile**. This describes the timing of a particular prompt, image setup, and request configuration.
+The simulator also accounts for concurrent requests: Touhou samples groups of delays together, while Rhythm includes screenshot age. Changing prompts, images, or concurrency may require a new profile. Simulated scores do not establish real-time success. [Timing and calibration details](docs/timing.md).
 
-### 2. Play a new game with those delays (`sol simulate`)
-
-The game runs on a virtual clock that the runner advances. For each request, the simulator draws a delay from the profile and schedules when the answer can be used.
-
-For example, suppose a screenshot is taken at frame 100 and the sampled delay is half a second. At 60 frames per second, the answer becomes available at frame 130. Until then, the game advances using the controls already in effect.
-
-The model still makes a new decision from the screenshots. If it finishes early, the simulator holds the answer until frame 130. If it has not finished by then, the runner waits for it without advancing the virtual clock. Both the game time and the actual time spent computing are recorded.
-
-This lets us ask: **would this strategy work if its answers arrived with the delays we measured?** It does not tell us how fast the current model call actually was.
-
-The implementation also tracks requests that are still in progress and prevents old answers from replacing newer decisions. Touhou's selected setup sends four requests the same observation and uses the first valid answer. Its simulator samples their delays together to preserve the relationships measured between concurrent requests. Rhythm also accounts for how old a screenshot is when a request is sent. [Timing details](docs/timing.md).
-
-### 3. Test the selected strategy in real time (`sol eval`)
-
-In the real-time test, the game keeps running while the agent responds. If a response takes three seconds, the game moves forward for three seconds. There is no waiting for the model outside game time.
-
-Touhou and Rhythm use the paid API for this test. Asterix supports actual subscription response times and an explicitly selected paid API path; both retain its declared 12-FPS game slowdown. Each game's documentation specifies its clock, speed, and model connection.
-
-A changed prompt, image count, or concurrency setting can change response times, so the profile may need to be measured again. Simulated results and real-time results are recorded separately.
-
-## Where replay fits
-
-Replay serves two purposes in the research process:
-
-- **Compare from the same starting point.** Restore a game to a recorded failure state, then ask each candidate for a new action. The candidates start from the same situation, but their actions can lead to different outcomes.
-- **Check a saved run.** Execute the recorded actions at their recorded times to reproduce a trajectory, check timing, or make a video. This does not ask the model for new decisions and is not a new gameplay result.
-
-A normal simulation run makes new decisions as it plays. It does not simply replay a saved sequence of answers.
-
-## An example: learning to stop chasing the boss
-
-In Touhou, an early strategy moved toward the boss's position in the screenshot. By the time the move began, the boss had often changed direction. The player missed shots and sometimes moved into danger.
-
-Codex tested instructions that asked the model to aim for where the boss would be after the response delay and the shots' travel time. Some candidates dealt more damage but also took more hits, so they were rejected.
-
-The next change asked the model to check safety at three points: when the action starts, along the movement path, and where the player stops while waiting for the next answer. Codex compared the candidates on 12 fixed cases, then ran complete games with matched delay samples. The selected candidate was subsequently tested with the real API.
-
-This is what autoresearch means here: turn a failure into a hypothesis, test a change, and keep the evidence that explains the decision. [Full Touhou research story and results](docs/touhou-research-record.md).
+**Replay** can restore a fixed starting state before candidates make new decisions, or reproduce an entire saved action sequence to check timing and make videos. The latter makes no new decisions and is not a new performance result. [Development and replay workflow](docs/development.md).
 
 ## Games and controls
 
@@ -173,28 +107,19 @@ This is what autoresearch means here: turn a failure into a hypothesis, test a c
 | **Badminton** | Shot placement and recovery goals | Controllers handle contact planning and native game mechanics |
 | **Atari Asterix** | Which direction to hold | Applies the model's action unchanged until a newer one replaces it |
 
-The screenshot-based game actors do not receive hidden game coordinates or future sampled delays. Evaluators can inspect game state to score outcomes. [Observation and evaluation boundaries](docs/observation-contract.md).
+The game actors do not receive hidden game coordinates or future sampled delays. Evaluators may inspect game state to score outcomes. [Observation boundaries](docs/observation-contract.md).
 
-The demos use selected runs, and success has not been reproduced under every setup. The original Touhou runs include real-time boss defeats, while a fresh simulation with the portable launcher lost; a full paid real-time test of that launcher remains pending. Rhythm's selected original run had 24 Perfect, 1 Great, zero Miss, and two empty presses, but a later run with the portable launcher did not reproduce that result. [Validation results, including failures](docs/validation.md).
+**Results and limits.** Original Touhou runs defeated the boss in real time; Rhythm's selected run scored 24 Perfect, 1 Great, zero Miss, and two empty presses. These results have not been reproduced by the portable launcher: its fresh Touhou simulation lost, its full paid Touhou test is pending, and its live Rhythm run failed. The selected Badminton match lost 8:11; Racing's documented comparison recorded 7/7 wins with GPT targets and 3/7 with fixed goals. The featured Asterix API repeat scored 300 points/two lives over 60 wall seconds (12 game seconds); an earlier trial scored 50 points/one life. See [all results and execution conditions](docs/results.md), [validation including failures](docs/validation.md), and [Badminton evidence](artifacts/badminton/README.md) for the complete records.
 
-The Asterix preview links to the full **60-second real-time API replay**: seed 5, V28, `gpt-6.1-sol / low / ultrafast`, one request in flight, **300 points/two lives**. All 720 recorded step rewards and lives were verified during rendering; music was added locally. An earlier run under the same conditions scored 50 points/one life. These are two recorded trials, not a reliability estimate. [Runs, timing and costs](artifacts/asterix/api-validation/20261017/README.md).
+<details>
+<summary>Game sources and inspirations</summary>
 
-The Badminton clip shows the opening serve and rally from one seed-101, L1/S3 match. The full match lost **8:11**, with **90/97 legal returns**, **47 confirmed Ultrafast responses**, zero rule fallbacks across 90 controlled rally strokes, and four serve failures. Its native replay matched all 27,609 steps. [Protocol and evidence](artifacts/badminton/README.md).
+- **Racing, PingPong, and Badminton:** [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/), using the pinned [RoboOlympics source](https://github.com/CHIGUI0/roboolympics/tree/da1f787f775ea6524d698c0b063157ded4c0fef9).
+- **Asterix:** the Atari 2600 game through [ALE](https://ale.farama.org/environments/asterix/), using `ALE/Asterix-v5`.
+- **Rhythm:** a custom four-lane browser game inspired by Tencent's [Rhythm Master / 节奏大师](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993).
+- **Touhou:** a simplified Kaguya practice encounter based on [Touhou Eiyashou ~ Imperishable Night](https://www16.big.or.jp/~zun/html/th08top.html), with original-game presentation assets.
 
-Racing also retains a [recorded GPT and fixed-goal comparison](research/racing/EVALUATION.md#recorded-gpt-and-no-gpt-comparison): 7/7 wins for GPT targets and 3/7 for fixed goals under the documented conditions.
-
-## Game sources and inspirations
-
-| Game | Source / original game |
-|---|---|
-| **Car Racing** | [RoboOlympics](https://olympics.embodied-first-exam.ai/), using the pinned [RoboOlympics source](https://github.com/CHIGUI0/roboolympics/tree/da1f787f775ea6524d698c0b063157ded4c0fef9). |
-| **Badminton** | [RoboOlympics](https://olympics.embodied-first-exam.ai/), using the same pinned native environment. |
-| **PingPong / Table Tennis** | [RoboOlympics](https://olympics.embodied-first-exam.ai/), using the same pinned native environment. |
-| **Atari Asterix** | The Atari 2600 game through the [Arcade Learning Environment (ALE)](https://ale.farama.org/environments/asterix/), using `ALE/Asterix-v5`. |
-| **Rhythm** | Inspired by Tencent’s [Rhythm Master / 节奏大师](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993); implemented here as a custom four-lane DFJK browser game and practice chart. |
-| **Touhou / Kaguya** | Follows [Touhou Eiyashou ~ Imperishable Night](https://www16.big.or.jp/~zun/html/th08top.html) by ZUN / Team Shanghai Alice; implemented here as a simplified Kaguya practice encounter with original-game presentation assets. |
-
-Environment and media attribution details are recorded in [source and media provenance](docs/provenance.md).
+</details>
 
 ## Quick start
 
@@ -223,17 +148,7 @@ uv run sol eval touhou \
 
 Runs save their configuration and source snapshot, model inputs and outputs, applied actions, timing, and results. The Touhou real-time runner also records video and API costs. [Real-time setup and budgets](docs/realtime.md).
 
-To measure API response times using the inputs saved from a simulation:
-
-```bash
-uv run sol profile touhou \
-  --episode runs/touhou-dev-001/episode \
-  --budget-usd 2 \
-  --max-calls 21 \
-  --output runs/touhou-profile-001
-```
-
-Other games have their own setup requirements: [Rhythm](docs/rhythm.md), [Racing](docs/racing.md), [PingPong](docs/tabletennis.md), [Badminton](docs/badminton.md), and [Asterix](docs/release-guide.md). The [release guide](docs/release-guide.md) collects commands and the [development guide](docs/development.md) explains how to compare your own candidates.
+Other games have their own setup requirements: [Rhythm](docs/rhythm.md), [Racing](docs/racing.md), [PingPong](docs/tabletennis.md), [Badminton](docs/badminton.md), and [Asterix](docs/release-guide.md). The [release guide](docs/release-guide.md) includes profiling commands; the [development guide](docs/development.md) explains how to compare candidates.
 
 ## Find your way around the code
 
@@ -250,7 +165,7 @@ Other games have their own setup requirements: [Rhythm](docs/rhythm.md), [Racing
 
 [Detailed file map](docs/file-map.md) · [Evaluation records](docs/evaluation-records.md) · [Optional evidence downloads](artifacts/README.md)
 
-Large evidence archives are optional. Short explanations shown with actions are model-written public summaries, not internal reasoning transcripts. Media sources and editing are documented with each artifact.
+Evidence archives are optional. Text shown with actions is a model-written public summary, not an internal reasoning transcript.
 
 ## Citation
 
@@ -259,11 +174,9 @@ If you use Sooool in your research, please cite this repository:
 ```bibtex
 @misc{wang2026sooool,
   title        = {Sooool!},
-  author       = {Wang, Zihan and Li, Xinyuan and Li, Zeju and {Yuxiang} and Gui, Chi and Pei, Jiaxin and Li, Manling},
+  author       = {Wang, Zihan and Li, Xinyuan and Li, Zeju and Lin, Yuxiang and Gui, Chi and Pei, Jiaxin and Li, Manling},
   year         = {2026},
   howpublished = {GitHub repository},
   url          = {https://github.com/sooool-project/sooool}
 }
 ```
-
-This is a private research package. Repository access does not grant an additional license to upstream code or media. See [source and media provenance](docs/provenance.md) before redistribution.
