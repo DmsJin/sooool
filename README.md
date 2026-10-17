@@ -1,4 +1,4 @@
-<h1 align="center">Sooool!</h1>
+<h1 align="center">Sooool! Agent as Real-Time Policies</h1>
 
 <p align="center"><strong>Can GPT-6 Sol (a coding agent) play real-time games, where the world keeps moving while it thinks?</strong></p>
 
@@ -198,7 +198,7 @@ More commands: [Release guide](docs/release-guide.md) · Comparing strategies: [
 
 ```bibtex
 @misc{wang2026sooool,
-  title        = {{Sooool! Can coding agents play real-time games?}},
+  title        = {{Sooool! Agent as Real-Time Policies}},
   author       = {Wang, Zihan and Li, Xinyuan and Li, Zeju and Lin, Yuxiang and Gui, Chi and Pei, Jiaxin and Li, Manling},
   year         = {2026},
   url          = {https://github.com/sooool-project/sooool}
