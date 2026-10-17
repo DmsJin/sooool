@@ -1,8 +1,10 @@
-# Sooool!
+<h1 align="center">Sooool!</h1>
 
-**Can GPT-6 Sol play real-time games, where the world keeps moving while it thinks?**
+<p align="center"><strong>Can GPT-6 Sol play real-time games, where the world keeps moving while it thinks?</strong></p>
 
-[Overview](#what-is-sooool) · [Autoresearch for latency awareness](#autoresearch-for-latency-awareness) · [How a game runs](#how-a-game-runs) · [Latency simulator](#how-the-latency-simulator-works) · [Games & results](#games-and-controls) · [Quick start](#quick-start) · [Code guide](#find-your-way-around-the-code) · [Citation](#citation)
+<p align="center">
+<a href="#what-is-sooool">Overview</a> · <a href="#autoresearch-for-latency-awareness">Autoresearch for latency awareness</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#how-the-latency-simulator-works">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#find-your-way-around-the-code">Code guide</a> · <a href="#citation">Citation</a>
+</p>
 
 To understand the method, start with [Autoresearch for latency awareness](#autoresearch-for-latency-awareness). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
 
