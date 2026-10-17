@@ -167,8 +167,6 @@ Evidence archives are optional. Text shown with actions is a model-written publi
 
 ## Citation
 
-If you use Sooool in your research, please cite this repository:
-
 ```bibtex
 @misc{wang2026sooool,
   title        = {Sooool!},
