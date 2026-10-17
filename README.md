@@ -50,15 +50,47 @@ The selected Touhou strategy was developed through prompts and experiments, with
 
 [Read the research stories for each game](docs/autoresearch-summaries.md).
 
+## How a game runs
+
+### From screenshots to actions
+
+Take Touhou as an example. The runner collects up to three recent screenshots and sends them to GPT-6 Sol with the game instructions, screenshot times, controls already in effect, and the model's own earlier position estimates. Comparing the images helps it judge which way the boss and bullets are moving.
+
+The model returns a structured answer containing its visual estimates and an action plan. One action in that plan might be:
+
+```json
+{"move": 3, "shoot": 1, "focus": 1, "bomb": 0, "duration": 12}
+```
+
+This means: move right, keep shooting, use slow focused movement, do not use a bomb, and hold for 12 game frames (0.2 seconds at 60 FPS). The code checks the format and applies the chosen buttons. It does not turn the model's position estimates into an automatic dodge or tracking command.
+
+Once the plan ends, movement stops and shooting/focus keep their last settings while the runner waits for another answer. A newer accepted decision replaces the unfinished part of the previous plan. An answer based on an older observation cannot override a decision already accepted from a newer one.
+
+### Several requests can be waiting at once
+
+Waiting for an answer can take seconds. We tried different ways to keep decisions coming, rather than assuming one request at a time would work for every game. The selected configurations use three different patterns:
+
+| Game | When requests are sent | What happens to the answers |
+|---|---|---|
+| **Touhou** | Send the same screenshots and prompt to **four requests at once**. Wait for a valid answer to take effect and its movement to finish before sending the next group; enough request slots must also be free. | Use the first valid answer for that observation. Other answers for the same observation cannot replace it. |
+| **Rhythm** | Try to send a new screenshot **every 0.2 seconds**, with **up to 16 requests waiting at once**. Skip sending when all slots are occupied. | Answers specify keys and tap times. The executor follows those times, skips expired taps, and uses action IDs to prevent duplicate presses. |
+| **Asterix** | Allow **one request at a time**. Capture the next observation after the previous answer arrives. | Hold the chosen direction unchanged until the model replaces it. There is no automatic stop or row hop. |
+
+Touhou's real-time configuration allows four requests in total; its simulation allows eight so older requests can finish after a winner has been used. Choosing a winner does not immediately free the other requests' slots. Rhythm overlaps decisions from successive observations instead of racing several answers to the same screenshot. Its older answers cannot cancel or replace newer instructions, though they can still add a tap that is valid and has not already been scheduled.
+
+Concurrency can help an answer arrive sooner or keep observations flowing while earlier requests are waiting. It also means more calls, more cost, and more answers that may already be out of date. Asterix's serial setup was selected after overlapping requests appeared to encourage repeated movement; the limited trials motivate that choice rather than proving it is always better.
+
+These settings belong to the selected recipes, not fixed rules for all experiments: [Touhou simulation](recipes/touhou.json), [Touhou real-time](recipes/touhou-realtime.json), [Rhythm](recipes/rhythm.json), and [Asterix](recipes/asterix.json). The [games and controls table](#games-and-controls) below explains what the model chooses and what each game's controller handles.
+
 ## How the latency simulator works
 
 We want to try strategies under realistic delays without requiring every development run to use the target API. Development runs use the subscription model to make decisions and the latency simulator to decide when those decisions take effect.
 
-### 1. Measure the delay
+### 1. Measure the delay (`sol profile`)
 
 Send representative screenshots and instructions to the target API and record how long answers take. Keep the individual measurements, including slow responses, in a **latency profile**. This describes the timing of a particular prompt, image setup, and request configuration.
 
-### 2. Play a new game with those delays
+### 2. Play a new game with those delays (`sol simulate`)
 
 The game runs on a virtual clock that the runner advances. For each request, the simulator draws a delay from the profile and schedules when the answer can be used.
 
@@ -70,7 +102,7 @@ This lets us ask: **would this strategy work if its answers arrived with the del
 
 The implementation also tracks requests that are still in progress and prevents old answers from replacing newer decisions. Touhou's selected setup sends four requests the same observation and uses the first valid answer. Its simulator samples their delays together to preserve the relationships measured between concurrent requests. Rhythm also accounts for how old a screenshot is when a request is sent. [Timing details](docs/timing.md).
 
-### 3. Test the selected strategy in real time
+### 3. Test the selected strategy in real time (`sol eval`)
 
 In the real-time test, the game keeps running while the agent responds. If a response takes three seconds, the game moves forward for three seconds. There is no waiting for the model outside game time.
 
