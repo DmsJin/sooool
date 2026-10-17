@@ -139,18 +139,7 @@ Evaluators may inspect game state to score outcomes. [Observation boundaries](do
 | **Rhythm** | Our four-lane browser game | Inspired by [Rhythm Master](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993) |
 | **Racing** | Upstream environment; our agent interface and steering controller | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) |
 
-## Results
-
-| Game | Result | Execution |
-|---|---|---|
-| **Touhou** | Boss defeated in 58.47 game seconds, two hits | Real-time API, 1× |
-| **PingPong** | Won 5:1 on seed 11; lost 3:5 on seed 12 | Real-time API, 1× |
-| **Asterix** | 500 points, two lives after 20 game seconds | Sampled-delay simulation, 5× slowdown |
-| **Badminton** | Lost 8:11 | Real-time API, 3× slowdown |
-| **Rhythm** | 24 Perfect, 1 Great, zero Miss, two empty presses | Real-time API, 1× music |
-| **Racing** | Won 2:0 on seed 304 | Real-time API, 1×, coded steering |
-
-The portable launcher has not reproduced the original Touhou and Rhythm results: its fresh Touhou simulation lost, full paid Touhou evaluation is pending, and its live Rhythm run failed. A fresh Asterix simulation scored 300. [Full results and comparisons](docs/results.md) · [Validation history](docs/validation.md).
+[Full results and comparisons](https://github.com/sooool-project/sooool/blob/main/docs/results.md) · [Validation history](https://github.com/sooool-project/sooool/blob/main/docs/validation.md).
 
 ## Quick start
 
