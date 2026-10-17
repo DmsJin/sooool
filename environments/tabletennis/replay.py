@@ -18,6 +18,15 @@ def _wrap_pixels(text, font, width):
     return lines
 
 
+def _run_labels(summary):
+    if summary.get("clock_mode") == "subscription_with_simulated_api_profile":
+        return "SUBSCRIPTION / SIM", "Simulation wall time (game may pause)"
+    source = {"api": "REAL API", "sol": "SUBSCRIPTION", "rules": "RULE BASELINE"}[summary["source"]]
+    slowdown = summary["clock"]["requested_slowdown"]
+    speed = "1x" if slowdown == 1 else f"S{slowdown:g}"
+    return f"{source} / {speed}", f"{speed} actual wall time"
+
+
 def _execution_caption(state, frame, selection, leg, latest_id, finished):
     if finished:
         return "Match complete."
@@ -131,6 +140,7 @@ def export_physical_replay(output):
     started, ended = summary["started_mono"], summary["ended_mono"]
     duration = ended - started
     fps, tail = 50, 1
+    source_label, clock_label = _run_labels(summary)
     video = output / "wallclock.mp4"
     process = subprocess.Popen([imageio_ffmpeg.get_ffmpeg_exe(), "-loglevel", "error", "-y",
         "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", "1920x1080", "-r", str(fps), "-i", "-",
@@ -196,7 +206,6 @@ def export_physical_replay(output):
             if sv.get("phase") in ("waiting", "open", "tossed"):
                 phase = f'{sv.get("server", "").upper()} SERVE: {sv["phase"].upper()} / {phase}'
             label = "FINAL" if wall >= duration else "POINT RESET / NEW SERVICE" if wall-reset_at < .65 else phase
-            source_label = "REAL API / 1x" if accepted_intent else "PURE RULE BASELINE"
             draw.text((24, 18), "SOOOOL | TABLE TENNIS | " + source_label, fill="#8bd2ff", font=title)
             draw.text((42, 100), f'k={pose["frame"]}  t={pose["frame"]/100:.2f}s',
                       fill="white", font=small, stroke_width=1, stroke_fill="#40536c")
@@ -246,7 +255,7 @@ def export_physical_replay(output):
                     draw.text((x, y), line, fill="#a8b6c8", font=history_font)
                     y += 29
                 y += 15
-            draw.text((24, 1053), "Recorded native poses | 1x actual wall time | 50 FPS | Same-response model summaries | Orange ring / trail: offline ball highlight (includes occlusion)",
+            draw.text((24, 1053), f"Recorded native poses | {clock_label} | 50 FPS | Same-response model summaries | Orange ring / trail: offline ball highlight (includes occlusion)",
                       fill="#a8b6c8", font=footer)
             display_log.write(json.dumps({"video_frame": index, "video_seconds": wall,
                 "native_frame": pose["frame"], "pose_wall_mono": pose["wall_mono"],
@@ -268,6 +277,7 @@ def export_physical_replay(output):
               "presentation": "badminton-style navy frame, main camera with inset, live decision summary and recent model summaries; offline ball highlight",
               "video_dimensions": [1920,1080],
               "display_timeline": "display_timeline.jsonl",
+              "source_label": source_label, "clock_label": clock_label,
               "game_seconds": summary["game_seconds"], "score": [summary["points_for"], summary["points_against"]]}
     (output / "replay.json").write_text(json.dumps(result, indent=2))
     (output / "decision_timeline.json").write_text(json.dumps({

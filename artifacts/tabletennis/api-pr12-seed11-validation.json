@@ -1,0 +1,114 @@
+{
+  "run": "/home/ubuntu/lzj/sooool-pingpong-tactical/runs/tabletennis/api-eval-pr12-seed11-001",
+  "revision": "b2f85f0549b07d7709a59736eac6dd8d52b780bb",
+  "clock": "actual_wall_api",
+  "source": "api",
+  "native_match_completed": true,
+  "score": [
+    5,
+    1
+  ],
+  "legal_serves": [
+    4,
+    4
+  ],
+  "legal_returns": [
+    6,
+    7
+  ],
+  "plans_installed": 17,
+  "plans_discarded": 8,
+  "accepted_intentions": 32,
+  "received_intentions_before_game_end": 40,
+  "accepted_observation_frames_strictly_increase": true,
+  "native_planning_workers": 2,
+  "model_workers": 4,
+  "virtual_capacity": null,
+  "model_worker_ids": [
+    "tabletennis-model_0",
+    "tabletennis-model_1",
+    "tabletennis-model_2",
+    "tabletennis-model_3"
+  ],
+  "installed_model_flights": 7,
+  "installed_policy_counts": {
+    "wide_right": 3,
+    "wide_left": 3,
+    "safe_center": 1
+  },
+  "fallback_flights": 0,
+  "no_early_simulated_reply": null,
+  "no_early_simulated_terminal": null,
+  "paid_api_completed": 43,
+  "api_cost_usd": 1.3737029999999995,
+  "subscription_completed": 0,
+  "subscription_authenticated_as_chatgpt": false,
+  "private_sampled_timing_absent_from_actor_snapshots": true,
+  "game_seconds": 31.14,
+  "wall_seconds": 31.45293947600294,
+  "clock_metrics": {
+    "requested_slowdown": 1.0,
+    "catch_up_steps": 0,
+    "mode": "actual_wall",
+    "physics_waits_for_model": false,
+    "physics_waits_for_preparation": false,
+    "simulation_gate_wall_seconds": 0.0,
+    "tick_intervals_seconds": {
+      "count": 3113,
+      "min": 0.01005645000259392,
+      "mean": 0.010099883252804769,
+      "p95": 0.010075560014229268,
+      "max": 0.027525900019099936
+    },
+    "step_seconds": {
+      "count": 3114,
+      "min": 0.0015436400135513395,
+      "mean": 0.0017749562008159388,
+      "p95": 0.001778809993993491,
+      "max": 0.02737840000190772
+    },
+    "installation_seconds": {
+      "count": 18,
+      "min": 1.8700084183365107e-06,
+      "mean": 0.0001655445004063141,
+      "p95": 0.00020509999012574553,
+      "max": 0.00020509999012574553
+    },
+    "preparation_seconds": {
+      "count": 11,
+      "min": 0.13283898000372574,
+      "mean": 0.26377157618513924,
+      "p95": 0.36247774100047536,
+      "max": 0.36247774100047536
+    },
+    "initial_preparation_seconds": {
+      "count": 7,
+      "min": 0.03914361001807265,
+      "mean": 0.07760961614466007,
+      "p95": 0.10808037000242621,
+      "max": 0.10808037000242621
+    },
+    "effective_slowdown": 1.0100494372512183
+  },
+  "model_latency_seconds": {
+    "count": 43,
+    "min": 1.8192716449848376,
+    "mean": 2.581390700326707,
+    "p95": 3.7448298299859744,
+    "max": 4.8332633239915594
+  },
+  "sampled_api_latency_seconds": {
+    "count": 0,
+    "min": null,
+    "mean": null,
+    "p95": null,
+    "max": null
+  },
+  "subscription_wait_seconds": {
+    "count": 0,
+    "min": null,
+    "mean": null,
+    "p95": null,
+    "max": null
+  }
+}
