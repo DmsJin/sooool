@@ -146,3 +146,9 @@ The selected Touhou policy was trained through repeated play, prompt and memory 
 Large evidence archives are optional; you can run the source package without downloading them. Public decision summaries are short model-authored outputs, not internal reasoning transcripts. GIFs have no audio; source-video music and editing are documented per artifact.
 
 This is a private research package. Repository access does not grant an additional license to upstream code or media. See [source and media provenance](docs/provenance.md) before redistribution.
+
+## Developers and acknowledgements
+
+The initiators are Zihan Wang, Xinyuan Li, Zeju Li, Talha Chafekar, Yuxiang Lin, Jiaxin Pei, and Manling Li.
+
+We thank Chi Gui for valuable discussions on the Olympics tasks.
