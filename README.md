@@ -94,16 +94,16 @@ The simulator also accounts for concurrent requests: Touhou samples groups of de
 
 ## Games and controls
 
-The coding agent chooses button presses in screen-based games and tactical goals in robot games. Each game defines what it sees, what it returns, and how the code carries out its decisions.
+The coding agent chooses button presses in screen-based games and tactical goals in robot games. Touhou and Rhythm use our custom game implementations. The robot games use upstream environments with our agent interfaces and controllers; Asterix runs through ALE.
 
-| Game | Source | Agent input | Agent action | Code execution |
-|---|---|---|---|---|
-| [Touhou / Kaguya](docs/touhou-research-record.md) | Custom [Touhou](https://www16.big.or.jp/~zun/html/th08top.html) practice | Up to three recent screenshots, frame times, and prior controls | Movement, shooting, focus, bombs, and duration | Apply the chosen buttons for the specified duration |
-| [PingPong](docs/tabletennis.md) | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) | Two camera views, public feedback, and a camera-based opponent estimate | Choose one of four return-placement plans | Track the ball, serve, plan contact, and execute joint motion |
-| [Asterix](docs/asterix-autoresearch.md) | [ALE](https://ale.farama.org/environments/asterix/) | Three timestamped screenshots and applied-action history | Joystick direction | Hold the chosen direction until a newer reply replaces it |
-| [Badminton](docs/badminton.md) | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) | Four recent frames from two cameras and public feedback | Conditional shot goals, recovery position, and goal duration | Select the applicable goal, plan a reachable contact and swing, and execute the stroke |
-| [Rhythm](docs/rhythm.md) | Custom, [Rhythm Master](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993)-inspired | Game screenshot, public clock, and pending taps | DFJK keys and absolute tap times | Queue and execute the specified taps |
-| [Racing](docs/racing.md) | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) | Recent front-camera views, telemetry, and camera-derived road measurements | Speed, lane offset, and lookahead | Steer toward the goal and limit speed through bends |
+| Game / Environment | Agent input | Agent action | Code execution |
+|---|---|---|---|
+| [Touhou / Kaguya](docs/touhou-research-record.md)<br>Our implementation, [Touhou-inspired](https://www16.big.or.jp/~zun/html/th08top.html) | Recent screenshots, frame times, prior controls | Direction, shooting, focus, bombs, duration | Apply chosen buttons for the specified duration |
+| [PingPong](docs/tabletennis.md)<br>[Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) | Two camera views, feedback, opponent estimate | One of four return-placement plans | Track the ball, serve, plan contact, execute joint motion |
+| [Asterix](docs/asterix-autoresearch.md)<br>[ALE / Atari](https://ale.farama.org/environments/asterix/) | Three timestamped screenshots, action history | Joystick direction | Hold direction until replaced |
+| [Badminton](docs/badminton.md)<br>[Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) | Recent frames from two cameras, public feedback | Conditional shot goals, recovery position, goal duration | Select goal, plan reachable contact and swing, execute stroke |
+| [Rhythm](docs/rhythm.md)<br>Our implementation, [Rhythm Master-inspired](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993) | Screenshot, public clock, pending taps | DFJK keys, absolute tap times | Queue and execute specified taps |
+| [Racing](docs/racing.md)<br>[Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) | Front-camera views, telemetry, visual road measurements | Speed, lane offset, lookahead | Steer toward goal, limit speed through bends |
 
 Evaluators may inspect game state to score outcomes. [Observation boundaries](docs/observation-contract.md).
 
