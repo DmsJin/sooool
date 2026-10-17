@@ -74,7 +74,7 @@ A **recipe** is a JSON file selecting a policy, latency profile, and run setting
 
 ## How the latency simulator works
 
-Development uses subscription calls to try strategies under delays measured from the target API. For Touhou and Rhythm, the commands divide the work like this:
+Our workflow is **profile → simulate → eval**: measure target API latency, develop with slower subscription inference on a reproducible virtual clock, then evaluate in realtime. For Touhou and Rhythm, the commands divide the work like this:
 
 | Command | What happens | What it uses |
 |---|---|---|
