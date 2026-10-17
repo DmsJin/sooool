@@ -6,13 +6,9 @@
 <a href="#what-is-sooool">Overview</a> · <a href="#autoresearch-for-latency-awareness">Autoresearch for latency awareness</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#how-the-latency-simulator-works">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#find-your-way-around-the-code">Code guide</a> · <a href="#citation">Citation</a>
 </p>
 
-To understand the method, start with [Autoresearch for latency awareness](#autoresearch-for-latency-awareness). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
-
 ## What is Sooool?
 
-Sooool! uses an autoresearch loop to get GPT-6 Sol, working as a coding agent, to play real-time games. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks: a bullet gets closer, an opponent changes direction, or a note passes. A good move can arrive too late.
-
-We give Codex a game, a goal, and an experiment budget, then let it work through trial and error. It plays, looks at what went wrong, changes its strategy, and tries again. During these experiments, a latency simulator recreates the delays measured from actual API calls. Selected strategies are then tested against a real-time game clock, with the game running while the agent thinks.
+Sooool! uses an autoresearch loop to get GPT-6 Sol, working as Agent as Policy, to play real-time games. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks. To understand the method, start with [Autoresearch for latency awareness](#autoresearch-for-latency-awareness). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
 
 ## Demos
 
