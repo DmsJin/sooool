@@ -152,8 +152,6 @@ Evaluators may inspect game state to score outcomes. [Observation boundaries](do
 | **Rhythm** | 24 Perfect, 1 Great, zero Miss, two empty presses | Real-time API, 1× music |
 | **Racing** | Won 2:0 on seed 304 | Real-time API, 1×, coded steering |
 
-The portable launcher has not reproduced the original Touhou and Rhythm results: its fresh Touhou simulation lost, full paid Touhou evaluation is pending, and its live Rhythm run failed. A fresh Asterix simulation scored 300. [Full results and comparisons](docs/results.md) · [Validation history](docs/validation.md).
-
 ## Quick start
 
 ```bash
