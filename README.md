@@ -46,16 +46,6 @@ Take Touhou as an example:
 3. **Answer.** The coding agent returns JSON containing its visual estimates and an action plan.
 4. **Execute.** The runner checks the format, waits until the answer is allowed to take effect, and applies the chosen buttons. The position estimates do not become automatic dodge or tracking commands.
 
-One action in the plan might be:
-
-```json
-{"move": 3, "shoot": 1, "focus": 1, "bomb": 0, "duration": 12}
-```
-
-This means: move right, keep shooting, use slow focused movement, do not use a bomb, and hold for 12 game frames (0.2 seconds at 60 FPS).
-
-In Touhou, movement stops when the plan ends; shooting and focus keep their last settings. A newer accepted decision replaces the unfinished plan. Older observations cannot override a decision already accepted from a newer one.
-
 ### Concurrent requests
 
 An answer can take seconds. Sending requests while earlier ones are still waiting can keep decisions coming more often, or provide several chances to get an answer sooner. The selected configurations use three patterns:
@@ -69,6 +59,18 @@ An answer can take seconds. Sending requests while earlier ones are still waitin
 More requests also mean more calls, cost, and potentially outdated answers. Asterix's serial setup followed limited trials in which overlapping requests appeared to encourage repeated movement. [Request ordering, capacity, and experiment details](docs/latency-aware-learning.md).
 
 A **recipe** is a JSON file selecting a policy, latency profile, and run settings. See the selected recipes: [Touhou simulation](recipes/touhou.json), [Touhou real-time](recipes/touhou-realtime.json), [Rhythm](recipes/rhythm.json), and [Asterix](recipes/asterix.json).
+
+### Action example
+
+One action in the plan might be:
+
+```json
+{"move": 3, "shoot": 1, "focus": 1, "bomb": 0, "duration": 12}
+```
+
+This means: move right, keep shooting, use slow focused movement, do not use a bomb, and hold for 12 game frames (0.2 seconds at 60 FPS).
+
+In Touhou, movement stops when the plan ends; shooting and focus keep their last settings. A newer accepted decision replaces the unfinished plan. Older observations cannot override a decision already accepted from a newer one.
 
 ## Latency simulator
 
