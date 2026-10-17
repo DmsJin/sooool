@@ -101,7 +101,7 @@ The simulator also accounts for concurrent requests: Touhou samples groups of de
 | **Rhythm** | DFJK keys and the times to press them | Forwards the chosen tap times and records execution |
 | **Racing** | Speed, racing targets, offset, and lookahead | A visual controller supplies steering and limits speed through bends |
 
-The game actors do not receive hidden game coordinates or future sampled delays. Evaluators may inspect game state to score outcomes. [Observation boundaries](docs/observation-contract.md).
+Evaluators may inspect game state to score outcomes. [Observation boundaries](docs/observation-contract.md).
 
 | Game | Result | Execution |
 |---|---|---|
