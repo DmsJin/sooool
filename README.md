@@ -31,11 +31,11 @@ We give Codex a game, a goal, an experiment budget, and feedback. It tries to im
 2. **Propose a change.** Revise the gameplay instructions, memory, or permitted control settings to address a specific problem.
 3. **Compare.** Test the candidate against the previous strategy on the same cases and timing conditions.
 4. **Keep or reject it.** Check safety as well as score, then test promising candidates through complete games.
-5. **Test in real time.** Fix the selected strategy and settings, run with actual response delays, and use the results to guide the next experiment. Keep failures alongside wins.
+5. **Test in real time.** Fix the selected strategy and settings, run with actual response delays, and use the results to guide the next experiment.
 
 **For example,** in Touhou the model often chased where the boss had been before it started thinking. Codex tested instructions that anticipated the boss's next position. Some changes increased damage but caused more hits, so they were rejected. Adding safety checks for the action's start, movement path, and stopped position produced a candidate that passed comparisons on 12 fixed cases, then went on to full-game simulation and real-time testing. [Full case study](docs/touhou-research-record.md).
 
-A **policy** is the gameplay instructions, fixed notes supplied with each request (called memory), output format, and request settings. The selected Touhou policy changed these rather than model weights. Autoresearch took place in Codex Goal mode with human guidance; `sol simulate` runs one game experiment, while Codex handles the analysis and edits across experiments. [Research stories for each game](docs/autoresearch-summaries.md).
+A **policy** is the gameplay instructions, fixed notes supplied with each request (called memory), output format, and request settings. Codex improves the prompts and settings without changing the model's weights. Autoresearch took place in Codex Goal mode with human guidance; `sol simulate` runs one game experiment, while Codex handles the analysis and edits across experiments. [Research stories for each game](docs/autoresearch-summaries.md).
 
 ## How a game runs
 
@@ -44,7 +44,7 @@ Take Touhou as an example:
 1. **Capture.** The runner collects up to three recent screenshots with their frame numbers. Comparing the images helps the model judge which way the boss and bullets are moving.
 2. **Ask.** Send those images with the game instructions, controls already in effect, historical delay information, and the model's own earlier position estimates. The model does not receive hidden game coordinates or the delay drawn for this request.
 3. **Answer.** GPT-6 Sol returns JSON containing its visual estimates and an action plan.
-4. **Execute.** The runner checks the format, waits until the answer is allowed to take effect, and applies the chosen buttons. Invalid actions are rejected and recorded. The position estimates do not become automatic dodge or tracking commands.
+4. **Execute.** The runner checks the format, waits until the answer is allowed to take effect, and applies the chosen buttons. The position estimates do not become automatic dodge or tracking commands.
 
 One action in the plan might be:
 
@@ -52,7 +52,7 @@ One action in the plan might be:
 {"move": 3, "shoot": 1, "focus": 1, "bomb": 0, "duration": 12}
 ```
 
-This means: move right, keep shooting, use slow focused movement, do not use a bomb, and hold for 12 game frames (0.2 seconds at 60 FPS). The model chooses both the direction and the duration.
+This means: move right, keep shooting, use slow focused movement, do not use a bomb, and hold for 12 game frames (0.2 seconds at 60 FPS).
 
 In Touhou, movement stops when the plan ends; shooting and focus keep their last settings. A newer accepted decision replaces the unfinished plan. Older observations cannot override a decision already accepted from a newer one.
 
@@ -82,7 +82,7 @@ Development uses subscription calls to try strategies under delays measured from
 
 A **latency profile** stores measured response times, including slow replies. The simulator draws from it to decide when each new answer becomes available.
 
-Suppose a screenshot is taken at frame 100 and the drawn delay is half a second. At 60 FPS, the answer can be used at frame 130. Until then, the game advances with the controls already in effect. If the model finishes early, its answer waits; if it is still computing at frame 130, virtual time waits for it. The model never sees the drawn delay. Both game time and actual computing time are recorded.
+Suppose a screenshot is taken at frame 100 and the drawn delay is half a second. At 60 FPS, the answer can be used at frame 130. Until then, the game advances with the controls already in effect. If the model finishes early, its answer waits; if it is still computing at frame 130, virtual time waits for it. The model never sees the drawn delay.
 
 In real-time evaluation, a three-second response means the game also moves forward for three seconds. Asterix uses subscription response times for this test and keeps its declared slowdown; other games have separate [setup guides](docs/release-guide.md).
 
@@ -105,7 +105,18 @@ The simulator also accounts for concurrent requests: Touhou samples groups of de
 
 The game actors do not receive hidden game coordinates or future sampled delays. Evaluators may inspect game state to score outcomes. [Observation boundaries](docs/observation-contract.md).
 
-**Results and limits.** Original Touhou runs defeated the boss in real time; Rhythm's selected run scored 24 Perfect, 1 Great, zero Miss, and two empty presses. These results have not been reproduced by the portable launcher: its fresh Touhou simulation lost, its full paid Touhou test is pending, and its live Rhythm run failed. The selected Badminton match lost 8:11; Racing's documented comparison recorded 7/7 wins with GPT targets and 3/7 with fixed goals. See [all results and execution conditions](docs/results.md), [validation including failures](docs/validation.md), and [Badminton evidence](artifacts/badminton/README.md) for the complete records.
+Selected results are listed below. Each result keeps its original clock and control setup.
+
+| Game | Result | Execution |
+|---|---|---|
+| **Touhou** | Boss defeated in 58.47 game seconds, two hits | Actual API, 1x |
+| **Rhythm** | 24 Perfect, 1 Great, zero Miss, two empty presses | Actual API, 1x music |
+| **PingPong** | Won 5:1 on seed 11; lost 3:5 on seed 12 | Actual API, 1x |
+| **Badminton** | Lost 8:11 | Actual API, 3x slowdown |
+| **Racing** | Won 2:0 on seed 304 | Actual API, 1x, coded steering |
+| **Asterix** | 500 points, two lives after 20 game seconds | Sampled-delay simulation, 5x slowdown |
+
+The portable launcher has not reproduced the original Touhou and Rhythm results: its fresh Touhou simulation lost, full paid Touhou evaluation is pending, and its live Rhythm run failed. A fresh Asterix simulation scored 300. [Full results and comparisons](docs/results.md) · [Validation history](docs/validation.md).
 
 <details>
 <summary>Game sources and inspirations</summary>
@@ -160,8 +171,6 @@ Other games have their own setup requirements: [Rhythm](docs/rhythm.md), [Racing
 | [`artifacts/`](artifacts/), [`assets/`](assets/) | Run records, replay evidence, videos, and demo clips |
 
 [Detailed file map](docs/file-map.md) · [Evaluation records](docs/evaluation-records.md) · [Optional evidence downloads](artifacts/README.md)
-
-Evidence archives are optional. Text shown with actions is a model-written public summary, not an internal reasoning transcript.
 
 ## Citation
 

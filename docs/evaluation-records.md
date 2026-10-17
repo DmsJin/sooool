@@ -96,6 +96,8 @@ Budget admission reserves conservative maximum fees for every in-flight request 
 
 ## Inspect a case
 
+The Touhou runner rejects malformed or out-of-bounds actions and records them as invalid decisions; they are not applied to the game.
+
 `episode/issued.jsonl` records each observation, image hashes and prompt hash. Each `decision_*` directory retains the exact PNGs, prompt and public JSON output. `episode/actions.jsonl` records the selected response, actual application clocks, keys, duration and same-response public summary. `episode/decisions.jsonl` includes stale/losing responses and their costs. `episode/final_state.json` is evaluator-only truth for offline replay; it is never given to the actor.
 
 For the displayed summaries, verify that `brief` and `plan` match the same selected response. For timing, use `capture_to_apply_s` from actually applied actions; do not replace it with TTFT or average all race candidates. For acceptance, require 1× clock evidence, no pause/blur, terminal accounting, no unknown usage and `won=true`.
