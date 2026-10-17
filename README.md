@@ -23,8 +23,6 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with
 </tr>
 </table>
 
-These are selected runs, not win-rate estimates. Captions distinguish actual API play from simulation and replay, and state the game speed. [Clip sources and editing details](assets/gameplay/README.md).
-
 ## Autoresearch for latency-aware agents
 
 We give Codex a game, a goal, an experiment budget, and feedback. It tries to improve how GPT-6 Sol plays under response delays: anticipating where a bullet will move or whether a target will still be useful when an action arrives.
