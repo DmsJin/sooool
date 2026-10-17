@@ -51,8 +51,8 @@
       "bytes": 3998035,
       "original_source": "assets/tabletennis/seed11-full.mp4",
       "original_start_seconds": 20,
-      "source_sha256": "0b8fb5f8f6de4706cf0436de3816973c27c025e5dfd0335d0af327193369d8b5",
-      "audio": "Locally generated procedural arcade background music, -24 LUFS target; original video stream unchanged.",
+      "source_sha256": "a6995ffd8e61b88ba4b4f6d31e94baa273e4391fcacfa9183328485e69e62df4",
+      "audio": "Original soft electronic sports groove (112 BPM), -24 LUFS target; original video stream unchanged.",
       "music_provenance": "assets/gameplay/sports-music-provenance.json",
       "gif_sha256": "839aba925424513ad63445f708bb03a3a769cdee5e4fd47979ae9cc3cac99e24"
     },
@@ -106,8 +106,8 @@
       "bytes": 2742708,
       "original_source": "outputs/sooool_badminton_realtime_rerun_005/sol-s3-101/realtime-s3.mp4",
       "original_start_seconds": 6,
-      "source_sha256": "dd58cd00857ce8a0841609d069232deef0eaafd3af93fe473e3614032b169b10",
-      "audio": "Locally generated procedural arcade background music, -24 LUFS target; original video stream unchanged.",
+      "source_sha256": "26caa30e4d40f4d1f5c27a825848152f2b5c31ef37667e7f5d20f8d1f6d7ba1c",
+      "audio": "Original soft electronic sports groove (112 BPM), -24 LUFS target; original video stream unchanged.",
       "music_provenance": "assets/gameplay/sports-music-provenance.json",
       "gif_sha256": "855bcef258b0dedf596fb1b37d3c5a22ce433669f697a830b04b39f499336675"
     }
