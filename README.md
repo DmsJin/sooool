@@ -1,6 +1,6 @@
 <h1 align="center">Sooool!</h1>
 
-<p align="center"><strong>Can GPT-6 Sol play real-time games, where the world keeps moving while it thinks?</strong></p>
+<p align="center"><strong>Can GPT-6 Sol (a coding agent) play real-time games, where the world keeps moving while it thinks?</strong></p>
 
 <p align="center">
 <a href="#what-is-sooool">Overview</a> · <a href="#autoresearch-for-latency-awareness">Autoresearch for latency awareness</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#how-the-latency-simulator-works">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#find-your-way-around-the-code">Code guide</a> · <a href="#citation">Citation</a>
