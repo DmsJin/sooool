@@ -1,48 +1,159 @@
 # Sooool!
 
-**GPT-Sol learns to act under latency. In real-time evaluation, the game keeps moving while the model thinks.**
+**Can GPT-6 Sol play real-time games, where the world keeps moving while it thinks?**
 
 <table>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-SOL choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="105"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
-<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-SOL playing table tennis with both camera views and live public decision summaries" height="105"></a><br><b>PingPong</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-6 Sol choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="105"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
+<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-6 Sol playing table tennis with both camera views and live public decision summaries" height="105"></a><br><b>PingPong</b> · Real-time API · 1×</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-Sol dodging Kaguya's bullet patterns with live English decision summaries" height="105"></a><br><b>Touhou</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-Sol selecting racing targets through bends and obstacles, with live decisions" height="105"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
+<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-6 Sol dodging Kaguya's bullet patterns with live English decision summaries" height="105"></a><br><b>Touhou</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-6 Sol selecting racing targets through bends and obstacles, with live decisions" height="105"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
 </tr>
 <tr>
-<td width="50%" align="center"><a href="assets/asterix/v28-api-60s.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-Sol playing Asterix with real API decisions: 300 points, two lives, 60 wall seconds at 12 FPS" height="105"></a><br><b>Asterix</b> · Real-time API replay · 12 FPS · 300 points</td>
+<td width="50%" align="center"><a href="assets/asterix/v28-api-60s.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol playing Asterix with real API decisions: 300 points, two lives, 60 wall seconds at 12 FPS" height="105"></a><br><b>Asterix</b> · Real-time API replay · 12 FPS · 300 points</td>
 <td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" height="105"></a><br><b>Badminton</b> · Real-time API replay · S3 slowdown · 15s</td>
 </tr>
 </table>
 
-Sooool! uses an auto-research loop to get GPT-Sol to play real-time games, in both computer use and robotic settings. GPT-Sol sees the  current observation (visual frames), decides what to do, and sends an action. Then it sees what happened and decides the next action again. During real-time evaluation the environment keeps moving while the model thinks, so a good decision can arrive too late. Development simulation uses a virtual clock and can wait for model computation.
+Sooool! uses an autoresearch loop to get GPT-6 Sol, working as a coding agent, to play real-time games. It sees the current game screen, decides what to do, and sends an action. Then it sees what happened and decides again. The challenge is that the game keeps moving while it thinks: a bullet gets closer, an opponent changes direction, or a note passes. A good move can arrive too late.
 
-The gameplay decisions come from GPT-Sol on each turn. The surrounding code handles observations, timing and execution, with each game declaring its control setup below.
+We give Codex a game, a goal, and an experiment budget, then let it work through trial and error. It plays, looks at what went wrong, changes its strategy, and tries again. During these experiments, a latency simulator recreates the delays measured from actual API calls. Selected strategies are then tested against a real-time game clock, with the game running while the agent thinks.
 
-You can watch GPT-Sol dodge a screen full of bullets, race a rival, collect food in Atari Asterix, play robot table tennis and badminton, or hit notes in time with the music. Then inspect its decisions, change the policy, and send it back into the game.
+The games include bullet dodging, racing, rhythm games, and simulated robot sports. Watch a few of the selected runs below.
 
-**Develop, freeze, evaluate.** During development, cheaper inference drives fresh decisions from actual game frames, with actions delivered under a measured API latency profile. Freeze a candidate, then evaluate it with the real API while the game clock keeps running. The repository includes the environments, prompts, profiles, runners and experiment records for this loop.
+These clips come from individual runs, rather than repeated win-rate tests. Each caption identifies how that run was timed. The Asterix clip replays a fresh real-time API run at 12 FPS (5× slowdown); Touhou, Racing, Rhythm, and PingPong also used actual API calls while the game was running. The Badminton clip replays a recorded real-time API run at 3x slowdown. Racing uses a steering controller, and PingPong uses a controller to execute shots. [Clip sources and editing details](assets/gameplay/README.md).
 
-## Games
+## Two loops: researching a strategy and playing a game
 
-[Current results and execution conditions](docs/results.md) maps each selected policy to its clocks, controls and evidence.
+Codex does two kinds of work. As the researcher, it reads results, proposes changes, edits prompts or permitted control settings, and runs comparisons. During a game, GPT-6 Sol reads screenshots and chooses actions. These are two roles in the process, not two separately trained models.
 
-| Game | Job | Demo |
+The **research loop** is:
+
+1. **Give it a goal.** Choose a game, an objective, a budget, and rules about what it may change. Humans can provide demonstrations and feedback along the way.
+2. **Find out what failed.** Codex inspects screenshots, actions, timing, and outcomes. Did it mistake a friendly effect for a bullet? Did it chase where the opponent used to be? Did it react too late?
+3. **Try a specific change.** It revises the gameplay instructions or an allowed control setting, then compares the candidate with the previous strategy on the same cases and timing conditions.
+4. **Keep or reject it.** A change that scores more points but causes more deaths may fail the comparison. Promising candidates also have to work through complete games.
+5. **Test in real time.** Fix the selected strategy and its settings, then run it with the actual response delays. Record what happened, including failures, and use those results to guide the next experiment.
+
+Inside each experiment, the **gameplay loop** is simpler:
+
+```text
+See the game screen → choose an action → apply it when ready → see what changed
+         ↑                                                        |
+         +--------------------------------------------------------+
+```
+
+The instructions, recent screenshots, and allowed feedback tell the model what it can see and do. Each game defines its controls: in Touhou, for example, the model chooses movement, shooting, focus, bombs, and how long to hold them. Other games let it choose targets that a controller carries out.
+
+The selected Touhou strategy was developed through repeated play, prompt and memory refinement, and experiments. Its base-model weights remain frozen. The outer research loop was carried out in Codex Goal mode sessions with human guidance. Running `sol simulate` starts a game experiment; it does not, by itself, start the full strategy-editing research loop.
+
+[Read the research stories for each game](docs/autoresearch-summaries.md).
+
+## How a game runs
+
+### From screenshots to actions
+
+Take Touhou as an example. The runner collects up to three recent screenshots and sends them to GPT-6 Sol with the game instructions, screenshot times, controls already in effect, and the model's own earlier position estimates. Comparing the images helps it judge which way the boss and bullets are moving.
+
+The model returns a structured answer containing its visual estimates and an action plan. One action in that plan might be:
+
+```json
+{"move": 3, "shoot": 1, "focus": 1, "bomb": 0, "duration": 12}
+```
+
+This means: move right, keep shooting, use slow focused movement, do not use a bomb, and hold for 12 game frames (0.2 seconds at 60 FPS). The code checks the format and applies the chosen buttons. It does not turn the model's position estimates into an automatic dodge or tracking command.
+
+Once the plan ends, movement stops and shooting/focus keep their last settings while the runner waits for another answer. A newer accepted decision replaces the unfinished part of the previous plan. An answer based on an older observation cannot override a decision already accepted from a newer one.
+
+### Several requests can be waiting at once
+
+Waiting for an answer can take seconds. We tried different ways to keep decisions coming, rather than assuming one request at a time would work for every game. The selected configurations use three different patterns:
+
+| Game | When requests are sent | What happens to the answers |
 |---|---|---|
-| **Touhou / Kaguya practice arena** | Dodge bullets. Defeat the boss in a simplified Touhou-inspired environment. | Real-time API at 1×. GPT-Sol chooses movement, shooting, focus, bombs and duration. |
-| **Racing** | Find a line. Beat your rival. | Real-time API at 1×. GPT-Sol chooses speed and racing targets; a coded controller supplies steering. [Recorded comparison: GPT 7/7, fixed goals 3/7](research/racing/EVALUATION.md#recorded-gpt-and-no-gpt-comparison). |
-| **Rhythm** | Hit the right key at the right time. | Real-time API at 1×. GPT-Sol chooses each DFJK key and its absolute tap timestamp. [Setup](docs/rhythm.md). |
-| **PingPong** | Serve, return, win the point. | Real-time API at 1×. GPT-Sol selects shot placement; rules handle serving and execution. [Setup](docs/tabletennis.md). |
-| **Badminton** | Place the shot. Recover for the next one. | Actual API at 3× slowdown (S3); SOL selects tactical goals, native mechanics execute them. [Setup](docs/badminton.md) · [Evidence](artifacts/badminton/README.md). |
-| **Atari Asterix** | Collect food. Avoid enemies. Stay alive. | Real-time API at 12 FPS (5× slowdown); 300 points/two lives over 60 wall seconds, with model actions applied unchanged. |
+| **Touhou** | Send the same screenshots and prompt to **four requests at once**. Wait for a valid answer to take effect and its movement to finish before sending the next group; enough request slots must also be free. | Use the first valid answer for that observation. Other answers for the same observation cannot replace it. |
+| **Rhythm** | Try to send a new screenshot **every 0.2 seconds**, with **up to 16 requests waiting at once**. Skip sending when all slots are occupied. | Answers specify keys and tap times. The executor follows those times, skips expired taps, and uses action IDs to prevent duplicate presses. |
+| **Asterix** | Allow **one request at a time**. Capture the next observation after the previous answer arrives. | Hold the chosen direction unchanged until the model replaces it. There is no automatic stop or row hop. |
 
-The GIFs are continuous excerpts at their source playback speed. Racing uses hybrid steering. Touhou, Racing, PingPong, Badminton and Asterix show original public decision summaries. Rhythm shows original English action-plus-commentary responses; its 17s run has two empty presses and is not a full combo. These are selected demonstrations, not win-rate estimates. [Clip sources and cuts](assets/gameplay/README.md).
+Touhou's real-time configuration allows four requests in total; its simulation allows eight so older requests can finish after a winner has been used. Choosing a winner does not immediately free the other requests' slots. Rhythm overlaps decisions from successive observations instead of racing several answers to the same screenshot. Its older answers cannot cancel or replace newer instructions, though they can still add a tap that is valid and has not already been scheduled.
+
+The prompts also ask the model to anticipate where the boss and bullets will be when its action arrives. [Latency-aware learning and control](docs/latency-aware-learning.md) describes this strategy development alongside request scheduling.
+
+Concurrency can help an answer arrive sooner or keep observations flowing while earlier requests are waiting. It also means more calls, more cost, and more answers that may already be out of date. Asterix's serial setup was selected after overlapping requests appeared to encourage repeated movement; the limited trials motivate that choice rather than proving it is always better.
+
+These settings belong to the selected recipes, not fixed rules for all experiments: [Touhou simulation](recipes/touhou.json), [Touhou real-time](recipes/touhou-realtime.json), [Rhythm](recipes/rhythm.json), and [Asterix](recipes/asterix.json). The [games and controls table](#games-and-controls) below explains what the model chooses and what each game's controller handles.
+
+## How the latency simulator works
+
+We want to try strategies under realistic delays without requiring every development run to use the target API. Development runs use the subscription model to make decisions and the latency simulator to decide when those decisions take effect.
+
+### 1. Measure the delay (`sol profile`)
+
+Send representative screenshots and instructions to the target API and record how long answers take. Keep the individual measurements, including slow responses, in a **latency profile**. This describes the timing of a particular prompt, image setup, and request configuration.
+
+### 2. Play a new game with those delays (`sol simulate`)
+
+The game runs on a virtual clock that the runner advances. For each request, the simulator draws a delay from the profile and schedules when the answer can be used.
+
+For example, suppose a screenshot is taken at frame 100 and the sampled delay is half a second. At 60 frames per second, the answer becomes available at frame 130. Until then, the game advances using the controls already in effect.
+
+The model still makes a new decision from the screenshots. If it finishes early, the simulator holds the answer until frame 130. If it has not finished by then, the runner waits for it without advancing the virtual clock. Both the game time and the actual time spent computing are recorded.
+
+This lets us ask: **would this strategy work if its answers arrived with the delays we measured?** It does not tell us how fast the current model call actually was.
+
+The implementation also tracks requests that are still in progress and prevents old answers from replacing newer decisions. Touhou's selected setup sends four requests the same observation and uses the first valid answer. Its simulator samples their delays together to preserve the relationships measured between concurrent requests. Rhythm also accounts for how old a screenshot is when a request is sent. [Timing details](docs/timing.md).
+
+### 3. Test the selected strategy in real time (`sol eval`)
+
+In the real-time test, the game keeps running while the agent responds. If a response takes three seconds, the game moves forward for three seconds. There is no waiting for the model outside game time.
+
+Touhou and Rhythm use the paid API for this test. Asterix supports actual subscription response times and an explicitly selected paid API path; both retain its declared 12-FPS game slowdown. Each game's documentation specifies its clock, speed, and model connection.
+
+A changed prompt, image count, or concurrency setting can change response times, so the profile may need to be measured again. Simulated results and real-time results are recorded separately.
+
+## Where replay fits
+
+Replay serves two purposes in the research process:
+
+- **Compare from the same starting point.** Restore a game to a recorded failure state, then ask each candidate for a new action. The candidates start from the same situation, but their actions can lead to different outcomes.
+- **Check a saved run.** Execute the recorded actions at their recorded times to reproduce a trajectory, check timing, or make a video. This does not ask the model for new decisions and is not a new gameplay result.
+
+A normal simulation run makes new decisions as it plays. It does not simply replay a saved sequence of answers.
+
+## An example: learning to stop chasing the boss
+
+In Touhou, an early strategy moved toward the boss's position in the screenshot. By the time the move began, the boss had often changed direction. The player missed shots and sometimes moved into danger.
+
+Codex tested instructions that asked the model to aim for where the boss would be after the response delay and the shots' travel time. Some candidates dealt more damage but also took more hits, so they were rejected.
+
+The next change asked the model to check safety at three points: when the action starts, along the movement path, and where the player stops while waiting for the next answer. Codex compared the candidates on 12 fixed cases, then ran complete games with matched delay samples. The selected candidate was subsequently tested with the real API.
+
+This is what autoresearch means here: turn a failure into a hypothesis, test a change, and keep the evidence that explains the decision. [Full Touhou research story and results](docs/touhou-research-record.md).
+
+## Games and controls
+
+[Current results and execution conditions](docs/results.md) lists each selected strategy, game speed, and supporting records. Touhou is a simplified Kaguya practice encounter rather than the full original game.
+
+| Game | What GPT-6 Sol decides | What the surrounding code does |
+|---|---|---|
+| **Touhou / Kaguya** | Movement, shooting, focus, bombs, and duration | Runs the game, captures screenshots, checks and applies actions |
+| **Racing** | Speed, racing targets, offset, and lookahead | A visual controller supplies steering and limits speed through bends |
+| **Rhythm** | DFJK keys and the times to press them | Forwards the chosen tap times and records execution |
+| **PingPong** | Where to place a shot | Controllers handle serving and execute the robot's motion |
+| **Badminton** | Shot placement and recovery goals | Controllers handle contact planning and native game mechanics |
+| **Atari Asterix** | Which direction to hold | Applies the model's action unchanged until a newer one replaces it |
+
+The screenshot-based game actors do not receive hidden game coordinates or future sampled delays. Evaluators can inspect game state to score outcomes. [Observation and evaluation boundaries](docs/observation-contract.md).
+
+The demos use selected runs, and success has not been reproduced under every setup. The original Touhou runs include real-time boss defeats, while a fresh simulation with the portable launcher lost; a full paid real-time test of that launcher remains pending. Rhythm's selected original run had 24 Perfect, 1 Great, zero Miss, and two empty presses, but a later run with the portable launcher did not reproduce that result. [Validation results, including failures](docs/validation.md).
 
 The Asterix preview links to the full **60-second real-time API replay**: seed 5, V28, `gpt-6.1-sol / low / ultrafast`, one request in flight, **300 points/two lives**. All 720 recorded step rewards and lives were verified during rendering; music was added locally. An earlier run under the same conditions scored 50 points/one life. These are two recorded trials, not a reliability estimate. [Runs, timing and costs](artifacts/asterix/api-validation/20261017/README.md).
 
 The Badminton clip shows the opening serve and rally from one seed-101, L1/S3 match. The full match lost **8:11**, with **90/97 legal returns**, **47 confirmed Ultrafast responses**, zero rule fallbacks across 90 controlled rally strokes, and four serve failures. Its native replay matched all 27,609 steps. [Protocol and evidence](artifacts/badminton/README.md).
+
+Racing also retains a [recorded GPT and fixed-goal comparison](research/racing/EVALUATION.md#recorded-gpt-and-no-gpt-comparison): 7/7 wins for GPT targets and 3/7 for fixed goals under the documented conditions.
 
 ## Game sources and inspirations
 
@@ -57,39 +168,9 @@ The Badminton clip shows the opening serve and rally from one seed-101, L1/S3 ma
 
 Environment and media attribution details are recorded in [source and media provenance](docs/provenance.md).
 
-## How it works
+## Run your first experiment
 
-We developed these policies by giving Codex a goal in **Goal mode** and letting it work through trial and error. We supplied the environment, objective, constraints and occasional feedback; Codex ran experiments, inspected failures, proposed changes and tried again. This is the **autoresearch** loop behind the demos.
-
-1. **Set a goal.** Give the agent a game, a target outcome and an experiment budget.
-2. **Profile and play.** Measure the target API’s latency, then develop with fresh GPT-Sol decisions under sampled delays.
-3. **Try, inspect, revise.** The agent runs episodes, reads trajectories and replays, changes the instructions or permitted control setup, and compares candidates. Human feedback can steer the next experiment.
-4. **Freeze and verify.** Select a candidate from the recorded comparisons, freeze its configuration, and test it against the real clock. Keep the failures, timing, costs and outcomes alongside the wins.
-
-Codex runs the research loop; GPT-Sol makes the online gameplay decisions. Repeated play trains the task policy through prompts, memory and strategy search, with base-model weights frozen. The demos show the resulting task skills under their recorded game speeds and control abstractions.
-
-**Keep decisions flowing while the model thinks.** Overlapping requests lets the system observe again before earlier inference finishes. The policy learns to predict when its actions will arrive and plan ahead; staggered requests sustain decision cadence, while same-observation races provide additional chances to meet a deadline. [Latency-aware learning and control](docs/latency-aware-learning.md) explains the two mechanisms and their evaluation.
-
-**[Check autoresearch summaries →](docs/autoresearch-summaries.md)**
-
-### Rhythm: from delayed decisions to near-perfect timing
-
-The selected v21 policy reads full-board screenshots and outputs each DFJK key, ID, absolute tap timestamp and expiry. Timestamps use the executor’s monotonic clock. The executor queues those exact commands and presses at the supplied times; it does not convert note coordinates into tap times or correct the model’s predictions. Public note-speed and screenshot-time calibration are provided to the model.
-
-The selected real-time API run achieved **24 Perfect / 1 Great / 0 Miss (98.8% weighted accuracy)** over a 17-second preview, with two empty presses. Music runs at 1×, with 2.5 seconds of visual note approach. This is one reused-chart episode; the two empty presses broke the combo.
-
-[Selected research path](docs/rhythm-autoresearch.md) · [Run/profile/record and portability limits](docs/rhythm.md) · [Machine-readable evaluation history](research/rhythm/evaluation-history.jsonl)
-
-```bash
-uv run sol simulate rhythm --output runs/rhythm-dev-001
-uv run sol profile rhythm --episode artifacts/rhythm/selected --budget-usd 1 --max-calls 20 --output runs/rhythm-profile-001
-uv run sol eval rhythm --budget-usd 5 --max-calls 90 --output runs/rhythm-api-001
-uv run sol record runs/rhythm-api-001 --registry artifacts/rhythm/evaluations.jsonl
-```
-
-## Play a round
-
-Start with a development run. You need Linux, Python 3.10–3.12, Chromium-compatible dependencies, and a Codex CLI signed in with a ChatGPT subscription supporting the configured model. The tested native CLI is 0.162.1.
+Start with Touhou in the latency simulator. The tested setup uses Linux, Python 3.10-3.12, Chromium dependencies, and a standalone Codex CLI signed in with a ChatGPT subscription that supports the configured model. The tested CLI version is 0.162.1.
 
 ```bash
 uv sync --locked --python 3.12
@@ -97,12 +178,12 @@ uv run playwright install --with-deps chromium
 codex login
 
 uv run sol doctor --game touhou --auth
-uv run sol simulate touhou
+uv run sol simulate touhou --output runs/touhou-dev-001
 ```
 
-This sends actual game screenshots and prompts to the subscription model and schedules actions using a historical latency profile. Simulation can wait for model computation; scores from this mode are development results. There is no paid API fallback.
+This uses subscription calls for decisions and historical API measurements for delays. It does not fall back to paid API calls.
 
-To evaluate Touhou against the real clock:
+To test Touhou in real time, provide an API key through `OPENAI_API_KEY` or the hidden prompt, and set a spending limit:
 
 ```bash
 uv run sol eval touhou \
@@ -112,39 +193,35 @@ uv run sol eval touhou \
   --output runs/touhou-api-001
 ```
 
-Real-time Touhou evaluation requires an OpenAI API key, read from process memory or prompted without echo. The game keeps running while requests are in flight. The runner records inputs, public decision summaries, applied actions, timing, video and cost. The retained source-harness demo defeated Kaguya; fresh full-game paid validation of the portable launcher is pending. [Setup, budgets and timing](docs/realtime.md).
+Runs save their configuration and source snapshot, model inputs and outputs, applied actions, timing, and results. The Touhou real-time runner also records video and API costs. [Real-time setup and budgets](docs/realtime.md).
 
-Racing and PingPong use separate native dependencies. See the [Racing workflow](docs/racing.md), [PingPong tactical setup](docs/tabletennis.md), [Badminton setup](docs/badminton.md), and [complete release guide](docs/release-guide.md) for their conditions and entrypoints.
+To measure API response times using the inputs saved from a simulation:
 
-## Make it play better
+```bash
+uv run sol profile touhou \
+  --episode runs/touhou-dev-001/episode \
+  --budget-usd 2 \
+  --max-calls 21 \
+  --output runs/touhou-profile-001
+```
 
-The fun part is watching a policy fail, figuring out why, and trying again.
+Other games have their own setup requirements: [Rhythm](docs/rhythm.md), [Racing](docs/racing.md), [PingPong](docs/tabletennis.md), [Badminton](docs/badminton.md), and [Asterix](docs/release-guide.md). The [release guide](docs/release-guide.md) collects commands and the [development guide](docs/development.md) explains how to compare your own candidates.
 
-Did it dodge where the bullet was, instead of where it was going? Did it commit to a turn too late? Did a useful explanation delay the action that could have saved it?
+## Find your way around the code
 
-Inspect the replay, change the prompt or control representation, evaluate the candidate, and keep the evidence. Freeze a candidate before real-time evaluation. The research records preserve failed attempts alongside the selected policies.
-
-The selected Touhou policy was trained through repeated play, prompt and memory refinement, human feedback and evaluation. Its base-model weights remain frozen; the learned artifact is the task policy.
-
-- [Touhou research](docs/touhou-research-record.md): feedback, policy changes and the selected boss-defeat run.
-- [Racing experiments](research/racing/EVALUATION.md): candidate policies, full cohorts and transfer to real-time gameplay.
-- [Asterix experiments](docs/asterix-autoresearch.md): direct model actions and the selected serial policy.
-- [PingPong research](docs/tabletennis.md): tactical policies, asynchronous execution and actual API results.
-- [Evaluation records](docs/evaluation-records.md): conditions, replays and appended research decisions.
-
-## Code
-
-| Path | Contents |
+| Path | Start here to understand... |
 |---|---|
-| `runtime/` | Subscription transport, launchers and run records |
-| `environments/` | Game engines, interfaces and game-specific controllers |
-| `policies/`, `recipes/` | Prompts, output formats and executable configurations |
-| `profiles/` | Measured latency samples and provenance |
-| `research/` | Development records, comparisons and retained discussions |
-| `artifacts/`, `assets/` | Evidence indexes, videos and README highlights |
+| `runtime/cli.py` | How `simulate`, `profile`, and `eval` launch a run |
+| `runtime/subscription.py` | How screenshots and instructions are sent through the Codex CLI |
+| `environments/` | Game engines, observation interfaces, and action execution |
+| `policies/` | The gameplay instructions and expected response formats |
+| `recipes/` | Which strategy and settings an experiment uses |
+| `profiles/` | The measured delays used by the simulator |
+| `research/` | Hypotheses, comparisons, and research history |
+| `artifacts/`, `assets/` | Run records, replay evidence, videos, and demo clips |
 
-[Current results and conditions](docs/results.md) · [File map](docs/file-map.md) · [Validation](docs/validation.md) · [Timing](docs/timing.md) · [Optional evidence](artifacts/README.md)
+[Detailed file map](docs/file-map.md) · [Evaluation records](docs/evaluation-records.md) · [Optional evidence downloads](artifacts/README.md)
 
-Large evidence archives are optional; you can run the source package without downloading them. Public decision summaries are short model-authored outputs, not internal reasoning transcripts. GIFs have no audio; source-video music and editing are documented per artifact.
+Large evidence archives are optional. Short explanations shown with actions are model-written public summaries, not internal reasoning transcripts. Media sources and editing are documented with each artifact.
 
 This is a private research package. Repository access does not grant an additional license to upstream code or media. See [source and media provenance](docs/provenance.md) before redistribution.
