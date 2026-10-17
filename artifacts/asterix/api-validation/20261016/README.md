@@ -26,3 +26,7 @@ usage and error codes; it makes no retrospective claim about this failed request
 
 The previous README demonstration remains a historical development replay.
 There is no completed 60-second API video or API performance result from this attempt.
+
+Follow-up: [diagnosis and offline reproductions](DIAGNOSIS.md) establish an error
+classification/logging defect. A read-only model-access lookup passed, but the
+original upstream cause and charge remain unknown; no paid retry followed.

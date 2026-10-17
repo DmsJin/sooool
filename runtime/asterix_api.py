@@ -37,6 +37,7 @@ class DiagnosticResponse:
     def __init__(self, response, directory):
         self.response, self.directory = response, directory
         self.status_code = response.status_code
+        self.headers = response.headers
         self.record = {'http_status': response.status_code,
                        'provider_request_id': response.headers.get('x-request-id'),
                        'event_counts': {}, 'response_metadata': []}
@@ -110,7 +111,9 @@ class AsterixApiClient:
             (directory/'response.json').write_text(json.dumps(result, indent=2)+'\n')
             return result['answer'], result['meta']
         except BaseException as exc:
-            (directory/'failure.json').write_text(json.dumps({'type': type(exc).__name__})+'\n')
+            failure={'type':type(exc).__name__}
+            if isinstance(getattr(exc,'diagnostics',None),dict):failure['diagnostics']=exc.diagnostics
+            (directory/'failure.json').write_text(json.dumps(failure,indent=2)+'\n')
             raise
 
     def poll_action(self):
