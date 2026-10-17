@@ -1,0 +1,766 @@
+{
+  "run": "sooool_badminton_realtime_rerun_005",
+  "mode": "actual_realtime_sol_rerun",
+  "formal_new_matches": 1,
+  "policy": "tactical-goal-v2",
+  "source": {
+    "repository_base_revision": "06633f3b911da6bce57e8bd618ac1a0a6907e01d",
+    "artifact_directory": "outputs/sooool_badminton_realtime_rerun_005",
+    "execution_archive": "source.tgz",
+    "execution_snapshot": "sol-s3-101/source_snapshot",
+    "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
+    "revision_is_base": true,
+    "recorded_model_input": "28 of 47 retained requests included internal installation acknowledgements. The current public-input filter excludes these acknowledgements; this match predates that correction."
+  },
+  "protocol": {
+    "seed": 101,
+    "level": 1,
+    "slowdown": 3,
+    "physics_hz_game": 100,
+    "observation_hz_game": 10,
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "service_tier": "ultrafast",
+    "new_profiling_calls": 0,
+    "new_simulation_episodes": 0,
+    "match_endpoint": "native_terminal",
+    "limits": {
+      "max_game_seconds": 1800,
+      "max_wall_seconds": 5400,
+      "max_calls": 300,
+      "lag_p99_limit_seconds": 0.02,
+      "lag_max_limit_seconds": 0.1
+    }
+  },
+  "runtime": {
+    "python": "3.11.17",
+    "renderer": "egl_gpu",
+    "gpu_device": "3",
+    "gpu_inventory": [
+      "0, NVIDIA RTX PRO 6000 Blackwell Server Edition, 615.71.09",
+      "1, NVIDIA RTX PRO 6000 Blackwell Server Edition, 615.71.09",
+      "2, NVIDIA RTX PRO 6000 Blackwell Server Edition, 615.71.09",
+      "3, NVIDIA RTX PRO 6000 Blackwell Server Edition, 615.71.09"
+    ],
+    "dependencies": {
+      "mujoco": "3.3.7",
+      "numpy": "2.2.6",
+      "Pillow": "11.3.0"
+    }
+  },
+  "summary": {
+    "mode": "realtime_api",
+    "status": "completed",
+    "slowdown": 3,
+    "stop_reason": "native_terminal",
+    "complete": true,
+    "native_match_completed": true,
+    "won": false,
+    "points_for": 8,
+    "points_against": 11,
+    "seed": 101,
+    "frames": 27609,
+    "game_seconds": 276.09,
+    "wall_seconds": 828.2700730719953,
+    "calls": 47,
+    "accepted": 47,
+    "invalid": 0,
+    "late_plans": 10,
+    "discarded_previous_point": 0,
+    "late_candidates": 52,
+    "discarded_expired": 0,
+    "queued_commands_at_end": 0,
+    "cost_usd": "6.5010948",
+    "committed_usd": "10.1178768",
+    "actual_api_calls": 47,
+    "terminal_accounting_complete": true,
+    "clock_valid": true,
+    "clock_lag_seconds": {
+      "count": 27609,
+      "mean": 0.0001465049198542636,
+      "p50": 7.083098171278834e-05,
+      "p95": 7.629601168446243e-05,
+      "p99": 8.441100362688303e-05,
+      "max": 0.0674828399787657
+    },
+    "local_compute_seconds": {
+      "count": 2727,
+      "mean": 0.036490655951685165,
+      "p50": 0.017184619995532557,
+      "p95": 0.10745174801559187,
+      "p99": 0.3077770959935151,
+      "max": 0.3588252250046935
+    },
+    "capture_to_accept_seconds": {
+      "count": 47,
+      "mean": 2.3301248665548555,
+      "p50": 2.2499824010010343,
+      "p95": 3.2099788000050467,
+      "p99": 3.2999675729952287,
+      "max": 3.2999675729952287
+    },
+    "intent_to_racket_plan_seconds": {
+      "count": 169,
+      "mean": 10.824247015318447,
+      "p50": 10.439999340975191,
+      "p95": 20.429999237996526,
+      "p99": 22.680009023984894,
+      "max": 23.159999594005058
+    },
+    "api_json_ready_seconds": {
+      "count": 47,
+      "mean": 2.2514569337877317,
+      "p50": 2.184948362002615,
+      "p95": 3.1306497000041418,
+      "p99": 3.2364715349976905,
+      "max": 3.2364715349976905
+    },
+    "api_terminal_seconds": {
+      "count": 47,
+      "mean": 2.3116875511917354,
+      "p50": 2.2209278930095024,
+      "p95": 3.1870226500032004,
+      "p99": 3.3006414429983124,
+      "max": 3.3006414429983124
+    },
+    "error": null,
+    "planning_lead_steps": 14,
+    "first_frame": 0,
+    "native_planning_time_injected": true,
+    "source": "sol",
+    "diagnostic_outcome": null
+  },
+  "audit": {
+    "matched": true,
+    "verified_frames": 27609,
+    "evaluation_complete": true,
+    "incoming": 97,
+    "legal_returns": 90,
+    "serves": 9,
+    "legal_serves": 5,
+    "goal_execution": {
+      "controlled_strokes": 90,
+      "sol_strokes": 90,
+      "settled_sol_strokes": 90,
+      "planned_exact": 38,
+      "planned_projected": 52,
+      "rule_fallback": 0,
+      "changed_from_rule": 64,
+      "realized_hits": 90,
+      "realized_legal": 90,
+      "realized_exact": 35,
+      "realized_projected": 55
+    },
+    "billing": {
+      "api_calls": 47,
+      "terminal_accounting_complete": true,
+      "cost_usd": "6.5010948"
+    }
+  },
+  "requests": [
+    {
+      "ledger_request_id": "2676484ebaa64363a30059427b8d6eac",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.0125088",
+      "timing": {
+        "json_ready_seconds": 2.593417838012101,
+        "terminal_seconds": 2.6741312759986613
+      }
+    },
+    {
+      "ledger_request_id": "4084528bb86c4a308729abf06e3cbef6",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.128061",
+      "timing": {
+        "json_ready_seconds": 2.6760832170257345,
+        "terminal_seconds": 2.7548332550213672
+      }
+    },
+    {
+      "ledger_request_id": "7884f81b829448159c948ca2a37ecab3",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.121896",
+      "timing": {
+        "json_ready_seconds": 2.061159161996329,
+        "terminal_seconds": 2.106319242011523
+      }
+    },
+    {
+      "ledger_request_id": "b3faf5fa61334d058d99990f5710c2e6",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.142731",
+      "timing": {
+        "json_ready_seconds": 2.288413498987211,
+        "terminal_seconds": 2.328301437984919
+      }
+    },
+    {
+      "ledger_request_id": "180394e73073404a9037c4c9d30c64e5",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.146991",
+      "timing": {
+        "json_ready_seconds": 2.02618576498935,
+        "terminal_seconds": 2.103954422986135
+      }
+    },
+    {
+      "ledger_request_id": "08ef6af0b75941ce9fe40090266576a4",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.150486",
+      "timing": {
+        "json_ready_seconds": 2.1971329119987786,
+        "terminal_seconds": 2.2376656619890127
+      }
+    },
+    {
+      "ledger_request_id": "97ea50982cc94b80aa46d88733702fdc",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.144741",
+      "timing": {
+        "json_ready_seconds": 2.215984794020187,
+        "terminal_seconds": 2.24301187301171
+      }
+    },
+    {
+      "ledger_request_id": "b0806f205b2a4113b4e3faa5121539b0",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.140331",
+      "timing": {
+        "json_ready_seconds": 2.2774472929886542,
+        "terminal_seconds": 2.3569216809992213
+      }
+    },
+    {
+      "ledger_request_id": "92ceea32b2714bf2b2d76dd7ae6cba39",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.136701",
+      "timing": {
+        "json_ready_seconds": 2.241811094019795,
+        "terminal_seconds": 2.290880512999138
+      }
+    },
+    {
+      "ledger_request_id": "bbafd03c440748609110d2f99e81a426",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.146181",
+      "timing": {
+        "json_ready_seconds": 2.460552591976011,
+        "terminal_seconds": 2.5167423299863003
+      }
+    },
+    {
+      "ledger_request_id": "a62fc8f3da814e3783c9b2a6d5c2b5cf",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.149106",
+      "timing": {
+        "json_ready_seconds": 2.0809812289953697,
+        "terminal_seconds": 2.179785707005067
+      }
+    },
+    {
+      "ledger_request_id": "f2df70b90ccb4312a50daaaed3684c02",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.137286",
+      "timing": {
+        "json_ready_seconds": 2.6113193499913905,
+        "terminal_seconds": 2.663698149000993
+      }
+    },
+    {
+      "ledger_request_id": "41a50cad038144ea9e7a780062cdd0a2",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.152106",
+      "timing": {
+        "json_ready_seconds": 2.5153649429848883,
+        "terminal_seconds": 2.5643045520118903
+      }
+    },
+    {
+      "ledger_request_id": "4e0e7d1453254309bb4e62034ba1c9ae",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.145536",
+      "timing": {
+        "json_ready_seconds": 2.242089698003838,
+        "terminal_seconds": 2.3399923459801357
+      }
+    },
+    {
+      "ledger_request_id": "dff65365679e492c9de214fe9cb0db6b",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.135141",
+      "timing": {
+        "json_ready_seconds": 2.0441973920096643,
+        "terminal_seconds": 2.0923073020239826
+      }
+    },
+    {
+      "ledger_request_id": "408d7532b6e34bfba2ed2ed1016a8495",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.146586",
+      "timing": {
+        "json_ready_seconds": 1.9605988850235008,
+        "terminal_seconds": 2.0238556640106253
+      }
+    },
+    {
+      "ledger_request_id": "d8d7134267354879bea6b11905ddc081",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.147276",
+      "timing": {
+        "json_ready_seconds": 2.007718104025116,
+        "terminal_seconds": 2.049463444011053
+      }
+    },
+    {
+      "ledger_request_id": "5a6bffad9cc84a4bac7b70593e17d43f",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.131916",
+      "timing": {
+        "json_ready_seconds": 2.0384558940131683,
+        "terminal_seconds": 2.0760762130084913
+      }
+    },
+    {
+      "ledger_request_id": "31b78076bde241afb53ef3311a04a165",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.147576",
+      "timing": {
+        "json_ready_seconds": 2.672745463991305,
+        "terminal_seconds": 2.7716574119986035
+      }
+    },
+    {
+      "ledger_request_id": "1c21ca9124e649b38ec22caecc52efb3",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.146046",
+      "timing": {
+        "json_ready_seconds": 2.0768730849958956,
+        "terminal_seconds": 2.139911303995177
+      }
+    },
+    {
+      "ledger_request_id": "5d245d1a0a5d4f3ba23545c723eb5756",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.149151",
+      "timing": {
+        "json_ready_seconds": 2.9599026209907606,
+        "terminal_seconds": 3.0105465489905328
+      }
+    },
+    {
+      "ledger_request_id": "a127b417834f4fcbadf1b0df70a86b38",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.135216",
+      "timing": {
+        "json_ready_seconds": 2.209719254024094,
+        "terminal_seconds": 2.2209278930095024
+      }
+    },
+    {
+      "ledger_request_id": "d8939e0f25924274bcb72b066075b921",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.134181",
+      "timing": {
+        "json_ready_seconds": 3.1678479979746044,
+        "terminal_seconds": 3.224867707991507
+      }
+    },
+    {
+      "ledger_request_id": "9151f1c087394589b8b3f934d4c47d71",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.143886",
+      "timing": {
+        "json_ready_seconds": 1.989430148008978,
+        "terminal_seconds": 2.037868396990234
+      }
+    },
+    {
+      "ledger_request_id": "08d9f84b7a3e4cca8cfefd183b2da118",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.137721",
+      "timing": {
+        "json_ready_seconds": 2.078558687993791,
+        "terminal_seconds": 2.134028627013322
+      }
+    },
+    {
+      "ledger_request_id": "c916384a15624ac2bad2285b8fc13e71",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.134526",
+      "timing": {
+        "json_ready_seconds": 2.0472810180217493,
+        "terminal_seconds": 2.0915572970116045
+      }
+    },
+    {
+      "ledger_request_id": "6d3cbf7d06e847c38d15594632737b05",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.143406",
+      "timing": {
+        "json_ready_seconds": 1.9606510589946993,
+        "terminal_seconds": 1.9834750689915381
+      }
+    },
+    {
+      "ledger_request_id": "6355f850d28e4c7dbcc319814670c629",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.130056",
+      "timing": {
+        "json_ready_seconds": 2.167135456984397,
+        "terminal_seconds": 2.2295867759967223
+      }
+    },
+    {
+      "ledger_request_id": "6c5744e44f4e4503b66cc533c588610c",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.148356",
+      "timing": {
+        "json_ready_seconds": 2.5345289320102893,
+        "terminal_seconds": 2.9211799959884956
+      }
+    },
+    {
+      "ledger_request_id": "0dba78ced2984a668aeb88f74c828ff6",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.133356",
+      "timing": {
+        "json_ready_seconds": 2.0090412899735384,
+        "terminal_seconds": 2.0759941799915396
+      }
+    },
+    {
+      "ledger_request_id": "0140a5b993cc4f79a98521861275dc70",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.128271",
+      "timing": {
+        "json_ready_seconds": 1.89965383298113,
+        "terminal_seconds": 1.9447455119807273
+      }
+    },
+    {
+      "ledger_request_id": "754893a3c0c74a16a9ce4b267b2344ed",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.150531",
+      "timing": {
+        "json_ready_seconds": 2.0765564809844363,
+        "terminal_seconds": 2.147939649003092
+      }
+    },
+    {
+      "ledger_request_id": "c19249a39e1240cfb71dd38036d5728d",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.138666",
+      "timing": {
+        "json_ready_seconds": 1.8960605220054276,
+        "terminal_seconds": 1.9367347810184583
+      }
+    },
+    {
+      "ledger_request_id": "fa52be151668417abcf97b1863b2f34d",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.143976",
+      "timing": {
+        "json_ready_seconds": 1.8051872439973522,
+        "terminal_seconds": 1.8537652429949958
+      }
+    },
+    {
+      "ledger_request_id": "66f74380d35f48b4b14c8b1a8802b81f",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.140706",
+      "timing": {
+        "json_ready_seconds": 3.2364715349976905,
+        "terminal_seconds": 3.3006414429983124
+      }
+    },
+    {
+      "ledger_request_id": "2ee7347c3a644070a9b2d2160dafc848",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.141726",
+      "timing": {
+        "json_ready_seconds": 2.422829596005613,
+        "terminal_seconds": 2.4634844649990555
+      }
+    },
+    {
+      "ledger_request_id": "97c431f0192f4c1ba9f223d3400598a8",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.144531",
+      "timing": {
+        "json_ready_seconds": 2.371379946009256,
+        "terminal_seconds": 2.390480906004086
+      }
+    },
+    {
+      "ledger_request_id": "89d01354275f4ab3b4eb079365401452",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.146541",
+      "timing": {
+        "json_ready_seconds": 2.3047991190105677,
+        "terminal_seconds": 2.323596998001449
+      }
+    },
+    {
+      "ledger_request_id": "1875d817597346d0acfc7382d566e86f",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.150471",
+      "timing": {
+        "json_ready_seconds": 1.7544098969956394,
+        "terminal_seconds": 1.8196577260096092
+      }
+    },
+    {
+      "ledger_request_id": "a292f39fb7fd4010a9c869dc40db2d77",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.137586",
+      "timing": {
+        "json_ready_seconds": 1.9890730530023575,
+        "terminal_seconds": 2.0517829220043495
+      }
+    },
+    {
+      "ledger_request_id": "90ae5fa8d19443a5b3af075007a9e345",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.131226",
+      "timing": {
+        "json_ready_seconds": 1.9241405339853372,
+        "terminal_seconds": 1.9683044840057846
+      }
+    },
+    {
+      "ledger_request_id": "1bc1632fb03a4d08b0126fc8126da254",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.145671",
+      "timing": {
+        "json_ready_seconds": 2.2090193110052496,
+        "terminal_seconds": 2.2764823499892373
+      }
+    },
+    {
+      "ledger_request_id": "0143eaeeec81439e92c9c7289105ffc8",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.148176",
+      "timing": {
+        "json_ready_seconds": 1.927692235010909,
+        "terminal_seconds": 1.970813015010208
+      }
+    },
+    {
+      "ledger_request_id": "250092e4c3d44319872b908fdcdd17be",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.136656",
+      "timing": {
+        "json_ready_seconds": 2.035314754000865,
+        "terminal_seconds": 2.081074332993012
+      }
+    },
+    {
+      "ledger_request_id": "f801c51b6de24addbab12ef3cc9bfa4a",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.138201",
+      "timing": {
+        "json_ready_seconds": 2.184948362002615,
+        "terminal_seconds": 2.205542660987703
+      }
+    },
+    {
+      "ledger_request_id": "f57a167bbb0f48788ad46bb2593ce7c4",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.134811",
+      "timing": {
+        "json_ready_seconds": 2.237661090999609,
+        "terminal_seconds": 2.283399489999283
+      }
+    },
+    {
+      "ledger_request_id": "3452112e23c14fd999b87c55a8328526",
+      "model": "gpt-6.1-sol",
+      "service_tier": "ultrafast",
+      "cost_usd": "0.144291",
+      "timing": {
+        "json_ready_seconds": 3.1306497000041418,
+        "terminal_seconds": 3.1870226500032004
+      }
+    }
+  ],
+  "comparison": [
+    {
+      "label": "固定策略（上轮）",
+      "source_directory": "sooool_badminton_realtime_pair_004/fixed-s3-101",
+      "summary": {
+        "mode": "realtime_fixed",
+        "source": "rules",
+        "status": "completed",
+        "complete": true,
+        "points_for": 8,
+        "points_against": 11,
+        "seed": 101,
+        "slowdown": 3,
+        "game_seconds": 190.51,
+        "wall_seconds": 571.5300751070026,
+        "calls": 0,
+        "cost_usd": "0"
+      },
+      "audit": {
+        "matched": true,
+        "verified_frames": 19051,
+        "incoming": 64,
+        "legal_returns": 57,
+        "serves": 9,
+        "legal_serves": 5,
+        "goal_execution": {
+          "controlled_strokes": 57,
+          "sol_strokes": 0,
+          "settled_sol_strokes": 0,
+          "planned_exact": 0,
+          "planned_projected": 0,
+          "rule_fallback": 0,
+          "changed_from_rule": 0,
+          "realized_hits": 0,
+          "realized_legal": 0,
+          "realized_exact": 0,
+          "realized_projected": 0
+        }
+      }
+    },
+    {
+      "label": "SOL（上轮）",
+      "source_directory": "sooool_badminton_realtime_pair_004/sol-s3-101",
+      "summary": {
+        "mode": "realtime_api",
+        "source": "sol",
+        "status": "completed",
+        "complete": true,
+        "points_for": 5,
+        "points_against": 11,
+        "seed": 101,
+        "slowdown": 3,
+        "game_seconds": 130.09,
+        "wall_seconds": 390.27008279800066,
+        "calls": 27,
+        "cost_usd": "3.616782"
+      },
+      "audit": {
+        "matched": true,
+        "verified_frames": 13009,
+        "incoming": 45,
+        "legal_returns": 36,
+        "serves": 6,
+        "legal_serves": 4,
+        "goal_execution": {
+          "controlled_strokes": 36,
+          "sol_strokes": 36,
+          "settled_sol_strokes": 36,
+          "planned_exact": 12,
+          "planned_projected": 24,
+          "rule_fallback": 0,
+          "changed_from_rule": 22,
+          "realized_hits": 36,
+          "realized_legal": 36,
+          "realized_exact": 13,
+          "realized_projected": 23
+        }
+      }
+    },
+    {
+      "label": "SOL（本次重跑）",
+      "source_directory": "sooool_badminton_realtime_rerun_005/sol-s3-101",
+      "summary": {
+        "mode": "realtime_api",
+        "source": "sol",
+        "status": "completed",
+        "complete": true,
+        "points_for": 8,
+        "points_against": 11,
+        "seed": 101,
+        "slowdown": 3,
+        "game_seconds": 276.09,
+        "wall_seconds": 828.2700730719953,
+        "calls": 47,
+        "cost_usd": "6.5010948"
+      },
+      "audit": {
+        "matched": true,
+        "verified_frames": 27609,
+        "incoming": 97,
+        "legal_returns": 90,
+        "serves": 9,
+        "legal_serves": 5,
+        "goal_execution": {
+          "controlled_strokes": 90,
+          "sol_strokes": 90,
+          "settled_sol_strokes": 90,
+          "planned_exact": 38,
+          "planned_projected": 52,
+          "rule_fallback": 0,
+          "changed_from_rule": 64,
+          "realized_hits": 90,
+          "realized_legal": 90,
+          "realized_exact": 35,
+          "realized_projected": 55
+        }
+      }
+    }
+  ],
+  "demo": {
+    "path": "assets/gameplay/badminton.mp4",
+    "start_seconds": 6,
+    "duration_seconds": 15,
+    "source_fps": "100/3",
+    "encoded_fps": 12,
+    "playback": "original S3 speed",
+    "render_mode": "verified_native_action_replay",
+    "new_model_calls": 0
+  },
+  "acceptance": {
+    "match_completed": true,
+    "won": false,
+    "policy_promoted": false
+  }
+}

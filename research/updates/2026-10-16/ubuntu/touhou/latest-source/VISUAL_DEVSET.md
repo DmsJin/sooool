@@ -1,3 +1,5 @@
+> **Retained source-harness research record.** This report/protocol describes its original experiment stage. “Current”, “ongoing”, “selected” and acceptance statements below belong to that stage; use the [selected Touhou learning record](../../../../../../docs/touhou-research-record.md) for the released policy, actual API wins and current launcher status. The original report follows unchanged.
+
 # Small visual development set
 
 `visual_devset.py` copies original screenshots unchanged, preserving episode/decision/frame IDs and SHA256 hashes. `cases/*/input.json` is a whitelist of observed frames/held controls/clock, already-returned control schedule and historical delay summaries. `private/*.json` contains human rubrics and historical action audit labels; these are never read by the playing client. No exact entity state, future frame, source future action or current sampled delay is passed to Sol. Human demonstrations can be appended to the separate private label array later.

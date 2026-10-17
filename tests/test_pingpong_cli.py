@@ -11,7 +11,7 @@ class GameRoutingTests(unittest.TestCase):
         for game, commands, script in (
             ("pingpong", ("eval", "report"), "tabletennis.py"),
             ("tabletennis", ("eval", "report"), "tabletennis.py"),
-            ("badminton", ("eval", "preflight"), "badminton.py"),
+            ("badminton", ("simulate", "eval", "preflight", "audit", "report", "diagnose", "profile"), "badminton.py"),
         ):
             for command in commands:
                 with self.subTest(game=game, command=command), \

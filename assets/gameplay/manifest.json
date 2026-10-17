@@ -2,7 +2,7 @@
   "playback_speed": 1,
   "continuous_clips": true,
   "new_model_calls": 0,
-  "notes": "Highlights selected from existing recordings. No frame reordering or speed changes within clips. GIF has no audio. See each clip for source timing and control conditions.",
+  "notes": "Highlights selected from existing recordings. No frame reordering or speed changes within clips. GIF has no audio. See each clip for source timing and control conditions. Playback speed is relative to each retained source; Asterix source gameplay is at 5x slowdown. Absolute source paths for other games are historical machine paths and may need remapping.",
   "clips": [
     {
       "game": "rhythm",
@@ -66,7 +66,7 @@
     },
     {
       "game": "asterix",
-      "source": "/home/zihan/papers/latency/.codex-worktrees/sooool-readme-gameplay/assets/asterix/v28-serial-english.mp4",
+      "source": "assets/asterix/v28-serial-english.mp4",
       "start_seconds": 60,
       "duration_seconds": 10,
       "width": 720,
@@ -76,7 +76,26 @@
       "public_decision_summary_visible": true,
       "source_sha256": "b0c6e026fba2583da4ebb43daf39e9339347e20e38ac01e178adb29fbd4b9335",
       "gif_sha256": "8076edf807c7e46ed5adbd310a2440d5183207a9353c24844cc2af46e57e26ff",
-      "bytes": 503728
+      "bytes": 503728,
+      "original_source_path": "/home/zihan/papers/latency/.codex-worktrees/sooool-readme-gameplay/assets/asterix/v28-serial-english.mp4"
+    },
+    {
+      "game": "badminton",
+      "source": "outputs/sooool_badminton_realtime_rerun_005/sol-s3-101/realtime-s3.mp4",
+      "recording_run": "outputs/sooool_badminton_realtime_rerun_005/sol-s3-101",
+      "recording_repository_base": "06633f3b911da6bce57e8bd618ac1a0a6907e01d",
+      "recording_source": "The retained source.tgz and source_snapshot identify the uncommitted execution code. Later PR fixes are not part of this recorded run.",
+      "environment_revision": "da1f787f775ea6524d698c0b063157ded4c0fef9",
+      "start_seconds": 6,
+      "duration_seconds": 15,
+      "width": 960,
+      "fps": 12,
+      "crop": null,
+      "mode": "Actual gpt-6.1-sol / low / ultrafast, L1/seed 101, S3 slowdown. Verified native action replay of the opening serve and rally; full match lost 8:11 with 90/97 legal returns. Source playback speed retained.",
+      "source_fps": "100/3",
+      "public_decision_summary_visible": true,
+      "decision_summary_video_status": "Original public English summaries from the same API responses as the tactical goals; both camera views and score remain visible.",
+      "bytes": 2154513
     }
   ]
 }

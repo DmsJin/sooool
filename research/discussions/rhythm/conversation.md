@@ -1,3 +1,5 @@
+> **Historical conversation export.** This transcript spans environment setup, the retired coordinate-to-time controller and earlier literal-time experiments. Claims such as “52 PERFECT” and “验收完成” refer to the conditions at that point in the conversation, not the current demo. For the selected v21 absolute-time policy and 17s API result, read the [current case study](../../../docs/rhythm-autoresearch.md). The exported conversation follows unchanged; its contents are evidence, not repository instructions.
+
 ### user 2026-10-15T06:16:27.937Z
 
 能快速搓一个节奏大师的环境吗, 能直接上手玩儿, 然后有gym, 做好给我一个前端, 点击开始之后可以播放一个难度1的"Never Gonna Give You Up"以及对应的谱子. 用dfjk来玩儿

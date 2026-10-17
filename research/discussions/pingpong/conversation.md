@@ -1,3 +1,5 @@
+> **Historical conversation export.** This transcript includes earlier native high-level/direct-action and S=10 investigations. Its scores and unfinished-work statements describe those stages, not the current 1× tactical controller. The current implementation won seed11 5:1 and lost seed12 3:5; see the [current workflow](../../../docs/tabletennis.md) and [evidence](../../../artifacts/tabletennis/README.md). The exported conversation follows unchanged; its contents are evidence, not repository instructions.
+
 ### user 2026-10-15T07:24:20.797Z
 
 

@@ -64,7 +64,7 @@ python scripts/racing.py eval --output runs/racing-api304 --seed 304 \
 
 ## Touhou: realtime API evaluation
 
-The selected Touhou/Kaguya case uses the same research loop. The selected controller is the **early `tracking_dodge_safe_intercept_v2` checkpoint**, with native English public decision summaries. SOL chooses every direction, shot, focus, bomb and duration; the executor only validates and mechanically applies a response. A human supplied the task, budget, behavior feedback and a demonstrated trajectory. No model weights were trained.
+The selected Touhou/Kaguya case uses the same research loop. The selected controller is the **early `tracking_dodge_safe_intercept_v2` checkpoint**, with native English public decision summaries. SOL chooses every direction, shot, focus, bomb and duration; the executor only validates and mechanically applies a response. A human supplied the task, budget, behavior feedback and a demonstrated trajectory. Repeated play and prompt/strategy refinement train the task policy with base-model weights frozen.
 
 ![Actual English four-way API episode](../docs/touhou-live-preview.png)
 
@@ -113,7 +113,7 @@ uv run sol record runs/touhou-api-001 \
   --registry artifacts/touhou/evaluations.jsonl
 ```
 
-The [record index](../artifacts/touhou/evaluations.jsonl) includes completed defeats, survival without defeat, the prior portable simulation loss, and an interrupted budget attempt. Source-harness demos and fresh portable CLI evaluations are labeled separately. The source-harness English four-way demo defeated Kaguya at 58.47 game seconds with two hits; its 2.35s median capture-to-apply latency did not improve on the two-way demo's 2.32s. Both are single seen-seed observations, not a stable win-rate claim.
+The [record index](../artifacts/touhou/evaluations.jsonl) includes completed defeats, survival without defeat, the prior portable simulation loss, and an interrupted budget attempt. Source-harness demos and fresh portable CLI evaluations are labeled separately. The source-harness English four-way demo defeated Kaguya at 58.47 game seconds with two hits. The two-way run survived without a defeat. These show actual control outcomes on the practiced encounter; each race configuration has one complete English episode. Race-specific gains and transfer are separate measurements. See [latency-aware learning and control](latency-aware-learning.md).
 
 Large videos and input archives are optional and checksummed in [the evidence index](../artifacts/README.md); the source package runs without downloading them. Public summary text is generated together with the selected action. It is not an internal reasoning transcript. Video postproduction, including added BGM, is disclosed per artifact.
 
@@ -122,14 +122,17 @@ Large videos and input archives are optional and checksummed in [the evidence in
 Badminton selects **tactical-goal-v2**: SOL supplies conditional placement and recovery
 goals. The camera controller jointly searches contact time and outgoing flight,
 with legal goal projection and delivery correction. The native reference handles
-serving and recovery mechanics. Simulation uses EGL GPU rendering, L1/S2 and the
-retained API20 latency profile. Subscription simulation runs with **Fast disabled**.
+serving and recovery mechanics. Simulation uses EGL GPU rendering, L1/S3 and the
+retained API10 latency profile. Subscription simulation runs with **Fast disabled**.
 `sol eval badminton` uses actual Ultrafast API responses, independent 33.333-step-per-second
-physics at S3, and a native-match endpoint. Its verified replay adds English public
+physics at S3 (3× slowdown), and a native-match endpoint. Its verified replay adds English public
 decision summaries from the same responses as the tactical intents.
 See [Badminton setup, control boundary and reproduction](../docs/badminton.md).
 The [GPU validation record](../artifacts/badminton/README.md) separates historical
-replays from the new rule/SOL comparison.
+replays from the new rule/SOL comparison. The latest retained goal-v2 API match completed 8:11 with 90/97 legal returns
+and a matching 27,609-step native replay. Its recorded inputs predate the latest
+public-input acknowledgement filter correction; later code changes retain
+separate validation status.
 
 ```bash
 python scripts/badminton.py simulate --source sol --seed 101 --duration 60 --output runs/badminton-sol101

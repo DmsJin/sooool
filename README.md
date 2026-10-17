@@ -14,7 +14,8 @@ The games include bullet dodging, racing, rhythm games, and simulated robot spor
 <td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-6 Sol selecting racing targets through bends and obstacles, with live decisions" width="440"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
 </tr>
 <tr>
-<td colspan="2" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol collecting food in Asterix alongside original public decision summaries" width="600"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/asterix.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol collecting food in Asterix alongside original public decision summaries" width="440"></a><br><b>Asterix</b> · Profile simulation replay · 5× slowdown</td>
+<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" width="440"></a><br><b>Badminton</b> · Real-time API replay · S3 slowdown · 15s</td>
 </tr>
 <tr>
 <td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-6 Sol choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="270"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
@@ -22,7 +23,7 @@ The games include bullet dodging, racing, rhythm games, and simulated robot spor
 </tr>
 </table>
 
-These clips come from individual runs, rather than repeated win-rate tests. Each caption identifies how that run was timed. The Asterix clip is a replay of a delay-simulated run; the other clips above used actual API calls while the game was running. Racing uses a steering controller, and PingPong uses a controller to execute shots. [Clip sources and editing details](assets/gameplay/README.md).
+These clips come from individual runs, rather than repeated win-rate tests. Each caption identifies how that run was timed. The Asterix clip is a replay of a delay-simulated run; the Touhou, Racing, Rhythm, and PingPong clips used actual API calls while the game was running. The Badminton clip replays a recorded real-time API run at 3x slowdown. Racing uses a steering controller, and PingPong uses a controller to execute shots. [Clip sources and editing details](assets/gameplay/README.md).
 
 ## Two loops: researching a strategy and playing a game
 
@@ -46,7 +47,7 @@ See the game screen → choose an action → apply it when ready → see what ch
 
 The instructions, recent screenshots, and allowed feedback tell the model what it can see and do. Each game defines its controls: in Touhou, for example, the model chooses movement, shooting, focus, bombs, and how long to hold them. Other games let it choose targets that a controller carries out.
 
-The selected Touhou strategy was developed through prompts and experiments, without training model weights. The outer research loop was carried out in Codex Goal mode sessions with human guidance. Running `sol simulate` starts a game experiment; it does not, by itself, start the full strategy-editing research loop.
+The selected Touhou strategy was developed through repeated play, prompt and memory refinement, and experiments. Its base-model weights remain frozen. The outer research loop was carried out in Codex Goal mode sessions with human guidance. Running `sol simulate` starts a game experiment; it does not, by itself, start the full strategy-editing research loop.
 
 [Read the research stories for each game](docs/autoresearch-summaries.md).
 
@@ -77,6 +78,8 @@ Waiting for an answer can take seconds. We tried different ways to keep decision
 | **Asterix** | Allow **one request at a time**. Capture the next observation after the previous answer arrives. | Hold the chosen direction unchanged until the model replaces it. There is no automatic stop or row hop. |
 
 Touhou's real-time configuration allows four requests in total; its simulation allows eight so older requests can finish after a winner has been used. Choosing a winner does not immediately free the other requests' slots. Rhythm overlaps decisions from successive observations instead of racing several answers to the same screenshot. Its older answers cannot cancel or replace newer instructions, though they can still add a tap that is valid and has not already been scheduled.
+
+The prompts also ask the model to anticipate where the boss and bullets will be when its action arrives. [Latency-aware learning and control](docs/latency-aware-learning.md) describes this strategy development alongside request scheduling.
 
 Concurrency can help an answer arrive sooner or keep observations flowing while earlier requests are waiting. It also means more calls, more cost, and more answers that may already be out of date. Asterix's serial setup was selected after overlapping requests appeared to encourage repeated movement; the limited trials motivate that choice rather than proving it is always better.
 
@@ -131,6 +134,8 @@ This is what autoresearch means here: turn a failure into a hypothesis, test a c
 
 ## Games and controls
 
+[Current results and execution conditions](docs/results.md) lists each selected strategy, game speed, and supporting records. Touhou is a simplified Kaguya practice encounter rather than the full original game.
+
 | Game | What GPT-6 Sol decides | What the surrounding code does |
 |---|---|---|
 | **Touhou / Kaguya** | Movement, shooting, focus, bombs, and duration | Runs the game, captures screenshots, checks and applies actions |
@@ -143,6 +148,23 @@ This is what autoresearch means here: turn a failure into a hypothesis, test a c
 The screenshot-based game actors do not receive hidden game coordinates or future sampled delays. Evaluators can inspect game state to score outcomes. [Observation and evaluation boundaries](docs/observation-contract.md).
 
 The demos use selected runs, and success has not been reproduced under every setup. The original Touhou runs include real-time boss defeats, while a fresh simulation with the portable launcher lost; a full paid real-time test of that launcher remains pending. Rhythm's selected original run had 24 Perfect, 1 Great, zero Miss, and two empty presses, but a later run with the portable launcher did not reproduce that result. [Validation results, including failures](docs/validation.md).
+
+The Badminton clip shows the opening serve and rally from one seed-101, L1/S3 match. The full match lost **8:11**, with **90/97 legal returns**, **47 confirmed Ultrafast responses**, zero rule fallbacks across 90 controlled rally strokes, and four serve failures. Its native replay matched all 27,609 steps. [Protocol and evidence](artifacts/badminton/README.md).
+
+Racing also retains a [recorded GPT and fixed-goal comparison](research/racing/EVALUATION.md#recorded-gpt-and-no-gpt-comparison): 7/7 wins for GPT targets and 3/7 for fixed goals under the documented conditions.
+
+## Game sources and inspirations
+
+| Game | Source / original game |
+|---|---|
+| **Car Racing** | [RoboOlympics](https://olympics.embodied-first-exam.ai/), using the pinned [RoboOlympics source](https://github.com/CHIGUI0/roboolympics/tree/da1f787f775ea6524d698c0b063157ded4c0fef9). |
+| **Badminton** | [RoboOlympics](https://olympics.embodied-first-exam.ai/), using the same pinned native environment. |
+| **PingPong / Table Tennis** | [RoboOlympics](https://olympics.embodied-first-exam.ai/), using the same pinned native environment. |
+| **Atari Asterix** | The Atari 2600 game through the [Arcade Learning Environment (ALE)](https://ale.farama.org/environments/asterix/), using `ALE/Asterix-v5`. |
+| **Rhythm** | Inspired by Tencent’s [Rhythm Master / 节奏大师](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993); implemented here as a custom four-lane DFJK browser game and practice chart. |
+| **Touhou / Kaguya** | Follows [Touhou Eiyashou ~ Imperishable Night](https://www16.big.or.jp/~zun/html/th08top.html) by ZUN / Team Shanghai Alice; implemented here as a simplified Kaguya practice encounter with original-game presentation assets. |
+
+Environment and media attribution details are recorded in [source and media provenance](docs/provenance.md).
 
 ## Run your first experiment
 

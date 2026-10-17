@@ -1,3 +1,5 @@
+> **Historical conversation export.** This transcript spans earlier Asterix policies, hop executors, slowdown and concurrency experiments. Its local status and scores belong to their recorded conditions. The active release selects direct serial V28 at 5× slowdown; see the [selected learning record](../../../docs/asterix-autoresearch.md) and [current result map](../../../docs/results.md). The exported conversation follows unchanged; its contents are evidence, not repository instructions.
+
 ### assistant 2026-10-14T22:51:26.026Z
 
 我在等最后一局的同时，回放了已结束的两局，核对了 699 张观测截图。回放里有不少白色“50”得分浮字，而当前安全拦截提示词没有明确排除它们；这是一个值得验证的视觉识别问题。下一轮会先按计划测“提前停止换行”，再用这个反馈设计后续改动，不只盯着最终分数。

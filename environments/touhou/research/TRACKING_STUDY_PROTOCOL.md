@@ -1,3 +1,5 @@
+> **Retained source-harness research record.** This report/protocol describes its original experiment stage. “Current”, “ongoing”, “selected” and acceptance statements below belong to that stage; use the [selected Touhou learning record](../../../docs/touhou-research-record.md) for the released policy, actual API wins and current launcher status. The original report follows unchanged.
+
 # Latency-aware firing pursuit study, v1
 
 Frozen before collecting new candidate answers. This is prompt/configuration search with a development reward, not weight training. Playing remains gpt-6.1-sol/low seeing original PNGs and allowed public control/timing context; private state is strictly evaluation-only. Existing successful policy is tracking_dodge_adaptive. No engine changes.

@@ -45,12 +45,14 @@ def realtime_prompt(snapshot):
 class TacticalAPI:
     """Own a serial HTTP session, usage accounting and early complete-JSON delivery."""
 
-    def __init__(self, key, output, budget_usd, recipe):
+    def __init__(self, key, output, budget_usd, recipe, *, ledger_path=None, stage="realtime"):
         self.key, self.recipe = key, recipe
+        self.stage = stage
+        self.request_ids = []
         self.session = requests.Session()
         limits = {"total_limit": budget_usd, "admission_limit": budget_usd,
                   "stage_caps": {k: budget_usd for k in ("profile", "reprofile", "realtime")}}
-        self.ledger = BudgetLedger(Path(output) / "ledger.json", **limits)
+        self.ledger = BudgetLedger(Path(output) / "ledger.json" if ledger_path is None else ledger_path, **limits)
         self.system = (POLICY_ROOT / "system.txt").read_text()
 
     def act(self, prompt, image, spec, directory, publish):
@@ -66,8 +68,9 @@ class TacticalAPI:
         text_bound = len((self.system + prompt + json.dumps(REALTIME_SCHEMA)).encode())
         cap = self.recipe["max_output_tokens"]
         reservation = (Decimal(text_bound + image_bound + 512) * 15 + Decimal(cap) * 60) / 1000000
-        rid = self.ledger.reserve("realtime", reservation, {"model": self.recipe["model"],
+        rid = self.ledger.reserve(self.stage, reservation, {"model": self.recipe["model"],
                                                          "service_tier": self.recipe["service_tier"]})
+        self.request_ids.append(rid)
         payload = {"model": self.recipe["model"], "service_tier": self.recipe["service_tier"],
                    "reasoning": {"effort": self.recipe["effort"]}, "instructions": self.system,
                    "stream": True, "store": False, "max_output_tokens": cap,

@@ -1,3 +1,5 @@
+> **Retained source-harness research record.** This report/protocol describes its original experiment stage. “Current”, “ongoing”, “selected” and acceptance statements below belong to that stage; use the [selected Touhou learning record](../../../docs/touhou-research-record.md) for the released policy, actual API wins and current launcher status. The original report follows unchanged.
+
 东方辉夜 Lv.1 · Sol 实时通关实验计划
 
 本轮为计划与只读勘察；未发起付费模型请求，也未启动订阅批量实验。用户已授权本任务累计 API 消费不超过 USD 30、订阅迭代、并发策略和远端实验。文档中的阈值为本次建议，PDF 是参考方法，不自动变成本次执行指令。

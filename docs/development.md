@@ -1,6 +1,6 @@
 # Reuse the development process
 
-The current policies were developed by changing prompts, visual memory, observation history, control representation, scheduling and executors. No new SOL model weights are included or claimed.
+The current policies were trained through repeated interaction and search over prompts, visual memory, observation history, control representation, scheduling and executors. The task policy is the learned artifact; SOL base-model weights remain frozen. [Latency-aware learning and control](latency-aware-learning.md) describes how task practice and overlapping inference work together.
 
 1. Validate the original engine and controller using deterministic tests and replay. Privileged truth belongs only to offline evaluation.
 2. Freeze an observation/action contract: exact pixels, public timestamps, history, allowed feedback, and action schema. Keep API and subscription task inputs aligned.
@@ -14,7 +14,7 @@ Racing provides a concrete selected lineage: [waypoint failures â†’ lane goals â
 
 ## Lessons worth carrying forward
 
-- Rhythm: the model must plan beyond response delay. Removing prior latency figures and live RTT caused many literal plans to expire. See `environments/rhythm/experiments/rhythm/LATENCY_PROFILE_ABLATION.md`. Visual calibration memory, acknowledgement history and timestamp semantics are part of the policy.
+- Rhythm: the model must plan beyond response delay. Removing prior latency figures and live RTT caused many literal plans to expire. See [the historical latency ablation](../research/updates/2026-10-16/rhythm/source/LATENCY_PROFILE_ABLATION.md) for that earlier 30s experiment, and [the current workflow](rhythm.md) for the selected 17s policy. Visual calibration memory, acknowledgement history and timestamp semantics are part of the policy.
 - Touhou: optimize actual shooting damage and safety over a fixed delayed branch, then check continuous episodes. Case improvements did not guarantee fewer hits. See `environments/touhou/research/TRACKING_BENCHMARK.md` and `TRACKING_RESULTS.md`. Preserve public pixel controls, bomb edge behavior, and readiness/terminal slot handling.
 - Asterix: identify the player and useful/harmful sprites first; long held vertical motion and stale replies can undo good decisions. The selected release uses one request at a time and unchanged actions, with no automatic hop or row filtering. Case agreement alone does not establish sustained pursuit or full-episode score; see [the research walkthrough](asterix-autoresearch.md).
 - More prompt simplification is not automatically faster or better. Preserve wrapper text and compare with matched inputs. The portable transport is explicitly a new adapter condition.

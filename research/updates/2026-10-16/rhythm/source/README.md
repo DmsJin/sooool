@@ -1,3 +1,5 @@
+> **Historical research snapshot — not the active Rhythm workflow.** This report describes the retired coordinate-to-time controller. Its three all-PERFECT runs are not results of the current model-owned absolute-time policy. Use the [current workflow](../../../../../docs/rhythm.md) and [selected case study](../../../../../docs/rhythm-autoresearch.md). The original report follows unchanged.
+
 # Screenshot-only rhythm autoresearch
 
 Acceptance: native audio/browser at 1x, three consecutive complete 30-second episodes, weighted accuracy >=95% and zero missed notes. Empty presses are auxiliary diagnostics, not an added acceptance threshold.
