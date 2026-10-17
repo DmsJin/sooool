@@ -96,14 +96,14 @@ The simulator also accounts for concurrent requests: Touhou samples groups of de
 
 The coding agent chooses button presses in screen-based games and tactical goals in robot games. Each game defines what it sees, what it returns, and how the code carries out its decisions.
 
-| Game | Agent input | Agent action | Code execution |
-|---|---|---|---|
-| [Touhou / Kaguya](docs/touhou-research-record.md) | Up to three recent screenshots, frame times, and prior controls | Movement, shooting, focus, bombs, and duration | Apply the chosen buttons for the specified duration |
-| [PingPong](docs/tabletennis.md) | Two camera views, public feedback, and a camera-based opponent estimate | Choose one of four return-placement plans | Track the ball, serve, plan contact, and execute joint motion |
-| [Asterix](docs/asterix-autoresearch.md) | Three timestamped screenshots and applied-action history | Joystick direction | Hold the chosen direction until a newer reply replaces it |
-| [Badminton](docs/badminton.md) | Four recent frames from two cameras and public feedback | Conditional shot goals, recovery position, and goal duration | Select the applicable goal, plan a reachable contact and swing, and execute the stroke |
-| [Rhythm](docs/rhythm.md) | Game screenshot, public clock, and pending taps | DFJK keys and absolute tap times | Queue and execute the specified taps |
-| [Racing](docs/racing.md) | Recent front-camera views, telemetry, and camera-derived road measurements | Speed, lane offset, and lookahead | Steer toward the goal and limit speed through bends |
+| Game | Source | Agent input | Agent action | Code execution |
+|---|---|---|---|---|
+| [Touhou / Kaguya](docs/touhou-research-record.md) | Custom [Touhou](https://www16.big.or.jp/~zun/html/th08top.html) practice | Up to three recent screenshots, frame times, and prior controls | Movement, shooting, focus, bombs, and duration | Apply the chosen buttons for the specified duration |
+| [PingPong](docs/tabletennis.md) | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) | Two camera views, public feedback, and a camera-based opponent estimate | Choose one of four return-placement plans | Track the ball, serve, plan contact, and execute joint motion |
+| [Asterix](docs/asterix-autoresearch.md) | [ALE](https://ale.farama.org/environments/asterix/) | Three timestamped screenshots and applied-action history | Joystick direction | Hold the chosen direction until a newer reply replaces it |
+| [Badminton](docs/badminton.md) | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) | Four recent frames from two cameras and public feedback | Conditional shot goals, recovery position, and goal duration | Select the applicable goal, plan a reachable contact and swing, and execute the stroke |
+| [Rhythm](docs/rhythm.md) | Custom, [Rhythm Master](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993)-inspired | Game screenshot, public clock, and pending taps | DFJK keys and absolute tap times | Queue and execute the specified taps |
+| [Racing](docs/racing.md) | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) | Recent front-camera views, telemetry, and camera-derived road measurements | Speed, lane offset, and lookahead | Steer toward the goal and limit speed through bends |
 
 Evaluators may inspect game state to score outcomes. [Observation boundaries](docs/observation-contract.md).
 
@@ -117,16 +117,6 @@ Evaluators may inspect game state to score outcomes. [Observation boundaries](do
 | **Racing** | Won 2:0 on seed 304 | Real-time API, 1×, coded steering |
 
 The portable launcher has not reproduced the original Touhou and Rhythm results: its fresh Touhou simulation lost, full paid Touhou evaluation is pending, and its live Rhythm run failed. A fresh Asterix simulation scored 300. [Full results and comparisons](docs/results.md) · [Validation history](docs/validation.md).
-
-<details>
-<summary>Game sources and inspirations</summary>
-
-- **Racing, PingPong, and Badminton:** [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/), using the pinned [RoboOlympics source](https://github.com/CHIGUI0/roboolympics/tree/da1f787f775ea6524d698c0b063157ded4c0fef9).
-- **Asterix:** the Atari 2600 game through [ALE](https://ale.farama.org/environments/asterix/), using `ALE/Asterix-v5`.
-- **Rhythm:** a custom four-lane browser game inspired by Tencent's [Rhythm Master / 节奏大师](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993).
-- **Touhou:** a simplified Kaguya practice encounter based on [Touhou Eiyashou ~ Imperishable Night](https://www16.big.or.jp/~zun/html/th08top.html), with original-game presentation assets.
-
-</details>
 
 ## Quick start
 
