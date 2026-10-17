@@ -1,33 +1,12 @@
-# Sooool!
+<h1 align="center">Sooool!</h1>
 
-**Can GPT-6 Sol play real-time games, where the world keeps moving while it thinks?**
+<p align="center"><strong>Can GPT-6 Sol play real-time games, where the world keeps moving while it thinks?</strong></p>
 
-## Demos
+<p align="center">
+<a href="#what-is-sooool">Overview</a> · <a href="#autoresearch-for-latency-awareness">Autoresearch for latency awareness</a> · <a href="#how-a-game-runs">How a game runs</a> · <a href="#how-the-latency-simulator-works">Latency simulator</a> · <a href="#games-and-controls">Games &amp; results</a> · <a href="#quick-start">Quick start</a> · <a href="#find-your-way-around-the-code">Code guide</a> · <a href="#citation">Citation</a>
+</p>
 
-Click a preview to watch the video.
-
-<table>
-<tr>
-<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-6 Sol choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="105"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
-<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-6 Sol playing table tennis with both camera views and live public decision summaries" height="105"></a><br><b>PingPong</b> · Real-time API · 1×</td>
-</tr>
-<tr>
-<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-6 Sol dodging Kaguya's bullet patterns with live English decision summaries" height="105"></a><br><b>Touhou</b> · Real-time API · 1×</td>
-<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-6 Sol selecting racing targets through bends and obstacles, with live decisions" height="105"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
-</tr>
-<tr>
-<td width="50%" align="center"><a href="assets/asterix/v28-api-60s.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol playing Asterix with real API decisions: 300 points, two lives, 60 wall seconds at 12 FPS" height="105"></a><br><b>Asterix</b> · Real-time API replay · 12 FPS · 300 points</td>
-<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" height="105"></a><br><b>Badminton</b> · Real-time API replay · S3 slowdown · 15s</td>
-</tr>
-</table>
-
-These clips come from individual runs, rather than repeated win-rate tests. Each caption identifies how that run was timed. The Asterix clip replays a fresh real-time API run at 12 FPS (5× slowdown); Touhou, Racing, Rhythm, and PingPong also used actual API calls while the game was running. The Badminton clip replays a recorded real-time API run at 3x slowdown. Racing uses a steering controller, and PingPong uses a controller to execute shots. [Clip sources and editing details](assets/gameplay/README.md).
-
-PingPong and Badminton MP4s include quiet locally generated background music; GIF previews are silent. [Music provenance](assets/gameplay/sports-music-provenance.json).
-
-[Overview](#what-is-sooool) · [Autoresearch](#autoresearch) · [How a game runs](#how-a-game-runs) · [Latency simulator](#how-the-latency-simulator-works) · [Games & results](#games-and-controls) · [Quick start](#quick-start) · [Code guide](#find-your-way-around-the-code)
-
-To understand the method, start with [Autoresearch](#autoresearch). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
+To understand the method, start with [Autoresearch for latency awareness](#autoresearch-for-latency-awareness). To run a game, jump to [Quick start](#quick-start). To check the evidence, see [results and execution conditions](docs/results.md).
 
 ## What is Sooool?
 
@@ -35,9 +14,32 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol, working as a coding agent, t
 
 We give Codex a game, a goal, and an experiment budget, then let it work through trial and error. It plays, looks at what went wrong, changes its strategy, and tries again. During these experiments, a latency simulator recreates the delays measured from actual API calls. Selected strategies are then tested against a real-time game clock, with the game running while the agent thinks.
 
-## Autoresearch
+## Demos
 
-We ask Codex to improve how GPT-6 Sol plays a game through repeated experiments. It studies failed runs, proposes a change, edits the gameplay instructions or permitted control settings, and tests whether the change helps. Humans supply the goal, budget, constraints, and feedback.
+Click a preview to watch the video.
+
+<table>
+<tr>
+<td width="50%" align="center"><a href="assets/gameplay/touhou.mp4"><img src="assets/gameplay/touhou.gif" alt="GPT-6 Sol dodging Kaguya's bullet patterns with live English decision summaries" height="105"></a><br><b>Touhou</b> · Real-time API · 1×</td>
+<td width="50%" align="center"><a href="assets/tabletennis/seed11-full.mp4"><img src="assets/gameplay/pingpong.gif" alt="GPT-6 Sol playing table tennis with both camera views and live public decision summaries" height="105"></a><br><b>PingPong</b> · Real-time API · 1×</td>
+</tr>
+<tr>
+<td width="50%" align="center"><a href="assets/asterix/v28-api-60s.mp4"><img src="assets/gameplay/asterix.gif" alt="GPT-6 Sol playing Asterix with real API decisions: 300 points, two lives, 60 wall seconds at 12 FPS" height="105"></a><br><b>Asterix</b> · Real-time API replay · 12 FPS · 300 points</td>
+<td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="SOL badminton: opening serve and rally, with both camera views and original English decision summaries" height="105"></a><br><b>Badminton</b> · Real-time API replay · S3 slowdown · 15s</td>
+</tr>
+<tr>
+<td width="50%" align="center"><a href="assets/gameplay/rhythm.mp4"><img src="assets/gameplay/rhythm.gif" alt="GPT-6 Sol choosing literal DFJK tap times:24 Perfect,1 Great,zero misses,two empty presses" height="105"></a><br><b>Rhythm</b> · Real-time API · 1× · 24 Perfect / 1 Great / 0 Miss</td>
+<td width="50%" align="center"><a href="assets/gameplay/racing.mp4"><img src="assets/gameplay/racing.gif" alt="GPT-6 Sol selecting racing targets through bends and obstacles, with live decisions" height="105"></a><br><b>Racing</b> · Real-time API · Hybrid steering</td>
+</tr>
+</table>
+
+These clips come from individual runs, rather than repeated win-rate tests. Each caption identifies how that run was timed. The Asterix clip replays a fresh real-time API run at 12 FPS (5× slowdown); Touhou, Racing, Rhythm, and PingPong also used actual API calls while the game was running. The Badminton clip replays a recorded real-time API run at 3x slowdown. Racing uses a steering controller, and PingPong uses a controller to execute shots. [Clip sources and editing details](assets/gameplay/README.md).
+
+PingPong and Badminton MP4s include quiet locally generated background music; GIF previews are silent. [Music provenance](assets/gameplay/sports-music-provenance.json).
+
+## Autoresearch for latency awareness
+
+We ask Codex to improve how GPT-6 Sol plays a game through repeated experiments. It studies failed runs, proposes a change, edits the gameplay instructions or permitted control settings, and tests whether the change helps. The aim is to account for what happens while the model thinks: where a bullet will move, when a note must be pressed, or whether a target will still be useful when the action arrives. Humans supply the goal, budget, constraints, and feedback.
 
 Here is how an autoresearch session proceeds:
 
@@ -249,5 +251,19 @@ Other games have their own setup requirements: [Rhythm](docs/rhythm.md), [Racing
 [Detailed file map](docs/file-map.md) · [Evaluation records](docs/evaluation-records.md) · [Optional evidence downloads](artifacts/README.md)
 
 Large evidence archives are optional. Short explanations shown with actions are model-written public summaries, not internal reasoning transcripts. Media sources and editing are documented with each artifact.
+
+## Citation
+
+If you use Sooool in your research, please cite this repository:
+
+```bibtex
+@misc{wang2026sooool,
+  title        = {Sooool!},
+  author       = {Wang, Zihan and Li, Xinyuan and Li, Zeju and {Yuxiang} and Gui, Chi and Pei, Jiaxin and Li, Manling},
+  year         = {2026},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/sooool-project/sooool}
+}
+```
 
 This is a private research package. Repository access does not grant an additional license to upstream code or media. See [source and media provenance](docs/provenance.md) before redistribution.
