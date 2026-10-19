@@ -214,7 +214,7 @@ Before a reply runs, the executor checks the schema, every step limit, the 120-c
 
 ### Request pipeline
 
-Two model workers run concurrently. The **stagger** scheduler captures a new image about one measured reply latency before the committed chunk ends (one worker at the p80 latency, the other at p40), so a fresh plan is ready when the robot finishes. A reply is admitted only after its parent chunk ends, and the newest valid reply wins. What happened to the 66 requests of the selected run:
+Two model workers run concurrently. The **stagger** scheduler captures a new image about one reply latency before the committed chunk ends, estimated from the last 12 reply latencies: the first outstanding request uses their p80 (4.37 s on average in the selected run, range 3.58–4.91 s), the second their p40 (3.45 s, range 3.07–4.15 s); 4.0 s is used until three replies exist. In practice requests were issued only 2.3 s (median 2.4 s) before their parent chunk ended: many chunks last just 1–3 s, a request can only plan from a chunk that has already started, and captures pause while a test result is pending. That is why the robot still waits 1.86 s on average between chunks. A reply is admitted only after its parent chunk ends, and the newest valid reply wins. What happened to the 66 requests of the selected run:
 
 | Result | Requests | Meaning |
 |---|---:|---|
