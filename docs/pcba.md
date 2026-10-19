@@ -11,6 +11,7 @@ dressing is render-only and never reaches policy cameras):
 ```bash
 uv run sol showcase pcba --source runs/RUN --workers 3          # full 1920x1080 video
 uv run sol showcase pcba --source runs/RUN --stills 30 70        # preview frames only
+uv run sol figures pcba --source runs/RUN --output assets/pcba/steps  # README explainer figures
 ```
 
 This environment adds a CPU-compatible MuJoCo workcell to sooool. Five free-body

@@ -170,19 +170,20 @@ def interp_qpos(states, times, t_abs, free, scalar):
 
 
 class Stage:
-    def __init__(self, run, workdir):
+    def __init__(self, run, workdir, size=None):
         import mujoco
         from .showcase_scene import skin_scene
         self.mj = mujoco; self.run = run
+        self.w, self.h = size or (MV[2], MV[3])
         xml = skin_scene(run.source / 'scene.xml', Path(workdir) / 'art')
         self.model = m = mujoco.MjModel.from_xml_string(xml)
-        m.vis.global_.offwidth, m.vis.global_.offheight = MV[2], MV[3]
+        m.vis.global_.offwidth, m.vis.global_.offheight = self.w, self.h
         self.data = mujoco.MjData(m)
         self.states = np.load(run.source / 'recorded-states.npz')
         self.free, self.scalar = _joint_layout(m)
         orig = mujoco.MjModel.from_xml_path(str(run.source / 'scene.xml'))
         self.light_src = orig.geom('status_light').id; self.light_dst = m.geom('status_light').id
-        self.renderer = mujoco.Renderer(m, MV[3], MV[2])
+        self.renderer = mujoco.Renderer(m, self.h, self.w)
         self.renderer.scene.flags[mujoco.mjtRndFlag.mjRND_SHADOW] = 1
         self.stack = {c: m.material(f'stack_{c}').id for c in ('red', 'amber', 'green')}
         self.stack_rgba = {c: m.mat_rgba[i].copy() for c, i in self.stack.items()}
@@ -236,7 +237,7 @@ class Stage:
                                 tip + d * arm / 2, mat, np.array([.78, .84, .92, .9], dtype=np.float32))
                 g.emission = .25; scn.ngeom += 1
 
-    def render(self, t):
+    def render(self, t, camera=None):
         run, mj, m, d = self.run, self.mj, self.model, self.data
         q, i = interp_qpos(self.states, run.times, run.origin + t, self.free, self.scalar)
         d.qpos[:] = q; d.qvel[:] = 0; d.ctrl[:] = self.states['ctrl'][i]; d.eq_active[:] = self.states['eq_active'][i]
@@ -244,10 +245,14 @@ class Stage:
         self._stack(t); self._screen(t)
         mj.mj_forward(m, d)
         cam = self.cam
-        cam.lookat[:] = [-.12, .04, .81]
-        cam.distance = 2.08 - .06 * np.sin(2 * np.pi * t / 120)
-        cam.azimuth = 127 + 9 * np.sin(2 * np.pi * t / 150)
-        cam.elevation = -34 + 2.5 * np.sin(2 * np.pi * t / 95)
+        if camera:
+            cam.lookat[:] = camera['lookat']; cam.distance = camera['distance']
+            cam.azimuth = camera['azimuth']; cam.elevation = camera['elevation']
+        else:
+            cam.lookat[:] = [-.12, .04, .81]
+            cam.distance = 2.08 - .06 * np.sin(2 * np.pi * t / 120)
+            cam.azimuth = 127 + 9 * np.sin(2 * np.pi * t / 150)
+            cam.elevation = -34 + 2.5 * np.sin(2 * np.pi * t / 95)
         self.renderer.update_scene(d, camera=cam)
         self._chevrons(t)
         return self.renderer.render()
@@ -461,6 +466,47 @@ class Overlay:
         for ts, txt, col in [e for e in run.log if e[0] <= t][-5:]:
             d.text((x0, y), f'{ts:6.1f}s', font=self.m13, fill=DIM)
             d.text((x0 + 70, y - 1), txt, font=f['small'], fill=col); y += 20
+
+
+# ---------------------------------------------------------------- close-up clips
+
+def export_clip(source, name, start, duration, camera, label, fps=10, size=(960, 540), gif_width=480):
+    """Close-up explainer clip (MP4 + GIF) with a step label and the executing reply's summary."""
+    os.environ.setdefault('MUJOCO_GL', 'egl')
+    source = Path(source).resolve(); run = Run(source); workdir = source / 'showcase'; workdir.mkdir(exist_ok=True)
+    stage = Stage(run, workdir, size); w, h = size
+    f_lab, f_txt, f_t = font(30, True), font(24, False), font(26, True)
+    mp4 = workdir / f'clip-{name}.mp4'
+    writer = imageio_ffmpeg.write_frames(str(mp4), (w, h), fps=fps, codec='libx264', pix_fmt_out='yuv420p',
+                                         output_params=['-crf', '18', '-preset', 'medium'], macro_block_size=1)
+    writer.send(None)
+    try:
+        for k in range(int(duration * fps)):
+            t = start + k / fps
+            img = Image.fromarray(stage.render(t, camera)); d = ImageDraw.Draw(img)
+            d.rounded_rectangle((16, 14, 28 + d.textlength(label, font=f_lab), 58), radius=8, fill=BG)
+            d.text((22, 18), label, font=f_lab, fill=ACC)
+            d.rounded_rectangle((w - 150, 14, w - 16, 58), radius=8, fill=BG)
+            d.text((w - 24, 18), f'{t:5.1f} s', font=f_t, fill=FG, anchor='ra')
+            ch, running, _ = run.chunk_at(t)
+            if ch is not None:
+                text = run.answers.get(ch['sequence'], {}).get('summary', '')
+                lines = wrap(d, f"Reply #{ch['sequence']:02d}: {text}", f_txt, w - 48)[:2]
+                band = 16 + 32 * len(lines)
+                d.rectangle((0, h - band, w, h), fill=BG)
+                for i, ln in enumerate(lines):
+                    d.text((24, h - band + 8 + 32 * i), ln, font=f_txt, fill=OUT if running else DIM)
+            writer.send(np.asarray(img))
+    finally:
+        writer.close()
+    gif = workdir / f'clip-{name}.gif'; ff = imageio_ffmpeg.get_ffmpeg_exe()
+    filt = f'fps={fps},scale={gif_width}:-1:flags=lanczos'
+    pal = workdir / f'clip-{name}-palette.png'
+    subprocess.run([ff, '-v', 'error', '-y', '-i', str(mp4), '-vf', filt + ',palettegen=stats_mode=diff', str(pal)], check=True)
+    subprocess.run([ff, '-v', 'error', '-y', '-i', str(mp4), '-i', str(pal), '-filter_complex',
+                    f'[0:v]{filt}[v];[v][1:v]paletteuse=dither=sierra2_4a:diff_mode=rectangle', '-loop', '0', str(gif)], check=True)
+    pal.unlink()
+    return mp4, gif
 
 
 # ---------------------------------------------------------------- driver

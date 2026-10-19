@@ -159,6 +159,21 @@ The PCBA cell is the first robot workcell in this repository built from scratch 
 
 ### One board, step by step
 
+<table>
+<tr>
+<td width="33%" align="center"><img src="assets/pcba/steps/1-intercept.gif" alt="Close-up: the tool waits on the right straight with the vacuum on and catches PCBA-005 at 10.4 s" width="300"></td>
+<td width="33%" align="center"><img src="assets/pcba/steps/2-seat.gif" alt="Close-up: the held board is aligned above the fixture pins, lowered and released at 23.6 s" width="300"></td>
+<td width="33%" align="center"><img src="assets/pcba/steps/3-test-sort.gif" alt="Close-up: the fixture tests the board, the screen shows FAIL, the arm regrasps it and inserts it into the red FAIL magazine at 36.2 s" width="300"></td>
+</tr>
+<tr>
+<td align="center"><b>1 · Predict and intercept</b><br>Reply #00 sets <code>start_at_s: 8</code>, parks the cup on the belt and catches the moving board at 10.4 s.</td>
+<td align="center"><b>2 · Align and seat</b><br>Wrist-camera check at the fixture hover, yaw correction, then seat and release at 23.6 s.</td>
+<td align="center"><b>3 · Test and sort</b><br>Clamp, mock test publishes FAIL at 28.4 s, regrasp, insert into the red magazine at 36.2 s.</td>
+</tr>
+</table>
+
+Close-ups of the first board in the selected run, rendered from its recorded states; the bottom line is the summary of the reply executing at that moment.
+
 | Step | What the model decides | What the code does |
 |---|---|---|
 | 1. Locate | Reads board positions and USB orientation from the overhead image, using the public pixel-to-world calibration and the image timestamp | Captures the image; never sends board poses |
@@ -185,6 +200,8 @@ Each board took about 35–40 s from catch to sort: 17–24 s of robot motion pl
 ### What the model sees and returns
 
 Each request carries the overhead image (640×480, plus the wrist image near the fixture or pick lane), the image timestamp, measured joint and tool pose, tool force, vacuum, fixture and output-slot switches, the fixed workcell calibration, the reply-latency percentiles of earlier calls, its own previous memory note and receipt, and the literal segments and expected end pose of the chunk already committed. It never receives board poses, velocities, lap counters, test results before publication, or the delay drawn for this request.
+
+<p align="center"><img src="assets/pcba/steps/model-view.gif" alt="Sequence of the exact top and wrist camera images sent to the model for each executed reply in the first 38 seconds, with capture time, image age and the reply's summary and memory note" width="640"><br><sub>The exact images sent with each executed reply during the first board (top camera always; wrist camera only near the fixture or low over the lane), with the reply's summary and memory note.</sub></p>
 
 The first reply of the selected run (verbatim values, one segment per line):
 
@@ -225,6 +242,8 @@ Two model workers run concurrently. The **stagger** scheduler captures a new ima
 | In flight at stop | 2 | Still computing when the 180 s run ended |
 | Invalid output | 1 | Failed schema or step limits |
 | Start guard mismatch | 1 | Public sensors disagreed with the model's declared start state |
+
+<p align="center"><img src="assets/pcba/steps/pipeline-timeline.png" alt="Timeline of the first 42 seconds: two worker lanes of request bars from capture to usable reply, coloured executed or dropped; a robot lane of executed chunks with idle gaps; and board events caught 10.4 s, released 23.6 s, result FAIL 28.4 s, sorted 36.2 s" width="800"></p>
 
 ### How the policy got here
 
@@ -314,6 +333,8 @@ uv run sol pipeline pcba --layout loop --physics-process --output-mode lean7 --c
 
 # Showcase video from any retained run (no model calls)
 uv run sol showcase pcba --source runs/pcba-sim-new --workers 3
+# README explainer figures (step close-ups, model-input GIF, pipeline timeline)
+uv run sol figures pcba --source runs/pcba-sim-new --output assets/pcba/steps
 ```
 
 ## Game environments

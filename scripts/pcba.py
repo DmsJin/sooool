@@ -12,6 +12,9 @@ if len(sys.argv)>1 and sys.argv[1]=='clock-preflight':
     from pcba_gym.process_clock import main
 elif len(sys.argv)>1 and sys.argv[1]=='export':
     from pcba_gym.replay_export import main
+elif len(sys.argv)>1 and sys.argv[1]=='figures':
+    from pcba_gym.showcase_figures import main
+    sys.argv.pop(1)
 elif len(sys.argv)>1 and sys.argv[1]=='showcase':
     from pcba_gym.showcase import main
     sys.argv.pop(1)

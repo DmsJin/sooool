@@ -52,7 +52,8 @@ dispatches every command. In `environments/pcba/pcba_gym`: `scene.py`/`loop.py` 
 cell and belt, `environment.py` owns physics, devices and scoring, `runner.py` validates
 literal actions, `pipeline.py` runs the guarded concurrent pipeline, `simulate.py` the
 virtual-clock simulator, and `showcase.py`/`showcase_scene.py`/`showcase_art.py` the
-render-only showcase video. Prompts are in `policies/pcba`, the delay profile in
+render-only showcase video, and `showcase_figures.py` the README step close-ups,
+model-input GIF and pipeline timeline. Prompts are in `policies/pcba`, the delay profile in
 `profiles/pcba`, records in `artifacts/pcba`.
 
 ## Ignore on first pass

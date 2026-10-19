@@ -137,7 +137,7 @@ def doctor(a):
     print(json.dumps(checks,indent=2))
 
 def main():
-    if len(sys.argv)>2 and sys.argv[2]=='pcba' and sys.argv[1] in ('eval','report','demo','realtime-smoke','view','latency','pipeline','loop-demo','simulate','export','showcase'):
+    if len(sys.argv)>2 and sys.argv[2]=='pcba' and sys.argv[1] in ('eval','report','demo','realtime-smoke','view','latency','pipeline','loop-demo','simulate','export','showcase','figures'):
         raise SystemExit(subprocess.call([os.environ.get('SOL_PCBA_PYTHON',sys.executable),str(ROOT/'scripts/pcba.py'),sys.argv[1],*sys.argv[3:]]))
     if len(sys.argv)>2 and sys.argv[2] in ('tabletennis','pingpong') and sys.argv[1] in ('simulate','eval','report'):
         raise SystemExit(subprocess.call([sys.executable,str(ROOT/'scripts/tabletennis.py'),sys.argv[1],*sys.argv[3:]]))
