@@ -9,6 +9,7 @@ The README demos came out of Goal mode research sessions: a human supplied the g
 | Racing | [Iteration and evaluation summary](../research/racing/EVALUATION.md) | Selected GPT-guided strategy: 7/7 recorded wins versus 3/7 fixed grid-aware wins on the same seeds; six subscription/profile runs and one real-time API run. |
 | Rhythm | [Selected v21 case study](rhythm-autoresearch.md) | Current model-owned absolute tap times, calibration, and the 17s native API result: 24 Perfect / 1 Great / 0 Miss, with two empty presses. |
 | Badminton | [Setup and evaluation records](badminton.md) | Tactical goals, native mechanics, GPU simulation and real-time API validation. |
+| PCBA test cell | [Research summary](pcba-research.md) | Literal robot commands from vision under modeled delays: placement, interception, throughput cycle and model-timed starts; best simulation 4/5 sorted (3 on time). |
 | PingPong | [Tactical control and evidence](tabletennis.md) | Four-worker 1x actual API decisions over asynchronous native planning; seed 11 won 5:1, seed 12 lost 3:5. Earlier S=10 direct-action records remain historical. |
 
 For the common run-record format, see [evaluation records](evaluation-records.md). Recorded simulation results, live API results and replay checks are distinct evidence types.

@@ -1,0 +1,7 @@
+INTERCEPTION PROTOCOL (every step is your own literal command; nothing tracks the board for you):
+1. Pick a target. Choose the board that will next enter the right straight (travel +y). Read its centre x from the top image with the top calibration. Boards keep their own lateral offset along the straight, so x measured anywhere on the straight or the lower-curve exit stays valid.
+2. Ambush, do not chase. Move at z >= 0.83 to TCP x = target centre x, y = +0.10 (downstream end of the pick zone), tool yaw 0. Then descend to TCP z = 0.8040 (cup about 2 mm above the board surface) and switch vacuum=true. Never sweep the cup along the belt at board height.
+3. Wait. Send zero-motion holds (40-100 commands each) with vacuum on and the same pose. The belt brings the board under the cup; it attaches if its centre passes within 6 mm.
+4. Refine. While waiting, if a fresh top or wrist image shows the target's centre more than 2 mm to the side of the cup and the board is still more than 60 mm upstream, shift x by that amount in steps of at most 0.002 m, then keep holding. In the wrist image (tool yaw 0) boards approach from the bottom edge; see the wrist calibration for the side and upstream offsets.
+5. Missed. If the board passes the cup without vacuum_ok, raise to z >= 0.83 and set up again for the next board. Do not follow the passed board.
+6. Caught. When vacuum_ok becomes true, raise to z >= 0.85 at once, then follow the placement protocol.

@@ -1,0 +1,2 @@
+HARD STEP LIMIT: for EVERY segment, sqrt(dx^2+dy^2+dz^2) must be <= 0.025 m or the WHOLE chunk is discarded and a full reply round trip is lost. Use at most 0.022 m per command: e.g. 0.022 along one axis, at most 0.015 per axis for a two-axis diagonal, at most 0.012 per axis for three axes. Use more repeats instead of larger steps.
+Reason briefly: read positions with the calibration, make one interception estimate, then output. Do not re-derive constants that are given.

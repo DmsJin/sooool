@@ -1,0 +1,28 @@
+{
+  "video": "assets/pcba/timed-v2-s0-ls0-showcase.mp4",
+  "sha256": "b00cb54df61f8af831645272e80f7de44c8816049e267c2127ed134f88ccb199",
+  "run": "runs/pcba-sim-belt2-timed-v2-s0-ls0",
+  "report_sha256": "de763a2177b255e0aba8f9683619ba502d392b6d4247a8fdb3c6332328c411c1",
+  "recorded_states_sha256": "e53d37fec04992b39b8223ca1c5de07d2f44d2daab809579a668872b2e810ce6",
+  "evidence": "Subscription simulation on a virtual clock with the modeled ultrafast delay profile (profiles/pcba/ultrafast-modeled-v1.json). Fresh GPT-6.1 Sol decisions on actual rendered frames; not a live API, realtime or 1x result.",
+  "renderer": "environments/pcba/pcba_gym/showcase.py (sol showcase pcba). Offline render of retained native MuJoCo states; zero model calls.",
+  "scene": "Render-only showcase skin (showcase_scene.py, showcase_art.py): materials, lights, static non-colliding props, animated belt chevrons, live tester screen and stack light. qpos/qvel layout, equality constraints and collision geometry are unchanged; the policy cameras in the run used the plain research scene.",
+  "interpolation": "Retained states are sampled at >=0.1 s; poses are linearly interpolated (normalized quaternions) to 20 fps, gaps over 0.5 s held.",
+  "insets": "MODEL INPUT panels show the exact PNGs sent with the executing reply (call-NNN/model/image_0.png top, image_1.png wrist when sent).",
+  "text": "Summary, memory note and raw JSON are verbatim model output of the executing reply; the executing segment is highlighted from executed command timestamps. Hidden reasoning is not logged and is not shown.",
+  "encode": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 20,
+    "duration_s": 180.5,
+    "codec": "h264 crf 35 (from crf 19 master)"
+  },
+  "outcome": {
+    "boards_picked": 5,
+    "boards_tested": 4,
+    "boards_sorted_correctly": 4,
+    "boards_sorted_by_150s": 3,
+    "incorrectly_sorted": 0,
+    "challenge_success": false
+  }
+}

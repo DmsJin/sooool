@@ -137,6 +137,8 @@ def doctor(a):
     print(json.dumps(checks,indent=2))
 
 def main():
+    if len(sys.argv)>2 and sys.argv[2]=='pcba' and sys.argv[1] in ('eval','report','demo','realtime-smoke','view','latency','pipeline','loop-demo','simulate','export','showcase'):
+        raise SystemExit(subprocess.call([os.environ.get('SOL_PCBA_PYTHON',sys.executable),str(ROOT/'scripts/pcba.py'),sys.argv[1],*sys.argv[3:]]))
     if len(sys.argv)>2 and sys.argv[2] in ('tabletennis','pingpong') and sys.argv[1] in ('simulate','eval','report'):
         raise SystemExit(subprocess.call([sys.executable,str(ROOT/'scripts/tabletennis.py'),sys.argv[1],*sys.argv[3:]]))
     if len(sys.argv)>2 and sys.argv[2]=='badminton' and sys.argv[1] in ('simulate','eval','preflight','audit','report','diagnose','profile'):
@@ -144,7 +146,7 @@ def main():
     # Racing retains its measured driver/transport, with an explicit real API path.
     if len(sys.argv)>2 and sys.argv[2]=='racing' and sys.argv[1] in ('simulate','eval','profile','preflight','record','budget'):
         raise SystemExit(subprocess.call([sys.executable,str(ROOT/'scripts/racing.py'),sys.argv[1],*sys.argv[3:]]))
-    p=argparse.ArgumentParser(epilog='Racing: sol simulate racing, sol eval racing, sol profile racing; see docs/racing.md. Badminton: sol simulate badminton, sol eval badminton, sol preflight badminton, sol audit badminton, sol report badminton; see docs/badminton.md. PingPong: sol simulate pingpong, sol eval pingpong, sol report pingpong; see docs/tabletennis.md.');sub=p.add_subparsers(dest='command',required=True)
+    p=argparse.ArgumentParser(epilog='Racing: sol simulate racing, sol eval racing, sol profile racing; see docs/racing.md. Badminton: sol simulate badminton, sol eval badminton, sol preflight badminton, sol audit badminton, sol report badminton; see docs/badminton.md. PingPong: sol simulate pingpong, sol eval pingpong, sol report pingpong; see docs/tabletennis.md. PCBA: sol simulate pcba, sol pipeline pcba, sol eval pcba, sol showcase pcba; see docs/pcba.md.');sub=p.add_subparsers(dest='command',required=True)
     d=sub.add_parser('doctor');d.add_argument('--game',choices=['all','rhythm','touhou','asterix'],default='all');d.add_argument('--auth',action='store_true');d.add_argument('--browser-executable')
     e=sub.add_parser('simulate');e.add_argument('game',choices=['rhythm','touhou','asterix']);e.add_argument('--output',type=Path);e.add_argument('--seed',type=int);e.add_argument('--duration',type=float);e.add_argument('--browser-executable');e.add_argument('--recipe',type=Path)
     v=sub.add_parser('eval',help='Continuous evaluation: Asterix subscription/API or Touhou/Rhythm API (explicit budget)')

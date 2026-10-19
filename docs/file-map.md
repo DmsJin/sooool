@@ -44,6 +44,17 @@ tactics in `environments/tabletennis/tactics.py`, four-worker scheduling in
 `runner.py` and dual-view export in `replay.py`. Start with
 [`tabletennis.md`](tabletennis.md) and [`artifacts/tabletennis`](../artifacts/tabletennis/README.md).
 
+## PCBA test cell
+
+Start with [`pcba.md`](pcba.md), [`pcba-loop.md`](pcba-loop.md) and the README section
+[PCBA test cell](../README.md#pcba-test-cell-belt-to-magazine). [`scripts/pcba.py`](../scripts/pcba.py)
+dispatches every command. In `environments/pcba/pcba_gym`: `scene.py`/`loop.py` build the
+cell and belt, `environment.py` owns physics, devices and scoring, `runner.py` validates
+literal actions, `pipeline.py` runs the guarded concurrent pipeline, `simulate.py` the
+virtual-clock simulator, and `showcase.py`/`showcase_scene.py`/`showcase_art.py` the
+render-only showcase video. Prompts are in `policies/pcba`, the delay profile in
+`profiles/pcba`, records in `artifacts/pcba`.
+
 ## Ignore on first pass
 
 Full discussion tool traces, all historical profiles, old transport probes, legacy policy variants and offline case truth are not needed to run a frozen policy. Retained evidence documents the selected policies and subsequent development. PingPong snapshots under `research/in-progress` are historical source records with their own high-level/direct-action and slowdown conditions; the active release uses the tactical controller linked above. Racing uses the selected workflow linked above.
