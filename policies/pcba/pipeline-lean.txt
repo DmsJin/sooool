@@ -1,0 +1,4 @@
+COMPACT OUTPUT CONTRACT (reply latency grows with every output token):
+summary: one short sentence, at most 80 characters.
+memory: at most 120 characters. Keep only target board, predicted contact time/pose, verified results and pending test ID. Do not restate the observation or calibration.
+Write every number with at most 4 decimal places. Merge consecutive identical commands into one segment with a larger repeat count.

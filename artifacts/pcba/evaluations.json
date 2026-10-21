@@ -1,0 +1,163 @@
+{
+  "scope": "Current PCBA model integration; 3 environment trials. Connection checks are not task trials.",
+  "created_at_unix": 1792199078.9087312,
+  "trials": [
+    {
+      "round": 1,
+      "run": "pcba-policy-strict-v1",
+      "purpose": "0.5-second observation validity diagnostic",
+      "decision": "diagnostic",
+      "model_calls_attempted": 3,
+      "model_calls_completed": 3,
+      "config": {
+        "seed": 0,
+        "max_calls": 3,
+        "duration_s": 60.0,
+        "observation_ttl_s": 0.5,
+        "model": "gpt-6.1-sol",
+        "effort": "low",
+        "control_dt_s": 0.05,
+        "max_chunk_commands": 120
+      },
+      "metrics": {
+        "boards_total": 5,
+        "boards_picked": 0,
+        "tests_completed": 0,
+        "correctly_sorted": 0,
+        "incorrectly_sorted": 0,
+        "success": false,
+        "accepted_commands": 0,
+        "rejected_commands": 3,
+        "expired_chunks": 3
+      },
+      "timing": {
+        "wall_elapsed_s": 26.694883103016764,
+        "sim_elapsed_s": 25.224999999999167,
+        "max_tick_lag_s": 0.02100562595296651,
+        "late_ticks": 105,
+        "wall_minus_sim_s": 1.4698831030175974,
+        "timing_valid": false
+      },
+      "stop_reason": "max_calls",
+      "invalid_model_outputs": 0,
+      "latency_s": {
+        "min": 5.58357147598872,
+        "median": 5.726511037966702,
+        "mean": 7.048801982309669,
+        "max": 9.836323432973586
+      },
+      "report_sha256": "c1f7796d216bc452df384ccfd522546b72802c543a17d2b05099393cefd577c4",
+      "video": "runs/pcba-policy-strict-v1/replay.mp4",
+      "report": "runs/pcba-policy-strict-v1/report.json"
+    },
+    {
+      "round": 2,
+      "run": "pcba-policy-chunks-v1",
+      "purpose": "Literal action chunks before speed-tier switch; interrupted",
+      "decision": "interrupted",
+      "model_calls_attempted": 10,
+      "model_calls_completed": 9,
+      "config": {
+        "seed": 0,
+        "max_calls": 30,
+        "duration_s": 300.0,
+        "observation_ttl_s": 12.0,
+        "model": "gpt-6.1-sol",
+        "effort": "low",
+        "control_dt_s": 0.05,
+        "max_chunk_commands": 120
+      },
+      "metrics": {
+        "boards_total": 5,
+        "boards_picked": 1,
+        "tests_completed": 1,
+        "correctly_sorted": 0,
+        "incorrectly_sorted": 0,
+        "success": false,
+        "accepted_commands": 341,
+        "rejected_commands": 1,
+        "expired_chunks": 1
+      },
+      "timing": {
+        "wall_elapsed_s": 86.74576950201299,
+        "sim_elapsed_s": 82.9349999999966,
+        "max_tick_lag_s": 0.0235241919872351,
+        "late_ticks": 156,
+        "wall_minus_sim_s": 3.8107695020163845,
+        "timing_valid": false
+      },
+      "stop_reason": "runner_error",
+      "invalid_model_outputs": 0,
+      "latency_s": {
+        "min": 4.888978754985146,
+        "median": 5.738523328967858,
+        "mean": 6.038112070113938,
+        "max": 7.422002409002744
+      },
+      "report_sha256": "6128946fec71ab644fa19ced5e9c5ade9c9cb2f2ca709dec3ce50e9a9fdc0bb9",
+      "video": "runs/pcba-policy-chunks-v1/replay.mp4",
+      "report": "runs/pcba-policy-chunks-v1/report.json"
+    },
+    {
+      "round": 3,
+      "run": "pcba-policy-fast-v1",
+      "purpose": "Confirmed Codex Fast; five-board full task attempt",
+      "decision": "evaluated",
+      "model_calls_attempted": 69,
+      "model_calls_completed": 68,
+      "config": {
+        "seed": 0,
+        "max_calls": 80,
+        "duration_s": 600.0,
+        "observation_ttl_s": 12.0,
+        "model": "gpt-6.1-sol",
+        "effort": "low",
+        "service_tier": "priority",
+        "control_dt_s": 0.05,
+        "max_chunk_commands": 120
+      },
+      "metrics": {
+        "boards_total": 5,
+        "boards_picked": 5,
+        "tests_completed": 5,
+        "correctly_sorted": 4,
+        "incorrectly_sorted": 0,
+        "success": false,
+        "accepted_commands": 2451,
+        "rejected_commands": 14,
+        "expired_chunks": 14
+      },
+      "timing": {
+        "wall_elapsed_s": 600.0109251859831,
+        "sim_elapsed_s": 595.7249999995303,
+        "max_tick_lag_s": 0.01194526389008388,
+        "late_ticks": 24,
+        "wall_minus_sim_s": 4.2859251864528005,
+        "timing_valid": true
+      },
+      "stop_reason": "wall_duration_in_flight",
+      "invalid_model_outputs": 1,
+      "latency_s": {
+        "min": 4.085524638008792,
+        "median": 5.662186654983088,
+        "mean": 6.066551256914596,
+        "max": 11.9383728899993
+      },
+      "report_sha256": "00241b6c30c358a1e590760d3ce8cae295837628226452b6b3e942cd368a36d4",
+      "video": "runs/pcba-policy-fast-v1/replay.mp4",
+      "report": "runs/pcba-policy-fast-v1/report.json",
+      "native_tier_confirmed": "priority"
+    }
+  ],
+  "ultrafast": "Not confirmed by local native thread; user selected Fast.",
+  "preflight_directories": [
+    "pcba-policy-transport-check",
+    "pcba-ultrafast-preflight",
+    "pcba-ultrafast-preflight-162",
+    "pcba-ultrafast-config-check",
+    "pcba-ultrafast-inference-check",
+    "pcba-ultrafast-preflight-163",
+    "pcba-fast-preflight"
+  ],
+  "previous_scripted_baseline": "runs/pcba-conveyor-racks-v1 (5/5); excluded from model trial counts"
+}

@@ -28,9 +28,17 @@ class SubscriptionClient:
         self.output = Path(output or tempfile.mkdtemp(prefix='sol-native-'))
         self.output.mkdir(parents=True, exist_ok=True)
         self.schema = output_schema
+        self.record_reasoning = kwargs.get("record_reasoning", True)
         self.service_tier = kwargs.get('service_tier')
+        self.effort = kwargs.get('effort','low')
+        if self.effort not in ('low','medium','high','xhigh','max','ultra'):raise ValueError('Unsupported reasoning effort')
         self.base = system or (BASE if aggressive or lean else MINIMAL)
         self.timeout = float(os.environ.get('SOL_TURN_TIMEOUT', '180'))
+        # Optional latency reductions; defaults keep the original per-call behavior.
+        self.quota_every = max(1, int(kwargs.get('quota_every', 1)))
+        self.prestart = bool(kwargs.get('prestart', False))
+        self._prepared = None
+        self._quota = None
         self.counter = 0
         self.rpc_id = 0
         self.events = queue.Queue()
@@ -40,7 +48,7 @@ class SubscriptionClient:
             raise RuntimeError('Install Codex CLI and sign in with ChatGPT first; no API fallback.')
         self._workspace = tempfile.TemporaryDirectory(prefix='sol-pixels-')
         self.workspace = Path(self._workspace.name)
-        settings = {'model':'gpt-6.1-sol', 'model_reasoning_effort':'low',
+        settings = {'model':'gpt-6.1-sol', 'model_reasoning_effort':self.effort,
             'forced_login_method':'chatgpt', 'model_provider':'openai',
             'features.apps':False, 'features.plugins':False, 'features.shell_tool':False,
             'features.multi_agent':False, 'features.view_image':False,
@@ -68,6 +76,13 @@ class SubscriptionClient:
         if self.service_tier == 'default':
             settings['service_tier']='default'
             settings['features.fast_mode']=False
+        if self.service_tier in ('priority','fast'):
+            settings['service_tier']='fast'
+            settings['features.fast_mode']=True
+        if self.service_tier == 'ultrafast':
+            settings['service_tier']='ultrafast'
+            settings['features.fast_mode']=True
+            settings['features.ultrafast_mode']=True
         command = [executable, 'app-server', '--stdio']
         for key,value in settings.items():
             command += ['-c', key+'='+json.dumps(value)]
@@ -100,8 +115,10 @@ class SubscriptionClient:
                     'requested_service_tier':'default','native_config_service_tier':config['service_tier'],
                     'native_config_fast_mode':config['features']['fast_mode']},indent=2))
             (self.output/'transport.json').write_text(json.dumps({'auth':'chatgpt',
-                'model':'gpt-6.1-sol','effort':'low','base_instructions_sha256':hashlib.sha256(self.base.encode()).hexdigest(),
-                'base_instructions':self.base,'direct_api_calls':0,'adapter':'portable app-server'},indent=2))
+                'model':'gpt-6.1-sol','effort':self.effort,'requested_service_tier':self.service_tier,'base_instructions_sha256':hashlib.sha256(self.base.encode()).hexdigest(),
+                'base_instructions':self.base,'direct_api_calls':0,'adapter':'portable app-server',
+                'quota_check_every_calls':self.quota_every,'prestarted_threads':self.prestart},indent=2))
+            if self.prestart:self._start_prepare()
         except BaseException:
             self.close()
             raise
@@ -150,36 +167,69 @@ class SubscriptionClient:
                     raise RuntimeError('Subscription quota guard reached: '+key)
         return summary
 
-    def act(self,prompt,images,directory=None):
-        directory=Path(directory or self.output/f'call-{self.counter:05d}')
-        directory.mkdir(parents=True,exist_ok=True)
+    def _prepare(self):
+        """Quota guard plus a fresh ephemeral thread; may run before the prompt exists."""
         started=time.monotonic()
-        quota=self.quota(int(os.environ.get('SOL_QUOTA_STOP_PERCENT','80')))
+        if getattr(self,'_quota',None) is None or self.counter%getattr(self,'quota_every',1)==0:
+            self._quota=self.quota(int(os.environ.get('SOL_QUOTA_STOP_PERCENT','80')))
+        quota_done=time.monotonic()
         r=self._rpc('thread/start',{'model':'gpt-6.1-sol','cwd':str(self.workspace),
             'approvalPolicy':'never','sandbox':'read-only','ephemeral':True,
             'developerInstructions':'',
             **({'serviceTier':self.service_tier} if self.service_tier else {})})
-        if r.get('model')!='gpt-6.1-sol' or r.get('reasoningEffort')!='low':
+        if r.get('model')!='gpt-6.1-sol' or r.get('reasoningEffort')!=getattr(self,'effort','low'):
             raise RuntimeError('Native model/effort mismatch')
+        settings=None
         if self.service_tier == 'default':
-            (directory/'subscription-settings.json').write_text(json.dumps({
-                'native_thread_service_tier':r['serviceTier'],
-                'instruction_sources':r['instructionSources']},indent=2))
+            settings={'native_thread_service_tier':r['serviceTier'],'instruction_sources':r['instructionSources']}
             # Codex 0.162.1 returns null for an explicitly selected default-tier thread.
             if r['serviceTier'] not in (None, 'default') or r['instructionSources']:
                 raise RuntimeError('Unexpected native tier or additional instruction sources')
-        tid=r['thread']['id']
+        if self.service_tier in ('ultrafast','priority'):
+            settings={'requested_service_tier':self.service_tier,'native_thread_service_tier':r.get('serviceTier'),
+                      'model':r.get('model'),'effort':r.get('reasoningEffort')}
+            if r.get('serviceTier') != self.service_tier:
+                raise RuntimeError(self.service_tier+' was requested but the native thread did not confirm it; no fallback.')
+        return {'thread_id':r['thread']['id'],'settings':settings,'quota':self._quota,
+                'quota_check_s':quota_done-started,'thread_start_s':time.monotonic()-quota_done}
+
+    def _start_prepare(self):
+        """Prepare the next thread off the caller's path; act() joins it before any other RPC."""
+        result={}
+        def run():
+            try:result['value']=self._prepare()
+            except BaseException as exc:result['error']=exc
+        worker=threading.Thread(target=run,daemon=True);worker.start()
+        self._prepared=(worker,result)
+
+    def _take_prepared(self):
+        if getattr(self,'_prepared',None) is None:return None
+        worker,result=self._prepared;self._prepared=None;worker.join()
+        if 'error' in result:raise result['error']
+        return result['value']
+
+    def act(self,prompt,images,directory=None):
+        directory=Path(directory or self.output/f'call-{self.counter:05d}')
+        directory.mkdir(parents=True,exist_ok=True)
+        started=time.monotonic()
+        prepared=self._take_prepared();prestarted=prepared is not None
+        if prepared is None:prepared=self._prepare()
+        quota=prepared['quota']
+        if prepared['settings'] is not None:
+            (directory/'subscription-settings.json').write_text(json.dumps(prepared['settings'],indent=2))
+        tid=prepared['thread_id']
         contents=[{'type':'text','text':prompt}]
         for i,data in enumerate(images):
             target=self.workspace/f'{self.counter:05d}-{i}.png';target.write_bytes(data)
             retain_input(directory/f'image_{i}.png',data)
             contents.append({'type':'localImage','path':str(target)})
         retain_input(directory/'prompt.txt',prompt.encode())
-        params={'threadId':tid,'model':'gpt-6.1-sol','effort':'low',
+        params={'threadId':tid,'model':'gpt-6.1-sol','effort':getattr(self,'effort','low'),
             'approvalPolicy':'never','sandboxPolicy':{'type':'readOnly'},'input':contents}
         if self.schema is not None:params['outputSchema']=self.schema
         if self.service_tier:params['serviceTier']=self.service_tier
-        r=self._rpc('turn/start',params);turn=r['turn']['id'];messages=[];usage=None
+        turn_requested=time.monotonic()
+        r=self._rpc('turn/start',params);turn=r['turn']['id'];messages=[];usage=None;first_delta=None
         deadline=time.monotonic()+self.timeout
         try:
             with (directory/'events.jsonl').open('w')as log:
@@ -187,6 +237,7 @@ class SubscriptionClient:
                     event=self.pending.popleft()if self.pending else self._receive(deadline)
                     method=event.get('method','');p=event.get('params')or {}
                     if p.get('threadId',tid)!=tid or p.get('turnId',turn)!=turn:continue
+                    if first_delta is None and method=='item/agentMessage/delta':first_delta=time.monotonic()
                     if method in ('item/started','item/completed'):
                         if p['item']['type']not in ('agentMessage','reasoning','userMessage'):
                             raise RuntimeError('Policy attempted tool use: '+p['item']['type'])
@@ -194,17 +245,26 @@ class SubscriptionClient:
                     if method=='item/completed'and p['item']['type']=='agentMessage':messages.append(p['item']['text'])
                     if method=='thread/tokenUsage/updated':usage=p['tokenUsage']
                     # Exclude all account/identity notifications from archived evidence.
-                    if method.startswith(('item/','turn/','thread/tokenUsage')):log.write(json.dumps(event)+'\n')
+                    if method.startswith(('item/','turn/','thread/tokenUsage')):
+                        is_reasoning=('reasoning' in method.lower() or (p.get('item') or {}).get('type')=='reasoning')
+                        if getattr(self,'record_reasoning',True) or not is_reasoning:log.write(json.dumps(event)+'\n')
                     if method=='turn/completed':
                         if p['turn']['status']!='completed' or not messages:raise RuntimeError('Native turn did not complete: '+str(p['turn'].get('error')))
                         break
-            meta={'wall_seconds':time.monotonic()-started,'token_usage':usage,'auth':'chatgpt','quota_before':quota,'direct_api_calls':0}
+            finished=time.monotonic()
+            meta={'wall_seconds':finished-started,'token_usage':usage,'auth':'chatgpt','quota_before':quota,'direct_api_calls':0,
+                  'stages_s':{'prestarted_thread':prestarted,'quota_check':None if prestarted else prepared['quota_check_s'],
+                      'thread_start':None if prestarted else prepared['thread_start_s'],
+                      'setup_before_turn':turn_requested-started,
+                      'turn_to_first_delta':None if first_delta is None else first_delta-turn_requested,
+                      'output_stream':None if first_delta is None else finished-first_delta}}
             (directory/'result.json').write_text(json.dumps({'answer':messages[-1],'meta':meta},indent=2))
             self.counter+=1
             return messages[-1],meta
         finally:
             try:self._rpc('thread/unsubscribe',{'threadId':tid})
             except Exception:pass
+            if getattr(self,'prestart',False) and getattr(self,'process',None) and self.process.poll() is None:self._start_prepare()
 
     def close(self):
         if getattr(self,'process',None):

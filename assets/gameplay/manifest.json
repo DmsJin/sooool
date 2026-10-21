@@ -125,6 +125,28 @@
       "music_provenance": "assets/gameplay/sports-music-provenance.json",
       "gif_sha256": "ec90a5e860ebad02b61c4d8ea4657957d31088ba5c119ba8e742728fae0dfc4d",
       "height": 360
+    },
+    {
+      "game": "pcba",
+      "source": "assets/pcba/timed-v2-s0-ls0-showcase.mp4",
+      "start_seconds": 25,
+      "duration_seconds": 12,
+      "width": 640,
+      "height": 360,
+      "fps": 10,
+      "crop": null,
+      "mode": "Subscription simulation on a virtual clock with the modeled ultrafast delay profile (not a live API or realtime run). GPT-6.1 Sol low effort, lean7 timed-start policy, two staggered workers, env seed 0 / latency seed 0. Clip: PCBA-005 clamped, tested FAIL, regrasped and sorted to the FAIL magazine at 36.2 s.",
+      "recording_run": "runs/pcba-sim-belt2-timed-v2-s0-ls0",
+      "full_run": "assets/pcba/timed-v2-s0-ls0-showcase.mp4",
+      "public_decision_summary_visible": true,
+      "decision_summary_video_status": "Executing reply's summary, memory note and verbatim raw JSON output with the executing segment highlighted; not private reasoning (not logged).",
+      "render": "Offline render of retained native states with the render-only showcase skin (environments/pcba/pcba_gym/showcase.py); poses linearly interpolated from ~10 Hz samples to 20 fps; model-input insets are the exact images sent.",
+      "original_source": "/home/Yuxia/sooool/runs/pcba-sim-belt2-timed-v2-s0-ls0/showcase-1920x1080-20fps.mp4",
+      "original_start_seconds": 25,
+      "original_source_sha256": "58e359d9c5070140848f6bf6412cae2b03a46ac78b44b6033050fb27c01db4cb",
+      "bytes": 4802414,
+      "source_sha256": "b00cb54df61f8af831645272e80f7de44c8816049e267c2127ed134f88ccb199",
+      "gif_sha256": "8adddfe1c59c6cf5160db062d60c9f20846dccd653833ce083f3e1a920c05dc6"
     }
   ],
   "preview_canvas": {

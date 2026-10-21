@@ -1,0 +1,635 @@
+{
+  "scope": "Extensions to the original three PCBA model trials, retained without replacing them. Seven total model-controlled environment trials, two separate request benchmarks, eight loop oracle development attempts, six process-clock preflights.",
+  "original_model_trials": "artifacts/pcba/evaluations.json",
+  "new_model_trials": [
+    {
+      "round": 4,
+      "run": "pcba-pipeline-c1-v1",
+      "purpose": "Stopped-line inference/execution overlap, one worker; clock diagnostic",
+      "config": {
+        "concurrency": 1,
+        "duration_s": 120.0,
+        "max_calls": 24,
+        "observation_ttl_s": 12.0,
+        "request_interval_s": 0.75,
+        "seed": 0,
+        "model": "gpt-6.1-sol",
+        "service_tier": "priority",
+        "execution_lanes": 1,
+        "pipeline": "infer next chunk during current literal execution; guarded predicted command endpoint"
+      },
+      "metrics": {
+        "model_requests": 15,
+        "model_replies": 14,
+        "selected_chunks": 12,
+        "requests_started_during_execution": 12,
+        "discarded_replies": 2,
+        "requests_in_flight_at_stop": 1,
+        "request_latency_s": {
+          "n": 14,
+          "mean": 6.33735837693426,
+          "p50": 5.888201715511968,
+          "p95": 9.58514725365967,
+          "min": 4.200617816008162,
+          "max": 10.471656565030571
+        },
+        "usable_chunk_start_interval_s": {
+          "n": 11,
+          "mean": 9.639645193814596,
+          "p50": 8.968364827975165,
+          "p95": 14.340046472032554,
+          "min": 6.00973463000264,
+          "max": 14.727378864015918
+        },
+        "source_age_at_action_start_s": {
+          "n": 12,
+          "mean": 8.329777379243751,
+          "p50": 7.9219668005243875,
+          "p95": 11.295536990163964,
+          "min": 6.002368584973738,
+          "max": 11.91423043695977
+        },
+        "wait_between_chunks_s": {
+          "n": 11,
+          "mean": 7.453041633543432,
+          "p50": 5.934041402011644,
+          "p95": 12.509702748502605,
+          "min": 4.22907189297257,
+          "max": 13.054729035997298
+        },
+        "execution_wall_s": 26.21194694400765,
+        "accepted_commands": 298,
+        "rejected_commands": 2,
+        "boards_tested": 1,
+        "boards_sorted_correctly": 0
+      },
+      "timing": {
+        "wall_elapsed_s": 120.00563758902717,
+        "sim_elapsed_s": 110.87999999997119,
+        "max_tick_lag_s": 0.013472271501086652,
+        "late_ticks": 124,
+        "wall_minus_sim_s": 9.125637589055984,
+        "timing_valid": false
+      },
+      "stop_reason": "wall_duration",
+      "decision": "diagnostic",
+      "saved_native_results_including_after_stop": 14,
+      "report": "runs/pcba-pipeline-c1-v1/report.json",
+      "report_sha256": "2dac03159ad94113e48d95a9680b5820a0d32af239d4886ff8efac451fc27c9c",
+      "direct_api_calls": 0
+    },
+    {
+      "round": 5,
+      "run": "pcba-pipeline-c2-v1",
+      "purpose": "Stopped-line overlap with two workers, reduced monitoring polls; clock diagnostic",
+      "config": {
+        "concurrency": 2,
+        "duration_s": 120.0,
+        "max_calls": 36,
+        "observation_ttl_s": 12.0,
+        "request_interval_s": 0.75,
+        "seed": 0,
+        "model": "gpt-6.1-sol",
+        "service_tier": "priority",
+        "execution_lanes": 1,
+        "pipeline": "infer next chunk during current literal execution; guarded predicted command endpoint"
+      },
+      "metrics": {
+        "model_requests": 27,
+        "model_replies": 25,
+        "selected_chunks": 12,
+        "inference_execution_overlap_s": 16.071391968871467,
+        "requests_started_during_execution": 2,
+        "discarded_replies": 13,
+        "requests_in_flight_at_stop": 2,
+        "request_latency_s": {
+          "n": 25,
+          "mean": 6.68791680060327,
+          "p50": 6.093345486966427,
+          "p95": 9.704843821178656,
+          "min": 4.619013338000514,
+          "max": 10.619724590040278
+        },
+        "usable_chunk_start_interval_s": {
+          "n": 11,
+          "mean": 9.979328015544029,
+          "p50": 9.678339798992965,
+          "p95": 15.079938156006392,
+          "min": 6.931544949009549,
+          "max": 15.986170110991225
+        },
+        "source_age_at_action_start_s": {
+          "n": 12,
+          "mean": 8.280684317578562,
+          "p50": 7.899887242994737,
+          "p95": 10.63646063140768,
+          "min": 6.9198832850088365,
+          "max": 11.161126625956967
+        },
+        "wait_between_chunks_s": {
+          "n": 11,
+          "mean": 8.600363624372138,
+          "p50": 8.670649234030861,
+          "p95": 13.52874032148975,
+          "min": 4.956205362977926,
+          "max": 14.182279917004053
+        },
+        "execution_wall_s": 16.024081448907964,
+        "accepted_commands": 315,
+        "rejected_commands": 2,
+        "boards_tested": 1,
+        "boards_sorted_correctly": 0
+      },
+      "timing": {
+        "wall_elapsed_s": 120.46126393700251,
+        "sim_elapsed_s": 104.7049999999768,
+        "max_tick_lag_s": 0.017987255996558815,
+        "late_ticks": 286,
+        "wall_minus_sim_s": 15.756263937025707,
+        "timing_valid": false
+      },
+      "stop_reason": "wall_duration",
+      "decision": "diagnostic",
+      "saved_native_results_including_after_stop": 25,
+      "report": "runs/pcba-pipeline-c2-v1/report.json",
+      "report_sha256": "ffa8f2fa77ab70b648524a027eb3f0e3ea571ea51764bebf109c46282d1ef7f1",
+      "direct_api_calls": 0
+    },
+    {
+      "round": 6,
+      "run": "pcba-loop-fast-c4-v1",
+      "purpose": "Moving/skewed recirculating boards, four workers, three cameras; 600-second diagnostic continuation",
+      "config": {
+        "concurrency": 4,
+        "duration_s": 600.0,
+        "max_calls": 240,
+        "observation_ttl_s": 12.0,
+        "request_interval_s": 0.75,
+        "seed": 0,
+        "model": "gpt-6.1-sol",
+        "service_tier": "priority",
+        "layout": "loop",
+        "physics_process": true,
+        "continue_after_deadline": true,
+        "execution_lanes": 1,
+        "pipeline": "infer next chunk during current literal execution; guarded predicted command endpoint"
+      },
+      "metrics": {
+        "model_requests": 156,
+        "model_replies": 152,
+        "selected_chunks": 19,
+        "inference_execution_overlap_s": 43.0152774133021,
+        "requests_started_during_execution": 1,
+        "discarded_replies": 133,
+        "requests_in_flight_at_stop": 4,
+        "request_latency_s": {
+          "n": 152,
+          "mean": 11.151649044505719,
+          "p50": 10.82910426449962,
+          "p95": 17.836370800615985,
+          "min": 5.693831896991469,
+          "max": 33.34020194801269
+        },
+        "usable_chunk_start_interval_s": {
+          "n": 18,
+          "mean": 30.70547455466779,
+          "p50": 17.09256747949985,
+          "p95": 81.68653834630959,
+          "min": 9.042464942962397,
+          "max": 134.77569699299056
+        },
+        "source_age_at_action_start_s": {
+          "n": 19,
+          "mean": 10.673529871684304,
+          "p50": 10.922988798993174,
+          "p95": 11.926213120284956,
+          "min": 8.214459512964822,
+          "max": 11.960223132977262
+        },
+        "wait_between_chunks_s": {
+          "n": 18,
+          "mean": 29.778751389327226,
+          "p50": 16.189499288011575,
+          "p95": 81.27676528924776,
+          "min": 8.339166718011256,
+          "max": 134.07652318902547
+        },
+        "execution_wall_s": 17.933640570088755,
+        "accepted_commands": 357,
+        "rejected_commands": 11,
+        "boards_picked": 0,
+        "boards_tested": 0,
+        "boards_sorted_correctly": 0,
+        "five_board_completion_sim_s": null,
+        "five_board_completion_detected_wall_s": null
+      },
+      "timing": {
+        "wall_elapsed_s": 600.0041048499988,
+        "sim_elapsed_s": 593.4899999996039,
+        "max_tick_lag_s": 0.05183627596125007,
+        "late_ticks": 232,
+        "wall_minus_sim_s": 6.514104850394915,
+        "timing_valid": false
+      },
+      "stop_reason": "wall_duration",
+      "decision": "diagnostic",
+      "saved_native_results_including_after_stop": 153,
+      "report": "runs/pcba-loop-fast-c4-v1/report.json",
+      "report_sha256": "8f3b9f9f2ac74cd7c603d11d8d655c35884105ed86971b9cd672589fa5b840af",
+      "direct_api_calls": 0,
+      "loop": {
+        "distance_m": [
+          21.573495304091367,
+          14.720100085521308,
+          22.20072462573673,
+          21.999317427304394,
+          13.574708973089454
+        ],
+        "unpicked_laps": [
+          11,
+          7,
+          11,
+          11,
+          7
+        ],
+        "deadline_missed": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "all_on_time": false
+      }
+    },
+    {
+      "round": 7,
+      "run": "pcba-loop-fast-c4-top-v1",
+      "purpose": "Same loop/four workers/literal controls, one fixed overhead camera; 150-second window",
+      "config": {
+        "concurrency": 4,
+        "duration_s": 150.0,
+        "max_calls": 240,
+        "observation_ttl_s": 12.0,
+        "request_interval_s": 0.75,
+        "seed": 0,
+        "model": "gpt-6.1-sol",
+        "service_tier": "priority",
+        "layout": "loop",
+        "physics_process": true,
+        "continue_after_deadline": true,
+        "policy_cameras": [
+          "top"
+        ],
+        "execution_lanes": 1,
+        "pipeline": "infer next chunk during current literal execution; guarded predicted command endpoint"
+      },
+      "metrics": {
+        "model_requests": 51,
+        "model_replies": 47,
+        "selected_chunks": 11,
+        "inference_execution_overlap_s": 15.989361757063307,
+        "requests_started_during_execution": 2,
+        "discarded_replies": 36,
+        "requests_in_flight_at_stop": 4,
+        "request_latency_s": {
+          "n": 47,
+          "mean": 10.663927985768904,
+          "p50": 10.810789517010562,
+          "p95": 16.424421367089952,
+          "min": 5.696936472959351,
+          "max": 25.192340245994274
+        },
+        "usable_chunk_start_interval_s": {
+          "n": 10,
+          "mean": 13.01947509670281,
+          "p50": 10.263388899504207,
+          "p95": 28.91374033049214,
+          "min": 6.717497654957697,
+          "max": 31.263359705975745
+        },
+        "source_age_at_action_start_s": {
+          "n": 11,
+          "mean": 9.29418027682484,
+          "p50": 10.092575429996941,
+          "p95": 11.480049701029202,
+          "min": 6.709587247984018,
+          "max": 11.857234414026607
+        },
+        "wait_between_chunks_s": {
+          "n": 10,
+          "mean": 12.488949394703377,
+          "p50": 9.811679383506998,
+          "p95": 28.62372321852599,
+          "min": 5.466960827005096,
+          "max": 30.86185967095662
+        },
+        "execution_wall_s": 5.354639157012571,
+        "accepted_commands": 107,
+        "rejected_commands": 1,
+        "boards_picked": 1,
+        "boards_tested": 0,
+        "boards_sorted_correctly": 0,
+        "five_board_completion_sim_s": null,
+        "five_board_completion_detected_wall_s": null
+      },
+      "timing": {
+        "wall_elapsed_s": 150.0057531130151,
+        "sim_elapsed_s": 149.3400000000078,
+        "max_tick_lag_s": 0.019005038950126618,
+        "late_ticks": 20,
+        "wall_minus_sim_s": 0.6657531130072982,
+        "timing_valid": true
+      },
+      "stop_reason": "wall_duration",
+      "decision": "diagnostic",
+      "saved_native_results_including_after_stop": 47,
+      "report": "runs/pcba-loop-fast-c4-top-v1/report.json",
+      "report_sha256": "cb570c81e5e580b73f4a1de5c322bf9147efa950ece0895647d865a20483c87e",
+      "direct_api_calls": 0,
+      "loop": {
+        "distance_m": [
+          4.985835376882153,
+          6.196348243751294,
+          5.922993420919983,
+          4.541394198019129,
+          5.268174387899202
+        ],
+        "unpicked_laps": [
+          2,
+          3,
+          3,
+          2,
+          2
+        ],
+        "deadline_missed": [],
+        "all_on_time": false
+      }
+    }
+  ],
+  "request_benchmarks": [
+    {
+      "run": "pcba-concurrency-latency-v1",
+      "report": "runs/pcba-concurrency-latency-v1/report.json",
+      "summaries": [
+        {
+          "concurrency": 1,
+          "calls": 8,
+          "request_latency_s": {
+            "n": 8,
+            "mean": 5.359366954995494,
+            "p50": 5.3399334459681995,
+            "p95": 6.130359386967029,
+            "min": 4.730516201991122,
+            "max": 6.313649439020082
+          },
+          "cohort_elapsed_s": 42.88539354404202,
+          "amortized_reply_interval_s": 5.360674193005252,
+          "valid_chunks": 8
+        },
+        {
+          "concurrency": 2,
+          "calls": 8,
+          "request_latency_s": {
+            "n": 8,
+            "mean": 5.533460347614891,
+            "p50": 5.425892287486931,
+            "p95": 6.662093029427341,
+            "min": 4.863764932029881,
+            "max": 7.136117472953629
+          },
+          "cohort_elapsed_s": 22.62799965799786,
+          "amortized_reply_interval_s": 2.8284999572497327,
+          "valid_chunks": 8
+        },
+        {
+          "concurrency": 4,
+          "calls": 8,
+          "request_latency_s": {
+            "n": 8,
+            "mean": 5.85712567637529,
+            "p50": 5.696583651006222,
+            "p95": 6.8352354648581235,
+            "min": 5.1931755129480734,
+            "max": 7.169641232001595
+          },
+          "cohort_elapsed_s": 13.393807895015925,
+          "amortized_reply_interval_s": 1.6742259868769906,
+          "valid_chunks": 8
+        }
+      ],
+      "kind": "actual_subscription_on_frozen_public_inputs",
+      "physics_running": false,
+      "robot_actions": false,
+      "direct_api_calls": 0
+    },
+    {
+      "run": "pcba-loop-matched-latency-v1",
+      "report": "runs/pcba-loop-matched-latency-v1/report.json",
+      "summaries": [
+        {
+          "concurrency": 1,
+          "n": 4,
+          "mean_s": 10.85128384323616,
+          "median_s": 9.989109797985293,
+          "p95_s": 13.060242590072447,
+          "elapsed_s": 43.43097295000916,
+          "amortized_reply_interval_s": 10.85774323750229
+        },
+        {
+          "concurrency": 4,
+          "n": 4,
+          "mean_s": 10.172850992516032,
+          "median_s": 10.632352847518632,
+          "p95_s": 11.403259347120184,
+          "elapsed_s": 11.469139656983316,
+          "amortized_reply_interval_s": 2.867284914245829
+        }
+      ],
+      "kind": "actual_subscription_on_frozen_public_inputs",
+      "physics_running": false,
+      "robot_actions": false,
+      "direct_api_calls": 0
+    }
+  ],
+  "oracle_development_attempts": [
+    {
+      "run": "pcba-loop-oracle-v1",
+      "model_calls": 0,
+      "kind": "offline_oracle_development",
+      "status": "failed_development_attempt",
+      "failure": "runs/pcba-loop-oracle-v1/failure.json",
+      "error": "Image width 1920 > framebuffer width 1600. Either reduce the image\nwidth or specify a larger offscreen framebuffer in the model XML using the\nclause:\n<visual>\n  <global offwidth=\"my_width\"/>\n</visual>"
+    },
+    {
+      "run": "pcba-loop-oracle-v2",
+      "model_calls": 0,
+      "kind": "offline_oracle_development",
+      "status": "failed_development_attempt",
+      "failure": "runs/pcba-loop-oracle-v2/failure.json",
+      "error": ""
+    },
+    {
+      "run": "pcba-loop-oracle-v3",
+      "model_calls": 0,
+      "kind": "offline_oracle_development",
+      "status": "failed_development_attempt",
+      "failure": "runs/pcba-loop-oracle-v3/failure.json",
+      "error": "Vacuum must be boolean"
+    },
+    {
+      "run": "pcba-loop-oracle-v4",
+      "model_calls": 0,
+      "kind": "offline_oracle_development",
+      "status": "failed_development_attempt",
+      "failure": "runs/pcba-loop-oracle-v4/failure.json",
+      "error": "Moving interception failed"
+    },
+    {
+      "run": "pcba-loop-oracle-v5",
+      "model_calls": 0,
+      "kind": "offline_oracle_development",
+      "status": "failed_development_attempt",
+      "failure": "runs/pcba-loop-oracle-v5/failure.json",
+      "error": "Robot failed to converge: target [np.float64(0.0), np.float64(-0.08), np.float64(0.7918)], measured [-4.71614576e-05 -8.00288353e-02  7.93508554e-01]"
+    },
+    {
+      "run": "pcba-loop-oracle-v6",
+      "model_calls": 0,
+      "kind": "offline_oracle_development",
+      "status": "complete_late",
+      "sorted": 5,
+      "all_on_time": false,
+      "report": "runs/pcba-loop-oracle-v6/report.json"
+    },
+    {
+      "run": "pcba-loop-oracle-v7",
+      "model_calls": 0,
+      "kind": "offline_oracle_development",
+      "status": "complete_late",
+      "sorted": 5,
+      "all_on_time": false,
+      "report": "runs/pcba-loop-oracle-v7/report.json"
+    },
+    {
+      "run": "pcba-loop-oracle-v8",
+      "model_calls": 0,
+      "kind": "offline_oracle_development",
+      "status": "complete_late",
+      "sorted": 5,
+      "all_on_time": false,
+      "report": "runs/pcba-loop-oracle-v8/report.json"
+    }
+  ],
+  "process_clock_preflights": [
+    {
+      "run": "pcba-loop-process-clock-v1",
+      "kind": "process_clock_render_preflight",
+      "model_calls": 0,
+      "three_camera_captures": 4,
+      "timing": {
+        "wall_elapsed_s": 7.156315964006353,
+        "sim_elapsed_s": 6.154999999999874,
+        "max_tick_lag_s": 0.011981787043623626,
+        "late_ticks": 23,
+        "wall_minus_sim_s": 1.001315964006479,
+        "timing_valid": false
+      },
+      "assessment": "clock_failed"
+    },
+    {
+      "run": "pcba-loop-process-clock-v2",
+      "kind": "process_clock_render_preflight",
+      "model_calls": 0,
+      "three_camera_captures": 4,
+      "timing": {
+        "wall_elapsed_s": 7.695200810965616,
+        "sim_elapsed_s": 6.644999999999864,
+        "max_tick_lag_s": 0.014567729958798736,
+        "late_ticks": 34,
+        "wall_minus_sim_s": 1.0502008109657526,
+        "timing_valid": false
+      },
+      "assessment": "clock_failed"
+    },
+    {
+      "run": "pcba-loop-process-clock-v3",
+      "kind": "process_clock_render_preflight",
+      "model_calls": 0,
+      "three_camera_captures": 3,
+      "timing": {
+        "wall_elapsed_s": 8.495337780041154,
+        "sim_elapsed_s": 7.389999999999872,
+        "max_tick_lag_s": 0.012231615954078734,
+        "late_ticks": 13,
+        "wall_minus_sim_s": 1.1053377800412827,
+        "timing_valid": false
+      },
+      "assessment": "clock_failed"
+    },
+    {
+      "run": "pcba-loop-process-clock-v4",
+      "kind": "process_clock_render_preflight",
+      "model_calls": 0,
+      "three_camera_captures": 3,
+      "timing": {
+        "wall_elapsed_s": 7.3519019890227355,
+        "sim_elapsed_s": 7.104999999999854,
+        "max_tick_lag_s": 0.013207908952608705,
+        "late_ticks": 13,
+        "wall_minus_sim_s": 0.24690198902288163,
+        "timing_valid": false
+      },
+      "assessment": "clock_failed"
+    },
+    {
+      "run": "pcba-loop-process-clock-v5",
+      "kind": "process_clock_render_preflight",
+      "model_calls": 0,
+      "three_camera_captures": 3,
+      "timing": {
+        "wall_elapsed_s": 6.477900450991001,
+        "sim_elapsed_s": 6.469999999999894,
+        "max_tick_lag_s": 0.00977290968876332,
+        "late_ticks": 0,
+        "wall_minus_sim_s": 0.007900450991106922,
+        "timing_valid": true
+      },
+      "assessment": "setup instability printed for v5 despite timing pass"
+    },
+    {
+      "run": "pcba-loop-process-clock-v6",
+      "kind": "process_clock_render_preflight",
+      "model_calls": 0,
+      "three_camera_captures": 4,
+      "timing": {
+        "wall_elapsed_s": 7.816584241983946,
+        "sim_elapsed_s": 7.819999999999845,
+        "max_tick_lag_s": 0.008403523592278361,
+        "late_ticks": 0,
+        "wall_minus_sim_s": -0.00341575801589844,
+        "timing_valid": true
+      },
+      "finite_state": true,
+      "physics_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "dropped": [],
+      "assessment": "passed"
+    }
+  ],
+  "single_camera_comparison": "runs/pcba-loop-fast-c4-top-v1/first-150s-comparison.json",
+  "tests": "28 PCBA tests passed before camera extension; four actor/loop and six pipeline tests passed after camera extension.",
+  "direct_api_calls": 0,
+  "model": "gpt-6.1-sol",
+  "effort": "low",
+  "service_tier": "priority",
+  "trained_robot_weights": false
+}

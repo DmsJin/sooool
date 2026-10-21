@@ -1,0 +1,119 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "summary": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "memory": {
+      "type": "string",
+      "maxLength": 1600
+    },
+    "done": {
+      "type": "boolean"
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "delta_xyz_m": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "delta_yaw_rad": {
+            "type": "number"
+          },
+          "repeat": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 120
+          },
+          "vacuum": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "fixture": {
+            "enum": [
+              null,
+              "close",
+              "open",
+              "start_test"
+            ]
+          }
+        },
+        "required": [
+          "delta_xyz_m",
+          "delta_yaw_rad",
+          "repeat",
+          "vacuum",
+          "fixture"
+        ]
+      },
+      "maxItems": 32
+    },
+    "start_guard": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "vacuum_ok": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "fixture_board_present": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "clamp_state": {
+          "enum": [
+            null,
+            "open",
+            "closed",
+            "opening",
+            "closing"
+          ]
+        },
+        "tester_state": {
+          "enum": [
+            null,
+            "idle",
+            "running",
+            "complete"
+          ]
+        },
+        "result_test_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "vacuum_ok",
+        "fixture_board_present",
+        "clamp_state",
+        "tester_state",
+        "result_test_id"
+      ]
+    }
+  },
+  "required": [
+    "summary",
+    "memory",
+    "done",
+    "segments",
+    "start_guard"
+  ]
+}
