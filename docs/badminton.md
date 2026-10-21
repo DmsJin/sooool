@@ -14,12 +14,11 @@ steps per wall second. Historical profile statistics remain prompt context;
 they do not schedule response delivery.
 
 ```bash
-PYTHON=/tmp/sol-badminton-venv/bin/python
-$PYTHON scripts/badminton.py preflight --duration 10 --output outputs/badminton/preflight
-$PYTHON scripts/badminton.py eval --budget-usd 15 --ledger outputs/badminton/budget.json --env-file /absolute/path/to/.env \
+uv run sol preflight badminton --duration 10 --output outputs/badminton/preflight
+uv run sol eval badminton --budget-usd 15 --ledger outputs/badminton/budget.json --env-file /absolute/path/to/.env \
   --output outputs/badminton/api-101
-$PYTHON scripts/badminton.py audit --output outputs/badminton/api-101
-$PYTHON scripts/badminton.py report --episodes outputs/badminton/api-101 \
+uv run sol audit badminton --output outputs/badminton/api-101
+uv run sol report badminton --episodes outputs/badminton/api-101 \
   --output outputs/badminton/api-101
 ```
 
@@ -101,19 +100,14 @@ The root workspace pins another NumPy version. Keep the external RoboOlympics
 environment read-only. A working NVIDIA EGL driver is required.
 
 ```bash
-git clone https://github.com/CHIGUI0/roboolympics /tmp/badminton-environment
-git -C /tmp/badminton-environment checkout da1f787f775ea6524d698c0b063157ded4c0fef9
-python3.11 -m venv /tmp/sol-badminton-venv
-/tmp/sol-badminton-venv/bin/pip install -r environments/badminton/requirements.txt
-/tmp/sol-badminton-venv/bin/pip install --no-deps -e .
-export BADMINTON_ENV_ROOT=/tmp/badminton-environment
+uv run sol env setup badminton
 export SOL_CODEX_BIN=/absolute/path/to/codex
 export SOL_CODEX_HOME=/absolute/path/to/existing/chatgpt-login
-export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
 export MUJOCO_EGL_DEVICE_ID=0
 ```
 
-The launcher selects `MUJOCO_GL=egl` and `PYOPENGL_PLATFORM=egl` before importing
+The [environment manager](environments.md) selects Python 3.11, the pinned source
+and thread limits. The launcher selects `MUJOCO_GL=egl` and `PYOPENGL_PLATFORM=egl` before importing
 MuJoCo. `MUJOCO_EGL_DEVICE_ID` selects the GPU. The reference runtime used Python
 3.11.17, MuJoCo 3.3.7, NumPy 2.2.6 and Pillow 11.3.0.
 The tested Codex CLI is 0.162.1. Authentication remains outside this repository.
@@ -121,22 +115,20 @@ The tested Codex CLI is 0.162.1. Authentication remains outside this repository.
 ## Run and audit
 
 ```bash
-PYTHON=/tmp/sol-badminton-venv/bin/python
-
 # Rule-only smoke and native replay: zero model calls.
-$PYTHON scripts/badminton.py simulate --source rules --duration 10 --output runs/badminton/smoke
-$PYTHON scripts/badminton.py audit --output runs/badminton/smoke
+uv run sol simulate badminton --source rules --duration 10 --output runs/badminton/smoke
+uv run sol audit badminton --output runs/badminton/smoke
 
 # Paired development windows, using the same seed and policy implementation.
-$PYTHON scripts/badminton.py simulate --source rules --seed 101 --duration 60 --output runs/badminton/rules-101
-$PYTHON scripts/badminton.py audit --output runs/badminton/rules-101
-$PYTHON scripts/badminton.py simulate --source sol --seed 101 --duration 60 --output runs/badminton/sol-profile-101
-$PYTHON scripts/badminton.py audit --output runs/badminton/sol-profile-101
-$PYTHON scripts/badminton.py report --episodes runs/badminton/rules-101 runs/badminton/sol-profile-101 --output runs/badminton
+uv run sol simulate badminton --source rules --seed 101 --duration 60 --output runs/badminton/rules-101
+uv run sol audit badminton --output runs/badminton/rules-101
+uv run sol simulate badminton --source sol --seed 101 --duration 60 --output runs/badminton/sol-profile-101
+uv run sol audit badminton --output runs/badminton/sol-profile-101
+uv run sol report badminton --episodes runs/badminton/rules-101 runs/badminton/sol-profile-101 --output runs/badminton
 ```
 
 The same commands are available as `sol simulate badminton`, `sol audit badminton`,
-and `sol report badminton` when the selected Python environment provides `sol`.
+and `sol report badminton`. The launcher selects the prepared Python environment.
 The default recipe uses online SOL with profiling context. Each output directory must be new. A `STOP` file in
 its parent interrupts the episode and preserves partial evidence.
 
