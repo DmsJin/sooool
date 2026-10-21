@@ -17,6 +17,7 @@ import sys
 import threading
 import time
 from types import SimpleNamespace
+from runtime import envs
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -139,14 +140,22 @@ def doctor(a):
 def main():
     if len(sys.argv)>2 and sys.argv[2]=='pcba' and sys.argv[1] in ('eval','report','demo','realtime-smoke','view','latency','pipeline','loop-demo','simulate','export','showcase','figures'):
         raise SystemExit(subprocess.call([os.environ.get('SOL_PCBA_PYTHON',sys.executable),str(ROOT/'scripts/pcba.py'),sys.argv[1],*sys.argv[3:]]))
-    if len(sys.argv)>2 and sys.argv[2] in ('tabletennis','pingpong') and sys.argv[1] in ('simulate','eval','report'):
-        raise SystemExit(subprocess.call([sys.executable,str(ROOT/'scripts/tabletennis.py'),sys.argv[1],*sys.argv[3:]]))
-    if len(sys.argv)>2 and sys.argv[2]=='badminton' and sys.argv[1] in ('simulate','eval','preflight','audit','report','diagnose','profile'):
-        raise SystemExit(subprocess.call([sys.executable,str(ROOT/'scripts/badminton.py'),sys.argv[1],*sys.argv[3:]]))
-    # Racing retains its measured driver/transport, with an explicit real API path.
-    if len(sys.argv)>2 and sys.argv[2]=='racing' and sys.argv[1] in ('simulate','eval','profile','preflight','record','budget'):
-        raise SystemExit(subprocess.call([sys.executable,str(ROOT/'scripts/racing.py'),sys.argv[1],*sys.argv[3:]]))
+    if sys.argv[1:2] == ['env']:
+        return envs.main(ROOT, sys.argv[2:])
+    registry = envs.load_registry(ROOT)
+    if len(sys.argv)>2:
+        name = envs.canonical_name(registry, sys.argv[2])
+        if name in registry['games']:
+            game = registry['games'][name]
+            try:
+                if 'runner' in game and sys.argv[1] in game['commands']:
+                    return envs.launch(ROOT, name, [sys.argv[1], *sys.argv[3:]])
+                if game['kind'] == 'workspace' and sys.argv[1] in ('simulate','eval','profile'):
+                    envs.workspace(ROOT, name, sys.argv[1:])
+            except RuntimeError as exc:
+                raise SystemExit(str(exc)) from exc
     p=argparse.ArgumentParser(epilog='Racing: sol simulate racing, sol eval racing, sol profile racing; see docs/racing.md. Badminton: sol simulate badminton, sol eval badminton, sol preflight badminton, sol audit badminton, sol report badminton; see docs/badminton.md. PingPong: sol simulate pingpong, sol eval pingpong, sol report pingpong; see docs/tabletennis.md. PCBA: sol simulate pcba, sol pipeline pcba, sol eval pcba, sol showcase pcba; see docs/pcba.md.');sub=p.add_subparsers(dest='command',required=True)
+    sub.add_parser('env', help='Prepare game sources and Python environments')
     d=sub.add_parser('doctor');d.add_argument('--game',choices=['all','rhythm','touhou','asterix'],default='all');d.add_argument('--auth',action='store_true');d.add_argument('--browser-executable')
     e=sub.add_parser('simulate');e.add_argument('game',choices=['rhythm','touhou','asterix']);e.add_argument('--output',type=Path);e.add_argument('--seed',type=int);e.add_argument('--duration',type=float);e.add_argument('--browser-executable');e.add_argument('--recipe',type=Path)
     v=sub.add_parser('eval',help='Continuous evaluation: Asterix subscription/API or Touhou/Rhythm API (explicit budget)')
@@ -200,7 +209,12 @@ def main():
         from runtime.touhou_profile import profile
         profile(ROOT,a)
         return
-    if a.command=='doctor':return doctor(a)
+    if a.command=='doctor':
+        try:
+            envs.workspace(ROOT, 'asterix' if a.game == 'all' else a.game, sys.argv[1:])
+        except RuntimeError as exc:
+            raise SystemExit(str(exc)) from exc
+        return doctor(a)
     if a.duration is not None and (not math.isfinite(a.duration) or a.duration<=0 or a.game=='asterix' and round(a.duration*60)<1):
         p.error('--duration must be finite and positive')
     recipe=json.loads((a.recipe or ROOT/'recipes'/(f'{a.game}'+('-realtime.json' if a.command=='eval' and a.game=='touhou' else '.json'))).read_text())

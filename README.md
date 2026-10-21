@@ -354,6 +354,7 @@ uv run sol figures pcba --source runs/pcba-sim-new --output assets/pcba/steps
 ## Quick start
 
 ```bash
+git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
 uv run playwright install --with-deps chromium
 codex login
@@ -373,6 +374,8 @@ uv run sol eval touhou \
 ```
 
 Game setup: [Touhou](docs/realtime.md) · [PingPong](docs/tabletennis.md) · [Asterix](docs/release-guide.md) · [Badminton](docs/badminton.md) · [Rhythm](docs/rhythm.md) · [Racing](docs/racing.md) · [PCBA](docs/pcba.md)
+
+External game runners: run `uv run sol env setup <game>` once, then use `sol simulate` or `sol eval`. [Environment management](docs/environments.md).
 
 More commands: [Release guide](docs/release-guide.md) · Comparing strategies: [Development guide](docs/development.md)
 

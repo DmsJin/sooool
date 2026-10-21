@@ -1,0 +1,63 @@
+{
+  "sources": {
+    "roboolympics": {
+      "repository": "https://github.com/CHIGUI0/roboolympics.git",
+      "revision": "da1f787f775ea6524d698c0b063157ded4c0fef9"
+    },
+    "vera20k": {
+      "repository": "https://github.com/mindorigin150/vera20k-agent.git",
+      "revision": "9b95f20736d54039a4307e464fc460e2cfc0c0dc"
+    },
+    "pvz": {
+      "repository": "https://github.com/mindorigin150/PvZ-Portable-agent.git",
+      "revision": "619afa2459c5493fedf0c5e4db34287a876d2a1c"
+    }
+  },
+  "aliases": {"pingpong": "tabletennis"},
+  "games": {
+    "asterix": {"kind": "workspace", "python": "3.12", "browser": false},
+    "touhou": {"kind": "workspace", "python": "3.12", "browser": true},
+    "rhythm": {"kind": "workspace", "python": "3.12", "browser": true},
+    "racing": {
+      "kind": "external",
+      "source": "roboolympics",
+      "python": "3.12",
+      "requirements": "environments/racing/requirements.txt",
+      "runner": "scripts/racing.py",
+      "variables": {"MUJOCO_GL": "egl", "LP_NUM_THREADS": "1", "PYTHONDONTWRITEBYTECODE": "1"},
+      "commands": ["simulate", "eval", "profile", "preflight", "record", "budget"],
+      "source_variable": "RACING_ENV_ROOT"
+    },
+    "badminton": {
+      "kind": "external",
+      "source": "roboolympics",
+      "python": "3.11",
+      "requirements": "environments/badminton/requirements.txt",
+      "runner": "scripts/badminton.py",
+      "variables": {"OPENBLAS_NUM_THREADS": "1", "OMP_NUM_THREADS": "1"},
+      "commands": ["simulate", "eval", "preflight", "audit", "report", "diagnose", "profile"],
+      "source_variable": "BADMINTON_ENV_ROOT"
+    },
+    "tabletennis": {
+      "kind": "external",
+      "source": "roboolympics",
+      "python": "3.11",
+      "requirements": "environments/tabletennis/requirements.txt",
+      "runner": "scripts/tabletennis.py",
+      "commands": ["simulate", "eval", "report"],
+      "source_variable": "TABLETENNIS_ENV_ROOT"
+    },
+    "vera20k": {
+      "kind": "external",
+      "source": "vera20k",
+      "python": "3.12",
+      "setup": "environments/vera20k/setup.sh"
+    },
+    "pvz": {
+      "kind": "external",
+      "source": "pvz",
+      "python": "3.12",
+      "setup": "environments/pvz/setup.sh"
+    }
+  }
+}
