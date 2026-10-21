@@ -58,33 +58,30 @@ the full public history sheets. Offline simulator contacts never enter prompts.
 
 Use the pinned RoboOlympics revision
 `da1f787f775ea6524d698c0b063157ded4c0fef9` through `TABLETENNIS_ENV_ROOT`.
-Set `MUJOCO_EGL_DEVICE_ID` to the allocated renderer GPU. Install the dependencies
-in a separate environment (the root workspace pins a different NumPy version):
+Set `MUJOCO_EGL_DEVICE_ID` to the allocated renderer GPU. Prepare the source
+and separate Python environment:
 
 ```bash
-python3.11 -m venv .venv-tabletennis
-.venv-tabletennis/bin/pip install -r environments/tabletennis/requirements.txt
-source .venv-tabletennis/bin/activate
-export TABLETENNIS_ENV_ROOT=/absolute/path/to/the/pinned/roboolympics
+uv run sol env setup tabletennis
 export MUJOCO_EGL_DEVICE_ID=0  # use an allocated GPU
 ```
 
-On the existing development server, `.runtime-libs` supplies the isolated Numba
-runtime through PYTHONPATH. Commands below are run from the repository root.
+The [environment manager](environments.md) selects Python 3.11, the source
+directory and the installed Numba runtime. Run these commands from the repository root.
 The installed `sol` launcher also accepts `sol eval pingpong` and
 `sol simulate pingpong` and `sol report pingpong`; `tabletennis` is an alias for the same implementation.
 
 ```bash
-python scripts/tabletennis.py eval --source rules --rules-policy safe_center \
+uv run sol eval tabletennis --source rules --rules-policy safe_center \
   --slowdown 1 --duration 240 --output runs/tabletennis/rules-new
 
-python scripts/tabletennis.py eval --source api --model-workers 4 \
+uv run sol eval tabletennis --source api --model-workers 4 \
   --seed 11 --request-interval-s .65 --slowdown 1 --duration 300 --max-calls 120 \
   --api-key-file /absolute/path/to/existing/private/key \
   --api-budget-file /absolute/path/to/existing/api_budget.jsonl \
   --api-limit-usd 20 --stage-cap-usd 6 --output runs/tabletennis/api-new
 
-python scripts/tabletennis.py report --output runs/tabletennis/api-new
+uv run sol report tabletennis --output runs/tabletennis/api-new
 ```
 
 The API model is `gpt-6.1-sol`, reasoning effort `low`, service tier `ultrafast`;

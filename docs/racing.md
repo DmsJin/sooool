@@ -19,22 +19,18 @@ The optional video variant adds a short public English `decision_summary` before
 Use a separate Python 3.12 environment for Racing and a read-only checkout of the original environment. Do not modify or submit our policy to the environment repository.
 
 ```bash
-git clone https://github.com/CHIGUI0/roboolympics /tmp/racing-environment
-git -C /tmp/racing-environment checkout da1f787f775ea6524d698c0b063157ded4c0fef9
-python3.12 -m venv /tmp/sol-racing-venv
-/tmp/sol-racing-venv/bin/pip install -r environments/racing/requirements.txt
-export RACING_ENV_ROOT=/tmp/racing-environment
-export MUJOCO_GL=egl LP_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1
+uv run sol env setup racing
+export MUJOCO_EGL_DEVICE_ID=0  # use an allocated GPU
 ```
 
-`RACING_ENV_ROOT` must contain `core/episode.py` and the Racing plugin. MuJoCo needs a working EGL driver. The original paid run used Python 3.13/MuJoCo 3.3.7; local replay used Python 3.12/MuJoCo 3.3.7 and matched the exact trajectory hash. Dependency relocation is a new execution condition, not a new paid success claim.
+The [environment manager](environments.md) selects the pinned source, Python 3.12 and EGL settings. MuJoCo needs a working EGL driver. The original paid run used Python 3.13/MuJoCo 3.3.7; local replay used Python 3.12/MuJoCo 3.3.7 and matched the exact trajectory hash. Dependency relocation is a new execution condition, not a new paid success claim.
 
 ## Develop without paid API calls
 
 Sign in to Codex with a ChatGPT subscription. `RACING_CODEX_BINARY` selects the native executable and `CODEX_HOME` an existing login directory. Authentication is copied only into a private temporary runtime directory and removed when the client closes; nothing enters the repository. Requested settings are SOL/low/ultrafast with the minimal outer prompt; actual subscription tier is unverified. The current adapter sends `localImage detail=auto`.
 
 ```bash
-/tmp/sol-racing-venv/bin/python scripts/racing.py simulate \
+uv run sol simulate racing \
   --output runs/racing-lane-commit-dev101 --seed 101 \
   --hypothesis 'Replicate lane commitment with measured API response delays'
 ```
@@ -51,17 +47,17 @@ Paid commands require an explicitly initialized cumulative ledger and stage ceil
 
 ```bash
 # Creates a NEW ledger exclusively; refuses to replace any existing file.
-/tmp/sol-racing-venv/bin/python scripts/racing.py budget \
+uv run sol budget racing \
   --budget-ledger runs/racing-budget.json --total-cap-usd 30
 
 # Actual paid profiling; concurrency ONE, including stream drain/accounting.
 # --samples-dir may select recorded development inputs for a representative workload.
-/tmp/sol-racing-venv/bin/python scripts/racing.py profile \
+uv run sol profile racing \
   --output runs/racing-serial-profile --calls 16 \
   --budget-ledger runs/racing-budget.json --stage-cap-usd 2
 
 # Actual paid 1x evaluation; no imposed latency and no pause during decisions.
-/tmp/sol-racing-venv/bin/python scripts/racing.py eval \
+uv run sol eval racing \
   --output runs/racing-api304 --seed 304 \
   --budget-ledger runs/racing-budget.json --stage-cap-usd 10
 
@@ -73,7 +69,7 @@ The profile default repeats the packaged real API example; use representative sa
 
 API evaluation uses the environment's original HTTP service and metering proxy pointed at `api.openai.com`, at 1x wall-clock physics. The streaming client publishes a complete validated goal once the returned model/tier are verified, then drains and accounts for the full response. Partial numbers are never actions. A changed final response or later error invalidates the evaluation. API profiling itself remains serial. The shared ledger reserves all outstanding requests and conservatively charges uncertain failures.
 
-`python -m runtime.cli simulate racing ...` and `python -m runtime.cli eval racing ...` delegate to the same entrypoint. Use the Racing virtual environment for these commands. Racing is an external-environment integration, not an engine bundled by `uv sync`.
+`sol` selects the prepared Racing environment and delegates to the existing runner. Racing's native engine is fetched by `sol env setup racing`.
 
 ## Evaluation records and video
 
