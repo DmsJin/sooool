@@ -169,8 +169,6 @@ Game setup: [Touhou](docs/realtime.md) · [PingPong](docs/tabletennis.md) · [As
 
 External game runners: run `uv run sol env setup <game>` once, then use `sol simulate` or `sol eval`. [Environment management](docs/environments.md).
 
-Environment preparation and native validation: [PvZ](docs/pvz.md).
-
 More commands: [Release guide](docs/release-guide.md) · Comparing strategies: [Development guide](docs/development.md)
 
 ## Code guide
