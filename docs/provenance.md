@@ -18,7 +18,7 @@ Atari Asterix uses Gymnasium + ALE, with versions in `uv.lock`; no ROM was copie
 
 Rhythm and Touhou include pre-existing game frontends/resources from the user's experiment repositories. Rhythm simulation uses virtual timing and does not need audio playback for its visual decisions. The selected 17-second preview audio is bundled for native browser/API evaluation; a separately supplied soundtrack is optional and does not automatically align with the retained chart. Touhou contains pre-existing game art/audio references. No new ownership or public redistribution license is asserted by this package. Preserve original attribution and review media rights before public release.
 
-`vendor/latency_bench` contains only the original latency sampler import closure (eight modules), retained to reproduce fitted CDF/temporal semantics. The full coding-agent suite, model weights, auth directories, cloud configuration and unrelated games were not copied.
+`vendor/latency-aware-agents` is the full [latency-aware-agents](https://github.com/mll-lab-nu/latency-aware-agents) repository, pinned as a Git submodule. Its latency implementation matches the previously bundled version.
 
 The native model transport was replaced with `runtime/subscription.py` to remove hardcoded server/suite paths. It uses native app-server, the exact SOL/low model, fresh ephemeral threads, disabled tools, public image inputs and read-only sandbox requests. Historical bubblewrap seat isolation is not claimed. Both original and portable transport conditions must be identified in results.
 

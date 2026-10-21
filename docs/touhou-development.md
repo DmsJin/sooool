@@ -5,6 +5,7 @@ The task-policy training loop is: measure the API condition, practice with subsc
 ## Install and inspect the environment
 
 ```bash
+git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
 uv run playwright install --with-deps chromium
 uv run sol doctor --game touhou
