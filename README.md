@@ -146,6 +146,7 @@ Evaluators may inspect game state to score outcomes. [Observation boundaries](do
 ## Quick start
 
 ```bash
+git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
 uv run playwright install --with-deps chromium
 codex login
