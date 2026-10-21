@@ -7,6 +7,10 @@
     "vera20k": {
       "repository": "https://github.com/mindorigin150/vera20k-agent.git",
       "revision": "9b95f20736d54039a4307e464fc460e2cfc0c0dc"
+    },
+    "pvz": {
+      "repository": "https://github.com/mindorigin150/PvZ-Portable-agent.git",
+      "revision": "619afa2459c5493fedf0c5e4db34287a876d2a1c"
     }
   },
   "aliases": {"pingpong": "tabletennis"},
@@ -48,6 +52,12 @@
       "source": "vera20k",
       "python": "3.12",
       "setup": "environments/vera20k/setup.sh"
+    },
+    "pvz": {
+      "kind": "external",
+      "source": "pvz",
+      "python": "3.12",
+      "setup": "environments/pvz/setup.sh"
     }
   }
 }

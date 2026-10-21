@@ -37,6 +37,10 @@ README. It compiles the existing package with Maturin. Re-run setup after Rust
 changes. Game assets stay in an external directory. VERA's model experiment
 runner is a later integration; this step prepares its existing environment API.
 
+[PvZ](pvz.md) uses `sol env setup pvz` to build its native executable and install
+its Gymnasium package in Python 3.12. Its game resources remain external.
+The PvZ guide includes native interface tests and headless validation commands.
+
 `environments/registry.json` owns source revisions, Python versions, install
 steps and existing runner commands. Recipes own experiment conditions, and
 policies own gameplay decisions. Add a registry entry and the game's own runner
