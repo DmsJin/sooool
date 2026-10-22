@@ -41,7 +41,6 @@ jobs:
           version: '0.13.5'
           python-version: '3.12'
           enable-cache: true
-      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
       - run: uv sync --locked --group ci
       - run: .venv/bin/python scripts/ci.py shared
 
@@ -69,7 +68,9 @@ jobs:
           enable-cache: true
           cache-dependency-glob: '**/requirements.txt'
       - name: Install graphics libraries
+        timeout-minutes: 5
         run: |
+          printf 'https://archive.ubuntu.com/ubuntu\n' | sudo tee /etc/apt/apt-mirrors.txt > /dev/null
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libegl1 libgl1-mesa-dri libopengl0
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
@@ -78,13 +79,16 @@ jobs:
           node-version: '22'
       - name: Install Chromium system libraries
         if: matrix.browser
+        timeout-minutes: 5
         run: uvx --from playwright==1.58.0 playwright install-deps chromium
       - name: Install PvZ build dependencies
         if: matrix.setup == 'environments/pvz/setup.sh'
+        timeout-minutes: 5
         run: |
           sudo apt-get install -y --no-install-recommends build-essential cmake ninja-build libjpeg-dev libopenmpt-dev libpng-dev libsdl2-dev xvfb xauth
       - name: Install VERA20K build dependencies
         if: matrix.setup == 'environments/vera20k/setup.sh'
+        timeout-minutes: 5
         run: |
           rustup toolchain install stable --profile minimal
           rustup default stable

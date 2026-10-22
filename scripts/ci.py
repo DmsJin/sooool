@@ -140,10 +140,18 @@ def run_suite(python, start, pattern="test_*.py", *, game=None, module=None, env
 
 
 def shared():
+    # Only the shared-test command needs this CI dependency; select/gate use stdlib.
+    from imageio_ffmpeg import get_ffmpeg_exe
+
     subprocess.run(["uv", "--version"], check=True)  # Missing uv must not skip installer contracts.
     subprocess.run([sys.executable, "-S", "-m", "runtime.cli", "env", "list"], cwd=ROOT, check=True)
-    for pattern in SHARED_TESTS:
-        run_suite(sys.executable, "tests", pattern)
+    with tempfile.TemporaryDirectory() as directory:
+        binary = get_ffmpeg_exe()
+        (Path(directory) / "ffmpeg").symlink_to(binary)
+        print(f"Media tests use {binary}", flush=True)
+        environ = {**os.environ, "PATH": directory + os.pathsep + os.environ["PATH"]}
+        for pattern in SHARED_TESTS:
+            run_suite(sys.executable, "tests", pattern, environ=environ)
 
 
 def environment(name):
