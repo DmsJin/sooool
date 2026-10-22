@@ -1,0 +1,111 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  select:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.select.outputs.matrix }}
+      count: ${{ steps.select.outputs.count }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: select
+        run: python3 scripts/ci.py select
+
+  shared:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          submodules: true
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7
+        with:
+          version: '0.13.5'
+          python-version: '3.12'
+          enable-cache: true
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+      - run: uv sync --locked --group ci
+      - run: .venv/bin/python scripts/ci.py shared
+
+  environment:
+    needs: select
+    if: needs.select.outputs.count != '0'
+    name: environment (${{ matrix.game }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.select.outputs.matrix) }}
+    env:
+      XDG_CACHE_HOME: /tmp/sooool-ci
+      CARGO_BUILD_JOBS: '2'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          submodules: true
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7
+        with:
+          version: '0.13.5'
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+          cache-dependency-glob: '**/requirements.txt'
+      - name: Install graphics libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libegl1 libgl1-mesa-dri libopengl0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        if: matrix.game == 'touhou'
+        with:
+          node-version: '22'
+      - name: Install Chromium system libraries
+        if: matrix.browser
+        run: uvx --from playwright==1.58.0 playwright install-deps chromium
+      - name: Install PvZ build dependencies
+        if: matrix.setup == 'environments/pvz/setup.sh'
+        run: |
+          sudo apt-get install -y --no-install-recommends build-essential cmake ninja-build libjpeg-dev libopenmpt-dev libpng-dev libsdl2-dev xvfb xauth
+      - name: Install VERA20K build dependencies
+        if: matrix.setup == 'environments/vera20k/setup.sh'
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          sudo apt-get install -y --no-install-recommends build-essential pkg-config libasound2-dev libudev-dev libx11-dev libxkbcommon-dev libwayland-dev libvulkan-dev
+      - run: uv sync --locked --python 3.12
+      - name: Install and test registered environment
+        env:
+          CI_GAME: ${{ matrix.game }}
+          CI_SOURCE_READ_TOKEN: ${{ secrets.CI_SOURCE_READ_TOKEN }}
+        run: .venv/bin/python scripts/ci.py environment "$CI_GAME"
+
+  ci:
+    if: always()
+    needs: [select, shared, environment]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Require every selected check
+        env:
+          CI_NEEDS: ${{ toJSON(needs) }}
+        run: python3 scripts/ci.py gate
