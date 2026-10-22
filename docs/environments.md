@@ -1,5 +1,7 @@
 # Prepare game environments
 
+[CI coverage and local checks](ci.md) use the same registered installation entrypoint.
+
 Install [uv](https://docs.astral.sh/uv/) and Git, then bootstrap the project:
 
 ```bash
