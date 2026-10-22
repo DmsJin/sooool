@@ -8,7 +8,7 @@ description = "Frozen visual SOL policies, calibrated virtual timing, and reprod
 requires-python = ">=3.10,<3.13"
 dependencies = []
 [dependency-groups]
-ci = ["numpy==1.26.4", "PyYAML==6.0.3", "Pillow==12.1.1"]
+ci = ["numpy==1.26.4", "PyYAML==6.0.3", "Pillow==12.1.1", "imageio-ffmpeg==0.6.0"]
 [project.scripts]
 sol = "runtime.cli:main"
 [tool.setuptools]

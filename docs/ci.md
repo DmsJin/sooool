@@ -27,10 +27,15 @@ its existing offline suites in its own interpreter. Only package download/build
 caches persist between jobs. Test suites use separate processes to isolate their
 module search paths.
 
-The root `ci` dependency group belongs to shared tests. It does not add game
-dependencies to the launcher. The shared job also checks the CLI without loading
-third-party packages. Missing uv, missing ffmpeg, empty suites and unexpected
-skips fail the job.
+The root `ci` dependency group belongs to shared tests. Its pinned `imageio-ffmpeg`
+wheel supplies the FFmpeg executable for media tests through a temporary PATH entry.
+This keeps media validation independent of system FFmpeg installation and apt
+downloads. The shared job also checks the CLI without loading third-party packages.
+Missing uv, empty suites and unexpected skips fail the job.
+
+Environment jobs use Ubuntu's official HTTPS package mirror. System dependency
+steps have a five-minute timeout so a stalled download fails promptly. Native
+compilation retains the environment job's separate 60-minute limit.
 
 Touhou tests use a frontend bound to `127.0.0.1` on an available port. Rhythm tests
 load its real page, capture pixels, execute a literal key, and close the browser
