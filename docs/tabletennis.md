@@ -72,14 +72,13 @@ The installed `sol` launcher also accepts `sol eval pingpong` and
 `sol simulate pingpong` and `sol report pingpong`; `tabletennis` is an alias for the same implementation.
 
 ```bash
-uv run sol eval tabletennis --source rules --rules-policy safe_center \
+uv run sol eval tabletennis --provider rules --rules-policy safe_center \
   --slowdown 1 --duration 240 --output runs/tabletennis/rules-new
 
-uv run sol eval tabletennis --source api --model-workers 4 \
+uv run sol eval tabletennis --provider api --model-workers 4 \
   --seed 11 --request-interval-s .65 --slowdown 1 --duration 300 --max-calls 120 \
-  --api-key-file /absolute/path/to/existing/private/key \
-  --api-budget-file /absolute/path/to/existing/api_budget.jsonl \
-  --api-limit-usd 20 --stage-cap-usd 6 --output runs/tabletennis/api-new
+  --ledger /absolute/path/to/existing/api_budget.jsonl \
+  --budget-usd 20 --stage-cap-usd 6 --output runs/tabletennis/api-new
 
 uv run sol report tabletennis --output runs/tabletennis/api-new
 ```
@@ -88,7 +87,7 @@ The API model is `gpt-6.1-sol`, reasoning effort `low`, service tier `ultrafast`
 terminal responses must confirm all three. The cumulative ledger is append-only
 and includes in-flight reservations. Stage ceilings also count existing spending
 in the `tabletennis_realtime` scope. No ledger or credits are reset. Subscription
-`--source sol` remains a separate single-worker transport with no API fallback.
+`--provider subscription` remains a separate single-worker transport with no API fallback.
 Output directories must be new; STOP or SIGTERM preserves partial evidence.
 
 ## Replay and evidence

@@ -1,9 +1,15 @@
 """Process-isolated authoritative physics; renderer/model workers cannot own its GIL."""
+import argparse
+from io import BytesIO
+import json
 import multiprocessing as mp
+from pathlib import Path
 import threading
 import time
 import numpy as np
 import mujoco
+from PIL import Image
+from runtime.options import positive_float
 from .environment import PCBATestCell
 
 
@@ -105,17 +111,13 @@ class ProcessSession:
 
 
 def main():
-    import argparse,json
-    from pathlib import Path
-    from io import BytesIO
-    from PIL import Image
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['clock-preflight'])
-    p.add_argument('--output',type=Path,required=True);p.add_argument('--duration',type=float,default=6.)
+    p.add_argument('--output',type=Path,required=True);p.add_argument('--wall-seconds',type=positive_float,default=6.)
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=False)
     env=ProcessCell(layout='loop',seed=0,asset_dir=a.output/'assets');session=None;captures=0
     try:
         env.observe(cameras=('overview','top','wrist'))
-        session=ProcessSession(env).start();end=time.monotonic()+a.duration
+        session=ProcessSession(env).start();end=time.monotonic()+a.wall_seconds
         while time.monotonic()<end:
             obs=env.observe(cameras=('overview','top','wrist'))
             for pixels in obs['images'].values():Image.fromarray(pixels).save(BytesIO(),format='PNG')

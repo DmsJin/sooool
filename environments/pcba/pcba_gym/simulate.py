@@ -15,9 +15,11 @@ import math
 import time
 import numpy as np
 from PIL import Image
+from runtime.evaluation import recording
+from runtime.options import positive_float
 from .environment import PCBATestCell
 from .scene import BOARD_COUNT
-from .runner import ROOT, POLICY, freeze, write
+from .runner import ROOT, POLICY, freeze, write, save_report
 from .latency import stats
 from .pipeline import (CONTROL_DT, OUTPUT_MODES, SCHEDULES, parse_pipeline, rejection, request_due, encode_png,
     pipeline_prompt, pipeline_schema, latency_summary, awaiting_result, top_calibration_text, wrist_calibration_text, CAMERA_MODES, render_cameras, capture, parse_image_size, infer_timed, save_states, add_latency_arguments)
@@ -249,7 +251,7 @@ def simulate_pipeline(output,*,profile,latency_scale=1.,latency_seed=0,concurren
         report={'kind':'subscription_simulation_virtual_clock','evidence':config['evidence'],'config':config,'metrics':metrics,
             'stop_reason':stop_reason,'error':error,'calls':calls,'chunks':chunks,'scheduler_events':events,
             'diagnostics':diag,'direct_api_calls':0}
-        write(out/'report.json',report);env.close()
+        save_report(out,report);env.close()
     print(json.dumps({'output':str(out),'metrics':metrics,'stop_reason':stop_reason,'error':error},indent=2),flush=True)
     if error:raise RuntimeError(str(error))
     return report
@@ -258,11 +260,12 @@ def simulate_pipeline(output,*,profile,latency_scale=1.,latency_seed=0,concurren
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['simulate'])
     p.add_argument('--output',type=Path,default=ROOT/'runs'/f'pcba-sim-{time.strftime("%Y%m%dT%H%M%S")}')
+    p.add_argument('--provider',choices=['subscription'],default='subscription',help='Decision source (default: subscription)')
     p.add_argument('--profile',type=Path,required=True,help='retained run directory or {"samples_s": [...]} JSON')
     p.add_argument('--latency-scale',type=float,default=1.,help='explicit sensitivity multiplier; label results accordingly')
     p.add_argument('--latency-seed',type=int,default=0)
-    p.add_argument('--concurrency',type=int,choices=[1,2,4],default=1);p.add_argument('--sim-duration',type=float,default=150.)
-    p.add_argument('--max-calls',type=int,default=24);p.add_argument('--max-wall',type=float,default=1800.)
+    p.add_argument('--concurrency',type=int,choices=[1,2,4],default=1);p.add_argument('--duration',type=positive_float,default=150.,help='Game duration in seconds')
+    p.add_argument('--max-calls',type=int,default=24);p.add_argument('--wall-seconds',type=positive_float,default=1800.,help='Wall-clock limit in seconds')
     p.add_argument('--ttl',type=float,default=12.);p.add_argument('--request-interval',type=float,default=.75)
     p.add_argument('--seed',type=int,default=0);p.add_argument('--layout',choices=['stopped','loop'],default='loop')
     p.add_argument('--camera-mode',choices=CAMERA_MODES,default='top')
@@ -275,9 +278,10 @@ def main():
     add_latency_arguments(p,transport_flag=False)
     p.set_defaults(output_mode='lean',schedule='stagger')
     a=p.parse_args()
-    simulate_pipeline(a.output,profile=a.profile,latency_scale=a.latency_scale,latency_seed=a.latency_seed,
-        concurrency=a.concurrency,sim_duration=a.sim_duration,max_calls=a.max_calls,max_wall=a.max_wall,ttl=a.ttl,
-        request_interval=a.request_interval,seed=a.seed,layout=a.layout,camera_mode=a.camera_mode,
-        image_size=parse_image_size(a.image_size),output_mode=a.output_mode,schedule=a.schedule,
-        expected_latency=a.expected_latency,transport_tuning=not a.no_transport_tuning,service_tier=a.service_tier,
-        continue_after_deadline=a.continue_after_deadline,top_calibration=a.top_calibration,effort=a.effort)
+    with recording(a.output,game='pcba',command='simulate',provider=a.provider,clock='virtual',detail_file='report.json'):
+        simulate_pipeline(a.output,profile=a.profile,latency_scale=a.latency_scale,latency_seed=a.latency_seed,
+            concurrency=a.concurrency,sim_duration=a.duration,max_calls=a.max_calls,max_wall=a.wall_seconds,ttl=a.ttl,
+            request_interval=a.request_interval,seed=a.seed,layout=a.layout,camera_mode=a.camera_mode,
+            image_size=parse_image_size(a.image_size),output_mode=a.output_mode,schedule=a.schedule,
+            expected_latency=a.expected_latency,transport_tuning=not a.no_transport_tuning,service_tier=a.service_tier,
+            continue_after_deadline=a.continue_after_deadline,top_calibration=a.top_calibration,effort=a.effort)

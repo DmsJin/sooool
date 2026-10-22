@@ -8,7 +8,8 @@ import queue
 import statistics
 import time
 import numpy as np
-from .runner import POLICY, ROOT, freeze, write, parse_decision
+from runtime.evaluation import recording
+from .runner import POLICY, ROOT, freeze, write, save_report, parse_decision
 
 SAMPLES=(0,8,19,30,38,49,61,67)
 
@@ -84,7 +85,7 @@ def benchmark(output,source):
         report={'kind':'actual_subscription_matched_snapshot_concurrency_benchmark','config':config,
             'actual_model_calls_completed':len(rows),'direct_api_calls':0,'cached_decision_replay':False,
             'physics_running':False,'handling_score':None,'summaries':summaries,'cohorts':cohorts,'requests':rows,'error':error}
-        write(out/'report.json',report)
+        save_report(out,report)
     print(json.dumps({'output':str(out),'summaries':summaries,'error':error},indent=2),flush=True)
     if error:raise RuntimeError(str(error))
     return report
@@ -93,5 +94,8 @@ def benchmark(output,source):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['latency'])
     p.add_argument('--output',type=Path,default=ROOT/'runs'/f'pcba-latency-{time.strftime("%Y%m%dT%H%M%S")}')
+    p.add_argument('--provider',choices=['subscription'],default='subscription',help='Decision source (default: subscription)')
     p.add_argument('--source',type=Path,default=Path('runs/pcba-policy-fast-v1'))
-    a=p.parse_args();benchmark(a.output,a.source)
+    a=p.parse_args()
+    with recording(a.output,game='pcba',command='latency',provider=a.provider,clock='none',detail_file='report.json'):
+        benchmark(a.output,a.source)

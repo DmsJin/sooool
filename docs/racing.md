@@ -48,18 +48,18 @@ Paid commands require an explicitly initialized cumulative ledger and stage ceil
 ```bash
 # Creates a NEW ledger exclusively; refuses to replace any existing file.
 uv run sol budget racing \
-  --budget-ledger runs/racing-budget.json --total-cap-usd 30
+  --ledger runs/racing-budget.json --budget-usd 30
 
 # Actual paid profiling; concurrency ONE, including stream drain/accounting.
 # --samples-dir may select recorded development inputs for a representative workload.
 uv run sol profile racing \
-  --output runs/racing-serial-profile --calls 16 \
-  --budget-ledger runs/racing-budget.json --stage-cap-usd 2
+  --output runs/racing-serial-profile --max-calls 16 \
+  --ledger runs/racing-budget.json --stage-cap-usd 2
 
 # Actual paid 1x evaluation; no imposed latency and no pause during decisions.
 uv run sol eval racing \
   --output runs/racing-api304 --seed 304 \
-  --budget-ledger runs/racing-budget.json --stage-cap-usd 10
+  --ledger runs/racing-budget.json --stage-cap-usd 10
 
 # Same-response public English summary, as used by the featured video.
 # Add --summaries to the eval command for this separately evaluated variant.
@@ -73,7 +73,7 @@ API evaluation uses the environment's original HTTP service and metering proxy p
 
 ## Evaluation records and video
 
-Each new run preserves `manifest.json` (hypothesis, recipe, policy/profile/environment source hashes), exact inputs/outputs, issued requests, installed controls, episode log, summary and `evaluation_record.json`. Only completed runs with successful independent replay enter a win/loss comparison. Missing/error/interrupted records remain unverified with `won: null`; losses are retained. Use `record --output <run> --record-mode eval` to rebuild a compact record from existing results; this is an index operation, not a new evaluation.
+Each new run preserves `manifest.json` (hypothesis, recipe, policy/profile/environment source hashes), exact inputs/outputs, issued requests, installed controls, episode log, summary and `evaluation_record.json`. Only completed runs with successful independent replay enter a win/loss comparison. Missing/error/interrupted records remain unverified with `won: null`; losses are retained. New runs also write the shared `evaluation-record.json`. Use `sol record RUN` to register that existing record and optionally append a research judgment.
 
 The [record-writing guide](../research/racing/RECORDS.md) defines comparison and promotion gates. Historical compact records live in [research/racing/evidence](../research/racing/evidence/); original run IDs and hashes remain intact.
 

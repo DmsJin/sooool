@@ -99,3 +99,38 @@ used verified upstream archives through a loopback mirror after a CDN interrupti
 
 These checks made no subscription or paid API model calls. External game build
 scripts and assets were not rebuilt for this launcher migration.
+
+## Shared experiment workflows (2026-10-22)
+
+The follow-up keeps each game's selected provider, control abstraction and clock.
+Installation supports explicit game selections and `all`. New experiment runs use
+shared records and registration. Browser libraries remain host prerequisites;
+`ready` records installed sources and packages.
+
+- 30 launcher, preparation, parameter and registration tests passed. The fixtures
+  cover multiple selections, alias deduplication, existing-output protection,
+  initialization failures, immutable IDs and mismatched game/run identities.
+- 149 Touhou research tests passed against a loopback frontend, including browser
+  startup, image capture, literal actions and cleanup.
+- 73 Rhythm research tests and six workflow tests passed. An additional browser
+  probe loaded the actual page in virtual and native modes, captured 390×844
+  images, executed a literal key event and confirmed browser shutdown.
+- Eight Asterix runner/default tests and 12 API/failure/Touhou-record tests passed.
+  Saved-action replay retained the historical 1,200-frame, 44-reply, 500-point,
+  two-life result. This is replay evidence with zero new model calls.
+- 15 Racing transport/controller unit tests passed with an import fixture and
+  mocked HTTP. These checks did not run the native Racing engine.
+- 12 Badminton and 19 TableTennis contract tests passed. Three Badminton and five
+  TableTennis tests were skipped because their pinned native runtime was not
+  prepared. The new TableTennis credential test used mocked HTTP and verified
+  usage settlement and the absence of credentials in retained files.
+- 43 PCBA tests passed in Python 3.11. Shared records contain aggregate metrics
+  and link the full report. The registered process-clock preflight captured three
+  camera views, advanced 1.330 simulated seconds in 1.330 wall seconds, reported
+  zero late ticks and passed its timing gate.
+
+The selected Asterix, Touhou, Rhythm and PCBA environments were prepared through
+one multi-game setup invocation. Python compilation, shell syntax and the locked
+root dependency check passed. No subscription or paid API model calls were made.
+PvZ/VERA20K native builds and resource-dependent gameplay were not rerun. Their
+setup remains separate from model-runner integration.

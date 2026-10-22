@@ -41,7 +41,7 @@ velocities, evaluator lap records and latent test results are not model inputs.
 ```bash
 uv run sol env setup pcba
 uv run sol loop-demo pcba --output runs/pcba-loop-oracle-new
-uv run sol pipeline pcba --layout loop --physics-process --concurrency 1 --duration 150 --max-calls 24 --output runs/pcba-loop-model-new
+uv run sol pipeline pcba --layout loop --physics-process --concurrency 1 --wall-seconds 150 --max-calls 24 --output runs/pcba-loop-model-new
 # Offline video export from already-recorded native states; zero new model calls.
 uv run sol export pcba --source runs/pcba-loop-oracle-new
 ```

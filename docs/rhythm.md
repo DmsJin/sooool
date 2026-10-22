@@ -12,7 +12,6 @@ git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
 uv run sol env setup rhythm
 codex login
-uv run sol doctor --game rhythm --auth
 uv run sol simulate rhythm --seed 20261016 --output runs/rhythm-dev-001
 ```
 

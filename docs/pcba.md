@@ -38,7 +38,7 @@ For actual subscription control, select an installed standalone Codex CLI via
 ```bash
 export SOL_CODEX_BIN=/absolute/path/to/codex
 uv run sol eval pcba \
-  --service-tier priority --seed 0 --max-calls 80 --duration 600 --ttl 12 \
+  --service-tier priority --seed 0 --max-calls 80 --wall-seconds 600 --ttl 12 \
   --output runs/pcba-fast-new
 uv run sol report pcba \
   --output runs/pcba-fast-new

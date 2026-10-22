@@ -8,6 +8,7 @@ import unittest
 from unittest.mock import patch
 
 import numpy as np
+import httpx
 from PIL import Image
 
 from environments.tabletennis.execution import wait_tick, install_prepared
@@ -131,6 +132,36 @@ class RealtimeTests(unittest.TestCase):
         self.assertEqual(payload["service_tier"], "ultrafast")
         self.assertFalse(payload["store"])
         self.assertEqual(payload["tools"], [])
+
+    def test_process_credential_reaches_http_and_stays_out_of_retained_files(self):
+        """Long-lived API boundary: credentials stay in headers and real usage still settles."""
+        with tempfile.TemporaryDirectory() as directory:
+            output=Path(directory)
+            terminal={"status":"completed","model":"gpt-6.1-sol","service_tier":"ultrafast",
+                      "reasoning":{"effort":"low"},
+                      "usage":{"input_tokens":10,"output_tokens":1,
+                               "input_tokens_details":{"cached_tokens":0,"cache_write_tokens":0},
+                               "output_tokens_details":{"reasoning_tokens":0}},
+                      "output":[{"type":"message","content":[{"type":"output_text","text":"{}"}]}]}
+            def handle(request):
+                self.assertEqual(request.headers['Authorization'],'Bearer fixture-process-key')
+                if request.url.path.endswith('/input_tokens'):
+                    return httpx.Response(200,json={"input_tokens":10})
+                return httpx.Response(200,text='data: '+json.dumps({"type":"response.completed","response":terminal})+'\n\n')
+            client_type=httpx.Client
+            def make_client(*args,**kwargs):
+                return client_type(*args,**kwargs,transport=httpx.MockTransport(handle))
+            budget=ApiBudget(output/'ledger.jsonl',20)
+            with patch('runtime.api.httpx.Client',side_effect=make_client):
+                client=ApiClient({},output/'api',budget,key='fixture-process-key')
+            try:
+                self.assertEqual(client.complete('Choose a policy',[],output/'call')['text'],'{}')
+            finally:
+                client.close()
+            self.assertEqual(budget.snapshot()['unresolved_requests'],0)
+            for path in output.rglob('*'):
+                if path.is_file():
+                    self.assertNotIn('fixture-process-key',path.read_text())
 
     def test_existing_budget_is_preserved_and_calls_settle_once(self):
         with tempfile.TemporaryDirectory() as temp:

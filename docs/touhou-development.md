@@ -8,7 +8,6 @@ The task-policy training loop is: measure the API condition, practice with subsc
 git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
 uv run sol env setup touhou
-uv run sol doctor --game touhou
 (cd environments/touhou && npm test)
 ```
 

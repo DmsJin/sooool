@@ -7,3 +7,4 @@ cd "$source_dir"
 export VIRTUAL_ENV="$venv_dir"
 export PATH="$venv_dir/bin:$PATH"
 maturin develop --uv --release --locked --manifest-path python/Cargo.toml
+"$venv_dir/bin/python" -c 'import vera20k_agent'

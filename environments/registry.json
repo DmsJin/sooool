@@ -21,7 +21,7 @@
       "browser": false,
       "requirements": "environments/asterix/requirements.txt",
       "runner": "scripts/asterix.py",
-      "commands": ["simulate", "eval", "doctor"]
+      "commands": ["simulate", "eval"]
     },
     "touhou": {
       "kind": "local",
@@ -29,7 +29,7 @@
       "browser": true,
       "requirements": "environments/touhou/requirements.txt",
       "runner": "scripts/touhou.py",
-      "commands": ["simulate", "eval", "profile", "doctor"],
+      "commands": ["simulate", "eval", "profile"],
       "install_metadata": ["environments/touhou/pyproject.toml"]
     },
     "rhythm": {
@@ -38,7 +38,7 @@
       "browser": true,
       "requirements": "environments/rhythm/requirements.txt",
       "runner": "scripts/rhythm.py",
-      "commands": ["simulate", "eval", "profile", "doctor"],
+      "commands": ["simulate", "eval", "profile"],
       "install_metadata": ["environments/rhythm/pyproject.toml"]
     },
     "racing": {
@@ -48,7 +48,7 @@
       "requirements": "environments/racing/requirements.txt",
       "runner": "scripts/racing.py",
       "variables": {"MUJOCO_GL": "egl", "LP_NUM_THREADS": "1", "PYTHONDONTWRITEBYTECODE": "1"},
-      "commands": ["simulate", "eval", "profile", "preflight", "record", "budget"],
+      "commands": ["simulate", "eval", "profile", "preflight", "budget"],
       "source_variable": "RACING_ENV_ROOT"
     },
     "badminton": {

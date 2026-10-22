@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import patch
 from types import SimpleNamespace
 from environments.rhythm import cli as rhythm_cli
-from runtime.rhythm import ledger,append_record
+from runtime.rhythm import ledger
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -100,15 +100,6 @@ class RhythmWorkflow(unittest.TestCase):
             reopened.reserve('new','1','final')
             self.assertEqual(first.snapshot()['committed_micros'],2000000)
             self.assertTrue((p/'two/budget.json').is_symlink())
-
-    def test_record_append_is_idempotent_and_rejects_changed_evidence(self):
-        with tempfile.TemporaryDirectory() as t:
-            p=Path(t);run=p/'run';run.mkdir();f=run/'evaluation-record.json'
-            f.write_text(json.dumps({'game':'rhythm','mode':'realtime_api','summary':{'miss':0}}))
-            registry=p/'registry.jsonl'
-            self.assertTrue(append_record(run,registry));self.assertFalse(append_record(run,registry))
-            f.write_text(json.dumps({'game':'rhythm','mode':'realtime_api','summary':{'miss':1}}))
-            with self.assertRaises(ValueError):append_record(run,registry)
 
     def test_selected_policy_and_literal_receipts_match_historical_result(self):
         sys.path.insert(0,str(ROOT/'environments/rhythm'))

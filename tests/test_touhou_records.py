@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from runtime.cli import ROOT
-from runtime.touhou_records import evaluation_record,append_record
+from runtime.touhou_records import evaluation_record
 
 class EvaluationRecords(unittest.TestCase):
     def make(self,root,mode='realtime_api',status='won',terminal=True):
@@ -29,11 +29,3 @@ class EvaluationRecords(unittest.TestCase):
             with tempfile.TemporaryDirectory() as d:
                 out=self.make(Path(d));p=out/'episode/final_state.json';f=json.loads(p.read_text());f['clock'].update(changed);p.write_text(json.dumps(f))
                 self.assertFalse(evaluation_record(ROOT,out)['passed'])
-
-    def test_append_is_idempotent_but_never_overwrites_different_evidence(self):
-        with tempfile.TemporaryDirectory() as d:
-            root=Path(d);out=self.make(root);r=evaluation_record(ROOT,out);registry=root/'records.jsonl'
-            self.assertTrue(append_record(out,registry));self.assertFalse(append_record(out,registry))
-            r['hits']=99;(out/'record.json').write_text(json.dumps(r))
-            with self.assertRaises(ValueError):append_record(out,registry)
-            self.assertEqual(len(registry.read_text().splitlines()),1)

@@ -2,6 +2,28 @@
 
 An evaluation record connects a hypothesis to a frozen configuration, model outputs, actual actions, and a decision. SOL generates prompt revisions and analyzes failures; humans supply preferences, inspect videos, and choose research constraints. The selected Asterix policy came from this human-guided autoresearch loop. Model weights are unchanged.
 
+## Shared run records
+
+New Asterix, Touhou, Rhythm, Racing, Badminton, TableTennis and PCBA experiment
+runs write `evaluation-record.json` with schema version 2. The shared fields are
+`record_id`, `game`, `command`, `provider`, `clock`, `mode`, `status`, `summary` and
+`evidence`. `provider` identifies actual subscription, API or rules decisions.
+`clock` is `virtual`, `wall` or `none` (profiling without gameplay). The original
+mode and game-specific results remain attached. PCBA stores aggregate metrics in
+`summary.json` and links its full `report.json`, including raw calls and diagnostics,
+through shared evidence. Historical files stay unchanged.
+
+`completed` means the experiment finished, including a complete game loss.
+`incomplete` means its result is partial or missing. `interrupted` identifies a
+runner failure or interrupted execution. Game-owned acceptance gates still decide
+whether an outcome qualifies as a verified result. Run initialization failures
+are retained once an output directory exists.
+
+`sol record RUN` appends the immutable record to `artifacts/GAME/evaluations.jsonl`.
+`--registry PATH` selects another registry. Repeating the same registration is
+idempotent. A changed record under the same ID is rejected. Supplying both
+`--decision` and `--note` additionally appends a judgment to `assessments.jsonl`.
+
 ## Three different kinds of evidence
 
 | Mode | What advances the game | What it proves |

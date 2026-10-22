@@ -1,9 +1,9 @@
-"""Camera-only GPT racing research. Secrets enter only through getpass, never files.
+"""Camera-only GPT racing research. Secrets enter through process memory, never files.
 
 The model never receives simulator state, seed, future delays or unarrived answers.
 Local simulations are research evaluations, not Harbor official benchmark scores.
 """
-import argparse, base64, collections, concurrent.futures as cf, fcntl, getpass
+import argparse, base64, collections, concurrent.futures as cf, fcntl
 import hashlib, heapq, json, math, os, pathlib, queue, random, statistics
 import subprocess, sys, threading, time, uuid, tempfile, shutil
 
@@ -13,6 +13,8 @@ ROOT = pathlib.Path(os.environ['RACING_ENV_ROOT']).expanduser().resolve()
 if not (ROOT/'core'/'episode.py').is_file():raise RuntimeError('RACING_ENV_ROOT is not a roboolympics checkout')
 WORK_ROOT = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(WORK_ROOT.parents[1]))
+from runtime.options import credential
 os.environ.setdefault('MUJOCO_GL', 'osmesa')
 os.environ.setdefault('LP_NUM_THREADS', '1')
 MODEL = 'gpt-6.1-sol'
@@ -522,7 +524,7 @@ def main():
  p.add_argument('--reference-waypoints',action='store_true')
  a=p.parse_args();a.out.mkdir(parents=True,exist_ok=False)
  if a.mode=='preflight':preflight(a.out)
- elif a.mode=='profile':profile(a,getpass.getpass('API credential (memory only): '))
+ elif a.mode=='profile':profile(a,credential())
  elif a.mode=='sim':simulate(a)
  else:
   n=Native(a.out/'worker')

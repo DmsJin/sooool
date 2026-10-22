@@ -1,9 +1,8 @@
 """Command entrypoint for the selected Touhou experiments."""
 import json
-import math
-import os
 
 from runtime import experiment
+from runtime.options import credential
 from runtime.run_support import ROOT, serve
 
 def touhou(recipe,out,a):
@@ -14,7 +13,6 @@ def touhou(recipe,out,a):
     config=dict(recipe['args']);config.update(profile=str(ROOT/recipe['profile']),suite=str(ROOT/'vendor'))
     if a.seed is not None:config['seed']=a.seed
     config['browser_executable']=a.browser_executable
-    if a.duration is not None:raise ValueError('Touhou acceptance uses a complete game; --duration is not supported')
     with serve(ROOT/'environments/touhou/dist') as url:
         config['url']=url
         run(config,out/'episode')
@@ -25,7 +23,6 @@ def touhou(recipe,out,a):
     return summary
 
 def touhou_realtime(recipe,out,a):
-    import getpass
     from research.run_episode import run
     from research.budget import BudgetLedger
     from runtime.touhou_records import evaluation_record
@@ -39,8 +36,7 @@ def touhou_realtime(recipe,out,a):
     if a.seed is not None:config['seed']=a.seed
     ledger=BudgetLedger(config['ledger'],**config['budget_limits']);before=ledger.snapshot()
     if before.get('blocked'):raise RuntimeError('Ledger requires reconciliation before new API calls')
-    key=os.environ.get('OPENAI_API_KEY') or getpass.getpass('OpenAI API key (process memory only): ')
-    if not key:raise ValueError('A real API credential is required')
+    key=credential()
     try:
         with serve(ROOT/'environments/touhou/dist') as url:
             config['url']=url
@@ -58,18 +54,12 @@ def main(argv=None):
     p = experiment.parser("touhou", profiling=True)
     a = p.parse_args(argv)
     a.game = "touhou"
-    if a.command == "doctor":
-        return experiment.doctor(a)
-    if a.command == 'eval' and (a.provider is not None or a.wall_seconds is not None):
-        p.error('--provider and --wall-seconds apply to Asterix')
     if a.command in ('eval', 'profile'):
         experiment.validate_budget(p, a)
     if a.command == 'profile':
         from runtime.touhou_profile import profile
         profile(ROOT, a)
         return
-    if a.duration is not None and (not math.isfinite(a.duration) or a.duration <= 0):
-        p.error('--duration must be finite and positive')
     recipe = json.loads((a.recipe or ROOT/'recipes'/('touhou-realtime.json' if a.command == 'eval' else 'touhou.json')).read_text())
     expected = ('api', 'realtime') if a.command == 'eval' else ('subscription', 'sim')
     if (recipe['args'].get('provider'), recipe['args'].get('mode')) != expected:

@@ -322,11 +322,11 @@ export SOL_CODEX_BIN=/absolute/path/to/codex   # signed in with ChatGPT; no paid
 # Develop: fresh subscription decisions, modeled delays, virtual clock
 uv run sol simulate pcba --profile profiles/pcba/ultrafast-modeled-v1.json --output-mode lean7 \
   --camera-mode adaptive --top-calibration --schedule stagger --concurrency 2 \
-  --sim-duration 180 --max-calls 100 --continue-after-deadline --output runs/pcba-sim-new
+  --duration 180 --max-calls 100 --continue-after-deadline --output runs/pcba-sim-new
 
 # Live subscription run on the real clock
 uv run sol pipeline pcba --layout loop --physics-process --output-mode lean7 --camera-mode adaptive \
-  --top-calibration --schedule stagger --concurrency 2 --transport-tuning --duration 180 --max-calls 100 \
+  --top-calibration --schedule stagger --concurrency 2 --transport-tuning --wall-seconds 180 --max-calls 100 \
   --output runs/pcba-live-new
 
 # Showcase video from any retained run (no model calls)
@@ -357,7 +357,6 @@ uv sync --locked --python 3.12
 uv run sol env setup touhou
 codex login
 
-uv run sol doctor --game touhou --auth
 uv run sol simulate touhou --output runs/touhou-dev-001
 ```
 
