@@ -35,7 +35,7 @@ Higher concurrency did not lower single-request latency in this small sample.
 
 ```bash
 export SOL_CODEX_BIN=/absolute/path/to/codex
-export SOL_PCBA_PYTHON=.venv-pcba/bin/python
+uv run sol env setup pcba
 uv run sol latency pcba --source runs/pcba-policy-fast-v1 --output runs/pcba-latency-new
 ```
 

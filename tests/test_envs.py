@@ -41,7 +41,7 @@ class EnvironmentContracts(unittest.TestCase):
             "if sys.argv[1] == 'wait': signal.pause()\n"
             "raise SystemExit(17)\n")
         game = {"kind": "external", "source": "engine", "python": f"{sys.version_info.major}.{sys.version_info.minor}",
-                "requirements": "requirements.txt", "runner": "runner.py", "commands": ["simulate"],
+                "requirements": "requirements.txt", "runner": "runner.py", "commands": ["simulate", "wait"],
                 "source_variable": "GAME_SOURCE"}
         self.registry = {"sources": {"engine": {"repository": str(self.upstream), "revision": self.revision}},
                          "aliases": {"alias": "first"}, "games": {"first": game, "second": dict(game)}}
@@ -132,27 +132,51 @@ class EnvironmentContracts(unittest.TestCase):
         venv = Path(state["python"]).parent.parent
         self.assertEqual((venv / "setup-inputs").read_text().splitlines(), [str(self.upstream), str(venv)])
 
-    def test_workspaces_in_different_checkouts_keep_their_own_preparation_state(self):
+    def test_local_sources_use_separate_game_venvs_and_track_install_metadata(self):
         version = f"{sys.version_info.major}.{sys.version_info.minor}"
-        self.registry["games"]["workspace"] = {"kind": "workspace", "python": version, "browser": False}
+        game = {"kind": "local", "python": version, "requirements": "requirements.txt",
+                "install_metadata": ["pyproject.toml"], "runner": "runner.py",
+                "commands": ["simulate"]}
+        self.registry["games"] = {"one": game, "two": dict(game)}
         self.save_registry()
-        (self.root / "pyproject.toml").write_text(
-            f'[project]\nname = "env-fixture"\nversion = "0.0.0"\nrequires-python = ">={version}"\ndependencies = []\n')
-        (self.root / ".gitignore").write_text(".venv/\n")
-        subprocess.run(["uv", "lock", "--python", version], cwd=self.root, check=True)
-        second = self.base / "second-project"
-        second.mkdir()
-        (second / "environments").mkdir()
-        for name in ("pyproject.toml", "uv.lock", ".gitignore", "environments/registry.json"):
-            shutil.copyfile(self.root / name, second / name)
-        for root in (self.root, second):
-            subprocess.run(["git", "init", "--quiet", str(root)], check=True)
-            subprocess.run(["git", "-C", str(root), "add", "."], check=True)
-            subprocess.run(["git", "-C", str(root), "-c", "user.name=Environment Test",
-                            "-c", "user.email=test@example.invalid", "commit", "--quiet", "-m", "fixture"], check=True)
-            self.assertEqual(envs.setup(root, "workspace")["status"], "ready")
-        self.assertEqual(envs.status(self.root, "workspace")["status"], "ready")
-        self.assertNotEqual(envs.status(self.root, "workspace")["python"], envs.status(second, "workspace")["python"])
+        (self.root / "pyproject.toml").write_text('[project]\nname = "local-fixture"\nversion = "0.0.0"\n')
+        (self.root / "runner.py").write_text(
+            "import json, os, sys\n"
+            "print(json.dumps({'prefix': sys.prefix, 'cwd': os.getcwd(), 'args': sys.argv[1:]}))\n")
+        subprocess.run(["git", "init", "--quiet", str(self.root)], check=True)
+        subprocess.run(["git", "-C", str(self.root), "add", "."], check=True)
+        subprocess.run(["git", "-C", str(self.root), "-c", "user.name=Environment Test",
+                        "-c", "user.email=test@example.invalid", "commit", "--quiet", "-m", "fixture"], check=True)
+        first = envs.setup(self.root, "one")
+        second = envs.setup(self.root, "two")
+        self.assertEqual(first["status"], "ready")
+        self.assertEqual(first["source"], str(self.root))
+        self.assertNotEqual(first["python"], second["python"])
+        self.assertEqual(envs.setup(self.root, "one")["python"], first["python"])
+        for invocation in ("launch(Path(sys.argv[1]), 'one', sys.argv[2:])",
+                           "run_script(Path(sys.argv[1]), 'one', Path(sys.argv[1])/'runner.py', sys.argv[2:])"):
+            code = "from pathlib import Path; import sys; from runtime.envs import launch, run_script; " + invocation
+            result = subprocess.run([sys.executable, "-c", code, str(self.root), "simulate", "--output", "relative output"],
+                                    cwd=self.base, capture_output=True, text=True,
+                                    env={**os.environ, "PYTHONPATH": str(Path(__file__).resolve().parents[1])})
+            self.assertEqual(result.returncode, 0, result.stderr)
+            output = json.loads(result.stdout)
+            self.assertEqual(output['prefix'], str(Path(first['python']).parent.parent))
+            self.assertEqual(output['cwd'], str(self.base))
+            self.assertEqual(output['args'], ['simulate', '--output', 'relative output'])
+        (self.root / "pyproject.toml").write_text('[project]\nname = "local-fixture"\nversion = "0.0.1"\n')
+        self.assertEqual(envs.status(self.root, "one")["status"], "needs-setup")
+        with self.assertRaisesRegex(RuntimeError, "sol env setup one"):
+            envs.launch(self.root, "one", ["simulate"])
+        with self.assertRaisesRegex(RuntimeError, "--source applies to external"):
+            envs.setup(self.root, "one", self.upstream)
+
+    def test_setup_only_environment_rejects_runner_commands(self):
+        self.registry["games"]["first"].pop("runner")
+        self.registry["games"]["first"].pop("commands")
+        self.save_registry()
+        with self.assertRaisesRegex(RuntimeError, "does not support simulate"):
+            envs.launch(self.root, "first", ["simulate"])
 
 
 if __name__ == "__main__":

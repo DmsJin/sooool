@@ -99,6 +99,6 @@ for the selected experiment. Historical and fresh runs retain separate records.
 
 ## Racing
 
-Racing retains its selected-policy path: `python scripts/racing.py eval` or `sol eval racing` uses real API decisions while original-speed physics advances. It requires an existing capped ledger and a process-only credential. See [Racing setup, profiling and evaluation](racing.md). The selected historical seed304 result remains separate from this Asterix release and its subscription checks.
+Racing retains its selected-policy path: `sol eval racing` uses real API decisions while original-speed physics advances. It requires an existing capped ledger and a process-only credential. See [Racing setup, profiling and evaluation](racing.md). The selected historical seed304 result remains separate from this Asterix release and its subscription checks.
 
 Protocol reference: [OpenAI Docs — Codex app-server](https://learn.chatgpt.com/docs/app-server).

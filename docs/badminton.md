@@ -96,8 +96,8 @@ The `tactical-v1` policy files and historical result artifacts retain the earlie
 ## Setup
 
 Use a separate Python 3.11 environment matching the original checkpoint runtime.
-The root workspace pins another NumPy version. Keep the external RoboOlympics
-environment read-only. A working NVIDIA EGL driver is required.
+The launcher prepares its independent dependencies. Keep the external
+RoboOlympics environment read-only. A working NVIDIA EGL driver is required.
 
 ```bash
 uv run sol env setup badminton

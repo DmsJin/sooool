@@ -316,9 +316,7 @@ The factory dressing (floor, walls, fence, storage rack, cabinet, stack light, l
 ### Run it
 
 ```bash
-uv venv --python 3.11 .venv-pcba
-uv pip install --python .venv-pcba/bin/python -r environments/pcba/requirements.txt
-export SOL_PCBA_PYTHON=$PWD/.venv-pcba/bin/python
+uv run sol env setup pcba
 export SOL_CODEX_BIN=/absolute/path/to/codex   # signed in with ChatGPT; no paid API fallback
 
 # Develop: fresh subscription decisions, modeled delays, virtual clock
@@ -356,7 +354,7 @@ uv run sol figures pcba --source runs/pcba-sim-new --output assets/pcba/steps
 ```bash
 git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
-uv run playwright install --with-deps chromium
+uv run sol env setup touhou
 codex login
 
 uv run sol doctor --game touhou --auth
@@ -375,7 +373,7 @@ uv run sol eval touhou \
 
 Game setup: [Touhou](docs/realtime.md) · [PingPong](docs/tabletennis.md) · [Asterix](docs/release-guide.md) · [Badminton](docs/badminton.md) · [Rhythm](docs/rhythm.md) · [Racing](docs/racing.md) · [PCBA](docs/pcba.md)
 
-External game runners: run `uv run sol env setup <game>` once, then use `sol simulate` or `sol eval`. [Environment management](docs/environments.md).
+Prepare each game with `uv run sol env setup <game>`. Registered experiment runners use `sol simulate` or `sol eval`. PvZ and Red Alert currently provide setup only. [Environment management](docs/environments.md).
 
 More commands: [Release guide](docs/release-guide.md) · Comparing strategies: [Development guide](docs/development.md)
 

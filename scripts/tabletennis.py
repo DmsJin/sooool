@@ -81,7 +81,7 @@ def main(argv=None):
     with tempfile.TemporaryDirectory(prefix="tabletennis-source-") as frozen:
         for name in ("environments/tabletennis", "environments/badminton/public.py",
                      "policies/tabletennis", "profiles/tabletennis", "recipes/tabletennis.json", "scripts/tabletennis.py",
-                     "runtime/subscription.py", "runtime/api.py", "runtime/cli.py"):
+                     "runtime/subscription.py", "runtime/api.py", "runtime/cli.py", "runtime/envs.py", "environments/registry.json"):
             target = Path(frozen) / name
             target.parent.mkdir(parents=True, exist_ok=True)
             if (ROOT / name).is_dir():

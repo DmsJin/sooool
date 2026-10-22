@@ -39,7 +39,7 @@ The virtual simulator samples the retained serial API delay distribution. A comp
 
 The retained 32-call distribution measured a **one-frame direct-steering workload**. Using it for lane goals/history-two is an explicit proxy timing condition. Preserve it for historical comparisons; profile the exact new workload before claiming calibrated transfer. Image inputs were omitted by the historical subscription adapter, although numeric camera measurements were present. Historical 3/3 groups are therefore numeric-feature hybrid evidence, not valid visual-subscription replication. Current image transport is corrected; a new successful subscription group has not been established by this packaging change.
 
-For the free HTTP/controller check, use `scripts/racing.py preflight --output runs/racing-free --seed 304`. This uses fixed grid-based goals with artificial delays, **zero GPT calls** and canonical player mode `oracle` to bypass model metering. It is plumbing/baseline validation, never model acceptance.
+For the free HTTP/controller check, use `uv run sol preflight racing --output runs/racing-free --seed 304`. This uses fixed grid-based goals with artificial delays, **zero GPT calls** and canonical player mode `oracle` to bypass model metering. It is plumbing/baseline validation, never model acceptance.
 
 ## Profile serially, then evaluate with real API decisions
 

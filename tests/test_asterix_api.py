@@ -12,9 +12,10 @@ from runtime.asterix_api import AsterixApiClient, DiagnosticResponse, SCHEMA
 
 
 class AsterixApiTransport(unittest.TestCase):
-    def test_console_import_outside_repository(self):
+    def test_registered_runner_imports_api_outside_repository(self):
         with tempfile.TemporaryDirectory() as d:
-            result=subprocess.run([sys.executable,'-c','from runtime.asterix_api import AsterixApiClient'],cwd=d,capture_output=True,text=True)
+            code = "import runpy, sys; runpy.run_path(sys.argv[1]); from runtime.asterix_api import AsterixApiClient"
+            result=subprocess.run([sys.executable, '-c', code, str(ROOT/'scripts/asterix.py')], cwd=d, capture_output=True, text=True)
             self.assertEqual(result.returncode,0,result.stderr)
 
     def test_failure_diagnostics_keep_codes_but_exclude_private_payloads(self):

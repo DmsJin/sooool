@@ -7,6 +7,9 @@ export SOL_CODEX_BIN="${SOL_CODEX_BIN:-codex}"
 export PLAYWRIGHT_BROWSERS_PATH="${PLAYWRIGHT_BROWSERS_PATH:-$PWD/.browsers}"
 export SOL_QUOTA_STOP_PERCENT=80
 python_bin="${SOL_PYTHON:-.venv/bin/python}"
+for game in rhythm touhou asterix; do
+  "$python_bin" -m runtime.cli env setup "$game"
+done
 "$python_bin" -m runtime.cli doctor --auth
 mkdir -p runs
 pids=()

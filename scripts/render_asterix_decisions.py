@@ -7,10 +7,13 @@ import subprocess
 import sys
 import textwrap
 
-from PIL import Image,ImageDraw,ImageFont
-
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT/'environments/asterix'))
+sys.path[:0] = [str(ROOT), str(ROOT/'environments/asterix')]
+if __name__ == '__main__':
+    from runtime.envs import run_script
+    run_script(ROOT, 'asterix', Path(__file__), sys.argv[1:])
+
+from PIL import Image,ImageDraw,ImageFont
 from simulate_5x import make_env
 
 

@@ -15,9 +15,32 @@
   },
   "aliases": {"pingpong": "tabletennis"},
   "games": {
-    "asterix": {"kind": "workspace", "python": "3.12", "browser": false},
-    "touhou": {"kind": "workspace", "python": "3.12", "browser": true},
-    "rhythm": {"kind": "workspace", "python": "3.12", "browser": true},
+    "asterix": {
+      "kind": "local",
+      "python": "3.12",
+      "browser": false,
+      "requirements": "environments/asterix/requirements.txt",
+      "runner": "scripts/asterix.py",
+      "commands": ["simulate", "eval", "doctor"]
+    },
+    "touhou": {
+      "kind": "local",
+      "python": "3.12",
+      "browser": true,
+      "requirements": "environments/touhou/requirements.txt",
+      "runner": "scripts/touhou.py",
+      "commands": ["simulate", "eval", "profile", "doctor"],
+      "install_metadata": ["environments/touhou/pyproject.toml"]
+    },
+    "rhythm": {
+      "kind": "local",
+      "python": "3.12",
+      "browser": true,
+      "requirements": "environments/rhythm/requirements.txt",
+      "runner": "scripts/rhythm.py",
+      "commands": ["simulate", "eval", "profile", "doctor"],
+      "install_metadata": ["environments/rhythm/pyproject.toml"]
+    },
     "racing": {
       "kind": "external",
       "source": "roboolympics",
@@ -58,6 +81,13 @@
       "source": "pvz",
       "python": "3.12",
       "setup": "environments/pvz/setup.sh"
+    },
+    "pcba": {
+      "kind": "local",
+      "python": "3.11",
+      "requirements": "environments/pcba/requirements.txt",
+      "runner": "scripts/pcba.py",
+      "commands": ["eval", "report", "demo", "realtime-smoke", "view", "latency", "pipeline", "loop-demo", "simulate", "export", "showcase", "figures", "clock-preflight"]
     }
   }
 }

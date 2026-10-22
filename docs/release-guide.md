@@ -15,6 +15,7 @@ Linux, Python 3.10–3.12, and a Codex CLI signed in with a ChatGPT subscription
 ```bash
 git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
+uv run sol env setup asterix
 codex login
 uv run sol doctor --game asterix --auth
 
@@ -54,10 +55,10 @@ Every new run snapshots its code/recipe and emits `evaluation-record.json`; `sol
 The selected **early lane-commit-v14** checkpoint won seed304 **2:0** using real `gpt-6.1-sol / low / ultrafast` API decisions. The English-summary video variant won a separate **2:1** retake. GPT selects speed, stripe-relative offset and lookahead; a coded 5 Hz visual tracker supplies steering and bend speed limiting. These are hybrid Level 1 results, not direct GPT steering. Historical subscription groups used numeric camera features but omitted image contents; that input limitation is preserved in the record.
 
 ```bash
-# Use the separate Racing environment/dependencies described in docs/racing.md.
-python scripts/racing.py simulate --output runs/racing-dev101 --seed 101
+uv run sol env setup racing
+uv run sol simulate racing --output runs/racing-dev101 --seed 101
 # Real-time eval requires process-only credentials and an explicit capped ledger.
-python scripts/racing.py eval --output runs/racing-api304 --seed 304 \
+uv run sol eval racing --output runs/racing-api304 --seed 304 \
   --budget-ledger runs/racing-budget.json --stage-cap-usd 10
 ```
 
@@ -78,7 +79,7 @@ Linux, Python 3.10–3.12 and Chromium-compatible dependencies are required. Ins
 ```bash
 git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
-uv run playwright install --with-deps chromium
+uv run sol env setup touhou
 uv run sol doctor --game touhou
 
 # Reads OPENAI_API_KEY from process memory or prompts without echo.
@@ -137,19 +138,19 @@ public-input acknowledgement filter correction; later code changes retain
 separate validation status.
 
 ```bash
-python scripts/badminton.py simulate --source sol --seed 101 --duration 60 --output runs/badminton-sol101
-python scripts/badminton.py audit --output runs/badminton-sol101
+uv run sol simulate badminton --source sol --seed 101 --duration 60 --output runs/badminton-sol101
+uv run sol audit badminton --output runs/badminton-sol101
 # Actual realtime API; use the separate GPU environment described in the setup.
-python scripts/badminton.py preflight --output outputs/badminton-preflight
-python scripts/badminton.py eval --budget-usd 20 --env-file /absolute/path/to/.env --output outputs/badminton-api101
-python scripts/badminton.py audit --output outputs/badminton-api101
-python scripts/badminton.py report --episodes outputs/badminton-api101 --output outputs/badminton-api101
+uv run sol preflight badminton --output outputs/badminton-preflight
+uv run sol eval badminton --budget-usd 20 --env-file /absolute/path/to/.env --output outputs/badminton-api101
+uv run sol audit badminton --output outputs/badminton-api101
+uv run sol report badminton --episodes outputs/badminton-api101 --output outputs/badminton-api101
 ```
 
 Rhythm uses the selected v21 literal-time policy and the17s2.5s-approach setup:
 
 ```bash
-uv run playwright install --with-deps chromium
+uv run sol env setup rhythm
 uv run sol simulate rhythm --output runs/rhythm-dev-001
 uv run sol profile rhythm --episode artifacts/rhythm/selected --budget-usd 1 --max-calls 20 --output runs/rhythm-profile-001
 uv run sol eval rhythm --budget-usd 5 --max-calls 90 --output runs/rhythm-api-001
@@ -161,7 +162,7 @@ uv run sol record runs/rhythm-api-001 --registry artifacts/rhythm/evaluations.js
 ## PingPong: asynchronous tactical control
 
 [PingPong setup and commands](tabletennis.md) describe the separate native runtime.
-Use `python scripts/tabletennis.py eval --source rules` for rule control and
+Use `uv run sol eval tabletennis --source rules` for rule control and
 `--source api --model-workers 4 --slowdown 1` for actual GPT-6.1 Sol Low / Ultrafast
 strategy selection with explicit key-file and cumulative-budget arguments. The
 camera-only rule controller serves and executes joint motion; physics does not

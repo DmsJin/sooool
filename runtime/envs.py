@@ -13,7 +13,7 @@ import sys
 def load_registry(root: Path) -> dict:
     registry = json.loads((root / "environments/registry.json").read_text())
     for name, game in registry["games"].items():
-        if game["kind"] not in ("workspace", "external"):
+        if game["kind"] not in ("local", "external"):
             raise RuntimeError(f"Unknown environment kind for {name}: {game['kind']}")
     return registry
 
@@ -52,13 +52,13 @@ def _install_inputs(root: Path, game: dict) -> dict:
                 if str(included) not in inputs:
                     requirements(included)
 
-    if game["kind"] == "workspace":
-        for name in ("pyproject.toml", "uv.lock"):
-            inputs[str(root / name)] = (root / name).read_text()
-    elif "setup" in game:
+    if "setup" in game:
         inputs[str(root / game["setup"])] = (root / game["setup"]).read_text()
     else:
         requirements(root / game["requirements"])
+    # Local editable packages declare their installation metadata here.
+    for name in game.get("install_metadata", []):
+        inputs[str(root / name)] = (root / name).read_text()
     return inputs
 
 
@@ -69,29 +69,24 @@ def _definition(root: Path, registry: dict, game: dict) -> dict:
     return definition
 
 
-def _state_path(root: Path, name: str, game: dict) -> Path:
-    # Each checkout has its own uv workspace, while external venvs use the cache.
-    directory = root / ".venv/.sooool" if game["kind"] == "workspace" else cache_root() / "state"
-    return directory / f"{name}.json"
+def _state_path(name: str) -> Path:
+    return cache_root() / "state" / f"{name}.json"
 
 
 def status(root: Path, name: str) -> dict:
     registry = load_registry(root)
     name = canonical_name(registry, name)
     game = registry["games"][name]
-    python = root / ".venv/bin/python" if game["kind"] == "workspace" else cache_root() / "venvs" / name / "bin/python"
-    if game["kind"] == "workspace":
+    python = cache_root() / "venvs" / name / "bin/python"
+    if game["kind"] == "local":
         source, revision = root, _source_revision(root)
     else:
         spec = registry["sources"][game["source"]]
         revision = spec["revision"]
         source = cache_root() / "sources" / game["source"] / revision
     row = {"game": name, "status": "unprepared", "python": str(python), "source": str(source), "revision": revision}
-    state_path = _state_path(root, name, game)
+    state_path = _state_path(name)
     if not state_path.exists():
-        # Existing uv workspaces remain usable after the normal `uv sync` bootstrap.
-        if game["kind"] == "workspace":
-            row.update(source=str(root), status="ready" if python.exists() else "unprepared")
         return row
     state = json.loads(state_path.read_text())
     row.update(source=state["source"], revision=state["revision"])
@@ -140,31 +135,30 @@ def setup(root: Path, name: str, source: Path | None = None) -> dict:
     registry = load_registry(root)
     name = canonical_name(registry, name)
     game = registry["games"][name]
-    if source is not None and game["kind"] == "workspace":
-        raise RuntimeError(f"{name} uses this project's uv workspace")
+    if source is not None and game["kind"] == "local":
+        raise RuntimeError(f"{name} uses this project's local source; --source applies to external environments")
     definition = _definition(root, registry, game)
-    state_path = _state_path(root, name, game)
+    state_path = _state_path(name)
     # A failed install must not leave an old ready marker for a partly changed venv.
     state_path.unlink(missing_ok=True)
-    if game["kind"] == "workspace":
-        subprocess.run(["uv", "sync", "--locked", "--python", game["python"]], cwd=root, check=True)
-        source_path, python = root, root / ".venv/bin/python"
-        if game["browser"]:
-            subprocess.run([str(python), "-m", "playwright", "install", "chromium"], check=True)
+    if game["kind"] == "local":
+        source_path = root
     else:
         source_path = source.expanduser().resolve(strict=True) if source is not None else _prepare_source(registry, game)
-        _source_revision(source_path)
-        venv = cache_root() / "venvs" / name
-        python = venv / "bin/python"
-        if not python.exists():
-            subprocess.run(["uv", "venv", "--python", game["python"], str(venv)], check=True)
-        elif not subprocess.check_output([str(python), "--version"], text=True).strip().startswith(f"Python {game['python']}."):
-            subprocess.run(["uv", "venv", "--clear", "--python", game["python"], str(venv)], check=True)
-        if "setup" in game:
-            subprocess.run(["bash", str(root / game["setup"]), str(source_path), str(venv)], cwd=root, check=True)
-        else:
-            subprocess.run(["uv", "pip", "install", "--python", str(python), "-r", str(root / game["requirements"])],
-                           cwd=root, check=True)
+    _source_revision(source_path)
+    venv = cache_root() / "venvs" / name
+    python = venv / "bin/python"
+    if not python.exists():
+        subprocess.run(["uv", "venv", "--python", game["python"], str(venv)], check=True)
+    elif not subprocess.check_output([str(python), "--version"], text=True).strip().startswith(f"Python {game['python']}."):
+        subprocess.run(["uv", "venv", "--clear", "--python", game["python"], str(venv)], check=True)
+    if "setup" in game:
+        subprocess.run(["bash", str(root / game["setup"]), str(source_path), str(venv)], cwd=root, check=True)
+    else:
+        subprocess.run(["uv", "pip", "install", "--python", str(python), "-r", str(root / game["requirements"])],
+                       cwd=root, check=True)
+    if game.get("browser", False):
+        subprocess.run([str(python), "-m", "playwright", "install", "chromium"], check=True)
     state = {"definition": definition, "source": str(source_path), "revision": _source_revision(source_path),
              "local_source": source is not None}
     state_path.parent.mkdir(parents=True, exist_ok=True)
@@ -184,21 +178,7 @@ def _python_environment(python: str) -> dict:
     return env
 
 
-def workspace(root: Path, name: str, args: list[str]) -> None:
-    """Use the existing root workspace, including when sol was installed elsewhere."""
-    state = status(root, name)
-    if state["status"] != "ready":
-        raise RuntimeError(f"Environment {name} is {state['status']}; run: sol env setup {name}")
-    if Path(sys.prefix).resolve() == (root / ".venv").resolve():
-        return
-    python = state["python"]
-    os.execve(python, [python, "-m", "runtime.cli", *args], _python_environment(python))
-
-
-def launch(root: Path, name: str, args: list[str]) -> None:
-    registry = load_registry(root)
-    name = canonical_name(registry, name)
-    game = registry["games"][name]
+def _prepared_python(root: Path, name: str, game: dict) -> tuple[str, dict]:
     state = status(root, name)
     if state["status"] != "ready":
         raise RuntimeError(f"Environment {name} is {state['status']}; run: sol env setup {name}")
@@ -206,8 +186,41 @@ def launch(root: Path, name: str, args: list[str]) -> None:
     env = _python_environment(python)
     if "variables" in game:
         env.update(game["variables"])
-    env[game["source_variable"]] = state["source"]
-    os.execve(python, [python, str(root / game["runner"]), *args], env)
+    if "source_variable" in game:
+        env[game["source_variable"]] = state["source"]
+    return python, env
+
+
+def _launch_spec(root: Path, name: str, args: list[str]) -> tuple[list[str], dict]:
+    registry = load_registry(root)
+    name = canonical_name(registry, name)
+    game = registry["games"][name]
+    if "runner" not in game or args[0] not in game["commands"]:
+        raise RuntimeError(f"Environment {name} does not support {args[0]}")
+    python, env = _prepared_python(root, name, game)
+    return [python, str(root / game["runner"]), *args], env
+
+
+def launch(root: Path, name: str, args: list[str]) -> None:
+    """Replace the CLI process with the registered game's prepared runner."""
+    command, env = _launch_spec(root, name, args)
+    os.execve(command[0], command, env)
+
+
+def run_script(root: Path, name: str, script: Path, args: list[str]) -> None:
+    """Use a game's prepared interpreter for an existing standalone game tool."""
+    registry = load_registry(root)
+    name = canonical_name(registry, name)
+    python, env = _prepared_python(root, name, registry["games"][name])
+    if Path(sys.prefix).resolve() != Path(python).parent.parent.resolve():
+        os.execve(python, [python, str(script), *args], env)
+
+
+def check(root: Path, name: str, args: list[str]) -> dict:
+    """Collect one doctor's JSON result in its game's prepared interpreter."""
+    command, env = _launch_spec(root, name, ["doctor", *args])
+    result = subprocess.run(command, env=env, check=True, capture_output=True, text=True)
+    return json.loads(result.stdout)
 
 
 def main(root: Path, argv: list[str]) -> None:

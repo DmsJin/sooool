@@ -93,7 +93,8 @@ def execute_chunk(env,actions,*,capture_time,capture_wall,ttl,stop,log):
 
 def freeze(out,config):
     hashes={}
-    paths=[ROOT/'scripts/pcba.py',ROOT/'runtime/subscription.py',ROOT/'runtime/cli.py']
+    paths=[ROOT/'scripts/pcba.py',ROOT/'runtime/subscription.py',ROOT/'runtime/cli.py',
+           ROOT/'runtime/envs.py',ROOT/'environments/registry.json']
     paths+=list((ROOT/'environments/pcba').rglob('*'))+list(POLICY.rglob('*'))
     for path in sorted(paths):
         if not path.is_file() or '__pycache__' in path.parts:continue

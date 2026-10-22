@@ -40,7 +40,8 @@ def record_run(out,mode,recipe,returncode=0):
 def prepare(out,mode,recipe,hypothesis):
     if out.exists():raise ValueError('Output must be new; do not overwrite an evaluation')
     files={}
-    for base in [ENGINE,ROOT/'policies/racing',ROOT/'profiles/racing',ROOT/'recipes/racing.json',pathlib.Path(__file__)]:
+    for base in [ENGINE,ROOT/'policies/racing',ROOT/'profiles/racing',ROOT/'recipes/racing.json',ROOT/'runtime/cli.py',ROOT/'runtime/envs.py',
+                 ROOT/'environments/registry.json',pathlib.Path(__file__)]:
         for p in ([base] if base.is_file() else sorted(base.rglob('*'))):
             if p.is_file() and '__pycache__' not in p.parts:
                 rel=p.relative_to(ROOT);files[str(rel)]=digest(p)

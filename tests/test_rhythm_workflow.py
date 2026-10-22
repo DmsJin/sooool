@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 from types import SimpleNamespace
-from runtime import cli
+from environments.rhythm import cli as rhythm_cli
 from runtime.rhythm import ledger,append_record
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -75,14 +75,14 @@ class RhythmWorkflow(unittest.TestCase):
         for value in [None,'NaN','-1']:
             args=['sol','eval','rhythm']+(['--budget-usd',value] if value else [])
             with patch.object(sys,'argv',args),patch('runtime.rhythm.evaluate') as run:
-                with self.assertRaises(SystemExit):cli.main()
+                with self.assertRaises(SystemExit):rhythm_cli.main([sys.argv[1], *sys.argv[3:]])
                 run.assert_not_called()
 
     def test_real_eval_dispatch_does_not_run_simulation(self):
         with tempfile.TemporaryDirectory() as t:
             out=Path(t)/'run'
             with patch.object(sys,'argv',['sol','eval','rhythm','--budget-usd','1','--output',str(out)]),patch('runtime.rhythm.evaluate',return_value={}) as live,patch('runtime.rhythm.simulate') as sim:
-                cli.main()
+                rhythm_cli.main([sys.argv[1], *sys.argv[3:]])
             live.assert_called_once();sim.assert_not_called()
             self.assertEqual(json.loads((out/'manifest.json').read_text())['mode'],'realtime_api')
 

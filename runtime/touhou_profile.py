@@ -10,7 +10,7 @@ import time
 
 
 def profile(root,a):
-    from runtime.cli import freeze
+    from runtime.run_support import freeze
     sys.path.insert(0,str(root/'environments/touhou'))
     from research.api_client import ApiClient
     from research.budget import BudgetLedger
