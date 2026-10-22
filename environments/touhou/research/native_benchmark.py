@@ -33,7 +33,7 @@ def dist(values):return {'n':len(values),'p50':quantile(values,.5),'p95':quantil
 
 def make_blocks(dataset:Path,repeats=3,seed=20261015):
     from .policies import make_prompt
-    from .wire_schema import grounded_schema,schema_hash
+    from .wire_schema import grounded_schema
     if type(repeats) is not int or repeats<1:raise ValueError('Positive repeats required')
     manifest=load(dataset/'manifest.json')
     items=[(case,repeat) for case in manifest['cases'] for repeat in range(repeats)]
@@ -53,8 +53,7 @@ def make_blocks(dataset:Path,repeats=3,seed=20261015):
             if actual!=image['sha256']:raise ValueError('Screenshot hash drift')
             images.append({'path':str(path),'sha256':actual,'frame':image['frame']})
         blocks.append({'id':index,'case_id':case['id'],'repeat':repeat,'order':list(order),
-                       'prompt':prompt,'prompt_sha256':digest(prompt.encode()),'images':images,
-                       'schema_sha256':schema_hash(schema)})
+                       'prompt':prompt,'images':images})
     return blocks,schema
 
 
@@ -147,9 +146,7 @@ def run(dataset:Path,output:Path,suite:Path,repeats=3,workers=8,seed=20261015):
     if type(workers) is not int or not 1<=workers<=8:raise ValueError('At most8 actual calls')
     output.mkdir(parents=True,exist_ok=False)
     blocks,schema=make_blocks(dataset,repeats,seed)
-    save(output/'frozen_blocks.json',{'seed':seed,'workers':workers,'schema':schema,'blocks':blocks,
-         'policy_sha256':digest((Path(__file__).parent/'policies.py').read_bytes()),
-         'subscription_sha256':digest((Path(__file__).parent/'subscription.py').read_bytes())})
+    save(output/'frozen_blocks.json',{'seed':seed,'workers':workers,'schema':schema,'blocks':blocks})
     all_records=[]
     def lane(index):
         clients={};initialization={};local=[]
@@ -158,9 +155,7 @@ def run(dataset:Path,output:Path,suite:Path,repeats=3,workers=8,seed=20261015):
                 for position,arm in enumerate(block['order']):
                     directory=output/f"block_{block['id']:03d}_{arm}";directory.mkdir()
                     record={'block_id':block['id'],'case_id':block['case_id'],'repeat':block['repeat'],
-                            'arm':arm,'position':position,'prompt_sha256':block['prompt_sha256'],
-                            'image_sha256s':[i['sha256'] for i in block['images']],
-                            'schema_sha256':block['schema_sha256'],'response':None,'valid_contract':False}
+                            'arm':arm,'position':position,'response':None,'valid_contract':False}
                     started=time.perf_counter()
                     try:
                         if arm not in clients and arm not in initialization:

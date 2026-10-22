@@ -6,7 +6,6 @@ No official-Harbor claim: this is a local native-protocol research validation.
 import argparse
 import concurrent.futures as cf
 import getpass
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -36,9 +35,8 @@ def main():
                           'slowdown':a.slowdown,'capacity':a.capacity,'paid_calls':0}));return
     a.output.mkdir(parents=True,exist_ok=False)
     (a.output/'source').mkdir();(a.output/'observations').mkdir();(a.output/'inputs').mkdir()
-    source_hashes={}
     for path in Path(__file__).parent.glob('*.py'):
-        raw=path.read_bytes();(a.output/'source'/path.name).write_bytes(raw);source_hashes[path.name]=hashlib.sha256(raw).hexdigest()
+        raw=path.read_bytes();(a.output/'source'/path.name).write_bytes(raw)
     (a.output/'profile.json').write_bytes(a.profile.read_bytes())
     key=getpass.getpass('API key (memory only): ')
     budget=Budget(a.ledger);profile=json.loads(a.profile.read_text())
@@ -90,8 +88,7 @@ def main():
     def capture(name,text,image,options,state):
         import base64
         png=base64.b64decode(image);(a.output/'observations'/f'{name}.png').write_bytes(png)
-        record={'prompt':text,'options':options,'obs_step':state['step'],'point':state.get('point'),
-                'image_sha256':hashlib.sha256(png).hexdigest(),'prompt_sha256':hashlib.sha256(text.encode()).hexdigest()}
+        record={'prompt':text,'options':options,'obs_step':state['step'],'point':state.get('point')}
         (a.output/'inputs'/f'{name}.json').write_text(json.dumps(record))
     def execute(body,seen):
         reply=game.call('act',body)
@@ -112,9 +109,7 @@ def main():
         from candidates import Candidates,menu_prompt
         menus=Candidates(spec,mode=a.variant)
         protocol={**vars(a),'model':'gpt-6.1-sol','service_tier':'ultrafast','actual_upstream':'https://api.openai.com',
-                  'proxy_legacy_route_name':'openrouter','player_mode':'model','act_rule':'program','latency':'actual',
-                  'profile_sha256':hashlib.sha256(a.profile.read_bytes()).hexdigest(),'source_hashes':source_hashes,
-                  'native_proxy_sha256':hashlib.sha256((ROOT/'players/metering/think_proxy.py').read_bytes()).hexdigest()}
+                  'proxy_legacy_route_name':'openrouter','player_mode':'model','act_rule':'program','latency':'actual'}
         (a.output/'validation_protocol.json').write_text(json.dumps(protocol,default=str,indent=2))
         # A genuine model request establishes the native meter before start.
         view=game.call('observe',{});st=view['now'];v={'state':st,'observation':view['observation']}

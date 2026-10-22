@@ -54,9 +54,6 @@ def prepare(source:Path,output:Path):
         batches.append({'index':len(batches),'images':images,'past_completed_demonstration_controls':controls})
         last_visual=last
     bundle={'kind':'offline_completed_human_demonstration_learning','source_run':source.name,
-            'source_manifest_sha256':sha((source/'manifest.json').read_bytes()),
-            'source_verification_sha256':sha((source/'verification.json').read_bytes()),
-            'source_actions_sha256':sha((source/'actions.jsonl').read_bytes()),
             'human_summary':{'focus_fraction':.993,'moving_logical_time_fraction':.227,'median_moving_segment_frames':5,
                              'won_game_seconds':33.9,'hits':0,'bombs_used':0},
             'input_boundary':'Offline completed demo only. No engine/source/state, no future controls beyond current batch last screenshot, no evaluation case future labels.',
@@ -97,8 +94,7 @@ def study(bundle_dir:Path,output:Path,suite:Path):
             if response['meta'].get('model')!='gpt-6.1-sol':raise ValueError('Wrong model')
             estimates.extend(answer['boss_estimates']);notes=(notes+answer['motion_notes'])[-16:]
             previous_hypotheses=answer['policy_hypotheses'];chunking=answer['chunking_hypothesis']
-            results.append({'batch':batch['index'],'prompt_sha256':sha(prompt.encode()),
-                            'image_sha256s':[i['sha256'] for i in batch['images']],'response':response})
+            results.append({'batch':batch['index'],'response':response})
             save(output/'completed_prefix.json',results)
     finally:client.close()
     save(output/'learned_prior.json',{'kind':'provisional_sol_visual_demo_prior','training_source':bundle['source_run'],

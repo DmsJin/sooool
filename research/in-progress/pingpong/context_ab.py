@@ -2,7 +2,7 @@
 Preserves each saved prompt and native image byte-for-byte. Measures response
 latency and action-contract quality; agreement is not a win-rate estimate.
 """
-import argparse,base64,hashlib,json,random,statistics,time
+import argparse,base64,json,random,statistics,time
 from pathlib import Path
 from subscription import SubscriptionClient
 
@@ -31,7 +31,7 @@ def run(a):
  for sample in selected:
   seq=sample['seq'];p=a.source/f'decision_{seq:05d}'/'input.json';sample['prompt']=json.loads(p.read_text())['params']['input'][0]['text']
   sample['image']=base64.b64encode((a.source/'observations'/f'{seq:05d}.png').read_bytes()).decode()
- plan={'random_seed':814,'pairs':len(selected),'baseline':'current compact coding replacement with remaining Codex context','treatment':'requested compact prompt plus disabled unrelated blocks/tools and isolated config','effort':'low','paid_api_calls':0,'quality_scope':'JSON contract and paired action agreement; not ground-truth accuracy or closed-loop win rate','samples':[{'seq':s['seq'],'stratum':s['stratum'],'prompt_sha256':hashlib.sha256(s['prompt'].encode()).hexdigest(),'image_sha256':hashlib.sha256(base64.b64decode(s['image'])).hexdigest()} for s in selected]}
+ plan={'random_seed':814,'pairs':len(selected),'baseline':'current compact coding replacement with remaining Codex context','treatment':'requested compact prompt plus disabled unrelated blocks/tools and isolated config','effort':'low','paid_api_calls':0,'quality_scope':'JSON contract and paired action agreement; not ground-truth accuracy or closed-loop win rate','samples':[{'seq':s['seq'],'stratum':s['stratum']} for s in selected]}
  (a.output/'plan.json').write_text(json.dumps(plan,indent=2))
  clients={};rows=[];started=time.monotonic()
  try:

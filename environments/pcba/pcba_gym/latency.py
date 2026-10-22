@@ -2,7 +2,6 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 import argparse
-import hashlib
 import json
 import queue
 import statistics
@@ -34,8 +33,6 @@ def benchmark(output,source):
         d=source/f'call-{number:03d}'/'model'
         prompt=(d/'prompt.txt').read_text();images=[(d/f'image_{i}.png').read_bytes() for i in range(3)]
         inputs.append((prompt,images))
-    write(out/'input-hashes.json',[{'sample':SAMPLES[i],'prompt_sha256':hashlib.sha256(p.encode()).hexdigest(),
-            'images_sha256':[hashlib.sha256(v).hexdigest() for v in imgs]} for i,(p,imgs) in enumerate(inputs)])
     clients=[];rows=[];cohorts=[];error=None
     try:
         for i in range(4):

@@ -4,7 +4,7 @@ This runs before gameplay and never interprets the image or makes a game action.
 Counting-endpoint billing is not assumed free: its original conservative
 reservation remains uncertain even after a successful count response.
 """
-import argparse, asyncio, base64, getpass, hashlib, json, struct, uuid
+import argparse, asyncio, base64, getpass, json, struct, uuid
 from pathlib import Path
 import httpx
 from .scheduler import BudgetLedger, TokenPricing
@@ -41,8 +41,7 @@ async def run(args, key):
             raise ValueError('Unexpected token counting response')
         certificate = {'schema': 1, 'model': payload['model'], 'detail': args.detail,
             'width': width, 'height': height, 'framed_image_input_tokens': count,
-            'count_request_sha256': hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest(),
-            'image_sha256': hashlib.sha256(png).hexdigest(), 'response_object': data['object'],
+            'response_object': data['object'],
             'billing': 'full_uncertain_reservation_retained', 'ledger_request_id': rid,
             'reserved_micros': 184320,
             'reference': 'https://developers.openai.com/api/docs/guides/token-counting'}

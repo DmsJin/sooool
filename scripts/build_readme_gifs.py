@@ -1,6 +1,5 @@
 """Rebuild README highlights from the local source paths in the manifest. No model calls."""
 import argparse
-import hashlib
 import json
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
@@ -38,9 +37,7 @@ def build(item):
     if source.resolve() != companion.resolve():
         subprocess.run(cmd + ['-vf', filt, '-an', '-c:v', 'libx264', '-crf', '20',
                              '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(companion)], check=True)
-    item.update(bytes=target.stat().st_size,
-                source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
-                gif_sha256=hashlib.sha256(target.read_bytes()).hexdigest())
+    item.update(bytes=target.stat().st_size)
     print(name, target.stat().st_size, flush=True)
     return item
 

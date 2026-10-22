@@ -52,7 +52,6 @@ class Records(unittest.TestCase):
             assess(out, 'reject', 'Retain this attempt.')
             rows = [json.loads(line) for line in (out/'assessments.jsonl').read_text().splitlines()]
             self.assertEqual([row['decision'] for row in rows], ['diagnostic', 'reject'])
-            self.assertTrue(all(row['manifest_sha256'] == record['manifest_sha256'] for row in rows))
 
     def test_registration_is_idempotent_and_decisions_append_for_every_game(self):
         providers = {'asterix': 'subscription', 'touhou': 'api', 'rhythm': 'api', 'racing': 'api',

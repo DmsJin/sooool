@@ -290,7 +290,7 @@ class Native:
    if e.get('method')=='turn/completed' and p.get('turn',{}).get('id')==turn:
     if p['turn'].get('status')!='completed':raise RuntimeError('native turn failed')
     break
-  answer='\n'.join(texts);meta={'wall_seconds':time.perf_counter()-started,'first_delta_seconds':first_delta,'syntax_json_ready_seconds':syntax_ready,'valid_json_ready_seconds':valid_ready,'agent_message_completed_seconds':message_done,'auth':'chatgpt','native_outer':self.outer,'model_requested':MODEL,'reasoning_requested':'low','service_tier_requested':'ultrafast','subscription_tier_verified':False,'image_input_detail':'auto','image_sha256':[hashlib.sha256(x).hexdigest() for x in images],'api_cost_usd':0,'token_usage':usage}
+  answer='\n'.join(texts);meta={'wall_seconds':time.perf_counter()-started,'first_delta_seconds':first_delta,'syntax_json_ready_seconds':syntax_ready,'valid_json_ready_seconds':valid_ready,'agent_message_completed_seconds':message_done,'auth':'chatgpt','native_outer':self.outer,'model_requested':MODEL,'reasoning_requested':'low','service_tier_requested':'ultrafast','subscription_tier_verified':False,'image_input_detail':'auto','api_cost_usd':0,'token_usage':usage}
   write(directory/'result.json',{'answer':answer,**meta})
   unsubscribe_started=time.perf_counter()
   self.rpc('thread/unsubscribe',{'threadId':thread})
@@ -400,7 +400,7 @@ def simulate(args):
  ego=Ego();tracker=Lane() if args.control=='lane' else Tracker(ego);origins={};odo_step=m.k;crash_count=0;invalid_before=-1
  ep=Episode(args.out/'episode.jsonl');ep.write('header',cfg=cfg.to_json(),sport=sport.name,revision=sport.revision,protocol='realtime',source_sha=None)
  config={k:str(v) if isinstance(v,pathlib.Path) else v for k,v in vars(args).items()}
- config.update(auth='camera-waypoint-reference-NOT-GPT' if args.reference_waypoints else 'chatgpt',native_outer=None if args.reference_waypoints else 'minimal',future_results_visible=False,api_cost_usd=0,source_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),profile_sha256=hashlib.sha256(args.profile.read_bytes()).hexdigest())
+ config.update(auth='camera-waypoint-reference-NOT-GPT' if args.reference_waypoints else 'chatgpt',native_outer=None if args.reference_waypoints else 'minimal',future_results_visible=False,api_cost_usd=0)
  write(args.out/'config.json',config)
  (args.out/'runner_snapshot.py').write_bytes(pathlib.Path(__file__).read_bytes())
  (args.out/'waypoints_snapshot.py').write_bytes(pathlib.Path(__file__).with_name('waypoints.py').read_bytes())

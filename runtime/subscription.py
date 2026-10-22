@@ -2,7 +2,6 @@
 from __future__ import annotations
 import base64
 from collections import deque
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -115,8 +114,7 @@ class SubscriptionClient:
                     'requested_service_tier':'default','native_config_service_tier':config['service_tier'],
                     'native_config_fast_mode':config['features']['fast_mode']},indent=2))
             (self.output/'transport.json').write_text(json.dumps({'auth':'chatgpt',
-                'model':'gpt-6.1-sol','effort':self.effort,'requested_service_tier':self.service_tier,'base_instructions_sha256':hashlib.sha256(self.base.encode()).hexdigest(),
-                'base_instructions':self.base,'direct_api_calls':0,'adapter':'portable app-server',
+                'model':'gpt-6.1-sol','effort':self.effort,'requested_service_tier':self.service_tier,'base_instructions':self.base,'direct_api_calls':0,'adapter':'portable app-server',
                 'quota_check_every_calls':self.quota_every,'prestarted_threads':self.prestart},indent=2))
             if self.prestart:self._start_prepare()
         except BaseException:

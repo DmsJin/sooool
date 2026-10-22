@@ -49,6 +49,7 @@ class StructuredClientTests(unittest.TestCase):
         self.assertEqual(session.calls[0]['json']['text']['format'], {'type': 'json_schema', 'name': 'touhou_grounded_plan', 'strict': True, 'schema': self.schema})
         expected_hash = hashlib.sha256(schema_text.encode()).hexdigest()
         self.assertEqual(result['meta']['shape']['schema_sha256'], expected_hash)
+        self.assertEqual(result['meta']['shape']['image_count'],1)
         row = next(iter(BudgetLedger(self.ledger).snapshot()['requests'].values()))
         self.assertEqual(row['reserved_usd'], str(reservation_usd('observe' + schema_text, 1, 128)))
         self.assertGreater(reservation_usd('observe' + schema_text, 1, 128), reservation_usd('observe', 1, 128))

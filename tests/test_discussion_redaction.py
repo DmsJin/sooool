@@ -1,5 +1,4 @@
 import importlib.util
-import hashlib
 import json
 import tempfile
 from pathlib import Path
@@ -54,8 +53,6 @@ class ArchiveScope(unittest.TestCase):
                                  '### assistant 2026-10-15T00:00:00Z\n\n52 PERFECT')
                 manifest = json.loads((dest/'manifest.json').read_text())
                 self.assertEqual(manifest['messages'], 1)
-                self.assertEqual(manifest['source_sha256'], hashlib.sha256(source.read_bytes()).hexdigest())
-                self.assertEqual(manifest['conversation_sha256'], hashlib.sha256((dest/'conversation.md').read_bytes()).hexdigest())
 
     def test_rhythm_refresh_retains_scope_without_changing_exported_message(self):
         self.check_refresh('rhythm')

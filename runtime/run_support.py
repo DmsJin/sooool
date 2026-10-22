@@ -1,7 +1,6 @@
 """Local HTTP serving and source snapshots shared by experiment runners."""
 from contextlib import contextmanager
 from functools import partial
-import hashlib
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
@@ -21,23 +20,19 @@ def serve(directory):
 
 def freeze(game,recipe,out, mode="subscription_with_simulated_profile"):
     out.mkdir(parents=True,exist_ok=False)
-    sources={}
     paths = [ROOT / directory for directory in ('environments/'+game, 'runtime', 'policies/'+game, 'profiles/'+game)]
     paths += [ROOT/'scripts'/f'{game}.py', ROOT/'environments/registry.json']
     for path in paths:
         for p in sorted(path.rglob('*')) if path.is_dir() else [path]:
             if p.is_file()and '__pycache__' not in p.parts:
                 rel=str(p.relative_to(ROOT))
-                data=p.read_bytes();sources[rel]=hashlib.sha256(data).hexdigest()
                 if p.suffix in ('.py','.js','.mjs','.json','.txt','.md','.css','.html','.toml'):
-                    target=out/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)
+                    target=out/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(p.read_bytes())
     if game=='asterix' and recipe.get('provider')=='openai_api':
         for name in ('api_client.py','budget.py'):
             rel='environments/touhou/research/'+name
-            data=(ROOT/rel).read_bytes();sources[rel]=hashlib.sha256(data).hexdigest()
-            target=out/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)
-    (out/'manifest.json').write_text(json.dumps({'game':game,'recipe':recipe,'source_sha256':sources,
-        'mode':mode,'real_time_api_acceptance':False,
+            target=out/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((ROOT/rel).read_bytes())
+    (out/'manifest.json').write_text(json.dumps({'game':game,'recipe':recipe,'mode':mode,'real_time_api_acceptance':False,
         'transport_adapter':{
             'subscription_with_simulated_profile':'native app-server subscription; sampled virtual timing',
             'real_time_subscription':'native app-server subscription; continuously advancing wall clock',

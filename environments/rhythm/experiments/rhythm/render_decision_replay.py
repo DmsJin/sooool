@@ -5,7 +5,6 @@ Captions are optional retrospective summaries, never recorded chain-of-thought.
 """
 import argparse
 from bisect import bisect_right
-import hashlib
 import json
 import statistics
 from pathlib import Path
@@ -167,7 +166,7 @@ def render(run_dir,captions_path,audio,output,language='zh',tail_s=0,frame_conte
     concat.extend([f"file '{target}'",'option framerate 1000000']);(out/'frames.ffconcat').write_text('\n'.join(concat)+'\n')
     video=out/'rhythm-original-speed-with-decisions.mp4'
     subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-f','concat','-safe','0','-i',str(out/'frames.ffconcat'),'-i',str(Path(audio).resolve()),'-vf','fps=30','-c:v','libx264','-preset','veryfast','-crf','20','-pix_fmt','yuv420p','-af','apad','-c:a','aac','-b:a','128k','-t',str(duration),'-movflags','+faststart',str(video)],check=True)
-    (out/'provenance.json').write_text(json.dumps({'source_run':str(run),'source_sha256':hashlib.sha256((run/'requests.jsonl').read_bytes()).hexdigest(),'audio_origin_ms':origin,'audio_origin_method':'median stable post-start audio diagnostics; startup fallback only if necessary','frame_content_lag_ms':frame_content_lag_ms,'duration_s':duration,'song_duration_s':song_duration,'language':language,'tail_s':tail_s,'speed':1,'continuous_recording':sensor_manifest.exists(),'gameplay_pixels':'Original captured PNGs, unmodified' if not captions_path else 'Original captured PNGs; only header/footer missing-glyph labels redrawn','corrected_labels':[] if not captions_path else ['正在演奏','DFJK 击打 · 空格暂停'],'decision_panel':'Original model JSON, public capture/receipt/execution clocks','captions':'Original live public explanation, same API response as action; not private chain of thought' if not captions_path else 'Retrospective subscription-generated visible evidence summaries; NOT recorded model reasoning','captions_file':str(Path(captions_path).resolve()) if captions_path else None,'audio':'Original preview remuxed, not recorded audio','frames':len(times)},ensure_ascii=False,indent=2))
+    (out/'provenance.json').write_text(json.dumps({'source_run':str(run),'audio_origin_ms':origin,'audio_origin_method':'median stable post-start audio diagnostics; startup fallback only if necessary','frame_content_lag_ms':frame_content_lag_ms,'duration_s':duration,'song_duration_s':song_duration,'language':language,'tail_s':tail_s,'speed':1,'continuous_recording':sensor_manifest.exists(),'gameplay_pixels':'Original captured PNGs, unmodified' if not captions_path else 'Original captured PNGs; only header/footer missing-glyph labels redrawn','corrected_labels':[] if not captions_path else ['正在演奏','DFJK 击打 · 空格暂停'],'decision_panel':'Original model JSON, public capture/receipt/execution clocks','captions':'Original live public explanation, same API response as action; not private chain of thought' if not captions_path else 'Retrospective subscription-generated visible evidence summaries; NOT recorded model reasoning','captions_file':str(Path(captions_path).resolve()) if captions_path else None,'audio':'Original preview remuxed, not recorded audio','frames':len(times)},ensure_ascii=False,indent=2))
     print(video)
 
 

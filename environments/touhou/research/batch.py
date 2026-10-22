@@ -1,5 +1,5 @@
 """Bounded multi-episode subscription evaluation; never invokes paid API."""
-import argparse,concurrent.futures as cf,json,pathlib,subprocess,sys,time,threading,shutil,hashlib
+import argparse,concurrent.futures as cf,json,pathlib,subprocess,sys,time,threading,shutil
 from .run_episode import write
 
 
@@ -8,7 +8,6 @@ def main():
  a=p.parse_args();a.config=a.config.resolve();a.output=a.output.resolve();spec=json.loads(a.config.read_text());a.output.mkdir(parents=True,exist_ok=False)
  jobs=spec['jobs'];results=[];lock=threading.Lock()
  source=a.output/'frozen_source';source.mkdir();shutil.copytree(pathlib.Path(__file__).parent,source/'research',ignore=shutil.ignore_patterns('__pycache__'))
- write(source/'sha256.json',{str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in source.rglob('*.py')})
  write(a.output/'protocol.json',spec)
  def one(job):
   name=job['name'];config={**spec['base'],**job['config']}

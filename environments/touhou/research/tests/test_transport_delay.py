@@ -55,7 +55,11 @@ class SourceAlignmentTests(unittest.TestCase):
             self.assertEqual(result['singleton_constant_image_counts'],[1,2,3])
             self.assertAlmostEqual(result['transport_audit'][0]['preserved_non_network_s'][0],.5)
             self.assertAlmostEqual(result['joint_delay_vectors_s'][0][0],3.6)
-            self.assertEqual(result['provenance']['new_serial_sha256'],sha(serial))
+            rows=[json.loads(line) for line in serial.read_text().splitlines()]
+            for row in rows:
+                shape=row['meta']['shape'];shape['image_count']=len(shape.pop('images'))
+            serial.write_text(''.join(json.dumps(row)+'\n' for row in rows))
+            self.assertEqual(build_profile(joint,serial,expected_serial=3,expected_joint=3),result)
 
     def test_source_hash_tampering_rejected(self):
         with tempfile.TemporaryDirectory() as temp:

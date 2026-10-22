@@ -4,7 +4,6 @@ No chart, game state, note coordinates or model action times are read.
 The resulting data drives trusted simulation conditions, never actor prompts.
 """
 import argparse
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -48,7 +47,6 @@ def extract(source, output):
         raise ValueError('No completed native timing samples')
     profile = {'schema': 1, 'kind': 'joint_native_transport_conditions',
                'source': str(source.resolve()),
-               'source_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
                'rows': rows, 'excluded_without_completed_metadata': excluded,
                'selection': 'Every completed response with public frame/snapshot/apply clocks; action readiness and request occupancy distinct; tails retained',
                'actor_exposure': 'None; these are trusted simulation conditions only',

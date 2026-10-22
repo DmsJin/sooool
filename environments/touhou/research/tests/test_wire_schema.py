@@ -76,7 +76,6 @@ class SchemaTest(unittest.TestCase):
                 for key, value in LEAN_NATIVE_SETTINGS.items():
                     self.assertEqual(key + '=' + json.dumps(value) in argv, lean)
                 self.assertEqual(response['meta']['lean_native'], lean)
-                self.assertEqual(bool(response['meta']['base_instructions_sha256']), lean)
                 client.close()
 
 

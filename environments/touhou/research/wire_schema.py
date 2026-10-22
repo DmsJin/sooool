@@ -68,23 +68,9 @@ def resolve_schema_order(candidate, override=None):
     return candidate in FORECAST_CANDIDATES if override is None else override
 
 
-def transmitted_schema_hash(schema, preserve):
-    return hashlib.sha256(json.dumps(schema,sort_keys=not preserve,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
-
-
-def validate_schema_order_config(config, schema=None):
+def validate_schema_order_config(config):
     if 'preserve_schema_order' in config and type(config['preserve_schema_order']) is not bool:
         raise ValueError('preserve_schema_order must be boolean')
     if 'preserve_schema_order' in config and config.get('structured') is not True:
         raise ValueError('Explicit schema order requires structured output')
-    preserve=resolve_schema_order(config.get('candidate',''),config.get('preserve_schema_order'))
-    if schema is None and config.get('structured'):
-        schema=decision_schema(config.get('candidate',''),config.get('chunk_size',1),config.get('max_duration',48))
-        if config.get('decision_brief'):
-            from .live_summary import add_brief_schema
-            schema=add_brief_schema(schema)
-    if 'schema_order_sha256' in config and config['schema_order_sha256']!=transmitted_schema_hash(schema,preserve):
-        raise ValueError('Schema property order differs from frozen configuration')
-    if 'schema_sha256' in config and config['schema_sha256']!=schema_hash(schema):
-        raise ValueError('Schema differs from frozen configuration')
-    return preserve
+    return resolve_schema_order(config.get('candidate',''),config.get('preserve_schema_order'))

@@ -35,7 +35,7 @@ class RealtimeProfileFixturesTest(unittest.TestCase):
         self.assertEqual(result,game);self.assertEqual(len(audit),3)
         for row in audit:
             removed=source[row['source_start_byte']:row['source_end_byte']]
-            self.assertEqual(digest(removed),row['removed_sha256']);self.assertEqual(len(removed),row['removed_bytes'])
+            self.assertEqual(removed.decode(),row['removed_utf8']);self.assertEqual(len(removed),row['removed_bytes'])
         with self.assertRaises(ValueError):remove_sim_appendices(source+JOINT.encode(),config)
         with self.assertRaises(ValueError):remove_sim_appendices(source.replace(b'original',b'bad').replace(b'Entire',b'bad')+b'\nArtificial latency stress: unknown text\n',config)
 
@@ -50,8 +50,10 @@ class RealtimeProfileFixturesTest(unittest.TestCase):
             self.assertTrue(all(r['slot']==0 for r in audit['fixtures']))
             for index,entry in enumerate(manifest['fixtures']):
                 self.assertEqual(entry['prompt'],f'Full GAME task; obs 1:{index}; latency historical 2.7s; gating; visualmemory; action format.\n')
-                self.assertEqual([digest((output/name).read_bytes()) for name in entry['images']],audit['fixtures'][index]['image_sha256'])
-            self.assertEqual(audit['model_configuration']['schema_sha256'],schema_hash(json.loads((output/'schema.json').read_text())))
+                for image_index,name in enumerate(entry['images']):
+                    source=episode/f"decision_{audit['fixtures'][index]['seq']:05d}"/f'image_{image_index}.png'
+                    self.assertEqual((output/name).read_bytes(),source.read_bytes())
+            self.assertEqual(json.loads((output/'schema.json').read_text()),grounded_schema(1,48))
             with self.assertRaises(FileExistsError):build_fixtures([episode],output,{1:1,2:1,3:2})
 
     def test_add_completed_seeds_and_reject_short_or_duplicate_population(self):

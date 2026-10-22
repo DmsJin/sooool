@@ -1,4 +1,3 @@
-import hashlib
 import json
 from pathlib import Path
 import sys
@@ -13,7 +12,6 @@ class SelectedPolicy(unittest.TestCase):
         p=ROOT/'policies/touhou/tracking-safe-intercept-v2';f=json.loads((p/'fixtures/input.json').read_text())
         task=brief_prompt(make_prompt('tracking_dodge_safe_intercept_v2',f['observation'],f['config'],f['profile']), 'en')
         self.assertEqual(task,(p/'fixtures/task-prompt.txt').read_text())
-        self.assertEqual(hashlib.sha256(task.encode()).hexdigest(),f['expected_prompt_sha256'])
         self.assertEqual(STRATEGIES['tracking_dodge_safe_intercept_v2'],(p/'policy.txt').read_text())
     def test_no_unselected_later_candidate_in_active_policy(self):
         self.assertNotIn('tracking_dodge_forecast_v9',STRATEGIES)

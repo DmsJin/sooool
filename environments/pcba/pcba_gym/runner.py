@@ -2,7 +2,6 @@
 from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO
 import argparse
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -105,17 +104,16 @@ def execute_chunk(env,actions,*,capture_time,capture_wall,ttl,stop,log):
 
 
 def freeze(out,config):
-    hashes={}
     paths=[ROOT/'scripts/pcba.py',ROOT/'runtime/subscription.py',ROOT/'runtime/cli.py',
            ROOT/'runtime/envs.py',ROOT/'runtime/options.py',ROOT/'runtime/evaluation.py',ROOT/'environments/registry.json']
     paths+=list((ROOT/'environments/pcba').rglob('*'))+list(POLICY.rglob('*'))
     for path in sorted(paths):
         if not path.is_file() or '__pycache__' in path.parts:continue
-        rel=path.relative_to(ROOT);payload=path.read_bytes();hashes[str(rel)]=hashlib.sha256(payload).hexdigest()
+        rel=path.relative_to(ROOT);payload=path.read_bytes()
         target=out/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(payload)
     write(out/'manifest.json',{'game':'pcba','mode':'actual_subscription_continuous_physics',
         'policy_kind':'general visual-language model emitting literal action chunks; no trained robot weights',
-        'source_sha256':hashes,'config':config,'direct_api_calls':0,'oracle_actions':False,
+        'config':config,'direct_api_calls':0,'oracle_actions':False,
         'observations':'pixels, measured robot state, declared device switches and public static station calibration',
         'electrical_test':'mock','suction':'ideal proximity weld','video':'rendered after execution from native recorded states and wall timestamps; see replay.json'})
 
