@@ -39,11 +39,11 @@ belt target speed and declared switches are public. Exact dynamic board poses,
 velocities, evaluator lap records and latent test results are not model inputs.
 
 ```bash
-export SOL_PCBA_PYTHON=.venv-pcba/bin/python
+uv run sol env setup pcba
 uv run sol loop-demo pcba --output runs/pcba-loop-oracle-new
 uv run sol pipeline pcba --layout loop --physics-process --concurrency 1 --duration 150 --max-calls 24 --output runs/pcba-loop-model-new
 # Offline video export from already-recorded native states; zero new model calls.
-$SOL_PCBA_PYTHON scripts/pcba.py export --source runs/pcba-loop-oracle-new
+uv run sol export pcba --source runs/pcba-loop-oracle-new
 ```
 
 `loop-demo` is explicitly an offline oracle validation: with `--unattended-seconds 45`, it deliberately lets the

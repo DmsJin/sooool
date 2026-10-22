@@ -24,7 +24,7 @@ The final Touhou seed-9 run completed as a game loss at 48.8167 game seconds: th
 
 A shallow clone of the committed source branch was installed in another fresh Python 3.12 virtual environment and passed doctor plus all six package contracts without fetching the evidence branch. The default tracked source/assets are approximately 16 MB.
 
-The original Rhythm and Touhou Gym packages are now installed through the root uv workspace. Their Gym API checkers, registered environment creation and complete environment episodes passed; those checks use no SOL policy and are not performance evidence.
+The earlier validation installed the Rhythm and Touhou Gym packages through the root uv workspace. Current setup installs each package in its game’s independent venv. Their Gym API checkers, registered environment creation and complete environment episodes passed; those checks use no SOL policy and are not performance evidence.
 
 The initial package validation used historical profile simulation and real subscription decisions. No paid API evaluation was run during that initial validation. Subsequent Touhou results are separately recorded in its record index. The frozen policies were not retuned to hide losses.
 
@@ -76,3 +76,26 @@ Offline validation: 47 root tests and 73 Rhythm contract/streaming/financial tes
 The portable confirmation used USD1.985646 in known charges. The malformed-credential migration attempt retains USD2.644320 in conservative reservations; it was not silently released. Cumulative experiment commitment is USD77.767684 of the user's USD80 ceiling,including all older uncertain reservations. No further paid test was started.
 
 After merging the latest PingPong main changes, root discovery ran 63 tests successfully (5 skipped) with its separate Numba, SciPy and video dependencies installed. The 73 Rhythm tests also passed. No hosted checks were configured on the PR at submission.
+
+## Independent environment setup (2026-10-22)
+
+The root venv contains only the `sol` launcher. Asterix, Touhou and Rhythm were
+prepared in separate Python 3.12 venvs. PCBA retained Python 3.11. All three
+original-game doctors passed, including Chromium 145.0.7632.6. The browser setup
+used verified upstream archives through a loopback mirror after a CDN interruption.
+
+- 28 launcher, preparation and record tests passed. Local Git fixtures cover
+  external-source setup, dependency changes, failed installs, arguments, working
+  directories, exit status and process termination.
+- 17 Asterix tests passed. Saved-action replay verified all 1,200 frames and 44
+  retained observations at the historical 500-point/two-life result. This is
+  replay evidence with zero model calls.
+- 149 Touhou research tests passed with six browser tests initially skipped.
+  Those six browser tests then passed against the local frontend. Eight Node
+  engine tests, seven root policy/record tests and the Gym checker also passed.
+- 73 Rhythm research tests, seven workflow tests and the Gym checker passed.
+- 29 PCBA tests passed in Python 3.11. The registered `realtime-smoke` command
+  rendered both cameras while physics advanced and rejected a stale command.
+
+These checks made no subscription or paid API model calls. External game build
+scripts and assets were not rebuilt for this launcher migration.

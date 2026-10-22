@@ -8,20 +8,17 @@ PASS / FAIL magazines and a separate HOLD tray. Camera views: `overview`, `top`,
 
 ## Setup and run
 
-Use a separate Python environment; the root workspace has different NumPy pins.
-From the repository root:
+Prepare the separate Python 3.11 environment from the repository root:
 
 ```bash
-uv venv --python 3.11 .venv-pcba
-uv pip install --python .venv-pcba/bin/python -r environments/pcba/requirements.txt
-.venv-pcba/bin/python scripts/pcba.py demo --output runs/pcba-demo-new
-.venv-pcba/bin/python scripts/pcba.py realtime-smoke --output runs/pcba-clock-new
-.venv-pcba/bin/python -m unittest discover -s tests -p test_pcba_environment.py
+uv run sol env setup pcba
+uv run sol demo pcba --output runs/pcba-demo-new
+uv run sol realtime-smoke pcba --output runs/pcba-clock-new
 ```
 
 The entrypoint selects Mesa EGL software rendering by default, with two llvmpipe
 threads. Set graphics variables before running to choose another renderer.
-On a desktop with a display, use `MUJOCO_GL=glfw ... scripts/pcba.py view`.
+On a desktop with a display, use `MUJOCO_GL=glfw uv run sol view pcba`.
 The scripted demo needs no server, model request, API credential or external robot CAD.
 For actual subscription control and reports, see [the PCBA integration guide](../../docs/pcba.md).
 
@@ -29,7 +26,7 @@ For actual subscription control and reports, see [the PCBA integration guide](..
 
 Add `environments/pcba` to Python's import path, then import `PCBATestCell` and
 `RealtimeSession` from `pcba_gym`. This is an explicit Python adapter, not yet a
-registered Gymnasium environment or an installed `sol` CLI subcommand.
+registered Gymnasium environment. Its `sol` commands use the shared registry.
 
 - `reset(seed)` returns public observations, with deterministic board jitter and
   private, seeded mock test outcomes. Every demo includes two PASS, two FAIL and one ERROR in a private permutation.

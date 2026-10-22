@@ -22,13 +22,14 @@ PASS/FAIL/ERROR result, open the fixture and sort the board. PASS/FAIL boards mu
 be fully inserted and supported by both rails of a vacant magazine slot; ERROR
 boards go to the separate amber tray.
 
-## Run without changing the root dependency pins
+## Prepare and run
 
-From the repository root, use the isolated PCBA Python environment:
+From the repository root, prepare the isolated PCBA environment:
 
 ```bash
-.venv-pcba/bin/python scripts/pcba.py demo --output runs/pcba-scripted-new
-.venv-pcba/bin/python scripts/pcba.py realtime-smoke --output runs/pcba-clock-new
+uv run sol env setup pcba
+uv run sol demo pcba --output runs/pcba-scripted-new
+uv run sol realtime-smoke pcba --output runs/pcba-clock-new
 ```
 
 For actual subscription control, select an installed standalone Codex CLI via
@@ -36,17 +37,15 @@ For actual subscription control, select an installed standalone Codex CLI via
 
 ```bash
 export SOL_CODEX_BIN=/absolute/path/to/codex
-.venv-pcba/bin/python -m runtime.cli eval pcba \
+uv run sol eval pcba \
   --service-tier priority --seed 0 --max-calls 80 --duration 600 --ttl 12 \
   --output runs/pcba-fast-new
-.venv-pcba/bin/python -m runtime.cli report pcba \
+uv run sol report pcba \
   --output runs/pcba-fast-new
 ```
 
-To use the normal root `sol` launcher with the isolated environment, set
-`SOL_PCBA_PYTHON=.venv-pcba/bin/python` and run
-`uv run sol eval pcba ...` (or `sol report pcba ...`) with the same arguments.
-The explicit module commands above use that interpreter directly.
+The launcher selects the prepared interpreter automatically.
+See [environment management](environments.md) for source and cache locations.
 
 `priority` is Codex Fast. `ultrafast` is an explicit alternative that must be
 confirmed by the native thread; the runner fails rather than silently changing

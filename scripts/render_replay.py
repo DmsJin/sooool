@@ -7,7 +7,8 @@ import subprocess
 import sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from runtime.cli import serve
+from runtime.run_support import serve
+from runtime.envs import run_script
 
 def rows(p):return [json.loads(x)for x in p.read_text().splitlines()]
 
@@ -57,5 +58,5 @@ def touhou(root,out,ffmpeg):
             if encoder.wait():raise RuntimeError('Encoder failed')
     return {'kind':'verified_applied_action_replay','game':'touhou','fps':15,'speed':1,'frames':count,'summary':summary,'model_calls':0}
 
-p=argparse.ArgumentParser();p.add_argument('game',choices=['asterix','touhou']);p.add_argument('episode',type=Path);p.add_argument('output',type=Path);p.add_argument('--ffmpeg',default='ffmpeg');a=p.parse_args();a.output.parent.mkdir(parents=True,exist_ok=True)
+p=argparse.ArgumentParser();p.add_argument('game',choices=['asterix','touhou']);p.add_argument('episode',type=Path);p.add_argument('output',type=Path);p.add_argument('--ffmpeg',default='ffmpeg');a=p.parse_args();run_script(ROOT, a.game, Path(__file__), sys.argv[1:]);a.output.parent.mkdir(parents=True,exist_ok=True)
 r=globals()[a.game](a.episode,a.output,a.ffmpeg);a.output.with_suffix('.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r,indent=2))

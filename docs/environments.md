@@ -10,17 +10,47 @@ export MUJOCO_EGL_DEVICE_ID=0  # use an allocated GPU
 uv run sol simulate tabletennis --output runs/tabletennis-001
 ```
 
-`setup` fetches the registered commit and installs the game's dependencies.
+`setup` installs one game into its own Python virtual environment.
+Local games use this checkout. External games fetch the registered commit.
 It reuses prepared sources and virtual environments. Launch commands select
 the matching Python and source directory without shell activation.
 They preserve the caller's working directory and relative output paths.
 An unprepared or outdated environment reports the required setup command.
 
-External sources, venvs and preparation records live in `~/.cache/sooool/`.
+External sources, all game venvs and preparation records live in `~/.cache/sooool/`.
 `XDG_CACHE_HOME` selects another cache location. Racing, Badminton and
 TableTennis share the pinned RoboOlympics source but have separate venvs.
-Asterix, Touhou and Rhythm use the existing project workspace.
-System graphics drivers and browser system libraries remain host prerequisites.
+Asterix, Touhou, Rhythm and PCBA use this checkout and separate cached venvs.
+PCBA retains Python 3.11. The three original games use Python 3.12.
+The root `.venv` contains only the `sol` launcher. Install only the games you need:
+
+```bash
+uv run sol env setup asterix
+uv run sol env setup touhou
+uv run sol env setup rhythm
+uv run sol env setup pcba
+```
+
+Touhou and Rhythm setup installs their Gym packages and Chromium. Asterix does
+not install browser dependencies. System graphics drivers, Node.js for Touhou's
+Gym bridge, and browser system libraries remain host prerequisites. On Linux,
+install missing Chromium system libraries with
+`uvx --from playwright==1.58.0 playwright install-deps chromium`.
+
+A setup installs dependencies once per game and reuses download caches. Subsequent
+launches reuse that game's venv. Setup records the checkout path and installation
+inputs. Re-run setup when switching checkouts or changing dependency declarations.
+Local source edits are used directly. `--source` applies only to external games.
+
+`sol doctor --game asterix` checks the prepared Asterix environment.
+`sol doctor --game touhou` and `sol doctor --game rhythm` check their browsers.
+`sol doctor` collects all three checks and fails if any check fails.
+Add `--auth` only when you want to check the native subscription login.
+
+The registry declares each runner's supported commands. All registered commands
+use the same launcher, including PCBA simulation, reports and video export.
+Unsupported commands fail explicitly. Existing replay and Asterix video scripts
+also select the prepared game interpreter when launched through the root Python.
 
 Use an existing checkout for development:
 

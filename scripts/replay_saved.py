@@ -9,7 +9,8 @@ from pathlib import Path
 import sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from runtime.cli import serve
+from runtime.run_support import serve
+from runtime.envs import run_script
 
 def rows(p):return [json.loads(x)for x in Path(p).read_text().splitlines()]
 
@@ -75,6 +76,7 @@ def asterix(root):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('game',choices=['rhythm','touhou','asterix']);p.add_argument('episode',type=Path);p.add_argument('--report',type=Path);a=p.parse_args()
+    run_script(ROOT, a.game, Path(__file__), sys.argv[1:])
     r=asyncio.run(rhythm(a.episode))if a.game=='rhythm'else globals()[a.game](a.episode)
     if a.report:a.report.parent.mkdir(parents=True,exist_ok=True);a.report.write_text(json.dumps(r,indent=2)+'\n')
     print(json.dumps(r,indent=2))

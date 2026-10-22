@@ -39,7 +39,7 @@ def simulate(root,recipe,out,a):
     env=modules(root)
     from experiments.rhythm.model_joint_training import run_episode
     from runtime.subscription import AsyncProvider
-    from runtime.cli import serve
+    from runtime.run_support import serve
     kw=dict(recipe['args'])
     if a.duration is not None and a.duration!=kw['duration']:raise ValueError('Duration must match the selected chart; use a separate recipe/chart for ablations')
     if a.seed is not None:kw['seed']=a.seed
@@ -55,7 +55,7 @@ def evaluate(root,recipe,out,a):
     if a.seed is not None:raise ValueError('Native selected evaluation uses a fixed retained chart; --seed is for simulation')
     env=modules(root)
     from experiments.rhythm.model_native import run
-    from runtime.cli import serve
+    from runtime.run_support import serve
     book,before=ledger(root,out,a)
     kw=dict(recipe['api'])
     if a.duration is not None and a.duration!=kw['duration']:raise ValueError('Duration must match the selected chart')
@@ -95,7 +95,7 @@ def accounting(out,before,after):
 
 def profile(root,a):
     """Sequentially replay retained public inputs; never execute an action."""
-    from runtime.cli import freeze
+    from runtime.run_support import freeze
     modules(root)
     from experiments.rhythm.providers import APIProvider
     from experiments.rhythm.model_lean_policy import parse

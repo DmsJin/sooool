@@ -100,7 +100,7 @@ def realtime(args, parser):
             (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
             snapshot = output / "source_snapshot"
             for name in ("environments/badminton", "policies/badminton", "profiles/badminton", "recipes/badminton-realtime.json",
-                         "runtime/cli.py", "scripts/badminton.py", "environments/touhou/research/budget.py"):
+                         "runtime/cli.py", "runtime/envs.py", "environments/registry.json", "scripts/badminton.py", "environments/touhou/research/budget.py"):
                 destination = snapshot / name
                 if (ROOT / name).is_dir():
                     shutil.copytree(ROOT / name, destination, ignore=shutil.ignore_patterns("__pycache__"))
@@ -194,7 +194,7 @@ def main(argv=None):
         manifest["repository_revision_is_base"] = True
         with tempfile.TemporaryDirectory(prefix="badminton-source-") as temp:
             for name in ("environments/badminton", "policies/badminton", "profiles/badminton",
-                         "recipes/badminton.json", "runtime/subscription.py", "runtime/cli.py", "scripts/badminton.py"):
+                         "recipes/badminton.json", "runtime/subscription.py", "runtime/cli.py", "runtime/envs.py", "environments/registry.json", "scripts/badminton.py"):
                 destination = Path(temp) / name
                 if (ROOT / name).is_dir():
                     shutil.copytree(ROOT / name, destination, ignore=shutil.ignore_patterns("__pycache__"))

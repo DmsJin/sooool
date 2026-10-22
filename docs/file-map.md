@@ -1,10 +1,12 @@
 # Read the core first
 
-Use the root README and recipes as the runnable interface. Environment READMEs describe their manual/native setup; retained research snapshots keep historical commands and absolute paths for provenance. [Current results and conditions](results.md) identifies the active policy and evidence for all six games.
+Use the root README, environment registry and recipes as the runnable interface.
+`runtime/cli.py` dispatches commands through `runtime/envs.py`. Each game owns its runner.
+`runtime/run_support.py` owns shared HTTP serving and source snapshots. Environment READMEs describe their manual/native setup; retained research snapshots keep historical commands and absolute paths for provenance. [Current results and conditions](results.md) identifies the active policy and evidence for all six games.
 
 | Purpose | Files |
 |---|---|
-| Portable entrypoint and run manifest | [`runtime/cli.py`](../runtime/cli.py) |
+| Command dispatch and run snapshots | [`runtime/cli.py`](../runtime/cli.py), [`runtime/envs.py`](../runtime/envs.py), [`runtime/run_support.py`](../runtime/run_support.py) |
 | Native SOL subscription transport | [`runtime/subscription.py`](../runtime/subscription.py) |
 | Exact default conditions | [`recipes/`](../recipes/) and [`policies/`](../policies/) |
 | Profile semantics and sample sources | [`profiles/README.md`](../profiles/README.md), [`timing.md`](timing.md) |

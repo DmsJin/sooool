@@ -27,6 +27,11 @@ BGM 由原 `thbgm.dat` 提取，OGG 长 179.97786848072562 秒，Web Audio Buffe
 
 X 为灵梦梦想封印式简化符卡：8 颗彩色球先展开旋转，随后逐颗追踪 Boss；每球命中伤害 30，沿途半径 38px 消弹，初始清屏，无敌 180 帧。符卡总时段 150 帧，期间不能叠放；仍不是原作所有数值/动画的精确复刻。
 
+## 在 sooool 中运行实验
+
+在仓库根目录运行 `uv run sol env setup touhou`，再使用 `uv run sol simulate touhou`。
+模型评估和预算参数见[运行指南](../../docs/touhou-development.md)。以下说明用于单独使用 Gymnasium 包。
+
 ## Gymnasium
 
 需要 Python >=3.10、Node.js >=18。无需浏览器、服务端或网络 API。Python 通过常驻 Node 子进程调用与前端完全相同的引擎（每步 1/60 秒）。

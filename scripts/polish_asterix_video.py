@@ -3,7 +3,14 @@ import argparse
 import json
 from pathlib import Path
 import subprocess
+import sys
 import wave
+
+if __name__ == '__main__':
+    root = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(root))
+    from runtime.envs import run_script
+    run_script(root, 'asterix', Path(__file__), sys.argv[1:])
 
 import numpy as np
 
