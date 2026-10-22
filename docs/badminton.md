@@ -15,7 +15,7 @@ they do not schedule response delivery.
 
 ```bash
 uv run sol preflight badminton --duration 10 --output outputs/badminton/preflight
-uv run sol eval badminton --budget-usd 15 --ledger outputs/badminton/budget.json --env-file /absolute/path/to/.env \
+uv run sol eval badminton --budget-usd 15 --ledger outputs/badminton/budget.json \
   --output outputs/badminton/api-101
 uv run sol audit badminton --output outputs/badminton/api-101
 uv run sol report badminton --episodes outputs/badminton/api-101 \
@@ -24,8 +24,8 @@ uv run sol report badminton --episodes outputs/badminton/api-101 \
 
 The equivalent console commands are `sol preflight badminton`, `sol eval badminton`,
 `sol audit badminton`, and `sol report badminton`. Preflight makes zero API calls.
-API credentials come from the explicitly selected env file or `OPENAI_API_KEY`;
-they are not retained. An external pinned source snapshot without Git metadata
+API credentials come from `OPENAI_API_KEY` or an interactive hidden prompt;
+they stay in process memory. An external pinned source snapshot without Git metadata
 requires `--environment-revision da1f787f775ea6524d698c0b063157ded4c0fef9`.
 The manifest distinguishes a declared snapshot revision from a Git checkout.
 
@@ -116,13 +116,13 @@ The tested Codex CLI is 0.162.1. Authentication remains outside this repository.
 
 ```bash
 # Rule-only smoke and native replay: zero model calls.
-uv run sol simulate badminton --source rules --duration 10 --output runs/badminton/smoke
+uv run sol simulate badminton --provider rules --duration 10 --output runs/badminton/smoke
 uv run sol audit badminton --output runs/badminton/smoke
 
 # Paired development windows, using the same seed and policy implementation.
-uv run sol simulate badminton --source rules --seed 101 --duration 60 --output runs/badminton/rules-101
+uv run sol simulate badminton --provider rules --seed 101 --duration 60 --output runs/badminton/rules-101
 uv run sol audit badminton --output runs/badminton/rules-101
-uv run sol simulate badminton --source sol --seed 101 --duration 60 --output runs/badminton/sol-profile-101
+uv run sol simulate badminton --provider subscription --seed 101 --duration 60 --output runs/badminton/sol-profile-101
 uv run sol audit badminton --output runs/badminton/sol-profile-101
 uv run sol report badminton --episodes runs/badminton/rules-101 runs/badminton/sol-profile-101 --output runs/badminton
 ```
@@ -197,7 +197,7 @@ case count or a policy-promotion threshold.
 measures exactly 10 distinct public camera observations through the realtime API
 transport. Use the same `--ledger` and dollar cap for later evaluations, and pass
 `--profile NEW_PROFILE/profile.json` to select the measurement. Historical API20
-evidence remains separately labeled. `sol eval badminton --source rules` runs the
+evidence remains separately labeled. `sol eval badminton --provider rules` runs the
 fixed tactical control with zero model calls and the same native match endpoint.
 
 ## Goal audit and source ownership

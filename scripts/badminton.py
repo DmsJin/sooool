@@ -2,14 +2,12 @@
 from __future__ import annotations
 
 import argparse
-from decimal import Decimal, InvalidOperation
 import importlib.metadata
 import json
 import os
 from pathlib import Path
 import platform
 import shutil
-import shlex
 import subprocess
 import sys
 import tempfile
@@ -18,6 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from environments.badminton.runner import audit_episode, run_episode
+from runtime.evaluation import recording
+from runtime.options import credential, positive_decimal
 
 
 def realtime(args, parser):
@@ -26,39 +26,19 @@ def realtime(args, parser):
     recipe = json.loads((ROOT / "recipes/badminton-realtime.json").read_text())
     config = dict(recipe["args"])
     config["ledger_path"] = None if args.ledger is None else str(args.ledger.resolve())
-    source = "sol" if args.source is None else args.source
-    if args.command == "profile" and source != "sol":
-        parser.error("profile measures the API; --source rules applies to matches")
+    source = args.source
     if args.seed is not None:
         config["seed"] = args.seed
     preflight = args.command == "preflight"
     if preflight:
         config["max_game_seconds"] = args.duration if args.duration is not None else 10
-    elif args.duration is not None:
-        parser.error("eval uses the native match endpoint; --duration is for preflight or simulation")
     budget = None
     key = None
     if not preflight and source != "rules":
-        try:
-            budget = Decimal(args.budget_usd)
-        except (InvalidOperation, TypeError):
-            parser.error("eval requires a finite positive --budget-usd")
-        if not budget.is_finite() or budget <= 0:
-            parser.error("eval requires a finite positive --budget-usd")
-        if args.env_file is not None:
-            for line in args.env_file.read_text().splitlines():
-                if line.strip().startswith("OPENAI_API_KEY="):
-                    values = shlex.split(line.strip().split("=", 1)[1], comments=True)
-                    if len(values) != 1:
-                        parser.error("Expected one OPENAI_API_KEY value in --env-file")
-                    key = values[0]
-                    break
-            if key is None:
-                parser.error("OPENAI_API_KEY is absent from --env-file")
-        else:
-            key = os.environ["OPENAI_API_KEY"]
-        if not key:
-            parser.error("OPENAI_API_KEY is empty")
+        if args.budget_usd is None:
+            parser.error("eval/profile requires --budget-usd")
+        budget = args.budget_usd
+        key = credential()
     output = args.output.resolve()
     if output.exists():
         parser.error("Realtime output must be a new directory")
@@ -100,7 +80,7 @@ def realtime(args, parser):
             (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
             snapshot = output / "source_snapshot"
             for name in ("environments/badminton", "policies/badminton", "profiles/badminton", "recipes/badminton-realtime.json",
-                         "runtime/cli.py", "runtime/envs.py", "environments/registry.json", "scripts/badminton.py", "environments/touhou/research/budget.py"):
+                         "runtime/cli.py", "runtime/envs.py", "runtime/options.py", "runtime/evaluation.py", "environments/registry.json", "scripts/badminton.py", "environments/touhou/research/budget.py"):
                 destination = snapshot / name
                 if (ROOT / name).is_dir():
                     shutil.copytree(ROOT / name, destination, ignore=shutil.ignore_patterns("__pycache__"))
@@ -113,20 +93,43 @@ def realtime(args, parser):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["simulate", "eval", "preflight", "audit", "report", "diagnose", "profile"])
-    parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--source", choices=["rules", "sol"])
-    parser.add_argument("--seed", type=int)
-    parser.add_argument("--duration", type=int)
-    parser.add_argument("--budget-usd")
-    parser.add_argument("--ledger", type=Path, help="Shared profiling and evaluation budget ledger")
-    parser.add_argument("--profile", type=Path, help="Explicit measured API latency profile")
-    parser.add_argument("--env-file", type=Path)
-    parser.add_argument("--environment-revision", help="Revision of an explicitly pinned external source snapshot")
-    parser.add_argument("--episodes", nargs="+", type=Path)
+    parser.set_defaults(provider=None,seed=None,duration=None,budget_usd=None,ledger=None,
+                        profile=None,environment_revision=None,episodes=None)
+    commands=parser.add_subparsers(dest="command",required=True)
+    providers={"simulate": ("subscription", "rules"), "eval": ("api", "rules"),
+               "profile": ("api",), "preflight": ("rules",)}
+    for command in ("simulate", "eval", "preflight", "audit", "report", "diagnose", "profile"):
+        child=commands.add_parser(command)
+        child.add_argument("--output",type=Path,required=True)
+        if command in providers:
+            child.add_argument("--provider",choices=providers[command],default=providers[command][0],
+                               help=f"Decision source (default: {providers[command][0]})")
+        if command in ("simulate","eval","preflight"):
+            child.add_argument("--seed",type=int)
+            child.add_argument("--profile",type=Path,help="Explicit measured API latency profile")
+        if command in ("simulate","preflight"):
+            child.add_argument("--duration",type=int,help="Game seconds; simulation supports 10 or 60")
+        if command in ("eval","profile"):
+            child.add_argument("--budget-usd",type=positive_decimal,help="Cumulative ledger ceiling in USD")
+            child.add_argument("--ledger",type=Path,help="Shared profiling and evaluation budget ledger")
+        if command in ("eval","preflight","profile"):
+            child.add_argument("--environment-revision",help="Revision of an explicitly pinned external source snapshot")
+        if command in ("report","diagnose","profile"):
+            child.add_argument("--episodes",nargs="+",type=Path)
     args = parser.parse_args(argv)
     if args.duration is not None and args.duration <= 0:
         parser.error("--duration must be positive")
+    if args.command in providers:
+        args.source = "rules" if args.provider == "rules" and args.command != "preflight" else "sol"
+        with recording(args.output, game="badminton", command=args.command, provider=args.provider,
+                       clock="virtual" if args.command == "simulate" else "none" if args.command == "profile" else "wall",
+                       result_file="profile.json" if args.command == "profile" else "summary.json"):
+            return _run_selected(args, parser)
+    args.source = None
+    return _run_selected(args, parser)
+
+
+def _run_selected(args, parser):
     os.environ["MUJOCO_GL"] = "egl"
     os.environ["PYOPENGL_PLATFORM"] = "egl"
     if args.command == "diagnose":
@@ -194,7 +197,7 @@ def main(argv=None):
         manifest["repository_revision_is_base"] = True
         with tempfile.TemporaryDirectory(prefix="badminton-source-") as temp:
             for name in ("environments/badminton", "policies/badminton", "profiles/badminton",
-                         "recipes/badminton.json", "runtime/subscription.py", "runtime/cli.py", "runtime/envs.py", "environments/registry.json", "scripts/badminton.py"):
+                         "recipes/badminton.json", "runtime/subscription.py", "runtime/cli.py", "runtime/envs.py", "runtime/options.py", "runtime/evaluation.py", "environments/registry.json", "scripts/badminton.py"):
                 destination = Path(temp) / name
                 if (ROOT / name).is_dir():
                     shutil.copytree(ROOT / name, destination, ignore=shutil.ignore_patterns("__pycache__"))

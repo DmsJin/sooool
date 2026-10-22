@@ -4,11 +4,12 @@ No artificial model delay, no paused physics during decisions. The canonical pro
 is configured with THINK_UPSTREAM=https://api.openai.com (its compatibility env
 variable for the credential is called OPENROUTER_API_KEY; no OpenRouter is used).
 """
-import argparse,collections,concurrent.futures as cf,getpass,json,os,pathlib
+import argparse,collections,concurrent.futures as cf,json,os,pathlib
 import signal,socket,subprocess,sys,threading,time
 import requests
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent))
 from run import WORK_ROOT,API,Budget,MODEL,MINIMAL_SYSTEM,ROOT,parse,controller_prompt,schedule_commands,write,append,camera_metrics
+from runtime.options import credential
 from waypoints import Ego,Tracker,parse_points
 from lane import Lane,parse_lane
 from explained_api import ExplainedAPI
@@ -35,11 +36,12 @@ def main():
   (a.out/(name.removesuffix('.py')+'_snapshot.py')).write_bytes((WORK_ROOT/name).read_bytes())
  (a.out/'live_explained_snapshot.py').write_bytes(pathlib.Path(__file__).read_bytes())
  (a.out/'explained_api_snapshot.py').write_bytes(pathlib.Path(__file__).with_name('explained_api.py').read_bytes())
- key=None if a.executor_preflight else getpass.getpass('API credential for real-time verification (memory only): ')
+ key=None if a.executor_preflight else credential()
  data=a.out/'service';data.mkdir();gameport=port();proxyport=port();procs=[];clients=[];local=threading.local();clientlock=threading.Lock()
  profile=json.loads(a.profile.read_text());budget=Budget(a.budget)
  env=dict(os.environ);env.update(MUJOCO_GL='egl',LP_NUM_THREADS='1',RCB_DATA=str(data),RO_PLUGIN=str(ROOT/'sports/racing/plugin.py'),RO_SPORT='racing',RO_FORMAT='match',RO_SEATS='A',RO_SEED=str(a.seed),RO_LEVEL=str(a.level),RO_FIRST='A',RO_SLOWDOWN=str(a.slowdown),RCB_ACTION_LEVEL='low',RCB_PLAY='program',RCB_ACT_RULE='program',RCB_PLAYER_MODE='model',RCB_PORT=str(gameport),RCB_RENDER_VIDEO='0',RCB_BROADCAST='0')
  if a.executor_preflight:env['RCB_PLAYER_MODE']='oracle'
+ env.pop('OPENAI_API_KEY',None)
  proxyenv=dict(env);proxyenv.update(THINK_UPSTREAM='https://api.openai.com',OPENROUTER_API_KEY=key,THINK_MODEL=MODEL,THINK_USAGE_FILE=str(data/'think_usage_A.json'),THINK_CALLS_FILE=str(data/'think_calls_A.jsonl'),THINK_RATE_LIMIT_RETRIES='0')
  launches=[('service',[sys.executable,'-m','core.serve'],env)]
  if not a.executor_preflight:launches.insert(0,('proxy',[sys.executable,str(ROOT/'players/metering/think_proxy.py'),str(proxyport)],proxyenv))

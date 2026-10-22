@@ -63,8 +63,8 @@ update memory. Guards validate model intentions; they do not choose destinations
 Unknown test results stay unknown, even when a parent is expected to finish.
 
 ```bash
-uv run sol pipeline pcba --concurrency 1 --duration 120 --max-calls 24 --output runs/pcba-pipeline-c1-new
-uv run sol pipeline pcba --concurrency 2 --duration 120 --max-calls 36 --output runs/pcba-pipeline-c2-new
+uv run sol pipeline pcba --concurrency 1 --wall-seconds 120 --max-calls 24 --output runs/pcba-pipeline-c1-new
+uv run sol pipeline pcba --concurrency 2 --wall-seconds 120 --max-calls 36 --output runs/pcba-pipeline-c2-new
 ```
 
 The same Fast tier, seed, TTL and pipeline policy are used for both live checks.
@@ -153,9 +153,9 @@ not realtime or 1x claims. Defaults: loop layout, top camera, lean output, stagg
 (3 invalid translations, 1 expired 13.8 s draw).
 
 ```bash
-uv run sol simulate pcba --profile runs/pcba-loop-latency-tuned-c2-v1 --sim-duration 150 --max-calls 40 --output runs/pcba-sim-new
+uv run sol simulate pcba --profile runs/pcba-loop-latency-tuned-c2-v1 --duration 150 --max-calls 40 --output runs/pcba-sim-new
 uv run sol pipeline pcba --layout loop --physics-process --camera-mode top --output-mode lean \
-  --schedule stagger --concurrency 2 --transport-tuning --duration 180 --max-calls 40 --output runs/pcba-loop-tuned-new
+  --schedule stagger --concurrency 2 --transport-tuning --wall-seconds 180 --max-calls 40 --output runs/pcba-loop-tuned-new
 ```
 
 ## Step margin and public top-camera calibration (2026-10-17, second round)

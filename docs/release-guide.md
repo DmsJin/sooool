@@ -17,7 +17,6 @@ git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
 uv run sol env setup asterix
 codex login
-uv run sol doctor --game asterix --auth
 
 # Development: historical delay samples schedule model actions in virtual time.
 uv run sol simulate asterix --output runs/asterix-development
@@ -59,7 +58,7 @@ uv run sol env setup racing
 uv run sol simulate racing --output runs/racing-dev101 --seed 101
 # Real-time eval requires process-only credentials and an explicit capped ledger.
 uv run sol eval racing --output runs/racing-api304 --seed 304 \
-  --budget-ledger runs/racing-budget.json --stage-cap-usd 10
+  --ledger runs/racing-budget.json --stage-cap-usd 10
 ```
 
 [Watch/download: seed304, edited win → loss → win](../artifacts/videos/racing-seed304-win-loss-win.mp4). Original heat IDs, clock and score remain visible; actual API explanations and actions stay synchronized. [How to track an evaluation](../research/racing/RECORDS.md) defines hypotheses, full cohorts, replay checks, costs and promotion gates. Later development branches are outside this selected lineage.
@@ -80,7 +79,6 @@ Linux, Python 3.10–3.12 and Chromium-compatible dependencies are required. Ins
 git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
 uv run sol env setup touhou
-uv run sol doctor --game touhou
 
 # Reads OPENAI_API_KEY from process memory or prompts without echo.
 # New run, explicit $5 ledger cap, at most 100 requests; no inference-time pause.
@@ -138,11 +136,11 @@ public-input acknowledgement filter correction; later code changes retain
 separate validation status.
 
 ```bash
-uv run sol simulate badminton --source sol --seed 101 --duration 60 --output runs/badminton-sol101
+uv run sol simulate badminton --provider subscription --seed 101 --duration 60 --output runs/badminton-sol101
 uv run sol audit badminton --output runs/badminton-sol101
 # Actual realtime API; use the separate GPU environment described in the setup.
 uv run sol preflight badminton --output outputs/badminton-preflight
-uv run sol eval badminton --budget-usd 20 --env-file /absolute/path/to/.env --output outputs/badminton-api101
+uv run sol eval badminton --budget-usd 20 --output outputs/badminton-api101
 uv run sol audit badminton --output outputs/badminton-api101
 uv run sol report badminton --episodes outputs/badminton-api101 --output outputs/badminton-api101
 ```
@@ -162,9 +160,9 @@ uv run sol record runs/rhythm-api-001 --registry artifacts/rhythm/evaluations.js
 ## PingPong: asynchronous tactical control
 
 [PingPong setup and commands](tabletennis.md) describe the separate native runtime.
-Use `uv run sol eval tabletennis --source rules` for rule control and
-`--source api --model-workers 4 --slowdown 1` for actual GPT-6.1 Sol Low / Ultrafast
-strategy selection with explicit key-file and cumulative-budget arguments. The
+Use `uv run sol eval tabletennis --provider rules` for rule control and
+`--provider api --model-workers 4 --slowdown 1` for actual GPT-6.1 Sol Low / Ultrafast
+strategy selection with process-only credentials and an explicit cumulative budget. The
 camera-only rule controller serves and executes joint motion; physics does not
 wait for either the API or the two native planning workers. `sol eval pingpong`
 and `sol report pingpong` route to this implementation.

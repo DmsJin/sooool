@@ -84,7 +84,8 @@ def status(root: Path, name: str) -> dict:
         spec = registry["sources"][game["source"]]
         revision = spec["revision"]
         source = cache_root() / "sources" / game["source"] / revision
-    row = {"game": name, "status": "unprepared", "python": str(python), "source": str(source), "revision": revision}
+    row = {"game": name, "status": "unprepared", "python": str(python), "source": str(source),
+           "revision": revision, "commands": game.get("commands", [])}
     state_path = _state_path(name)
     if not state_path.exists():
         return row
@@ -158,6 +159,9 @@ def setup(root: Path, name: str, source: Path | None = None) -> dict:
         subprocess.run(["uv", "pip", "install", "--python", str(python), "-r", str(root / game["requirements"])],
                        cwd=root, check=True)
     if game.get("browser", False):
+        if sys.platform.startswith("linux"):
+            command = shlex.join([str(python), "-m", "playwright", "install-deps", "chromium"])
+            print(f"Chromium host libraries are a prerequisite. Install them with: {command}", file=sys.stderr)
         subprocess.run([str(python), "-m", "playwright", "install", "chromium"], check=True)
     state = {"definition": definition, "source": str(source_path), "revision": _source_revision(source_path),
              "local_source": source is not None}
@@ -216,27 +220,28 @@ def run_script(root: Path, name: str, script: Path, args: list[str]) -> None:
         os.execve(python, [python, str(script), *args], env)
 
 
-def check(root: Path, name: str, args: list[str]) -> dict:
-    """Collect one doctor's JSON result in its game's prepared interpreter."""
-    command, env = _launch_spec(root, name, ["doctor", *args])
-    result = subprocess.run(command, env=env, check=True, capture_output=True, text=True)
-    return json.loads(result.stdout)
-
-
 def main(root: Path, argv: list[str]) -> None:
     registry = load_registry(root)
     parser = argparse.ArgumentParser(prog="sol env")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("list", help="Show registered games and preparation status")
-    prepare = commands.add_parser("setup", help="Prepare one game's sources and Python environment")
-    prepare.add_argument("game", choices=[*registry["games"], *registry["aliases"]])
+    prepare = commands.add_parser("setup", help="Prepare selected games, or all registered games")
+    prepare.add_argument("games", nargs="+", choices=[*registry["games"], *registry["aliases"], "all"])
     prepare.add_argument("--source", type=Path, help="Use an existing Git checkout without switching or resetting it")
     args = parser.parse_args(argv)
+    if args.command == "setup":
+        if "all" in args.games and len(args.games) != 1:
+            parser.error("Use all alone, or name the games to prepare")
+        names = list(registry["games"]) if args.games == ["all"] else list(dict.fromkeys(
+            canonical_name(registry, name) for name in args.games))
+        if args.source is not None and (len(names) != 1 or registry["games"][names[0]]["kind"] != "external"):
+            parser.error("--source requires one external environment")
     try:
         if args.command == "list":
             for name in registry["games"]:
                 print(json.dumps(status(root, name)))
         else:
-            print(json.dumps(setup(root, args.game, args.source), indent=2))
+            for name in names:
+                print(json.dumps(setup(root, name, args.source), indent=2))
     except (OSError, RuntimeError, subprocess.CalledProcessError) as exc:
         parser.exit(1, f"sol env: {exc}\n")

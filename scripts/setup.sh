@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
+if [ "$#" -eq 0 ]; then
+  echo "Usage: bash scripts/setup.sh GAME [GAME ...] | all"
+  exit 2
+fi
 cd "$(dirname "$0")/.."
 git submodule update --init -- vendor/latency-aware-agents
 uv sync --locked --python 3.12
-for game in asterix touhou rhythm; do
-  uv run sol env setup "$game"
-done
-uvx --from playwright==1.58.0 playwright install-deps chromium
-uv run sol doctor
+uv run sol env setup "$@"

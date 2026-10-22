@@ -24,13 +24,13 @@ def write(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n")
 
 
-def run_episode(config, output):
+def run_episode(config, output, *, api_key=None):
     from .native import ROOT, load_plugin
 
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=False)
     (output / "images").mkdir()
-    write(output / "run.json", {key: value for key, value in config.items() if key != "api_key_file"})
+    write(output / "run.json", config)
     simulated = config.get("simulation", False)
     scheduler = None
     if simulated:
@@ -218,7 +218,7 @@ def run_episode(config, output):
             budget = ApiBudget(Path(config["api_budget_file"]), config["api_limit_usd"])
             write(output / "budget-before.json", budget.snapshot())
             client = ApiClient({**config, "system_instructions_file": str(POLICY_ROOT / "system.txt")},
-                               output / "api", budget, SCHEMA)
+                               output / "api", budget, SCHEMA, key=api_key)
         elif config["source"] == "sol":
             client = SubscriptionClient(output=output / "worker", output_schema=SCHEMA,
                                         system=(POLICY_ROOT / "system.txt").read_text(),

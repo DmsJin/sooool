@@ -19,7 +19,7 @@ class GameRoutingTests(unittest.TestCase):
             ("pingpong", ("simulate", "eval", "report"), "tabletennis"),
             ("tabletennis", ("simulate", "eval", "report"), "tabletennis"),
             ("badminton", ("simulate", "eval", "preflight", "audit", "report", "diagnose", "profile"), "badminton"),
-            ("racing", ("simulate", "eval", "profile", "preflight", "record", "budget"), "racing"),
+            ("racing", ("simulate", "eval", "profile", "preflight", "budget"), "racing"),
         ):
             for command in commands:
                 with self.subTest(game=game, command=command), \
@@ -43,22 +43,14 @@ class GameRoutingTests(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertIn(f'Environment {game} does not support simulate', result.stderr)
 
-    def test_doctor_uses_each_games_interpreter_and_collects_failures(self):
-        for extra in ([], ["--auth", "--browser-executable", "/browser"]):
-            with patch.object(sys, "argv", ["sol", "doctor", "--game", "touhou", *extra]), \
-                 patch("runtime.cli.envs.launch") as launch:
-                main()
-                self.assertEqual(launch.call_args.args[1:], ("touhou", ["doctor", *extra]))
-        with patch.object(sys, "argv", ["sol", "doctor", "--auth", "--browser-executable", "/browser"]), \
-             patch("runtime.cli.envs.check", side_effect=[RuntimeError("needs setup"), {}, {}]) as check:
-            with self.assertRaises(SystemExit) as stopped:
-                main()
-            self.assertEqual(stopped.exception.code, 1)
-            self.assertEqual([call.args[1:] for call in check.call_args_list], [
-                ('asterix', ['--auth', '--browser-executable', '/browser']),
-                ('touhou', ['--browser-executable', '/browser']),
-                ('rhythm', ['--browser-executable', '/browser']),
-            ])
+    def test_command_help_lists_only_supported_games(self):
+        root = Path(__file__).resolve().parents[1]
+        result = subprocess.run([sys.executable, '-S', '-m', 'runtime.cli', 'profile', '--help'],
+                                cwd=root, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('{touhou,rhythm,racing,badminton}', result.stdout)
+        self.assertNotIn('asterix', result.stdout)
+        self.assertNotIn('pvz', result.stdout)
 
 
 if __name__ == "__main__":

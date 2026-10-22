@@ -1,7 +1,10 @@
 """Causal empirical delivery and simulation/API command boundaries, without API calls."""
 import json
+import io
 from pathlib import Path
 import tempfile
+import sys
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -45,10 +48,31 @@ class SimulationTests(unittest.TestCase):
     def test_simulate_cannot_use_paid_api_or_rules(self):
         for source in ("api", "rules"):
             with patch.dict("os.environ", {}, clear=False), self.assertRaises(SystemExit) as exc:
-                main(["simulate", "--source", source, "--output", "/tmp/never-run-pingpong"])
+                main(["simulate", "--provider", source, "--output", "/tmp/never-run-pingpong"])
             self.assertEqual(exc.exception.code, 2)
 
     def test_eval_rejects_simulated_latency_options(self):
         with self.assertRaises(SystemExit) as exc:
             main(["eval", "--profile", "/tmp/profile.json", "--output", "/tmp/never-run-pingpong"])
         self.assertEqual(exc.exception.code, 2)
+
+    def test_cli_preserves_default_providers_and_records_the_resolved_clock(self):
+        # Long-lived runner boundary. Replace only native execution, not CLI parsing or recording.
+        for command, source, provider, clock in (("simulate", "sol", "subscription", "virtual"),
+                                                  ("eval", "rules", "rules", "wall")):
+            with self.subTest(command=command), tempfile.TemporaryDirectory() as directory:
+                output = Path(directory)/"run"
+                def run(config, path, *, api_key):
+                    self.assertEqual(config["source"], source)
+                    self.assertIsNone(api_key)
+                    path.mkdir()
+                    result = {"status": "completed", "score": [0, 1]}
+                    (path/"summary.json").write_text(json.dumps(result))
+                    return result
+                with patch.dict("os.environ", {"TABLETENNIS_ENV_ROOT": directory}), \
+                     patch.dict(sys.modules, {"environments.tabletennis.runner": SimpleNamespace(run_episode=run)}), \
+                     patch('sys.stdout', new_callable=io.StringIO):
+                    self.assertEqual(main([command, "--output", str(output)]), 0)
+                record = json.loads((output/"evaluation-record.json").read_text())
+                self.assertEqual((record["provider"], record["clock"], record["status"]),
+                                 (provider, clock, "completed"))

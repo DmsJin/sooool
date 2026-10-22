@@ -6,7 +6,7 @@ import tempfile
 import threading
 import time
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 import numpy as np
 try:
     import mujoco  # noqa: F401
@@ -24,6 +24,28 @@ def decision(**kw):
 
 
 class PolicyTests(unittest.TestCase):
+    def test_cli_keeps_subscription_default_and_records_the_report(self):
+        """Long-lived CLI contract; replace native/model work at the runner boundary."""
+        from pcba_gym import runner
+        with tempfile.TemporaryDirectory() as directory:
+            output=Path(directory)/'run'
+            def evaluate(path, **kwargs):
+                self.assertEqual(kwargs['duration'],12)
+                self.assertEqual(kwargs['service_tier'],'priority')
+                path.mkdir()
+                runner.save_report(path,{'kind':'fixture','error':None,'metrics':{'success':False},
+                                         'calls':[{'raw':'retained detail'}],'diagnostics':{'private':'detail only'}})
+            with patch.object(sys,'argv',['pcba.py','eval','--wall-seconds','12','--output',str(output)]), \
+                 patch.object(runner,'evaluate',side_effect=evaluate):
+                runner.main()
+            record=json.loads((output/'evaluation-record.json').read_text())
+            self.assertEqual((record['provider'],record['clock'],record['status']),('subscription','wall','completed'))
+            self.assertEqual(record['evidence']['result'],'summary.json')
+            self.assertEqual(record['evidence']['details'],'report.json')
+            self.assertNotIn('calls',record['summary'])
+            self.assertNotIn('diagnostics',record['summary'])
+            self.assertIn('diagnostics',json.loads((output/'report.json').read_text()))
+
     def test_unconfirmed_requested_tier_fails_before_inference(self):
         from runtime.subscription import SubscriptionClient
         for tier in ('ultrafast','priority'):

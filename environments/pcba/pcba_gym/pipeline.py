@@ -8,9 +8,11 @@ import threading
 import time
 import numpy as np
 from PIL import Image
+from runtime.evaluation import recording
+from runtime.options import positive_float
 from .environment import PCBATestCell, RealtimeSession
 from .scene import BOARD_COUNT
-from .runner import ROOT, POLICY, Recorder, freeze, write, parse_decision, policy_prompt, execute_chunk
+from .runner import ROOT, POLICY, Recorder, freeze, write, save_report, parse_decision, policy_prompt, execute_chunk
 from .latency import stats
 
 GUARD_KEYS={'vacuum_ok','fixture_board_present','clamp_state','tester_state','result_test_id'}
@@ -402,7 +404,7 @@ def evaluate_pipeline(output,*,concurrency=1,duration=120.,max_calls=24,ttl=12.,
         report={'kind':'actual_subscription_async_pipeline','config':config,'metrics':metrics,'timing':timing,
             'stop_reason':stop_reason,'error':error,'calls':calls,'chunks':chunks,'scheduler_events':events,
             'diagnostics':diag,'direct_api_calls':0,'video':'native state snapshots saved for export; no online rendering beyond policy views'}
-        write(out/'report.json',report);env.close()
+        save_report(out,report);env.close()
     print(json.dumps({'output':str(out),'metrics':metrics,'timing':timing,'error':error},indent=2),flush=True)
     if error:raise RuntimeError(str(error))
     return report
@@ -411,7 +413,8 @@ def evaluate_pipeline(output,*,concurrency=1,duration=120.,max_calls=24,ttl=12.,
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['pipeline'])
     p.add_argument('--output',type=Path,default=ROOT/'runs'/f'pcba-pipeline-{time.strftime("%Y%m%dT%H%M%S")}')
-    p.add_argument('--concurrency',type=int,choices=[1,2,4],default=1);p.add_argument('--duration',type=float,default=120.)
+    p.add_argument('--provider',choices=['subscription'],default='subscription',help='Decision source (default: subscription)')
+    p.add_argument('--concurrency',type=int,choices=[1,2,4],default=1);p.add_argument('--wall-seconds',type=positive_float,default=120.,help='Wall-clock duration in seconds')
     p.add_argument('--max-calls',type=int,default=24);p.add_argument('--ttl',type=float,default=12.)
     p.add_argument('--request-interval',type=float,default=.75);p.add_argument('--seed',type=int,default=0)
     p.add_argument('--layout',choices=['stopped','loop'],default='stopped')
@@ -419,7 +422,9 @@ def main():
     p.add_argument('--continue-after-deadline',action='store_true')
     p.add_argument('--camera-mode',choices=CAMERA_MODES,default='multi')
     add_latency_arguments(p)
-    a=p.parse_args();evaluate_pipeline(a.output,concurrency=a.concurrency,duration=a.duration,max_calls=a.max_calls,
+    a=p.parse_args()
+    with recording(a.output,game='pcba',command='pipeline',provider=a.provider,clock='wall',detail_file='report.json'):
+        evaluate_pipeline(a.output,concurrency=a.concurrency,duration=a.wall_seconds,max_calls=a.max_calls,
         ttl=a.ttl,request_interval=a.request_interval,seed=a.seed,layout=a.layout,
         physics_process=a.physics_process,continue_after_deadline=a.continue_after_deadline,camera_mode=a.camera_mode,
         image_size=parse_image_size(a.image_size),output_mode=a.output_mode,schedule=a.schedule,

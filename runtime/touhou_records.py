@@ -1,6 +1,5 @@
 """Auditable evaluation records; model decisions and evaluator truth stay separate."""
 from __future__ import annotations
-import fcntl
 import hashlib
 import json
 import os
@@ -51,21 +50,3 @@ def evaluation_record(root, out, *, budget_before=None, budget_after=None):
             'acceptance_note':'Only won + uninterrupted 1x API + terminal accounting is real-time acceptance. Survival, replay, and profile simulation are distinct outcomes.'}
     (out/'record.json').write_text(json.dumps(record,indent=2)+'\n')
     return record
-
-
-def append_record(run, registry):
-    run=Path(run);registry=Path(registry);record=json.loads((run/'record.json').read_text())
-    if record.get('schema_version')!=1 or record.get('game')!='touhou' or not record.get('record_id'):
-        raise ValueError('Expected a versioned Touhou evaluation record')
-    if record.get('passed') and (record.get('execution_mode')!='realtime_api' or not record.get('won') or not record.get('integrity_verified')):
-        raise ValueError('Invalid acceptance claim')
-    registry.parent.mkdir(parents=True,exist_ok=True)
-    with registry.open('a+') as stream:
-        fcntl.flock(stream,fcntl.LOCK_EX);stream.seek(0)
-        for line in stream:
-            old=json.loads(line)
-            if old.get('record_id')==record['record_id']:
-                if old!=record:raise ValueError('Record ID already exists with different evidence')
-                return False
-        stream.seek(0,2);stream.write(json.dumps(record,sort_keys=True)+'\n');stream.flush();os.fsync(stream.fileno())
-    return True

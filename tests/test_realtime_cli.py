@@ -1,11 +1,14 @@
 """Long-lived provider, budget and provenance contracts owned by experiment entrypoints."""
 import json
+import io
+import os
 from pathlib import Path
 import sys
 import tempfile
 import unittest
 from unittest.mock import patch
 from runtime import cli, experiment, run_support
+from runtime.options import credential
 from environments.asterix import cli as asterix_cli
 from environments.touhou import cli as touhou_cli
 
@@ -14,9 +17,24 @@ def run_selected():
     return {'asterix': asterix_cli, 'touhou': touhou_cli}[sys.argv[2]].main([sys.argv[1], *sys.argv[3:]])
 
 class RealtimeCLI(unittest.TestCase):
+    def test_credentials_use_process_memory_and_noninteractive_missing_keys_fail(self):
+        with patch.dict(os.environ, {'OPENAI_API_KEY': 'fixture-process-key'}), patch('getpass.getpass') as prompt:
+            self.assertEqual(credential(), 'fixture-process-key')
+            prompt.assert_not_called()
+        with patch.dict(os.environ, {}, clear=True), patch.object(sys, 'stdin', io.StringIO()), patch('getpass.getpass') as prompt:
+            with self.assertRaisesRegex(ValueError, 'Set OPENAI_API_KEY'):
+                credential()
+            prompt.assert_not_called()
+
     def test_paid_asterix_requires_budget_before_transport(self):
         with patch.object(sys,'argv',['sol','eval','asterix','--provider','api']),patch.object(asterix_cli,'asterix') as game:
             with self.assertRaises(SystemExit):run_selected()
+            game.assert_not_called()
+
+    def test_subscription_asterix_rejects_api_only_call_limit(self):
+        with patch.object(sys,'argv',['sol','eval','asterix','--max-calls','1']), patch.object(asterix_cli,'asterix') as game:
+            with self.assertRaises(SystemExit):
+                run_selected()
             game.assert_not_called()
 
     def test_paid_asterix_uses_explicit_wall_duration_and_api_manifest(self):
@@ -47,17 +65,6 @@ class RealtimeCLI(unittest.TestCase):
                     self.assertEqual(json.loads((out/'manifest.json').read_text())['mode'],mode)
                     recipe=selected.call_args.args[0]
                     self.assertEqual(recipe,json.loads((cli.ROOT/'recipes'/('asterix.json' if game=='asterix' else 'touhou-realtime.json')).read_text()))
-
-    def test_record_dispatch_keeps_assessments_and_registry_separate(self):
-        for game in ['asterix','touhou']:
-            with self.subTest(game=game),tempfile.TemporaryDirectory() as d:
-                run=Path(d)
-                (run/'manifest.json').write_text(json.dumps({'game':game}))
-                extra=['--decision','diagnostic','--note','Review'] if game=='asterix' else []
-                with patch.object(sys,'argv',['sol','record',str(run),*extra]),patch('runtime.evaluation.assess',return_value={}) as assess,patch('runtime.touhou_records.append_record',return_value=True) as append:
-                    cli.main()
-                    selected,other=(assess,append) if game=='asterix' else (append,assess)
-                    selected.assert_called_once();other.assert_not_called()
 
     def test_budget_required_and_invalid_budget_rejected_before_run(self):
         for extra in ([],['--budget-usd','NaN'],['--budget-usd','-1']):

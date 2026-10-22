@@ -1,8 +1,10 @@
 """Long-lived tactical input and subscription-tier contracts owned by badminton."""
 
 import json
+import io
 from collections import deque
 from pathlib import Path
+from types import SimpleNamespace
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -10,6 +12,7 @@ from unittest.mock import patch
 from environments.badminton.tactics import decode_intent, format_prompt
 from environments.badminton.runner import run_episode
 from runtime.subscription import SubscriptionClient
+from scripts import badminton as cli
 
 
 SPEC = {"base": {"range": {"x": [-1.5, 1.5], "y": [-3.53, -.5]}}, "seed": "PRIVATE_SEED"}
@@ -20,6 +23,31 @@ INTENT = {"normal": {"side": "left", "shot": "clear"},
 
 
 class TacticalBoundaryTests(unittest.TestCase):
+    def test_cli_preserves_default_sources_and_records_the_resolved_clock(self):
+        """Long-lived CLI contract; native execution is replaced, with no model calls."""
+        revision = json.loads((cli.ROOT/'recipes/badminton-realtime.json').read_text())["environment_revision"]
+        for command, provider, clock in (("simulate", "subscription", "virtual"), ("eval", "api", "wall")):
+            with self.subTest(command=command), tempfile.TemporaryDirectory() as directory:
+                output = Path(directory)/"run"
+                def run(*args, **kwargs):
+                    path = args[3]
+                    path.mkdir()
+                    result = {"status": "completed", "complete": True, "won": False, "stop_reason": "native_terminal"}
+                    (path/"summary.json").write_text(json.dumps(result))
+                    return result
+                args = [command, "--output", str(output)] + (["--budget-usd", "1"] if command == "eval" else [])
+                with patch.dict("os.environ", {"BADMINTON_ENV_ROOT": directory, "MUJOCO_EGL_DEVICE_ID": "0", "OPENAI_API_KEY": "fixture-process-key"}), \
+                     patch.object(cli, "run_episode", side_effect=run), \
+                     patch("environments.badminton.realtime.run_realtime", side_effect=run), \
+                     patch.object(cli.subprocess, "run", return_value=SimpleNamespace(stdout=revision+'\n')), \
+                     patch.object(cli.importlib.metadata, "version", return_value="fixture"), \
+                     patch("sys.stdout", new_callable=io.StringIO):
+                    self.assertEqual(cli.main(args), 0)
+                record = json.loads((output/"evaluation-record.json").read_text())
+                self.assertEqual((record["provider"], record["clock"], record["status"]),
+                                 (provider, clock, "completed"))
+                self.assertNotIn("fixture-process-key", (output/"manifest.json").read_text())
+
     def test_conditional_strategy_boundary_and_public_prompt(self):
         self.assertEqual(decode_intent(json.dumps(INTENT), SPEC), INTENT)
         for change in ({"normal": {"side": "up", "shot": "clear"}},

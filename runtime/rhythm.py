@@ -1,14 +1,15 @@
 """Selected literal-time Rhythm policy: simulation, live API and serial profiling."""
 import asyncio
 import fcntl
-import getpass
 import hashlib
 import json
-import os
 from pathlib import Path
 import statistics
 import sys
 from types import SimpleNamespace
+
+from runtime.evaluation import recording
+from runtime.options import credential
 
 
 def modules(root):
@@ -29,12 +30,6 @@ def ledger(root,out,a):
     return book,before
 
 
-def credential():
-    key=os.environ.get('OPENAI_API_KEY') or getpass.getpass('OpenAI API key (process memory only): ')
-    if not key:raise ValueError('A real API credential is required')
-    return key
-
-
 def simulate(root,recipe,out,a):
     env=modules(root)
     from experiments.rhythm.model_joint_training import run_episode
@@ -52,7 +47,6 @@ def simulate(root,recipe,out,a):
 
 
 def evaluate(root,recipe,out,a):
-    if a.seed is not None:raise ValueError('Native selected evaluation uses a fixed retained chart; --seed is for simulation')
     env=modules(root)
     from experiments.rhythm.model_native import run
     from runtime.run_support import serve
@@ -101,59 +95,39 @@ def profile(root,a):
     from experiments.rhythm.model_lean_policy import parse
     recipe=json.loads((root/'recipes/rhythm.json').read_text())
     out=(a.output or root/'runs/rhythm-profile').resolve()
-    freeze('rhythm',recipe,out,mode='serial_api_profile')
-    book,before=ledger(root,out,a)
-    source=a.episode.resolve()
-    rows=sorted([json.loads(s) for s in (source/'requests.jsonl').read_text().splitlines()],key=lambda r:r['version'])
-    if not rows:raise ValueError("No retained requests to profile")
-    count=min(a.max_calls,len(rows))
-    chosen=[rows[round(i*(len(rows)-1)/max(1,count-1))] for i in range(count)]
-    key=credential()
-    async def one():
-        provider=APIProvider(key,out,phase='profiling',detail='high',max_output=512,
-                             image_token_certificate=root/'profiles/rhythm/image-token-certificate.json')
-        results=[]
-        async def ready(answer,metadata):pass
+    with recording(out,game='rhythm',command='profile',provider='api',clock='none',detail_file='profile.json'):
+        freeze('rhythm',recipe,out,mode='serial_api_profile')
+        book,before=ledger(root,out,a)
+        source=a.episode.resolve()
+        rows=sorted([json.loads(s) for s in (source/'requests.jsonl').read_text().splitlines()],key=lambda r:r['version'])
+        if not rows:raise ValueError("No retained requests to profile")
+        count=min(a.max_calls,len(rows))
+        chosen=[rows[round(i*(len(rows)-1)/max(1,count-1))] for i in range(count)]
+        key=credential()
+        async def one():
+            provider=APIProvider(key,out,phase='profiling',detail='high',max_output=512,
+                                 image_token_certificate=root/'profiles/rhythm/image-token-certificate.json')
+            results=[]
+            async def ready(answer,metadata):pass
+            try:
+                for row in chosen:
+                    answer,meta=await provider.act(row['prompt'],[(source/p).read_bytes() for p in row['frames']],
+                        on_action=ready,action_validator=parse,live_commentary=True)
+                    results.append({'source_version':row['version'],'prompt':row['prompt'],'answer':answer,'metadata':meta})
+                    (out/'profile.json').write_text(json.dumps({'serial':True,'gameplay':False,'rows':results},indent=2))
+            finally:await provider.close()
+            values=[r['metadata']['action_ready_s'] for r in results]
+            summary={'serial':True,'gameplay':False,'samples':len(values),'below_1p8':sum(x<1.8 for x in values),
+                     'median_s':statistics.median(values),'sd_s':statistics.pstdev(values),'max_s':max(values)}
+            (out/'summary.json').write_text(json.dumps(summary,indent=2))
+            return summary
+        # A shared ledger also shares its profiling lock, across output directories.
+        lockpath=Path(str(a.ledger.resolve() if a.ledger else out/'budget.json')+'.profile.lock')
         try:
-            for row in chosen:
-                answer,meta=await provider.act(row['prompt'],[(source/p).read_bytes() for p in row['frames']],
-                    on_action=ready,action_validator=parse,live_commentary=True)
-                results.append({'source_version':row['version'],'prompt':row['prompt'],'answer':answer,'metadata':meta})
-                (out/'profile.json').write_text(json.dumps({'serial':True,'gameplay':False,'rows':results},indent=2))
-        finally:await provider.close()
-        values=[r['metadata']['action_ready_s'] for r in results]
-        summary={'serial':True,'gameplay':False,'samples':len(values),'below_1p8':sum(x<1.8 for x in values),
-                 'median_s':statistics.median(values),'sd_s':statistics.pstdev(values),'max_s':max(values)}
-        (out/'summary.json').write_text(json.dumps(summary,indent=2))
-        return summary
-    # A shared ledger also shares its profiling lock, across output directories.
-    lockpath=Path(str(a.ledger.resolve() if a.ledger else out/'budget.json')+'.profile.lock')
-    try:
-        with lockpath.open('a') as lock:
-            fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-            result=asyncio.run(one())
-        return result
-    finally:
-        key=None
-        accounting(out,before,book.snapshot())
-        from runtime.evaluation import record_run
-        record_run(out)
-
-
-def append_record(run,registry):
-    """Idempotent append; a changed record under the same run ID is rejected."""
-    run=Path(run);record=json.loads((run/'evaluation-record.json').read_text())
-    if record['game']!='rhythm':raise ValueError('Expected a Rhythm evaluation record')
-    if record.get('real_time_api_acceptance') and (record.get('mode')!='realtime_api' or not record.get('passed') or not (record.get('accounting') or {}).get('all_settled')):
-        raise ValueError('Invalid real-time API acceptance claim')
-    payload={'record_id':run.name,'record':record}
-    registry=Path(registry);registry.parent.mkdir(parents=True,exist_ok=True)
-    with registry.open('a+') as f:
-        fcntl.flock(f,fcntl.LOCK_EX);f.seek(0)
-        for line in f:
-            old=json.loads(line)
-            if old['record_id']==payload['record_id']:
-                if old!=payload:raise ValueError('Changed evidence under an existing run ID')
-                return False
-        f.seek(0,2);f.write(json.dumps(payload,sort_keys=True)+'\n');f.flush();os.fsync(f.fileno())
-    return True
+            with lockpath.open('a') as lock:
+                fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+                result=asyncio.run(one())
+            return result
+        finally:
+            key=None
+            accounting(out,before,book.snapshot())

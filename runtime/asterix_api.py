@@ -1,7 +1,5 @@
 """Explicit paid Asterix transport; direct actions and fail-closed billing."""
-import getpass
 import json
-import os
 from pathlib import Path
 from queue import Empty, SimpleQueue
 import sys
@@ -10,6 +8,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from environments.touhou.research.api_client import ApiClient
+from runtime.options import credential
 
 SCHEMA = {
     'type': 'object', 'additionalProperties': False,
@@ -136,9 +135,7 @@ def evaluate(root, recipe, out, args):
     from runner import run_recipe
     if recipe['output_format'] != 'action_reason':
         raise ValueError('Paid streaming evaluation requires action_reason output')
-    key = os.environ.get('OPENAI_API_KEY') or getpass.getpass('OpenAI API key (process memory only): ')
-    if not key:
-        raise ValueError('A real API credential is required')
+    key = credential()
     ledger = args.ledger.resolve() if args.ledger else out/'ledger.json'
     try:
         return run_recipe(root, recipe, out, args,

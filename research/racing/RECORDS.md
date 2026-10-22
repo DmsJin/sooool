@@ -18,7 +18,7 @@ Paid profiling is serial, including drain and usage settlement. Real API evaluat
 
 Require completed execution, valid canonical trial where available, independently matching replay, unchanged scoring, actual model calls and verified inputs before accepting a result. Keep complete losses. Archive infrastructure failures separately with their cause and `won: null`; report them in the attempted cohort. A zero-model preflight is always `preflight`, never API acceptance.
 
-`scripts/racing.py` writes `evaluation_record.json` with mode, hypothesis, recipe/profile hashes, integrity, result and source summary. `record --output <run> --record-mode <mode>` rebuilds this index from existing outputs; it neither reruns nor certifies missing evidence. The run manifest contains the resolved recipe and environment/source hashes. Keep historical outputs immutable; extend a campaign index with a new record instead of replacing old measurements.
+`scripts/racing.py` writes `evaluation_record.json` with mode, hypothesis, recipe/profile hashes, integrity, result and source summary. It also writes the shared `evaluation-record.json`. Use `sol record RUN` to append that shared record to `artifacts/racing/evaluations.jsonl`. Repeating an identical registration adds no duplicate; changed evidence under the same record ID is rejected. The run manifest contains the resolved recipe and environment/source hashes. Keep historical outputs immutable; extend a campaign index with a new record instead of replacing old measurements.
 
 ## Decide whether to promote
 

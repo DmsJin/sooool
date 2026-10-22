@@ -42,10 +42,20 @@ launches reuse that game's venv. Setup records the checkout path and installatio
 inputs. Re-run setup when switching checkouts or changing dependency declarations.
 Local source edits are used directly. `--source` applies only to external games.
 
-`sol doctor --game asterix` checks the prepared Asterix environment.
-`sol doctor --game touhou` and `sol doctor --game rhythm` check their browsers.
-`sol doctor` collects all three checks and fails if any check fails.
-Add `--auth` only when you want to check the native subscription login.
+Prepare several games with `uv run sol env setup asterix touhou rhythm`, or
+prepare every registered game with `uv run sol env setup all`.
+`bash scripts/setup.sh asterix touhou` also bootstraps the root launcher and
+submodule before preparing the selected games. The script requires a selection.
+`--source` accepts exactly one external game.
+
+Setup stops if installation or compilation fails. Native setup also imports the
+compiled PvZ or VERA20K extension before marking the environment ready. Setup does
+not open a game or make model calls. The `ready` status records prepared sources and Python/browser packages.
+Install host libraries before running a browser game. Resource loading and graphics
+errors surface when the game runs. PvZ and VERA20K setup verifies compiled imports;
+their native gameplay tests require separate game resources and graphics support.
+
+`sol env list` reports each game's preparation status and supported commands.
 
 The registry declares each runner's supported commands. All registered commands
 use the same launcher, including PCBA simulation, reports and video export.
@@ -80,3 +90,27 @@ APIs. Re-run setup after native source changes.
 steps and existing runner commands. Recipes own experiment conditions, and
 policies own gameplay decisions. Add a registry entry and the game's own runner
 when introducing an environment.
+
+## Shared experiment options
+
+Use `--provider subscription|api|rules` to explicitly select an existing decision
+source. Each game preserves its own default and supports only its existing
+providers. The command help lists the accepted values. `simulate` uses the existing
+subscription simulation path, with explicit rules simulations retained where the
+game already supports them. Subscription simulations never fall back to an API.
+
+`--duration` is game time in seconds. `--wall-seconds` limits wall time where
+supported, including PCBA eval/pipeline and process-clock preflight. Touhou runs a complete game, and Rhythm durations must match the chart.
+`--output`, `--seed` and `--max-calls` retain each game's existing limits and defaults.
+
+Paid commands read `OPENAI_API_KEY` from process memory or prompt without echo at
+an interactive terminal. `--ledger` selects a cumulative budget ledger.
+`--budget-usd` declares its total ceiling, and `--stage-cap-usd` retains an existing
+stage ceiling where supported. Racing creates its ledger with `sol budget racing`;
+its paid runs require that existing ledger and an explicit stage cap. Existing
+ledger formats, charges, reservations and settlement rules remain game-owned.
+
+New experiment runs share `evaluation-record.json`. Register one with
+`sol record RUN`; the default registry is `artifacts/GAME/evaluations.jsonl`.
+Add `--decision retain|reject|diagnostic --note TEXT` to append a research judgment.
+See [evaluation records](evaluation-records.md) for the shared record contract.

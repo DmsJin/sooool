@@ -11,6 +11,8 @@ import time
 import numpy as np
 import mujoco
 from PIL import Image
+from runtime.evaluation import recording
+from runtime.options import positive_float
 from .environment import PCBATestCell, RealtimeSession
 from .scene import BOARD_COUNT
 
@@ -20,6 +22,17 @@ POLICY=ROOT/'policies/pcba'
 
 def write(path,value):
     Path(path).write_text(json.dumps(value,indent=2,ensure_ascii=False)+'\n')
+
+
+def save_report(out,report):
+    """Keep aggregate task/calibration results in the index and raw trajectories in the report."""
+    write(out/'report.json',report)
+    summary={'kind':report['kind'],'error':report['error']}
+    for name in ('metrics','timing','stop_reason','direct_api_calls','model_calls_attempted',
+                 'model_calls_completed','actual_model_calls_completed','physics_running','handling_score','summaries'):
+        if name in report:
+            summary[name]=report[name]
+    write(out/'summary.json',summary)
 
 
 def parse_decision(answer):
@@ -94,7 +107,7 @@ def execute_chunk(env,actions,*,capture_time,capture_wall,ttl,stop,log):
 def freeze(out,config):
     hashes={}
     paths=[ROOT/'scripts/pcba.py',ROOT/'runtime/subscription.py',ROOT/'runtime/cli.py',
-           ROOT/'runtime/envs.py',ROOT/'environments/registry.json']
+           ROOT/'runtime/envs.py',ROOT/'runtime/options.py',ROOT/'runtime/evaluation.py',ROOT/'environments/registry.json']
     paths+=list((ROOT/'environments/pcba').rglob('*'))+list(POLICY.rglob('*'))
     for path in sorted(paths):
         if not path.is_file() or '__pycache__' in path.parts:continue
@@ -240,7 +253,7 @@ def evaluate(output,*,seed=0,max_calls=24,duration=240.,ttl=12.,service_tier="pr
         report={'kind':'actual_subscription_visual_action_baseline','direct_api_calls':0,'model_calls_attempted':len(calls),
             'model_calls_completed':sum('model_wall_seconds' in c for c in calls),'config':config,'metrics':metrics,
             'timing':timing,'stop_reason':stop_reason,'error':error,'calls':calls,'diagnostics':diag}
-        write(out/'report.json',report)
+        save_report(out,report)
         (out/'events.jsonl').write_text(''.join(json.dumps(e)+'\n' for e in diag['events']))
         recorder.finish();env.close()
     print(json.dumps({'output':str(out),'metrics':metrics,'stop_reason':stop_reason,'error':error,'timing':timing},indent=2),flush=True)
@@ -250,13 +263,21 @@ def evaluate(output,*,seed=0,max_calls=24,duration=240.,ttl=12.,service_tier="pr
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command',choices=['eval','report'])
-    parser.add_argument('--output',type=Path,default=ROOT/'runs'/f'pcba-policy-{time.strftime("%Y%m%dT%H%M%S")}')
-    parser.add_argument('--seed',type=int,default=0);parser.add_argument('--max-calls',type=int,default=24)
-    parser.add_argument('--service-tier',choices=['ultrafast','priority','default'],default='priority')
-    parser.add_argument('--duration',type=float,default=240.);parser.add_argument('--ttl',type=float,default=12.)
+    commands=parser.add_subparsers(dest='command',required=True)
+    run=commands.add_parser('eval')
+    run.add_argument('--output',type=Path,default=ROOT/'runs'/f'pcba-policy-{time.strftime("%Y%m%dT%H%M%S")}')
+    run.add_argument('--provider',choices=['subscription'],default='subscription',help='Decision source (default: subscription)')
+    run.add_argument('--seed',type=int,default=0)
+    run.add_argument('--max-calls',type=int,default=24)
+    run.add_argument('--service-tier',choices=['ultrafast','priority','default'],default='priority')
+    run.add_argument('--wall-seconds',type=positive_float,default=240.,help='Wall-clock duration in seconds')
+    run.add_argument('--ttl',type=float,default=12.)
+    report=commands.add_parser('report')
+    report.add_argument('--output',type=Path,required=True)
     args=parser.parse_args()
     if args.command=='report':
-        r=json.loads((args.output/'report.json').read_text())
-        print(json.dumps({k:r[k] for k in ('kind','metrics','timing','stop_reason','error')},indent=2))
-    else:evaluate(args.output,seed=args.seed,max_calls=args.max_calls,duration=args.duration,ttl=args.ttl,service_tier=args.service_tier)
+        result=json.loads((args.output/'report.json').read_text())
+        print(json.dumps({key:result[key] for key in ('kind','metrics','timing','stop_reason','error')},indent=2))
+    else:
+        with recording(args.output,game='pcba',command='eval',provider=args.provider,clock='wall',detail_file='report.json'):
+            evaluate(args.output,seed=args.seed,max_calls=args.max_calls,duration=args.wall_seconds,ttl=args.ttl,service_tier=args.service_tier)

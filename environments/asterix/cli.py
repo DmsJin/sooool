@@ -1,6 +1,5 @@
 """Command entrypoint for the selected Asterix experiments."""
 import json
-import math
 import os
 
 from runtime import experiment
@@ -20,18 +19,20 @@ def main(argv=None):
     p = experiment.parser("asterix")
     a = p.parse_args(argv)
     a.game = "asterix"
-    if a.command == "doctor":
-        return experiment.doctor(a)
     paid = a.command == 'eval' and a.provider == 'api'
     if a.command == 'eval':
         if a.wall_seconds is not None:
-            if a.duration is not None or not math.isfinite(a.wall_seconds) or a.wall_seconds <= 0:
+            if a.duration is not None:
                 p.error('Use one positive --wall-seconds or --duration')
             a.duration = a.wall_seconds / 5
         if paid:
+            if a.max_calls is None:
+                a.max_calls = 100
             experiment.validate_budget(p, a)
-    if a.duration is not None and (not math.isfinite(a.duration) or a.duration <= 0 or round(a.duration*60) < 1):
-        p.error('--duration must be finite and positive')
+        elif a.budget_usd is not None or a.ledger is not None or a.max_calls is not None:
+            p.error('--budget-usd, --ledger and --max-calls require --provider api')
+    if a.duration is not None and round(a.duration*60) < 1:
+        p.error('--duration must include at least one game frame')
     recipe = json.loads((a.recipe or ROOT/'recipes/asterix.json').read_text())
     if paid:
         recipe = {**recipe, 'provider': 'openai_api', 'model': 'gpt-6.1-sol', 'effort': 'low',

@@ -3,10 +3,14 @@ from __future__ import annotations
 import argparse,hashlib,json,math,os,pathlib,statistics,subprocess,sys,time
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 ENGINE=ROOT/'environments/racing'
+sys.path.insert(0,str(ROOT))
+
+from runtime.evaluation import recording
+from runtime.options import credential, positive_float
 
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 
-def record_run(out,mode,recipe,returncode=0):
+def evaluation_record(out,mode,returncode=0):
     summary=json.loads((out/'summary.json').read_text()) if (out/'summary.json').exists() else {}
     final_path=out/'service/final.json';final=json.loads(final_path.read_text()) if final_path.exists() else {}
     manifest=json.loads((out/'manifest.json').read_text())
@@ -40,7 +44,7 @@ def record_run(out,mode,recipe,returncode=0):
 def prepare(out,mode,recipe,hypothesis):
     if out.exists():raise ValueError('Output must be new; do not overwrite an evaluation')
     files={}
-    for base in [ENGINE,ROOT/'policies/racing',ROOT/'profiles/racing',ROOT/'recipes/racing.json',ROOT/'runtime/cli.py',ROOT/'runtime/envs.py',
+    for base in [ENGINE,ROOT/'policies/racing',ROOT/'profiles/racing',ROOT/'recipes/racing.json',ROOT/'runtime/cli.py',ROOT/'runtime/envs.py',ROOT/'runtime/options.py',ROOT/'runtime/evaluation.py',
                  ROOT/'environments/registry.json',pathlib.Path(__file__)]:
         for p in ([base] if base.is_file() else sorted(base.rglob('*'))):
             if p.is_file() and '__pycache__' not in p.parts:
@@ -52,65 +56,113 @@ def prepare(out,mode,recipe,hypothesis):
     return {'game':'racing','mode':mode,'recipe':recipe,'hypothesis':hypothesis,'source_sha256':files,'environment_source_sha256':envfiles,'environment_root':str(env.resolve()),'created_at_unix':time.time(),'selected_early_checkpoint':True}
 
 def main(argv=None):
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('mode',choices=['simulate','eval','profile','preflight','record','budget'])
-    p.add_argument('--output',type=pathlib.Path);p.add_argument('--seed',type=int);p.add_argument('--hypothesis',default='Replicate the frozen lane-commit checkpoint')
-    p.add_argument('--budget-ledger',type=pathlib.Path);p.add_argument('--total-cap-usd',type=float);p.add_argument('--stage-cap-usd',type=float)
-    p.add_argument('--summaries',action='store_true',help='Same-response English summary then goal; separate video variant')
-    p.add_argument('--calls',type=int,default=16);p.add_argument('--samples-dir',type=pathlib.Path);p.add_argument('--record-mode',choices=['simulate','eval','preflight'],default='eval')
-    a=p.parse_args(argv);recipe=json.loads((ROOT/'recipes/racing.json').read_text())
+    p=argparse.ArgumentParser(description=__doc__)
+    p.set_defaults(seed=None,summaries=False,max_calls=None,samples_dir=None)
+    commands=p.add_subparsers(dest='mode',required=True)
+    providers={'simulate':'subscription','eval':'api','profile':'api','preflight':'rules'}
+    for mode,provider in providers.items():
+        child=commands.add_parser(mode)
+        child.add_argument('--output',type=pathlib.Path,required=True)
+        child.add_argument('--provider',choices=[provider],default=provider,help=f'Decision source (default: {provider})')
+        child.add_argument('--hypothesis',default='Replicate the frozen lane-commit checkpoint')
+        if mode!='profile':
+            child.add_argument('--seed',type=int)
+        if mode in ('eval','profile'):
+            child.add_argument('--ledger',type=pathlib.Path,required=True)
+            child.add_argument('--stage-cap-usd',type=positive_float,required=True,help='Stage ceiling in USD')
+        if mode=='eval':
+            child.add_argument('--summaries',action='store_true',help='Same-response English summary then goal; separate video variant')
+        if mode=='profile':
+            child.add_argument('--max-calls',type=int,default=16)
+            child.add_argument('--samples-dir',type=pathlib.Path)
+    budget=commands.add_parser('budget')
+    budget.add_argument('--ledger',type=pathlib.Path,required=True)
+    budget.add_argument('--budget-usd',type=positive_float,required=True,help='Cumulative ledger ceiling in USD')
+    a=p.parse_args(argv)
     if a.mode=='budget':
-        if a.budget_ledger is None or a.total_cap_usd is None or not math.isfinite(a.total_cap_usd) or a.total_cap_usd<=0:p.error('budget requires --budget-ledger and positive --total-cap-usd')
-        a.budget_ledger.parent.mkdir(parents=True,exist_ok=True)
-        with a.budget_ledger.open('x') as f:json.dump({'limit_usd':a.total_cap_usd,'charged_upper_usd':0,'reserved':{},'stages':{}},f,indent=2)
+        a.ledger.parent.mkdir(parents=True,exist_ok=True)
+        with a.ledger.open('x') as stream:
+            json.dump({'limit_usd':a.budget_usd,'charged_upper_usd':0,'reserved':{},'stages':{}},stream,indent=2)
         return
-    if a.output is None:p.error('--output is required')
-    out=a.output.resolve()
-    if a.mode=='record':print(json.dumps(record_run(out,a.record_mode,recipe),indent=2));return
-    if not os.environ.get('RACING_ENV_ROOT'):p.error('Set RACING_ENV_ROOT to the read-only roboolympics checkout')
-    if a.summaries and a.mode!='eval':p.error('--summaries is an API video variant; use eval')
+    if not os.environ.get('RACING_ENV_ROOT'):
+        p.error('Set RACING_ENV_ROOT to the read-only roboolympics checkout')
+    if a.mode=='profile' and a.max_calls<1:
+        p.error('--max-calls must be positive')
     if a.mode in ('eval','profile'):
-        if a.budget_ledger is None or a.stage_cap_usd is None or not math.isfinite(a.stage_cap_usd) or a.stage_cap_usd<=0:p.error('paid modes require an existing --budget-ledger and positive --stage-cap-usd')
-        ledger=json.loads(a.budget_ledger.read_text())
-        if a.stage_cap_usd>ledger['limit_usd']:p.error('stage cap exceeds ledger total cap')
+        ledger=json.loads(a.ledger.read_text())
+        if a.stage_cap_usd>ledger['limit_usd']:
+            p.error('Stage cap exceeds ledger total cap')
+    recipe=json.loads((ROOT/'recipes/racing.json').read_text())
     recipe['output_format']='public-summary-then-action' if a.summaries else 'action-only'
-    if a.seed is not None:recipe['args']['seed']=a.seed
+    if a.seed is not None:
+        recipe['args']['seed']=a.seed
+    out=a.output.resolve()
     manifest=prepare(out,a.mode,recipe,a.hypothesis)
-    if a.mode=='profile':
-        if a.calls<1:p.error('--calls must be positive')
-        out.mkdir();(out/'manifest.json').write_text(json.dumps(manifest,indent=2));sys.path.insert(0,str(ENGINE))
-        from run import API,Budget,MINIMAL_SYSTEM,write,append
-        from lane import parse_lane
-        import getpass
-        samples=sorted((a.samples_dir or ROOT/'policies/racing/lane-commit-v14/example').rglob('input.json'))
-        if not samples:raise ValueError('No recorded task inputs found')
-        # Serial, including SSE drain and accounting; no background actors launched here.
-        client=API(getpass.getpass('API credential (memory only): '),Budget(a.budget_ledger),stage='profile',cap=a.stage_cap_usd,instructions=MINIMAL_SYSTEM);rows=[]
+    with recording(out,game='racing',command=a.mode,provider=a.provider,
+                   clock='virtual' if a.mode=='simulate' else 'none' if a.mode=='profile' else 'wall',
+                   result_file='profile.json' if a.mode=='profile' else 'summary.json',
+                   detail_file=None if a.mode=='profile' else 'evaluation_record.json'):
+        if a.mode=='profile':
+            out.mkdir(parents=True)
+            (out/'manifest.json').write_text(json.dumps(manifest,indent=2))
+            sys.path.insert(0,str(ENGINE))
+            # Native/API adapters belong to the prepared game interpreter.
+            from run import API,Budget,MINIMAL_SYSTEM,write,append
+            from lane import parse_lane
+            from explained_api import NEW_FORMAT,OLD_FORMAT
+            samples=sorted((a.samples_dir or ROOT/'policies/racing/lane-commit-v14/example').rglob('input.json'))
+            if not samples:
+                raise ValueError('No recorded task inputs found')
+            key=credential()
+            client=API(key,Budget(a.ledger),stage='profile',cap=a.stage_cap_usd,instructions=MINIMAL_SYSTEM)
+            rows=[]
+            try:
+                for i in range(a.max_calls):
+                    path=samples[i%len(samples)]
+                    inp=json.loads(path.read_text())
+                    images=[image.read_bytes() for image in sorted(path.parent.glob('image_*.png'))]
+                    if [hashlib.sha256(data).hexdigest() for data in images]!=inp['image_sha256']:
+                        raise ValueError('Sample image hash mismatch')
+                    prompt=inp['prompt'].replace(NEW_FORMAT,OLD_FORMAT)
+                    answer,meta=client.act(prompt,images,out/f'call_{i:03d}',on_ready=lambda *_:None,validator=parse_lane)
+                    parse_lane(answer)
+                    rows.append(meta)
+                    append(out/'measurements.jsonl',meta)
+            finally:
+                client.close()
+                key=None
+            values=sorted(row['published_seconds'] or row['wall_seconds'] for row in rows)
+            write(out/'profile.json',{'n':len(rows),'concurrency':1,'timing':'validated action publication; streams fully drained serially',
+                'min':min(values),'p50':statistics.median(values),'p95':values[math.ceil(.95*len(values))-1],
+                'mean':statistics.mean(values),'delays':values,'separate_from_historical_profile':True})
+            return
+        driver='run.py' if a.mode=='simulate' else 'live_explained.py' if a.summaries else 'live.py'
+        cmd=[sys.executable,str(ENGINE/driver)]
+        if a.mode=='simulate':
+            cmd+=['sim']
+        cmd+=['--out',str(out),'--profile',str(ROOT/recipe['profile'])]
+        for name,value in recipe['args'].items():
+            if name=='workers' and a.mode!='simulate':
+                continue
+            cmd+=['--'+name,str(value)]
+        if a.mode=='preflight':
+            cmd+=['--executor-preflight']
+        if a.mode=='eval':
+            cmd+=['--budget',str(a.ledger.resolve()),'--validation-cap',str(a.stage_cap_usd)]
+        env=dict(os.environ,MUJOCO_GL=os.environ.get('MUJOCO_GL','egl'),LP_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1')
+        # The native driver owns directory creation. Preserve the manifest even if it fails early.
         try:
-            for i in range(a.calls):
-                f=samples[i%len(samples)];inp=json.loads(f.read_text());images=[x.read_bytes() for x in sorted(f.parent.glob('image_*.png'))]
-                if [hashlib.sha256(b).hexdigest() for b in images]!=inp['image_sha256']:raise ValueError('Sample image hash mismatch')
-                # Remove only the video output wrapper when profiling the action-only policy.
-                from explained_api import NEW_FORMAT,OLD_FORMAT
-                prompt=inp['prompt'].replace(NEW_FORMAT,OLD_FORMAT)
-                answer,meta=client.act(prompt,images,out/f'call_{i:03d}',on_ready=lambda *_:None,validator=parse_lane)
-                parse_lane(answer);rows.append(meta);append(out/'measurements.jsonl',meta)
-        finally:client.close()
-        values=sorted(r['published_seconds'] or r['wall_seconds'] for r in rows)
-        write(out/'profile.json',{'n':len(rows),'concurrency':1,'timing':'validated action publication; streams fully drained serially','min':min(values),'p50':statistics.median(values),'p95':values[math.ceil(.95*len(values))-1],'mean':statistics.mean(values),'delays':values,'separate_from_historical_profile':True});return
-    kw=recipe['args'];cmd=[sys.executable,str(ENGINE/('run.py' if a.mode=='simulate' else 'live_explained.py' if a.summaries else 'live.py'))]
-    if a.mode=='simulate':cmd+=['sim']
-    cmd+=['--out',str(out),'--profile',str(ROOT/recipe['profile'])]
-    for k,v in kw.items():
-        if k=='workers' and a.mode!='simulate':continue
-        cmd+=['--'+k,str(v)]
-    if a.mode=='preflight':cmd+=['--executor-preflight']
-    if a.mode=='eval':cmd+=['--budget',str(a.budget_ledger.resolve()),'--validation-cap',str(a.stage_cap_usd)]
-    env=dict(os.environ,MUJOCO_GL=os.environ.get('MUJOCO_GL','egl'),LP_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1')
-    # A manifest adjacent to the output survives failure before the driver creates it.
-    out.parent.mkdir(parents=True,exist_ok=True);pending=out.with_name(out.name+'.manifest.json');pending.write_text(json.dumps(manifest,indent=2))
-    result=subprocess.run(cmd,env=env)
-    out.mkdir(exist_ok=True);(out/'manifest.json').write_bytes(pending.read_bytes());pending.unlink()
-    rec=record_run(out,a.mode,recipe,result.returncode);print(json.dumps(rec,indent=2))
-    if result.returncode:raise SystemExit(result.returncode)
-    if rec['execution_integrity']!='verified':raise SystemExit('Evaluation did not pass integrity checks')
-if __name__=='__main__':main()
+            result=subprocess.run(cmd,env=env)
+        finally:
+            out.mkdir(parents=True,exist_ok=True)
+            (out/'manifest.json').write_text(json.dumps(manifest,indent=2))
+        rec=evaluation_record(out,a.mode,result.returncode)
+        print(json.dumps(rec,indent=2))
+        if result.returncode:
+            raise SystemExit(result.returncode)
+        if rec['execution_integrity']!='verified':
+            raise SystemExit('Evaluation did not pass integrity checks')
+
+
+if __name__=='__main__':
+    main()

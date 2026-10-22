@@ -3,6 +3,7 @@
 Use local Git repositories and real virtual environments. No game or model calls.
 """
 import json
+import io
 import os
 from pathlib import Path
 import shutil
@@ -177,6 +178,20 @@ class EnvironmentContracts(unittest.TestCase):
         self.save_registry()
         with self.assertRaisesRegex(RuntimeError, "does not support simulate"):
             envs.launch(self.root, "first", ["simulate"])
+
+    def test_setup_selection_uses_registry_and_restricts_source_to_one_external_game(self):
+        # Long-lived CLI contract: explicit selection and all share one registry.
+        for argv, expected in ((["setup", "alias", "first", "second"], ["first", "second"]),
+                               (["setup", "all"], ["first", "second"])):
+            with patch.object(envs, "setup", return_value={}) as prepare, patch("sys.stdout", new_callable=io.StringIO):
+                envs.main(self.root, argv)
+            self.assertEqual([call.args[1] for call in prepare.call_args_list], expected)
+        for argv in (["setup", "all", "first"], ["setup", "all", "--source", str(self.upstream)],
+                     ["setup", "first", "second", "--source", str(self.upstream)]):
+            with patch.object(envs, "setup") as prepare, patch("sys.stderr", new_callable=io.StringIO):
+                with self.assertRaises(SystemExit):
+                    envs.main(self.root, argv)
+            prepare.assert_not_called()
 
 
 if __name__ == "__main__":

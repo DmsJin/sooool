@@ -1,6 +1,6 @@
 """Explicitly budgeted Ultrafast Responses calls, ported from olympic_research.
 
-Credentials stay in their owning files. Logs contain only experiment inputs,
+Credentials stay in process memory. Logs contain only experiment inputs,
 model answers, timing, token counts, and non-identifying quota percentages.
 """
 
@@ -152,7 +152,8 @@ def usage_cost_nano(usage):
 
 
 class ApiClient:
-    def __init__(self, config: dict, output: Path, budget: ApiBudget, schema: dict | None = None):
+    """Stream paid decisions and settle their usage against the supplied budget."""
+    def __init__(self, config: dict, output: Path, budget: ApiBudget, schema: dict | None = None, *, key: str):
         self.config = config
         self.output = Path(output)
         self.output.mkdir(parents=True, exist_ok=True)
@@ -161,9 +162,6 @@ class ApiClient:
         self.instructions = (Path(config["system_instructions_file"]).read_text()
                              if config.get("system_instructions_file") else DEFAULT_INSTRUCTIONS)
         self.max_output_tokens = int(config.get("max_output_tokens", 1024))
-        key = Path(config["api_key_file"]).read_text().strip()
-        if not key or "\n" in key:
-            raise ValueError("API key file must contain one nonempty value")
         self.client = httpx.Client(
             base_url="https://api.openai.com/v1/", timeout=float(config.get("timeout_seconds", 120)),
             headers={"Authorization": "Bearer " + key}, trust_env=False,
