@@ -36,8 +36,11 @@ Setup compiles these environments and installs their Python 3.12 packages:
 
 | Environment | Prepare | Build requirements and guide |
 | --- | --- | --- |
-| Red Alert 2: Yuri's Revenge (VERA20K) | `uv run sol env setup vera20k` | Rust, Maturin, and Linux native libraries. [Python API and installation guide](https://github.com/mindorigin150/vera20k-agent/blob/9b95f20736d54039a4307e464fc460e2cfc0c0dc/python/README.md). |
+| Red Alert 2: Yuri's Revenge (VERA20K) | `uv run sol env setup vera20k` | Rust, Maturin, and Linux native libraries. [Python API and installation guide](https://github.com/mindorigin150/vera20k-agent/blob/c9a9b38f2e42042f398a39a4f07edcd0feba0219/python/README.md). |
 | Plants vs. Zombies (PvZ) | `uv run sol env setup pvz` | CMake, Ninja, and Linux native libraries. [Installation and native validation guide](pvz.md). |
+
+The VERA20K revision includes the offscreen HUD update fix. Re-run
+`uv run sol env setup vera20k` to rebuild an existing environment.
 
 Both environments keep game resources outside this repository.
 Their model experiment runners are later integrations. Setup prepares their native

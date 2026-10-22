@@ -6,7 +6,7 @@
     },
     "vera20k": {
       "repository": "https://github.com/mindorigin150/vera20k-agent.git",
-      "revision": "9b95f20736d54039a4307e464fc460e2cfc0c0dc"
+      "revision": "c9a9b38f2e42042f398a39a4f07edcd0feba0219"
     },
     "pvz": {
       "repository": "https://github.com/mindorigin150/PvZ-Portable-agent.git",
