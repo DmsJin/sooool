@@ -1,7 +1,6 @@
 """Private offline fixed-window scoring. Never constructs a model request."""
 from __future__ import annotations
 import argparse
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -85,7 +84,7 @@ def main():
             expected={key:value for key,value in source['expected'].items() if key!='clock'}
             comparison=compare_engine_state(final['state'],expected)
             assert comparison['bounded_float'], f'Full source replay mismatch: {path}: {comparison}'
-            report['source_verification'][path]={'exact_state_match':comparison['exact'],'bounded_float_state_match':comparison['bounded_float'],'state_comparison':comparison,'local_log_directory':str(directory),'tick':final['state']['tick'],'status':final['state']['status'],'boss_hp':final['state']['boss']['hp'],'actions_sha256':hashlib.sha256((directory/'actions.jsonl').read_bytes()).hexdigest()}
+            report['source_verification'][path]={'exact_state_match':comparison['exact'],'bounded_float_state_match':comparison['bounded_float'],'state_comparison':comparison,'local_log_directory':str(directory),'tick':final['state']['tick'],'status':final['state']['status'],'boss_hp':final['state']['boss']['hp']}
             save(output,report);print(json.dumps({'source_verified':path}),flush=True)
         for case in manifest['cases']:
             source=sources[case['source_episode']];issued=next(r for r in source['issued'] if r['seq']==case['source_seq']);wall=issued.get('capture_clock',{}).get('wall_ms')

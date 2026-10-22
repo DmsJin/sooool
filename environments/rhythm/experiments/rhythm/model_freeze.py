@@ -20,7 +20,7 @@ def freeze(output,memory,private_dir,charts=3,*,cadence=.1,concurrency=20,max_ou
   chart=generate(private_dir,path,model_workspace=ROOT,duration=duration)
   heldouts.append({'chart_path':str(chart.chart_path),'public_metadata':chart.public_metadata()})
  (output/'trusted-heldouts.json').write_text(json.dumps(heldouts,indent=2));(output/'trusted-heldouts.json').chmod(0o600)
- print(json.dumps({'freeze':str(path),'charts':charts,'chart_hashes':[c['public_metadata']['chart_sha256'] for c in heldouts]}))
+ print(json.dumps({'freeze':str(path),'charts':charts}))
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--memory',required=True);p.add_argument('--private-dir',required=True);p.add_argument('--charts',type=int,default=3)
  p.add_argument('--max-miss',type=int,default=2);p.add_argument('--duration',type=float,default=30.000998)

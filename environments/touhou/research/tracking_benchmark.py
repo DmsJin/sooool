@@ -166,7 +166,6 @@ def episode(args):
         selected=[f for f in run['frames'] if start*60<=f['visual_frame']<end*60]
         windows.append(dict(start_video_s=start,end_video_s=end,metrics=score_trace(selected,warmup=0),frames=selected))
     return dict(source_verification=verified,trace_final_verification=trace_verified,source=str(args.episode),
-        source_actions_sha256=digest(args.episode/'actions.jsonl'),
         episode_metrics=score_trace(run['frames'],warmup=0),windows=windows)
 
 
@@ -219,14 +218,10 @@ def recorded_api_delay(case, original):
         raise ValueError('Invalid recorded visual action age')
     browser_s=(action['apply_clock']['wall_ms']-issued['capture_clock']['wall_ms'])/1000
     if not math.isfinite(browser_s) or browser_s<0:raise ValueError('Invalid recorded browser action age')
-    record_sha=hashlib.sha256(json.dumps(action,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
     return dict(delay_s=frames/60,delay_visual_frames=frames,delay_kind='recorded_api_visual_age',
         recorded_browser_age_s=browser_s,recorded_visual_age_s=frames/60,
         recorded_capture_to_apply_monotonic_s=action.get('capture_to_apply_s'),
-        source_applied_action_seq=action['seq'],source_cohort_id=issued.get('cohort_id',issued['seq']),
-        source_applied_action_record_sha256=record_sha,
-        source_action_hash_encoding='UTF-8 JSON sorted keys compact separators',
-        source_actions_sha256=original['actions_sha256'],source_issued_sha256=original['issued_sha256'])
+        source_applied_action_seq=action['seq'],source_cohort_id=issued.get('cohort_id',issued['seq']))
 
 
 def delay_conditions(args, case, original=None):
@@ -244,7 +239,7 @@ def cases(args):
     comparisons,coverage=validated_comparisons(args.dataset,manifest,args.comparison)
     if args.expected_answers is not None and coverage['answers']!=args.expected_answers:raise ValueError('Answer count differs from frozen planned batch')
     diagnostic_kind='private_tracking_recorded_delay_diagnostic_v1' if args.recorded_api_delays else 'private_tracking_benchmark_v1'
-    report=dict(dataset_manifest_sha256=digest(args.dataset/'manifest.json'),comparison_coverage=coverage,source_verification={},rollouts=[])
+    report=dict(comparison_coverage=coverage,source_verification={},rollouts=[])
     if args.recorded_api_delays:report.update(post_selection_reuse=True,not_independent_validation=True,private_delay_labels=True)
     entries={case['id']:case for case in manifest['cases']}
     human=any('source_episode' not in c for c in entries.values())
@@ -270,7 +265,7 @@ def cases(args):
                     path=args.source_root/Path(remote).relative_to('/home/ubuntu/wzh/touhou-sol-study')
                 if remote not in sources:
                     original=source(path);original['issued']=rows(path/'issued.jsonl')
-                    original['actions_sha256']=digest(path/'actions.jsonl');original['issued_sha256']=digest(path/'issued.jsonl')
+                    original['issued_sha256']=digest(path/'issued.jsonl')
                     if case.get('issued_sha256') not in (None,original['issued_sha256']):raise ValueError('Source issued log provenance mismatch')
                     sources[remote]=original
                     report['source_verification'][remote]=verify(env,original)
@@ -303,8 +298,6 @@ def cases(args):
                     observed_boss_x_private=observed['state']['boss']['x'],
                     eligible_for_action=before['state']['status']=='playing',
                     source_status_after=run['final']['state']['status'],
-                    prompt_sha256=answer.get('prompt_sha256'),
-                    image_sha256s=answer['response']['meta']['image_sha256s'],
                     metrics=score_trace(run['frames'],observed_boss_x=observed['state']['boss']['x']),frames=run['frames']))
                 save(args.output,dict(kind=diagnostic_kind,private_only=True,complete=False,**report))
     return report

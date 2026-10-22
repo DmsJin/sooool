@@ -75,10 +75,7 @@ def main():
     report = dict(kind='private_human_prefix_counterfactual', private_only=True,
         not_episode_success_metric=True, delay_assumption_s=args.delays,
         post_action_window_visual_frames=120,
-        source_run=str(args.source), source_actions_sha256=sha(args.source/'actions.jsonl'),
-        source_final_sha256=sha(args.source/'final_state.json'),
-        dataset_manifest_sha256=sha(args.dataset/'manifest.json'),
-        public_input_audit=load(args.root/'comparison/public_input_audit.json'),
+        source_run=str(args.source), public_input_audit=load(args.root/'comparison/public_input_audit.json'),
         input_boundary='Already completed answers only; no state, human future labels or trajectories transmitted to a model.',
         prefix_rule='Replay actual human prefix through observed visual frame; disable human input; replace with observed held keys for one logical frame, then retain Z/Shift only. Suppress all future human actions.',
         observed_ground_truth={}, rollouts=[], undelayed_human_reference=[])
@@ -120,7 +117,6 @@ def main():
                     after=before
                 result=dict(call=answer['call'],case_id=case['id'],candidate=answer['candidate'],repeat=answer['repeat'],
                     delay_s=delay,delay_visual_frames=math.ceil(delay*60),eligible_for_action=eligible,
-                    prompt_sha256=answer['prompt_sha256'],image_sha256s=expected_images,
                     grounding=estimate_error(answer['response']['answer'],report['observed_ground_truth'][case['id']]),
                     **metrics(observed,before,after))
                 report['rollouts'].append(result); report['elapsed_s']=time.monotonic()-started

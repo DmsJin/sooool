@@ -16,7 +16,7 @@ class ImageBudgetTests(unittest.TestCase):
 
     def certificate(self):
         return {'schema':1,'model':'gpt-6.1-sol','detail':'high','width':390,'height':844,
-                'framed_image_input_tokens':450,'count_request_sha256':'ab'*32,
+                'framed_image_input_tokens':450,
                 'response_object':'response.input_tokens','billing':'full_uncertain_reservation_retained'}
 
     def test_unicode_text_bound_uses_utf8_bytes_and_exact_certificate(self):
@@ -39,7 +39,7 @@ class ImageBudgetTests(unittest.TestCase):
 
     def test_certificate_validation_rejects_mismatch_and_invalid_evidence(self):
         mutations=[('schema',True),('schema',2),('model','other'),('detail','low'),('width',0),
-                   ('height',False),('framed_image_input_tokens',0),('count_request_sha256','bad'),
+                   ('height',False),('framed_image_input_tokens',0),
                    ('response_object','response'),('billing','released')]
         with tempfile.TemporaryDirectory() as temporary:
             path=Path(temporary)/'certificate.json'

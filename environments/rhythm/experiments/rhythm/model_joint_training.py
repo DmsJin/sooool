@@ -76,10 +76,7 @@ async def run_episode(args, *, provider_factory=NativeProvider, env_factory=Mode
                   outer=getattr(args, 'outer', 'minimal'), content_timestamp_bias_ms=content_bias_ms, live_commentary=live_commentary, raw_ack_tail=getattr(args, 'ack_limit', 8),
                   hide_rtt=hide_rtt,
                   joint_profile_path=str(Path(args.joint_profile).resolve()),
-                  joint_profile_sha256=hashlib.sha256(Path(args.joint_profile).read_bytes()).hexdigest(),
-                  joint_conditions_s=conditions, memory_sha256=hashlib.sha256(memory.encode()).hexdigest(),
-                  trusted_chart_sha256=hashlib.sha256(Path(args.chart).read_bytes()).hexdigest() if args.chart else None,
-                  source_sha256={f: hashlib.sha256((ROOT / f).read_bytes()).hexdigest() for f in files},
+                  joint_conditions_s=conditions, source_sha256={f: hashlib.sha256((ROOT / f).read_bytes()).hexdigest() for f in files},
                   started_at=datetime.now(timezone.utc).isoformat(),
                   limitations=['Subscription wall computation is separate from imposed virtual delivery.',
                                'Virtual evidence is not native API acceptance.',
@@ -187,7 +184,7 @@ async def run_episode(args, *, provider_factory=NativeProvider, env_factory=Mode
                     heapq.heappush(events, (condition['release_s'], -1, event_index))
                     _append(output / 'requests.jsonl', dict(request_version=sequence, sent_virtual_s=game_s,
                             delivery_virtual_s=condition['due_s'], joint_condition=condition, frames=[metadata],
-                            prompt=text, prompt_sha256=hashlib.sha256(text.encode()).hexdigest()))
+                            prompt=text))
                     sent += 1
                 if kind == 2 and event_index % 10 == 0:
                     progress = dict(game_s=game_s, requests=sent, pending=len(tasks), occupied_requests=len(occupied), drops=dropped,

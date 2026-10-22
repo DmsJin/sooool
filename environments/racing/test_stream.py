@@ -1,4 +1,4 @@
-import json,pathlib,tempfile,threading,unittest
+import hashlib,json,pathlib,tempfile,threading,unittest
 from unittest.mock import Mock
 from run import API,Budget,MODEL,parse
 
@@ -18,9 +18,11 @@ class Stream(unittest.TestCase):
     yield b'data: '+json.dumps({'type':'response.completed','response':response}).encode()
    http=Mock();http.status_code=200;http.iter_lines=lines;http.__enter__=Mock(return_value=http);http.__exit__=Mock(return_value=False);api.http.post=Mock(return_value=http)
    error=None
-   try:answer,meta=api.act('test',[],pathlib.Path(d)/'call',on_ready=lambda *x:emitted.append(x),validator=parse)
+   try:answer,meta=api.act('test',[b'visible pixels'],pathlib.Path(d)/'call',on_ready=lambda *x:emitted.append(x),validator=parse)
    except RuntimeError as e:error=e;meta=None
    self.assertFalse(json.loads(budget.path.read_text())['reserved'])
+   call=pathlib.Path(d)/'call';record=json.loads((call/'input.json').read_text())
+   self.assertEqual(record['image_sha256'],[hashlib.sha256((call/'image_0.png').read_bytes()).hexdigest()])
    api.close();return emitted,seen,error,meta
  def test_action_published_before_completion_and_usage(self):
   emitted,seen,error,meta=self.exercise('[[2,0.1,0.2]]')

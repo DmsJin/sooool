@@ -21,9 +21,7 @@ def build(source, output, requested_frames):
     frames=rows(source/'frames.jsonl');actions=rows(source/'actions.jsonl')
     output.mkdir(parents=True,exist_ok=False);(output/'cases').mkdir();(output/'private').mkdir()
     manifest={'kind':'retrospective_human_visual_devset','version':1,'split':'development',
-              'source_run':source.name,'source_manifest_sha256':sha(source/'manifest.json'),
-              'source_verification_sha256':sha(source/'verification.json'),
-              'input_boundary':'Past original PNGs, observed held keys, observed frame, static control configuration and historical delay distribution only. No future human action, exact state or trajectories.',
+              'source_run':source.name,'input_boundary':'Past original PNGs, observed held keys, observed frame, static control configuration and historical delay distribution only. No future human action, exact state or trajectories.',
               'cases':[]}
     review=['<!doctype html><meta charset="utf-8"><title>真人示范 · 视觉案例</title><style>body{background:#141017;color:#eedfea;font:15px system-ui;margin:25px}article{margin:30px 0;border-top:1px solid #584152}img{width:30%;max-width:360px}a{color:#d5a5d8}</style><h1>真人示范 · 六个观察时刻</h1><p>每个当前时刻保持 Z＋Shift、方向键已释放。只给模型过去约一秒的三张原图；未来真人操作另存私有标签，不能视为唯一正确动作。</p>']
     for requested in requested_frames:
@@ -52,8 +50,7 @@ def build(source, output, requested_frames):
         future=[{'delta_visual_frames':row['visual_frame']-latest['clock']['visual_frame'],
                  'delta_logical_frames':row['logical_frame']-requested,'action':row['action']}
                 for row in actions if latest['clock']['visual_frame']<row['visual_frame']<=latest['clock']['visual_frame']+300]
-        private={'human_demonstrations':[{'source_run':source.name,'source_actions_sha256':sha(source/'actions.jsonl'),
-                  'future_visual_window':300,'future_actions':future}],
+        private={'human_demonstrations':[{'source_run':source.name,'future_visual_window':300,'future_actions':future}],
                  'warning':'Private retrospective reference only. Future human actions must not enter the player prompt, and are not a unique gold action.'}
         save(output/'private'/f'{ident}.json',private)
         manifest['cases'].append({'id':ident,'source_run':source.name,'source_logical_frame':requested,
@@ -71,4 +68,4 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('source',type=Path);parser.add_argument('output',type=Path)
     parser.add_argument('--frames',nargs='+',type=int,required=True);args=parser.parse_args()
     result=build(args.source,args.output,args.frames)
-    print(json.dumps({'output':str(args.output),'cases':len(result['cases']),'manifest_sha256':sha(args.output/'manifest.json')}))
+    print(json.dumps({'output':str(args.output),'cases':len(result['cases'])}))

@@ -19,7 +19,7 @@ def touhou(recipe,out,a):
     summary=json.loads((out/'episode/summary.json').read_text())
     (out/'summary.json').write_text(json.dumps(summary,indent=2))
     from runtime.touhou_records import evaluation_record
-    evaluation_record(ROOT,out)
+    evaluation_record(out)
     return summary
 
 def touhou_realtime(recipe,out,a):
@@ -45,7 +45,7 @@ def touhou_realtime(recipe,out,a):
         return result
     finally:
         key=None
-        record=evaluation_record(ROOT,out,budget_before=before,budget_after=ledger.snapshot())
+        record=evaluation_record(out,budget_before=before,budget_after=ledger.snapshot())
         m=json.loads((out/'manifest.json').read_text());m['real_time_api_acceptance']=record['passed']
         (out/'manifest.json').write_text(json.dumps(m,indent=2)+'\n')
 

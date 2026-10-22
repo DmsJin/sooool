@@ -6,7 +6,6 @@ observation. Seeds, files and notes belong exclusively to the trusted renderer.
 """
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -71,16 +70,12 @@ def generate(private_dir, freeze_manifest, *, model_workspace=None,duration=30.0
              'source': 'Apple official preview; newly randomized held-out visual chart',
              'beat_phase': phase, 'chart_version': 'heldout-secret-v1', 'notes': notes}
     chart_bytes = json.dumps(chart, sort_keys=True, separators=(',', ':')).encode()
-    chart_sha = hashlib.sha256(chart_bytes).hexdigest()
-    seed_commitment = hashlib.sha256(seed).hexdigest()
     tag = secrets.token_hex(8)
     chart_path = private_dir / f'{tag}.chart.json'
     seed_path = private_dir / f'{tag}.seed'
     _private_write(chart_path, chart_bytes)
     _private_write(seed_path, seed.hex().encode())
-    metadata = {'chart_sha256': chart_sha, 'seed_commitment': seed_commitment,
-                'policy_freeze_sha256': hashlib.sha256(freeze_bytes).hexdigest(),
-                'generated_at': datetime.now(timezone.utc).isoformat(),
+    metadata = {'generated_at': datetime.now(timezone.utc).isoformat(),
                 'difficulty': 1, 'duration_s': chart['duration'], 'note_count': len(notes),
                 'generation': 'fresh_secret_seed_after_policy_freeze', 'heldout': True}
     _private_write(private_dir / f'{tag}.evidence.json', json.dumps(metadata, indent=2).encode())

@@ -98,7 +98,6 @@ def extract(directory, frame, count=3):
         name = f'image_{i}.png';shutil.copyfile(directory/row['png'], target/name)
         rows.append({'frame': row['frame'], 'visual_frame': row['clock']['visual_frame'], 'held': row['held'], 'png': name, 'sha256': row['sha256']})
     write(target/'observation.json', {'source_run': directory.name,
-          'source_manifest_sha256': hashlib.sha256((directory/'manifest.json').read_bytes()).hexdigest(),
           'observation_frame': chosen[-1]['frame'] if chosen else None,
           'images': rows, 'label_source': 'Human actions are stored separately; do not include future labels in model input.'})
     return str(target)
@@ -148,7 +147,7 @@ def main():
                         seed = data['seed'];assert type(seed) is int and 0 <= seed <= 4294967295
                         ident = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+secrets.token_hex(3)
                         folder = args.output/ident;folder.mkdir();(folder/'frames').mkdir()
-                        manifest = {'kind':'human_demonstration','provider':'human','seed':seed,'mode':'realtime','speed':1,'video_target_fps':30,'keyframe_stride':15,'engine_sha256':ENGINE_HASH,'created_at':datetime.now(timezone.utc).isoformat(),'complete':False}
+                        manifest = {'kind':'human_demonstration','provider':'human','seed':seed,'mode':'realtime','speed':1,'video_target_fps':30,'keyframe_stride':15,'created_at':datetime.now(timezone.utc).isoformat(),'complete':False}
                         write(folder/'manifest.json',manifest)
                         for name in ['key_edges.jsonl','actions.jsonl','frames.jsonl']:(folder/name).touch()
                         result = {'id':ident,'path':str(folder)}

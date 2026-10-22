@@ -21,6 +21,17 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def request_image_count(shape):
+    if 'image_count' in shape:
+        count = shape['image_count']
+    else:
+        images = shape['images']
+        if not isinstance(images, list):raise ValueError('Invalid request image list')
+        count = len(images)
+    if type(count) is not int or count < 1:raise ValueError('Invalid request image count')
+    return count
+
+
 def finite(value, label, positive=False):
     if type(value) not in (int, float) or not math.isfinite(value) or (positive and value <= 0):
         raise ValueError('Invalid finite value: '+label)
@@ -102,7 +113,7 @@ def build_profile(joint_path, serial_path, source_root=None, expected_serial=21,
         meta=row['meta'];shape=meta['shape']
         if meta['valid'] is not True:
             raise ValueError('Invalid serial response in calibration')
-        count=len(shape['images'])
+        count=request_image_count(shape)
         if count not in new_marginal:
             raise ValueError('Unexpected new serial image count')
         new_marginal[count].append(finite(meta['total_s'],'serial complete latency',positive=True))
@@ -133,8 +144,7 @@ def build_profile(joint_path, serial_path, source_root=None, expected_serial=21,
             'joint_delay_vectors_s':vectors,'image_counts':old['image_counts'],'apply_overhead_s':apply,
             'control_age_p50_s':quantile(selected,.5),'control_age_p95_s':quantile(selected,.95),
             'delay_definition':'Historical readiness minus historical complete network time, plus inverse new serial marginal CDF at historical same-image-count concurrent network midrank. Selected age adds unchanged apply overhead.',
-            'provenance':{'past_real_joint_profile':str(joint_path),'past_real_joint_sha256':sha(joint_path),
-                          'new_serial_profile':str(serial_path),'new_serial_sha256':sha(serial_path),'past_real_sources':old['provenance']},
+            'provenance':{'past_real_joint_profile':str(joint_path),'new_serial_profile':str(serial_path),'past_real_sources':old['provenance']},
             'serial_configuration':dict(zip(('model','tier','effort','max_output_tokens','detail','schema_sha256'),next(iter(identities)))),
             'assumptions':['Modeled sensitivity condition, not a measurement of new concurrent API performance.',
                            'Non-singleton image shapes retain network rank/copula through monotone marginal transport. Candidate readiness ranks or the winning slot can change after residuals are added.',

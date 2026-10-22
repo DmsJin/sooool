@@ -23,7 +23,7 @@ def prepare(source,calls):
   text=json.loads((directory/'input.json').read_text())['params']['input'][0]['text']
   image=(source/'observations'/f'{seq:05d}.png').read_bytes();image_hash=hashlib.sha256(image).hexdigest()
   if image_hash!=event['image_sha256']:raise ValueError('Source observation hash mismatch')
-  groups[kind].append({'seq':seq,'kind':kind,'prompt':text,'image_b64':base64.b64encode(image).decode(),'options':options,'image_sha256':image_hash,'prompt_sha256':hashlib.sha256(text.encode()).hexdigest()})
+  groups[kind].append({'seq':seq,'kind':kind,'prompt':text,'image_b64':base64.b64encode(image).decode(),'options':options})
  rng=random.Random(816);selected=[]
  for group in groups.values():rng.shuffle(group)
  # Balance distinct source observations across the available action categories.
@@ -38,7 +38,7 @@ def main():
  p=argparse.ArgumentParser();p.add_argument('--source',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--ledger',type=Path,required=True);p.add_argument('--calls',type=int,default=24);p.add_argument('--run-paid',action='store_true');a=p.parse_args()
  if not 6<=a.calls<=48:raise ValueError('Choose between six and 48 serial calls')
  samples,source_summary=prepare(a.source,a.calls)
- plan={'source':str(a.source),'source_digest':source_summary['digest'],'variant':source_summary['variant'],'model':'gpt-6.1-sol','service_tier':'ultrafast','effort':'low','concurrency':1,'game_prompt_and_observation_preserved':True,'samples':[{k:s[k] for k in ['seq','kind','image_sha256','prompt_sha256']} for s in samples]}
+ plan={'source':str(a.source),'source_digest':source_summary['digest'],'variant':source_summary['variant'],'model':'gpt-6.1-sol','service_tier':'ultrafast','effort':'low','concurrency':1,'game_prompt_and_observation_preserved':True,'samples':[{k:s[k] for k in ['seq','kind']} for s in samples]}
  a.output.mkdir(parents=True,exist_ok=False);(a.output/'plan.json').write_text(json.dumps(plan,indent=2))
  if not a.run_paid:print(json.dumps({'paid_calls':0,'planned_calls':len(samples),'plan':str(a.output/'plan.json')}));return
  key=getpass.getpass('API key (memory only): ');api=API(key,Budget(a.ledger),'profiling',5);key=None;rows=[]

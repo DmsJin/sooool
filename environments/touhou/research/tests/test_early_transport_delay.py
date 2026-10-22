@@ -42,6 +42,11 @@ class EarlyTransportDelayTest(unittest.TestCase):
             for ready,terminal in zip(output['joint_delay_vectors_s'],output['joint_terminal_delay_vectors_s']):
                 for r,t in zip(ready,terminal):self.assertAlmostEqual(t-r,.4)
             self.assertLess(output['joint_delay_vectors_s'][1][0],output['joint_delay_vectors_s'][1][1])
+            rows=[json.loads(line) for line in serial.read_text().splitlines()]
+            for row in rows:
+                shape=row['meta']['shape'];shape['image_count']=len(shape.pop('images'))
+            serial.write_text(''.join(json.dumps(row)+'\n' for row in rows))
+            self.assertEqual(build_early_transport(joint,serial,expected_serial=3),output)
 
     def test_hash_and_vector_mismatch_fail_closed(self):
         for kind in ('source','early','vector','terminal'):
@@ -57,7 +62,7 @@ class EarlyTransportDelayTest(unittest.TestCase):
                     build_early_transport(joint,serial,expected_serial=3)
 
     def test_strict_serial_identity_and_shape(self):
-        for damage in ('schema','model','cap','effort','missing_stratum','invalid','negative','missing_metric'):
+        for damage in ('schema','model','cap','effort','missing_stratum','invalid','negative','missing_metric','image_count'):
             with self.subTest(damage=damage),tempfile.TemporaryDirectory() as root:
                 joint,serial,episode=self.fixture(root)
                 rows=[json.loads(x) for x in serial.read_text().splitlines()]
@@ -65,6 +70,7 @@ class EarlyTransportDelayTest(unittest.TestCase):
                     field={'schema':'schema_sha256','cap':'max_output_tokens'}.get(damage,damage)
                     rows[0]['meta']['shape'][field]=256 if damage=='cap' else 'mismatch'
                 if damage=='missing_stratum':rows[0]['meta']['shape']['images']=['hash']*3
+                if damage=='image_count':rows[0]['meta']['shape']['image_count']=0
                 if damage=='invalid':rows[0]['meta']['valid']=False
                 if damage=='negative':rows[0]['meta']['legal_action_s']=-1
                 if damage=='missing_metric':del rows[0]['meta']['legal_action_s']

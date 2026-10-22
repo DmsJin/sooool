@@ -1,6 +1,5 @@
 """Export visible messages/tools, never hidden reasoning or authentication payloads."""
 import argparse
-import hashlib
 import json
 from pathlib import Path
 import re
@@ -60,9 +59,9 @@ def export(source,dest):
  messages=[x for x in rows if x['type']=='message']
  conversation=ARCHIVE_NOTICES.get(dest.name,'')+'\n\n'.join('### '+x['role']+' '+str(x['timestamp'])+'\n\n'+x['text']for x in messages)
  (dest/'conversation.md').write_text(conversation)
- manifest={'source_filename':source.name,'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'records':len(rows),'messages':len(messages),'omitted_interactive_inputs':excluded,'scope':'visible exported messages/tools only; hidden reasoning excluded; secrets redacted; local research archive, review before public release'}
+ manifest={'source_filename':source.name,'records':len(rows),'messages':len(messages),'omitted_interactive_inputs':excluded,'scope':'visible exported messages/tools only; hidden reasoning excluded; secrets redacted; local research archive, review before public release'}
  if dest.name in ARCHIVE_NOTICES:
-  manifest.update(conversation_sha256=hashlib.sha256((dest/'conversation.md').read_bytes()).hexdigest(),packaging_note='Added historical-scope header to conversation.md; exported conversation body and original source_sha256 preserved.')
+  manifest.update(packaging_note='Added historical-scope header to conversation.md; exported conversation body preserved.')
  (dest/'manifest.json').write_text(json.dumps(manifest,indent=2))
  print(dest.name,len(rows),len(messages))
 if __name__=='__main__':

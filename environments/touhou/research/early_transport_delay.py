@@ -13,7 +13,7 @@ from pathlib import Path
 
 from .control_delays import nonnegative, read_rows
 from .early_control_delays import calibrate_early
-from .transport_delay import quantile, sha, transport
+from .transport_delay import request_image_count, quantile, sha, transport
 
 IDENTITY=('model','tier','effort','max_output_tokens','detail','schema_sha256')
 
@@ -24,8 +24,6 @@ def identity(shape):
         raise ValueError('Invalid request configuration string')
     if type(shape['max_output_tokens']) is not int or shape['max_output_tokens']<1:
         raise ValueError('Invalid request output cap')
-    if not isinstance(shape.get('images'),list) or not shape['images'] or any(not isinstance(v,str) or not v for v in shape['images']):
-        raise ValueError('Invalid request image hashes')
     return tuple(shape[key] for key in IDENTITY)
 
 
@@ -96,7 +94,7 @@ def build_early_transport(joint_path,serial_path,source_episodes=None,expected_s
                 meta=row['meta'];shape=meta['shape'];identities.add(identity(shape))
                 if meta.get('valid') is not True: raise ValueError('Invalid historical response')
                 images=len(row['image_frames'])
-                if len(shape['images'])!=images or images!=old['image_counts'][index]: raise ValueError('Historical image shape mismatch')
+                if request_image_count(shape)!=images or images!=old['image_counts'][index]: raise ValueError('Historical image shape mismatch')
                 early=json.loads((directory/f"decision_{row['seq']:05d}"/'early_result.json').read_text())
                 legal=positive(early['meta']['legal_action_s'],'historical legal duration')
                 observed=nonnegative(row['capture_clock']['wall_ms'],'capture clock')/1000+source['clock_offset_s']
@@ -117,7 +115,7 @@ def build_early_transport(joint_path,serial_path,source_episodes=None,expected_s
         meta=row['meta'];shape=meta['shape']
         if meta.get('valid') is not True: raise ValueError('Invalid serial response')
         if identity(shape)!=historical_identity: raise ValueError('Serial/historical model, tier, effort, cap, detail or schema mismatch')
-        count=len(shape['images'])
+        count=request_image_count(shape)
         if count not in old_marginal: raise ValueError('Unexpected serial image-count stratum')
         new_marginal[count].append(positive(meta['legal_action_s'],'serial legal duration'))
     if set(new_marginal)!=set(old_marginal): raise ValueError('Missing serial image-count stratum; no fallback')
@@ -141,7 +139,7 @@ def build_early_transport(joint_path,serial_path,source_episodes=None,expected_s
         'serial_configuration':dict(zip(IDENTITY,historical_identity)),
         'singleton_constant_image_counts':sorted(n for n,v in new_marginal.items() if len(v)==1),
         'marginal_sample_counts':{'past_real':{str(n):len(v) for n,v in old_marginal.items()},'new_serial':{str(n):len(v) for n,v in new_marginal.items()}},
-        'provenance':{'past_real_joint_profile':str(joint_path),'past_real_joint_sha256':sha(joint_path),'new_serial_profile':str(serial_path),'new_serial_sha256':sha(serial_path),'past_real_sources':provenance},
+        'provenance':{'past_real_joint_profile':str(joint_path),'new_serial_profile':str(serial_path),'past_real_sources':provenance},
         'delay_definition':'Map same-image historical early legal-action midranks to new serial legal-action durations; preserve capture-to-network and callback-publication residuals plus paired terminal-ready tails.',
         'assumptions':['Declared prompt-dependent transport model, not measured new concurrent API timing.',
             'Historical early legal durations include callback validation setup; serial legal_action_s measures completed JSON detection. Their small detection/validation difference is not recalibrated.',

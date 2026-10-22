@@ -105,7 +105,6 @@ Budget admission reserves conservative maximum fees for every in-flight request 
 | `record_id` | Stable run identity; default is the unique output directory name |
 | `provenance` | `historical_source_harness`, `previous_portable_release`, or fresh `package_cli` |
 | `execution_mode` | Actual API, subscription/profile simulation, or saved-action replay |
-| `policy_sha256`, `engine_sha256`, `source_commit` | Condition identity; the run manifest retains full file hashes |
 | `seed`, `fanout`, summary language | Development/evaluation setup; include seen/held-out context in the note |
 | `complete`, `integrity_verified`, `status` | A game loss differs from interrupted transport or incomplete accounting |
 | `won`, `passed` | `won` describes boss defeat. `passed` additionally requires valid, continuous 1× API execution and completed accounting |

@@ -1,5 +1,5 @@
 """Record real frontend observations using legal fixed keys; zero model calls."""
-import argparse,json,pathlib,hashlib
+import argparse,json,pathlib
 from .environment import BrowserEnv
 from .policies import make_prompt
 
@@ -20,7 +20,7 @@ def main():
    prompt+='Use duration_frames from exactly 6,12,24,48.\n'
    groups.append({'name':f'native{n}_baseline','prompt':prompt,'images':[x[0] for x in selected]})
   (args.output/'fixtures.json').write_text(json.dumps({'fixtures':groups},indent=2))
-  (args.output/'manifest.json').write_text(json.dumps({'source':'original browser rendering','model_calls':0,'images':[{'file':name,'frame':ob['frame'],'sha256':hashlib.sha256(ob['png']).hexdigest()} for name,ob in images]},indent=2))
+  (args.output/'manifest.json').write_text(json.dumps({'source':'original browser rendering','model_calls':0,'images':[{'file':name,'frame':ob['frame']} for name,ob in images]},indent=2))
  print(args.output/'fixtures.json')
 
 if __name__=='__main__':main()

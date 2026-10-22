@@ -44,7 +44,6 @@ def freeze(api_root, human_dataset, output, profile, spec):
         if 'control_age_kind' in profile:public['profile']['control_age_kind']=profile['control_age_kind']
         save(output/case['input_file'],public)
         case['input_sha256']=digest((output/case['input_file']).read_bytes())
-        case['source_prompt_sha256']=digest(prompt.encode())
     humans=load(human_dataset/'manifest.json')
     for ident in spec['human_case_ids']:
         original=next(c for c in humans['cases'] if c['id']==ident)

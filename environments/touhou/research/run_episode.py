@@ -110,7 +110,7 @@ class DecisionPool:
                 else:
                     from .api_client import ApiClient
                     from .wire_schema import validate_schema_order_config
-                    client=ApiClient(self.key,self.config['ledger'],stage='realtime',max_output_tokens=self.config.get('max_output_tokens',128),output_schema=schema,preserve_schema_order=validate_schema_order_config(self.config,schema),budget_limits=self.config.get("budget_limits"))
+                    client=ApiClient(self.key,self.config['ledger'],stage='realtime',max_output_tokens=self.config.get('max_output_tokens',128),output_schema=schema,preserve_schema_order=validate_schema_order_config(self.config),budget_limits=self.config.get("budget_limits"))
                 self.clients.append(client);self.local.client=client
     def warm(self):
         barrier=threading.Barrier(self.config.get('workers',3))

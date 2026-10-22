@@ -5,13 +5,12 @@ falls back to the original large bound; it never guesses a smaller image cost.
 """
 import json
 from pathlib import Path
-import re
 import struct
 import zlib
 
 PNG_SIGNATURE = b'\x89PNG\r\n\x1a\n'
 _REQUIRED = {'schema', 'model', 'detail', 'width', 'height', 'framed_image_input_tokens',
-             'count_request_sha256', 'response_object', 'billing'}
+             'response_object', 'billing'}
 
 
 def _positive_integer(value):
@@ -27,9 +26,6 @@ def _validate(certificate, detail):
         raise ValueError('Certificate model/detail mismatch')
     if not all(_positive_integer(certificate[key]) for key in ('width', 'height', 'framed_image_input_tokens')):
         raise ValueError('Certificate dimensions/count must be positive integers')
-    digest = certificate['count_request_sha256']
-    if not isinstance(digest, str) or re.fullmatch(r'[0-9a-fA-F]{64}', digest) is None:
-        raise ValueError('Invalid count request SHA256')
     if certificate['response_object'] != 'response.input_tokens':
         raise ValueError('Certificate must originate from the input-token counter')
     if certificate['billing'] != 'full_uncertain_reservation_retained':

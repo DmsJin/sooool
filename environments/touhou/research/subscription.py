@@ -150,8 +150,7 @@ class SubscriptionClient:
                     capture_output=True,text=True,check=True,env={k:os.environ[k] for k in ('PATH','LANG','LC_ALL','TZ') if k in os.environ}).stdout.strip()
                 (output/'envelope.json').write_text(json.dumps({'variant':'aggressive','native_version':version,
                     'strict_config':True,'effective_config':checked,'version_adaptations':VERSION_ADAPTATIONS,
-                    'auth_mount':'original auth.json read-only; no auth copy/archive','isolated_codex_home':True,
-                    'model_instructions_sha256':hashlib.sha256((LEAN_BASE_INSTRUCTIONS+'\n').encode()).hexdigest()},indent=2)+'\n')
+                    'auth_mount':'original auth.json read-only; no auth copy/archive','isolated_codex_home':True},indent=2)+'\n')
             (output / 'auth_mode.json').write_text(json.dumps({'type': 'chatgpt', 'model': settings['model'],
                 'effort': settings['effort'], 'direct_api_calls': 0}) + '\n')
         except BaseException:
@@ -191,7 +190,6 @@ class SubscriptionClient:
                 meta = {'wall_seconds': time.perf_counter() - started, 'thread_prepare_seconds':thread_ready-started, 'image_prepare_seconds':action_start-thread_ready, 'action_rpc_seconds':time.perf_counter()-action_start, 'token_usage': result.get('tokenUsage'),
                     'image_sha256s': [hashlib.sha256(image).hexdigest() for image in images],
                     'output_schema_sha256': self.output_schema_hash, 'lean_native': self.lean, 'aggressive_native':self.aggressive,
-                    'base_instructions_sha256': hashlib.sha256(LEAN_BASE_INSTRUCTIONS.encode()).hexdigest() if self.lean or self.aggressive else None,
                     'unexpected_tool_calls': 0, 'model': runner.settings['model'], 'effort': runner.settings['effort'],
                     'native_envelope_variant':'aggressive' if self.aggressive else 'lean' if self.lean else 'default'}
                 if self.lean and not self.aggressive:

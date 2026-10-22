@@ -91,12 +91,11 @@ class ApiClient:
         content = [{"type": "input_text", "text": prompt}] + [png_content(i, self.detail) for i in images]
         payload = {"model": MODEL, "service_tier": TIER, "reasoning": {"effort": "low"}, "max_output_tokens": self.max_output_tokens,
                    "input": [{"role": "user", "content": content}], "stream": True, "store": False}
-        shape = {"model": MODEL, "tier": TIER, "effort": "low", "max_output_tokens": self.max_output_tokens, "detail": self.detail, "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(), "images": [hashlib.sha256(i).hexdigest() for i in images]}
+        shape = {"model": MODEL, "tier": TIER, "effort": "low", "max_output_tokens": self.max_output_tokens, "detail": self.detail, "image_count": len(images)}
         if self.output_schema is not None:
             payload["text"] = {"format": {"type": "json_schema", "name": "touhou_grounded_plan", "strict": True, "schema": self.output_schema}}
             shape["schema_sha256"] = hashlib.sha256(self.schema_text.encode("utf-8")).hexdigest()
             shape["preserve_schema_order"] = self.preserve_schema_order
-            shape["schema_order_sha256"] = hashlib.sha256(json.dumps(self.output_schema,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()
         rid = self.ledger.reserve(self.stage, reservation_usd(prompt + self.schema_text, len(images), self.max_output_tokens), shape)
         prepared = time.perf_counter() - prep
         start = time.perf_counter()

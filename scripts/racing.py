@@ -35,7 +35,6 @@ def evaluation_record(out,mode,returncode=0):
     record={'schema_version' :1,'policy':recipe['policy'],'mode':mode,'real_time_api_acceptance':mode=='eval' and integrity,
         'execution_integrity':'verified' if integrity else 'incomplete_or_unverified','process_returncode':returncode,
         'won':summary.get('won') if integrity else None,'summary':summary,'canonical_final':str(final_path.relative_to(out)) if final else None,'replay_hash_matches':replay_ok,
-        'recipe_sha256':hashlib.sha256(json.dumps(recipe,sort_keys=True).encode()).hexdigest(),'profile_sha256':digest(ROOT/recipe['profile']),
         'model_calls':{'simulate':'actual subscription','eval':'actual API','preflight':'none'}[mode],
         'hypothesis':manifest.get('hypothesis'),
         'limits':['hybrid coded visual tracking','Level 1 only','historical profile is proxy calibration, not exact current workload']}
@@ -43,17 +42,8 @@ def evaluation_record(out,mode,returncode=0):
 
 def prepare(out,mode,recipe,hypothesis):
     if out.exists():raise ValueError('Output must be new; do not overwrite an evaluation')
-    files={}
-    for base in [ENGINE,ROOT/'policies/racing',ROOT/'profiles/racing',ROOT/'recipes/racing.json',ROOT/'runtime/cli.py',ROOT/'runtime/envs.py',ROOT/'runtime/options.py',ROOT/'runtime/evaluation.py',
-                 ROOT/'environments/registry.json',pathlib.Path(__file__)]:
-        for p in ([base] if base.is_file() else sorted(base.rglob('*'))):
-            if p.is_file() and '__pycache__' not in p.parts:
-                rel=p.relative_to(ROOT);files[str(rel)]=digest(p)
-    env=pathlib.Path(os.environ['RACING_ENV_ROOT']);envfiles={}
-    for base in [env/'core',env/'sports/racing',env/'players/metering']:
-        for p in sorted(base.rglob('*')):
-            if p.is_file() and p.suffix in ('.py','.toml','.xml','.json') and '__pycache__' not in p.parts:envfiles[str(p.relative_to(env))]=digest(p)
-    return {'game':'racing','mode':mode,'recipe':recipe,'hypothesis':hypothesis,'source_sha256':files,'environment_source_sha256':envfiles,'environment_root':str(env.resolve()),'created_at_unix':time.time(),'selected_early_checkpoint':True}
+    env=pathlib.Path(os.environ['RACING_ENV_ROOT'])
+    return {'game':'racing','mode':mode,'recipe':recipe,'hypothesis':hypothesis,'environment_root':str(env.resolve()),'created_at_unix':time.time(),'selected_early_checkpoint':True}
 
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)

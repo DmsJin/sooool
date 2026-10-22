@@ -1,7 +1,6 @@
 """Retain run outcomes, register immutable evidence, and append researcher decisions."""
 from contextlib import contextmanager
 import fcntl
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -43,7 +42,6 @@ def recording(out, *, game, command, provider, clock, result_file="summary.json"
             row = {"schema_version": 2, "record_id": out.name, "run": str(out),
                    "created_at_unix": time.time(), "game": manifest["game"], "command": manifest["command"],
                    "provider": manifest["provider"], "clock": manifest["clock"], "mode": manifest["mode"],
-                   "manifest_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
                    "summary": summary, "status": status, "evidence": evidence,
                    "performance_is_independently_confirmed": False}
             if "recipe" in manifest:
@@ -95,7 +93,7 @@ def assess(out, decision, note):
     out = Path(out).resolve()
     record = json.loads((out / "evaluation-record.json").read_text())
     row = {"created_at_unix": time.time(), "run": str(out), "decision": decision, "note": note,
-           "manifest_sha256": record["manifest_sha256"], "mode": record["mode"], "run_status": record["status"]}
+           "mode": record["mode"], "run_status": record["status"]}
     with (out / "assessments.jsonl").open("a") as log:
         log.write(json.dumps(row) + "\n")
     return row

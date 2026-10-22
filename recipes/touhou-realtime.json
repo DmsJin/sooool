@@ -14,7 +14,6 @@
     "chunk_size": 1,
     "max_duration": 48,
     "max_wall_s": 300,
-    "engine_sha256": "348e81340d4a09f8b488193daf0b4e395afa2755d34f249585ff5e1ffe787aa4",
     "profile_note": "Shared development condition from actual earlier adaptive-prompt early API cohorts with paired terminal slots; not recalibrated new-prompt latency.",
     "wait_for_move": true,
     "intro_observation": true,

@@ -97,7 +97,7 @@ async def run(args,key):
    drift=max((abs((d['external_ms']-diagnostics[0]['external_ms'])/1000-(d['audio_s']-diagnostics[0]['audio_s']))for d in playing_diagnostics),default=float('inf'))
    rate_ok=all(d['rate']==1 for d in diagnostics)
    complete,passed=acceptance(evaluator,rate_ok,drift,args.max_miss,expected_notes)
-   result={'complete':complete,'passed':passed,'native_clock_drift_s':drift,'policy_freeze_verified':bool(frozen),'variant':'literal_model_timing','result':evaluator,'executor':await env.snapshot(),'diagnostics':diagnostics,'requests':len(rows),'errors':sum('error'in r for r in rows),'memory_sha256':hashlib.sha256(memory.encode()).hexdigest(),'chart_sha256':hashlib.sha256(Path(args.chart).read_bytes()).hexdigest() if args.chart else None,'args':vars(args)}
+   result={'complete':complete,'passed':passed,'native_clock_drift_s':drift,'policy_freeze_verified':bool(frozen),'variant':'literal_model_timing','result':evaluator,'executor':await env.snapshot(),'diagnostics':diagnostics,'requests':len(rows),'errors':sum('error'in r for r in rows),'args':vars(args)}
    (out/'result.json').write_text(json.dumps(result,indent=2))
    print('MODEL_NATIVE_RESULT '+json.dumps({k:v for k,v in result.items() if k not in ('executor','args')}),flush=True)
  finally:await provider.close()

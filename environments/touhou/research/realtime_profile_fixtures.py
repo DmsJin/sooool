@@ -43,7 +43,7 @@ def remove_sim_appendices(source,config):
     for start,end,label,data in spans:
         if start<cursor: raise ValueError('Overlapping simulator appendices')
         parts.append(source[cursor:start]);cursor=end
-        audit.append({'label':label,'source_start_byte':start,'source_end_byte':end,'removed_bytes':len(data),'removed_sha256':digest(data),'removed_utf8':data.decode()})
+        audit.append({'label':label,'source_start_byte':start,'source_end_byte':end,'removed_bytes':len(data),'removed_utf8':data.decode()})
     parts.append(source[cursor:]);result=b''.join(parts)
     for marker in (b'Delay condition: entire candidate readiness vectors',b'Early-action capacity simulation:',b'Artificial latency stress:'):
         if marker in result: raise ValueError('Unrecognized or repeated simulator appendix remains')
@@ -87,8 +87,7 @@ def build_fixtures(episodes,output,quotas=None):
             raise ValueError('Completed/issued sequences must match exactly')
         groups=defaultdict(list)
         for row in issued:groups[row['cohort_id']].append(row)
-        source={'episode':str(episode),'candidate':candidate,'seed':config['seed'],'schema_sha256':schema_digest,
-            'core_sha256':{name:digest((episode/name).read_bytes()) for name in ('config.json','summary.json','issued.jsonl','decisions.jsonl')}}
+        source={'episode':str(episode),'candidate':candidate,'seed':config['seed']}
         sources.append(source)
         for cohort,rows in sorted(groups.items()):
             rows=sorted(rows,key=lambda r:r['fanout_index']);k=config['decision_fanout']
@@ -117,8 +116,7 @@ def build_fixtures(episodes,output,quotas=None):
             transformed,deletions=remove_sim_appendices(prompt,config)
             fingerprint=digest(transformed+b'\0'+json.dumps(selected['image_sha256'],separators=(',',':')).encode())
             pool.append({'episode':str(episode),'cohort_id':cohort,'seq':selected['seq'],'slot':0,'image_count':len(images),
-                'image_frames':selected['image_frames'],'source_prompt_sha256':digest(prompt),'prompt_sha256':digest(transformed),
-                'image_sha256':selected['image_sha256'],'source_prompt_bytes':len(prompt),'prompt_bytes':len(transformed),
+                'image_frames':selected['image_frames'],'source_prompt_bytes':len(prompt),'prompt_bytes':len(transformed),
                 'deletions':deletions,'fingerprint':fingerprint,'prompt':transformed,'images':images})
     counts={n:0 for n in quotas};selected=[];selection=[];seen=set()
     for entry in pool:
@@ -128,7 +126,7 @@ def build_fixtures(episodes,output,quotas=None):
         elif counts[n]>=quotas[n]:reason='quota_already_filled'
         else:selected.append(entry);counts[n]+=1
         seen.add(fingerprint)
-        selection.append({key:entry[key] for key in ('episode','cohort_id','seq','slot','image_count','fingerprint')}|{'selection':reason})
+        selection.append({key:entry[key] for key in ('episode','cohort_id','seq','slot','image_count')}|{'selection':reason})
     if counts!=quotas:raise ValueError('Insufficient distinct cohorts: requested '+str(quotas)+' but selected '+str(counts)+'; add completed seeds or explicitly lower counts')
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     fixtures=[];audit=[]
@@ -137,8 +135,8 @@ def build_fixtures(episodes,output,quotas=None):
         for i,data in enumerate(entry['images']):
             name=f'{prefix}_{i}.png';(output/name).write_bytes(data);names.append(name)
         fixtures.append({'name':prefix,'prompt':entry['prompt'].decode(),'images':names})
-        audit.append({key:value for key,value in entry.items() if key not in ('prompt','images')}|{'fixture_name':prefix,'output_image_paths':names})
-    model_config={'model':'gpt-6.1-sol','tier':'ultrafast','effort':'low','max_output_tokens':512,'detail':'high','schema_sha256':identity[3],'max_chunks':identity[2],'max_duration':48}
+        audit.append({key:value for key,value in entry.items() if key not in ('prompt','images','fingerprint')}|{'fixture_name':prefix,'output_image_paths':names})
+    model_config={'model':'gpt-6.1-sol','tier':'ultrafast','effort':'low','max_output_tokens':512,'detail':'high','max_chunks':identity[2],'max_duration':48}
     schema=grounded_schema(identity[2],48)
     (output/'schema.json').write_text(json.dumps(schema,indent=2)+'\n')
     manifest={'kind':'exact_realtime_task_minus_sim_appendices','version':1,'candidate':candidate,'counts':{str(n):c for n,c in counts.items()},'samples_per_fixture':1,'model_configuration':model_config,'fixtures':fixtures,
@@ -146,8 +144,8 @@ def build_fixtures(episodes,output,quotas=None):
             'Historical aggregate latency context remains in these fixtures. Future real evaluation using newly calibrated scalar latency context has a disclosed prompt difference.',
             'This serial fixture distribution measures recorded candidate inputs; it is not a new concurrent latency measurement or proof of full-episode policy performance.']}
     (output/'fixtures.json').write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n')
-    (output/'audit.json').write_text(json.dumps({'sources':sources,'selection':selection,'fixtures':audit,'model_configuration':model_config,'fixtures_sha256':digest((output/'fixtures.json').read_bytes()),'schema_file_sha256':digest((output/'schema.json').read_bytes())},indent=2,ensure_ascii=False)+'\n')
-    return {'output':str(output),'fixture_count':len(fixtures),'candidate':candidate,'counts':counts,'schema_sha256':identity[3]}
+    (output/'audit.json').write_text(json.dumps({'sources':sources,'selection':selection,'fixtures':audit,'model_configuration':model_config},indent=2,ensure_ascii=False)+'\n')
+    return {'output':str(output),'fixture_count':len(fixtures),'candidate':candidate,'counts':counts}
 
 
 def main():

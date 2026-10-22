@@ -1,7 +1,6 @@
 """Summarize a frozen private tracking batch; never calls a model or browser."""
 from __future__ import annotations
 import argparse
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -118,7 +117,6 @@ def main():
     parser.add_argument('--baseline',required=True);parser.add_argument('--expected-rows',type=int,default=144)
     args=parser.parse_args();data=args.input.read_bytes();report=json.loads(data)
     result=summarize(report,args.baseline,args.expected_rows)
-    result['source_report_sha256']=hashlib.sha256(data).hexdigest()
     args.output.parent.mkdir(parents=True,exist_ok=True)
     temporary=args.output.with_suffix('.tmp');temporary.write_text(json.dumps(result,indent=2,allow_nan=False));temporary.replace(args.output)
     print(json.dumps(dict(selected=result['selected_candidate'],selection=result['selection'],output=str(args.output))))

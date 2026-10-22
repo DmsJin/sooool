@@ -106,7 +106,6 @@ class ManifestProvenance(unittest.TestCase):
                         manifest = json.loads((output/'manifest.json').read_text())
                         self.assertEqual(manifest['mode'], mode)
                         for name, data in inputs.items():
-                            self.assertIn(name, manifest['source_sha256'])
                             self.assertEqual((output/'source_snapshot'/name).read_bytes(), data)
                         self.assertIn(provider, manifest['transport_adapter'])
                         self.assertIn(clock, manifest['transport_adapter'])

@@ -10,7 +10,7 @@ def example():
     winner=dict(capture,seq=21)
     action=dict(seq=21,observed_frame=100,visual_frame=314,capture_clock={'visual_frame':100},
         apply_clock={'wall_ms':4507.4},capture_to_apply_s=3.4)
-    original=dict(issued=[capture,winner],actions=[action],actions_sha256='actions-hash',issued_sha256='issued-hash')
+    original=dict(issued=[capture,winner],actions=[action])
     return case,original
 
 
@@ -21,8 +21,6 @@ class RecordedDelayTests(unittest.TestCase):
         self.assertEqual(result['delay_visual_frames'],214)
         self.assertAlmostEqual(result['delay_s'],214/60)
         self.assertAlmostEqual(result['recorded_browser_age_s'],3.5074)
-        self.assertEqual(len(result['source_applied_action_record_sha256']),64)
-        self.assertEqual(result['source_actions_sha256'],'actions-hash')
 
     def test_missing_ambiguous_or_wrong_cohort_rejected(self):
         case,original=example()

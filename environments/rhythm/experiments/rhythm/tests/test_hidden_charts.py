@@ -1,4 +1,3 @@
-import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -30,19 +29,15 @@ class HiddenChartTests(unittest.TestCase):
                     generate(directory / 'private', directory / 'missing-freeze.json')
                 seed.assert_not_called()
 
-    def test_fresh_charts_commit_seed_and_keep_notes_private(self):
+    def test_fresh_charts_keep_notes_private(self):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
             freeze = directory / 'freeze.json'
-            freeze.write_text('{"sources":{"policy":"frozen-example-hash"}}')
+            freeze.write_text('{"policy":"selected"}')
             first = generate(directory / 'private', freeze, model_workspace=directory / 'model')
             second = generate(directory / 'private', freeze, model_workspace=directory / 'model')
             public = first.public_metadata()
-            self.assertNotEqual(public['chart_sha256'], second.public_metadata()['chart_sha256'])
-            self.assertEqual(public['chart_sha256'], hashlib.sha256(first.chart_path.read_bytes()).hexdigest())
-            seed = bytes.fromhex(first.seed_path.read_text())
-            self.assertEqual(public['seed_commitment'], hashlib.sha256(seed).hexdigest())
-            self.assertEqual(public['policy_freeze_sha256'], hashlib.sha256(freeze.read_bytes()).hexdigest())
+            self.assertNotEqual(first.chart_path.read_bytes(), second.chart_path.read_bytes())
             self.assertEqual(public['note_count'], 52)
             self.assertTrue({'notes', 'lanes', 'seed', 'chart_path', 'seed_path'}.isdisjoint(public))
             self.assertNotIn(str(first.chart_path), repr(first))

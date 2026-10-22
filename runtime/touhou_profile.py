@@ -52,7 +52,7 @@ def profile(root,a):
                 # One blocking call at a time: terminal response and billing settle
                 # before another request starts. Returned actions are never executed.
                 result=client.decide(prompt,images,validate=validate,on_legal_action=lambda r:ready.append(r['meta']['legal_action_s']))
-                row={'source_prompt_sha256':request['prompt_sha256'],'image_sha256':request['image_sha256'],'legal_ready_s':ready[0],'result':result}
+                row={'legal_ready_s':ready[0],'result':result}
                 (d/'result.json').write_text(json.dumps(row,indent=2));samples.append(row)
         finally:
             client.close();key=None

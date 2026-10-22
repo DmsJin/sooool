@@ -20,7 +20,7 @@ class BenchmarkTest(unittest.TestCase):
             for position in range(3):self.assertEqual(Counter(b['order'][position] for b in blocks),{'default':8,'lean':8,'aggressive':8})
             self.assertEqual(blocks,make_blocks(root)[0])
             by_case={}
-            for block in blocks:by_case.setdefault(block['case_id'],set()).add(block['prompt_sha256'])
+            for block in blocks:by_case.setdefault(block['case_id'],set()).add(block['prompt'])
             self.assertTrue(all(len(hashes)==1 for hashes in by_case.values()))
 
     def test_failures_retained_and_paired_population_explicit(self):

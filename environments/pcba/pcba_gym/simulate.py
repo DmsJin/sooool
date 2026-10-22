@@ -9,7 +9,6 @@ time). Results are DEVELOPMENT evidence, never a realtime or 1x claim.
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 import argparse
-import hashlib
 import json
 import math
 import time
@@ -43,8 +42,7 @@ def load_latency_profile(path):
         kind=data.get('kind','profile_file');measured=data.get('measured')
     if len(samples)<5 or not all(math.isfinite(v) and v>0 for v in samples):
         raise ValueError(f'Latency profile needs at least 5 positive samples: {path}')
-    digest=hashlib.sha256(json.dumps(samples).encode()).hexdigest()
-    return samples,{'source':str(path),'kind':kind,'measured':measured,'n':len(samples),'samples_sha256':digest,'summary':stats(samples)}
+    return samples,{'source':str(path),'kind':kind,'measured':measured,'n':len(samples),'summary':stats(samples)}
 
 
 class VirtualRecorder:
