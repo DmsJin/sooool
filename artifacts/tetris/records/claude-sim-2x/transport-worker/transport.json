@@ -1,0 +1,7 @@
+{
+  "adapter": "claude code cli, stateless -p",
+  "model": "opus",
+  "effort": "low",
+  "tools": "none",
+  "session_persistence": false
+}

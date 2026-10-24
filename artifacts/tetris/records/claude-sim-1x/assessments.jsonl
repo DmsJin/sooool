@@ -1,0 +1,1 @@
+{"created_at_unix": 1792835925.695573, "run": "/tmp/tetris-runs/claude-sim-1x", "decision": "diagnostic", "note": "Same policy at normal speed: 1.27 lines, 6.40 holes, 11/15 alive, 25 stale. Latency-bound; retained as the 1x comparison.", "mode": "claude_with_simulated_profile", "run_status": "completed"}

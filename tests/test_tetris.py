@@ -144,7 +144,7 @@ class RulesRunAndReplay(unittest.TestCase):
                 runner.verify_replay(ROOT, RECIPE, episode_dir)
 
     def test_retained_selected_run_replays_without_model_calls(self):
-        run = ROOT / "artifacts/tetris/runs/claude-eval-2x"
+        run = ROOT / "artifacts/tetris/records/claude-eval-2x"
         manifest = json.loads((run / "manifest.json").read_text())
         self.assertEqual((manifest["provider"], manifest["clock"], manifest["recipe"]["policy"]), ("claude", "wall", "v8-keys"))
         episode = run / "episode-04-s0-l5-p20"

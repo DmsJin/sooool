@@ -1,0 +1,45 @@
+{
+  "case": {
+    "seed": 0,
+    "level": 3,
+    "prefix": 20
+  },
+  "mode": "simulation",
+  "provider": "claude",
+  "slowdown": 2.0,
+  "frames": 3600,
+  "game_seconds": 60.0,
+  "wall_seconds": 107.57301763700025,
+  "start": {
+    "lines": 6,
+    "pieces": 20,
+    "score": 2540,
+    "level": 3,
+    "holes": 1,
+    "height_sum": 21,
+    "bumpiness": 7
+  },
+  "end": {
+    "lines": 11,
+    "pieces": 38,
+    "score": 4600,
+    "level": 4,
+    "holes": 1,
+    "height_sum": 43,
+    "bumpiness": 15
+  },
+  "lines": 5,
+  "pieces": 18,
+  "new_holes": 0,
+  "height_delta": 22,
+  "survived": true,
+  "calls": 19,
+  "applied": 18,
+  "stale": 0,
+  "invalid": 0,
+  "capture_to_apply_game_s_median": 2.975,
+  "capture_to_apply_game_s_max": 4.533333333333333,
+  "max_frame_lag_seconds": null,
+  "status": "natural_end",
+  "error": null
+}

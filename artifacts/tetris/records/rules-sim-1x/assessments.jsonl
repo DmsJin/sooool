@@ -1,0 +1,1 @@
+{"created_at_unix": 1792835925.489818, "run": "/tmp/tetris-runs/rules-sim-1x", "decision": "diagnostic", "note": "Rules baseline at normal speed: 1.80 lines, 4.67 holes, 12/15 alive, 21 stale answers; the ~6 s delay alone defeats level-5 episodes.", "mode": "rules_baseline_with_simulated_profile", "run_status": "completed"}

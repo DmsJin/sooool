@@ -1,0 +1,32 @@
+[
+ {
+  "frame": 520,
+  "target": 0,
+  "piece_index": 1,
+  "status": "stale"
+ },
+ {
+  "frame": 847,
+  "target": 1,
+  "piece_index": 2,
+  "status": "stale"
+ },
+ {
+  "frame": 1292,
+  "target": 2,
+  "piece_index": 3,
+  "status": "stale"
+ },
+ {
+  "frame": 1629,
+  "target": 3,
+  "piece_index": 4,
+  "status": "stale"
+ },
+ {
+  "frame": 2083,
+  "target": 4,
+  "piece_index": 6,
+  "status": "stale"
+ }
+]

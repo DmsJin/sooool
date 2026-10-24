@@ -1,0 +1,1 @@
+{"created_at_unix": 1792835925.5857131, "run": "/tmp/tetris-runs/claude-sim-2x", "decision": "retain", "note": "Fresh portable simulation of v8-keys with Claude Opus low: 4.87 lines, 1.33 new holes, 15/15 alive, 0 stale over 15 x 60 s episodes at 2x. Hole rate equals the rules baseline; lines lower.", "mode": "claude_with_simulated_profile", "run_status": "completed"}

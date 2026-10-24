@@ -1,0 +1,1 @@
+{"created_at_unix": 1792835925.3931508, "run": "/tmp/tetris-runs/rules-sim-2x", "decision": "diagnostic", "note": "Evaluator-side rules baseline (true board) under the sampled Opus profile at 2x: 6.00 lines, 1.33 new holes, 15/15 alive. Comparison condition, not a policy.", "mode": "rules_baseline_with_simulated_profile", "run_status": "completed"}
