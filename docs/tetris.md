@@ -1,9 +1,10 @@
 # Tetris: run, evaluate, replay
 
 Tetris is a local environment ([scope and contract](../environments/tetris/README.md)). SOL sees the plain game
-screen and answers one placement per piece; a declared key script executes it. The selected condition is
-[`recipes/tetris.json`](../recipes/tetris.json): policy `v8-keys`, one request in flight, measured Claude Opus
-delay profile, 2× game slowdown, fifteen 60-second mid-game episodes (three seeds × start levels 1–5).
+screen at one-second observation ticks (three timestamped frames per request, as in Asterix) and answers one
+placement for the falling piece; a declared key script executes it. The selected condition is
+[`recipes/tetris.json`](../recipes/tetris.json): policy `v11-short`, one request in flight, measured Claude Opus
+delay profile, 2× game slowdown, three 60-second mid-game episodes (seeds 0/1/2 at start levels 1/3/5).
 
 ```bash
 uv run sol env setup tetris
@@ -26,15 +27,17 @@ normal-speed comparison.
 |---|---|---|---|
 | `sol simulate tetris` | virtual, pauses while the actor computes | sampled from the recipe profile, seeded per episode | closed-loop development under a declared delay model |
 | `sol eval tetris` | wall, 60/slowdown frames per second | actual response time of the selected transport | measured behaviour of this transport at this slowdown |
-| `sol replay tetris RUN` | none | recorded apply frames | screenshot hashes, executor and final board integrity; no model calls |
+| `sol replay tetris RUN` | none | recorded delivery frames | issued screenshot hashes, executor and final board integrity; no model calls |
 
 ## What a run retains
 
-`manifest.json` (recipe, mode, provider, clock), `source_snapshot/`, `task-example.txt`, and per episode:
-`requests.jsonl` (capture frame, target piece index, screenshot SHA-256, sampled or actual delivery, answer,
-status `applied`/`stale`/`invalid`), `calls/call-*/` (exact prompt, image, public answer and transport timing),
-`actions.json` (key scripts issued), `steps.jsonl`, `summary.json`. The run-level `summary.json` aggregates lines,
-new holes, height change, pieces, survival, calls, stale/invalid counts and capture-to-apply medians;
+`manifest.json` (recipe, mode, provider, clock), `source_snapshot/`, `task.txt`, and per episode:
+`issued.jsonl` (observation frame, target piece index, image frames and SHA-256s, sampled delay),
+`decisions.jsonl` (the same rows with delivery frame, public answer, call timing and status
+`applied`/`stale`/`invalid`), `deliveries.json`, `calls/call-*/` (exact prompt, the three images, public answer and
+transport timing), `actions.json` (key scripts issued), `steps.jsonl`, `progress.json`, `summary.json`. The
+run-level `summary.json` aggregates lines, new holes, height change, pieces, survival, calls, drops, stale/invalid
+counts and capture-to-apply medians;
 `evaluation-record.json` follows the shared schema and `sol record` appends it to
 [`artifacts/tetris/evaluations.jsonl`](../artifacts/tetris/evaluations.jsonl).
 
@@ -43,8 +46,9 @@ new holes, height change, pieces, survival, calls, stale/invalid counts and capt
 [`profiles/tetris/claude-opus-low-serial-v0.json`](../profiles/tetris/claude-opus-low-serial-v0.json) holds 71
 capture-to-apply wall seconds measured on a serial real-clock run of the same transport and policy lineage
 (median 5.9 s, p10 4.6 s, p90 7.8 s). `sol profile tetris` re-measures strictly serially on retained inputs; new
-profiles replace this one in a copied recipe. The task text states the profile median and 95th percentile in game
-seconds for the run's slowdown, and says whether the actor's computation advances the game.
+profiles replace this one in a copied recipe. The task prefix states the profile mean, median and 95th percentile
+in game seconds for the run's slowdown, says that the actual delay is unknown, and says whether the actor's
+computation advances the game.
 
 ## Slowdown
 
