@@ -1,11 +1,14 @@
 """One serial visual placement loop shared by profile simulation, real-time evaluation, rules baselines and replay.
 
-Protocol (declared in docs/tetris.md): one request in flight; a screenshot is captured when the piece in play has
-no applied answer; the answer becomes a key script when it is delivered (sampled delay in simulation, actual arrival
-in real time); the game keeps running meanwhile. The actor sees only the screenshot and its own applied history.
+The loop is Asterix's: the screen is captured at fixed observation ticks into a rolling window; one request is in
+flight; a new request is captured at the first tick after the previous reply arrived and its keys were pressed, with
+the window's oldest, middle and newest images and their frame numbers; the reply is applied when it arrives
+(sampled delay in simulation, actual arrival in real time); ticks while a request is in flight are counted as drops.
+The actor sees only those images, the frame numbers and its own applied placements.
 """
 from __future__ import annotations
 
+from collections import deque
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import io
@@ -18,9 +21,9 @@ import time
 
 from baseline import RulesActor, features
 from engine import NOOP, Tetris
-from executor import KeyExecutor, key_script, parse_answer, parse_answers
+from executor import KeyExecutor, key_script, parse_answer
 from render import render
-from task import build_task, profile_delays
+from task import build_task, profile_delays, request_text
 
 FPS = 60
 SCALE = 2  # screenshots are upscaled 2x (nearest) before they are sent; hashes are of the PNG bytes
@@ -40,6 +43,12 @@ def delay_frames(seconds: float, slowdown: float = 1.0) -> int:
     if not math.isfinite(seconds) or seconds <= 0 or not math.isfinite(slowdown) or slowdown < 1:
         raise ValueError("Positive latency and finite slowdown >= 1 required")
     return max(1, math.ceil(seconds / slowdown * FPS))
+
+
+def select_images(window):
+    """Asterix's selection: oldest, third-newest and newest frames of the window."""
+    n = len(window)
+    return [window[i] for i in sorted({0, max(0, n - 3), n - 1})]
 
 
 def make_env(seed: int, level: int, prefix: int) -> Tetris:
@@ -62,126 +71,115 @@ def board_state(env: Tetris) -> dict:
             "holes": holes, "height_sum": height, "bumpiness": bump}
 
 
-def run_episode(root, recipe, out: Path, case: dict, client, mode: str, provider: str, duration: float, slowdown: float):
+def run_episode(root, recipe, out: Path, case: dict, task: str, delays: list[float], client, mode: str, provider: str,
+                duration: float, slowdown: float):
     out.mkdir(parents=True, exist_ok=False)
+    args = recipe["args"]
+    stride, window = int(args["observation_stride_frames"]), deque(maxlen=int(args["observation_window"]))
     env = make_env(case["seed"], case["level"], case.get("prefix", 0))
     start = board_state(env)
-    delays = profile_delays(root, recipe)
-    rng = random.Random(1000 + case.get("delay_seed", case["seed"]) + int(recipe["args"].get("latency_seed_offset", 0)))
-    executor, history, requests, pending, planned = KeyExecutor(), [], [], None, -1
-    answer_pieces = int(recipe["args"].get("answer_pieces", 1))
-    capture_rule = recipe["args"].get("capture", "on_demand")
-    continuous = capture_rule == "continuous"
-    executor.hover = bool(recipe["args"].get("hover", False))
+    rng = random.Random(int(args.get("latency_seed_offset", 0)) + case.get("delay_seed", case["seed"]))
+    executor, requests, deliveries, pending = KeyExecutor(), [], [], None
     horizon = round(duration * FPS)
-    frame, lag_max, started = 0, 0.0, time.monotonic()
-    pool = ThreadPoolExecutor(1) if mode == "realtime" else None
-    status, error = "natural_end", None
+    frame, drops, lag_max, started = 0, 0, 0.0, time.monotonic()
+    pool = ThreadPoolExecutor(1)
+    status, error = "horizon", None
 
-    def deliver(row, answer_text, meta, apply_frame):
-        nonlocal planned
-        row.update(apply_frame=apply_frame, capture_to_apply_game_s=(apply_frame - row["capture_frame"]) / FPS,
-                   call_wall_seconds=meta.get("wall_seconds"), output_tokens=meta.get("output_tokens"), answer=answer_text)
-        try:
-            answers = parse_answers(answer_text, answer_pieces)
-        except (ValueError, KeyError, TypeError, json.JSONDecodeError) as exc:
-            row.update(status="invalid", error=str(exc)[:200])
-            planned = -1  # declared rule: an unusable answer is discarded and a fresh screenshot is sent
-            history.append(f"piece #{row['target']}: answer unusable ({str(exc)[:60]}) -> ignored")
-            return
-        if answer_pieces == 1:
-            statuses = [executor.apply(answers[0], row["target"], apply_frame)]
-        else:
-            statuses = executor.apply_many(answers, row["target"], apply_frame)
-            row["statuses"] = statuses
-        row["status"] = "applied" if "applied" in statuses else statuses[0]
-        for offset, (answer, state) in enumerate(zip(answers, statuses)):
-            target = row["target"] + offset
-            if state == "applied":
-                history.append(f"piece #{target}: planned {answer['piece']} rot{answer['rot']} col{answer['col']}")
-            elif state == "late":
-                history.append(f"piece #{target}: newer answer ignored, piece already being placed")
-            else:
-                history.append(f"piece #{target}: answer arrived after it locked -> discarded")
+    def request(text, images, directory):
+        answer, meta = client.act(text, images, directory)
+        return {"answer": answer, "meta": meta}
 
     try:
-        with (out / "steps.jsonl").open("w") as steps:
+        with (out / "steps.jsonl").open("w") as steps, (out / "issued.jsonl").open("w") as issued:
             while frame < horizon and not env.over:
+                if mode == "realtime":
+                    remaining = started + frame * slowdown / FPS - time.monotonic()
+                    if remaining > 0:
+                        time.sleep(remaining)
+                    lag_max = max(lag_max, time.monotonic() - started - frame * slowdown / FPS)
                 screen = render(env)
                 executor.observe(screen)
-                need_next = capture_rule == "next_unplanned" and (executor.piece_index + 1) not in executor.plans and executor.piece_index != planned
-                if pending is None and (continuous or need_next or (executor.piece_index != planned and executor.started_for != executor.piece_index)):
-                    image = png(screen)
-                    system, text = build_task(root, recipe, mode, history)
-                    row = {"seq": len(requests), "capture_frame": frame, "target": executor.piece_index,
-                           "image_sha256": hashlib.sha256(image).hexdigest(), "capture_wall_seconds": time.monotonic() - started}
-                    planned = executor.piece_index
-                    call_dir = out / "calls" / f"call-{row['seq']:05d}"
-                    if provider == "rules":
-                        answer_text, meta = client.act_on_truth(env, answer_pieces)
-                        call_dir.mkdir(parents=True); (call_dir / "result.json").write_text(json.dumps({"answer": answer_text, "meta": meta}))
-                        future = None
-                    elif mode == "simulation":
-                        answer_text, meta = client.act(text, [image], call_dir)  # virtual clock waits for computation
-                        future = None
-                    else:
-                        future = pool.submit(client.act, text, [image], call_dir)
-                    if mode == "simulation":
-                        sampled = rng.choice(delays)
-                        row.update(sampled_delay_seconds=sampled, delivery_frame=frame + delay_frames(sampled, slowdown))
-                        pending = (row, answer_text, meta, None)
-                    else:
-                        pending = (row, None, None, future)
-                    requests.append(row)
                 if pending is not None:
-                    row, answer_text, meta, future = pending
-                    if mode == "simulation" and frame >= row["delivery_frame"]:
-                        deliver(row, answer_text, meta, frame); pending = None
-                    elif mode == "realtime" and future.done():
-                        answer_text, meta = future.result()
-                        deliver(row, answer_text, meta, frame); pending = None
+                    row, future = pending
+                    available = frame >= row["action_ready_frame"] if mode == "simulation" else future.done()
+                    if available:
+                        result = future.result()
+                        row["delivery_frame"] = frame
+                        row.update(answer=result["answer"], call_wall_seconds=result["meta"].get("wall_seconds"),
+                                   output_tokens=result["meta"].get("output_tokens"))
+                        try:
+                            answer = parse_answer(result["answer"])
+                            row["status"] = executor.apply(answer, row["target"], frame)
+                        except (ValueError, KeyError, TypeError, json.JSONDecodeError) as exc:
+                            row.update(status="invalid", error=str(exc)[:200])
+                        deliveries.append({"frame": frame, "seq": row["seq"], "mode": mode, "status": row["status"],
+                                           "capture_to_apply_s": (frame - row["obs_frame"]) / FPS,
+                                           "actual_capture_to_apply_s": time.monotonic() - started - row["capture_wall_seconds"]})
+                        pending = None
+                if frame % stride == 0:
+                    window.append((frame, png(screen)))
+                    if pending is not None or executor.busy:
+                        drops += 1  # a tick while a request is in flight or its keys are still being pressed
+                    else:
+                        images = select_images(window)
+                        text = request_text(task, frame, [f for f, _ in images], executor.applied)
+                        sampled = rng.choice(delays) if mode == "simulation" else None
+                        row = {"seq": len(requests), "obs_frame": frame, "target": executor.piece_index,
+                               "image_frames": [f for f, _ in images], "image_sha256": [hashlib.sha256(im).hexdigest() for _, im in images],
+                               "sampled_capture_to_complete_s": sampled, "capture_wall_seconds": time.monotonic() - started,
+                               "action_ready_frame": frame + delay_frames(sampled, slowdown) if sampled is not None else None,
+                               "delivery_frame": None}
+                        issued.write(json.dumps(row) + "\n"); issued.flush()
+                        call_dir = out / "calls" / f"call-{row['seq']:05d}"
+                        if provider == "rules":
+                            answer_text, meta = client.act_on_truth(env)
+                            call_dir.mkdir(parents=True)
+                            (call_dir / "result.json").write_text(json.dumps({"answer": answer_text, "meta": meta}))
+                            future = pool.submit(lambda a=answer_text, m=meta: {"answer": a, "meta": m})
+                        elif mode == "simulation":
+                            result = request(text, [im for _, im in images], call_dir)  # virtual clock waits for computation
+                            future = pool.submit(lambda r=result: r)
+                        else:
+                            future = pool.submit(request, text, [im for _, im in images], call_dir)
+                        requests.append(row)
+                        pending = (row, future)
                 action = executor.action(env.prev_action)
                 env.step(action)
                 steps.write(json.dumps({"frame": frame, "action": action, "lines": env.lines, "pieces": env.pieces}) + "\n")
                 frame += 1
-                if mode == "realtime":
-                    target = started + frame * slowdown / FPS
-                    now = time.monotonic()
-                    if target > now:
-                        time.sleep(target - now)
-                    else:
-                        lag_max = max(lag_max, now - target)
-            if pending is not None and mode == "realtime":
-                row, _, _, future = pending
-                try:
-                    answer_text, meta = future.result(timeout=300)
-                    row.update(answer=answer_text, call_wall_seconds=meta.get("wall_seconds"), status="unapplied_after_horizon")
-                except BaseException as exc:  # retained, not applied
-                    row.update(status="unapplied_after_horizon", error=type(exc).__name__)
-            elif pending is not None:
-                pending[0].update(status="unapplied_after_horizon")
+                if frame % 60 == 0:
+                    steps.flush()
+                    (out / "progress.json").write_text(json.dumps({"frames": frame, "game_seconds": frame / FPS, "lines": env.lines - start["lines"],
+                                                                   "pieces": env.pieces - start["pieces"], "calls": len(requests), "drops": drops, "mode": mode}) + "\n")
+                if env.over:
+                    status = "natural_end"
     except BaseException as exc:
-        status, error = "interrupted", {"type": type(exc).__name__, "message": str(exc)[:500]}
+        error, status = {"type": type(exc).__name__, "message": str(exc)[:500]}, "interrupted"
         raise
     finally:
-        if pool is not None:
-            pool.shutdown(wait=True)
-        with (out / "requests.jsonl").open("w") as log:
+        pool.shutdown(wait=True)
+        with (out / "decisions.jsonl").open("w") as log:
             for row in requests:
+                if row["delivery_frame"] is None:
+                    row["status"] = row.get("status", "unapplied_after_horizon")
                 log.write(json.dumps(row) + "\n")
-        (out / "actions.json").write_text(json.dumps(executor.applied, indent=1))
+        (out / "actions.json").write_text(json.dumps(executor.applied, indent=1) + "\n")
+        (out / "deliveries.json").write_text(json.dumps(deliveries, indent=1) + "\n")
         end = board_state(env)
-        applied = [r for r in requests if r.get("status") == "applied"]
-        ages = sorted(r["capture_to_apply_game_s"] for r in requests if "capture_to_apply_game_s" in r)
+        ages = sorted(d["capture_to_apply_s"] for d in deliveries)
+        elapsed = time.monotonic() - started
         summary = {"case": case, "mode": mode, "provider": provider, "slowdown": slowdown,
-                   "frames": frame, "game_seconds": frame / FPS, "wall_seconds": time.monotonic() - started,
+                   "frames": frame, "game_seconds": frame / FPS, "environment_wall_seconds": elapsed, "virtual_wall_seconds": frame * slowdown / FPS,
                    "start": start, "end": end, "lines": end["lines"] - start["lines"], "pieces": end["pieces"] - start["pieces"],
                    "new_holes": end["holes"] - start["holes"], "height_delta": end["height_sum"] - start["height_sum"],
-                   "survived": not env.over, "calls": len(requests), "applied": len(applied),
+                   "survived": not env.over, "calls": len(requests), "drops": drops, "peak_inflight": int(bool(requests)),
+                   "applied": sum(r.get("status") == "applied" for r in requests),
                    "stale": sum(r.get("status") == "stale" for r in requests), "invalid": sum(r.get("status") == "invalid" for r in requests),
                    "capture_to_apply_game_s_median": statistics.median(ages) if ages else None,
                    "capture_to_apply_game_s_max": max(ages) if ages else None,
-                   "max_frame_lag_seconds": lag_max if mode == "realtime" else None, "status": status, "error": error}
+                   "max_frame_lag_seconds": lag_max if mode == "realtime" else None, "status": status, "error": error,
+                   "limitation": ("Sampled measured delays; actor computation pauses the virtual clock." if mode == "simulation"
+                                  else "Actual response latency on a continuously advancing clock.")}
         (out / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     return summary
 
@@ -195,15 +193,18 @@ def episodes_from(recipe: dict, args) -> list[dict]:
 def run_recipe(root, recipe, out: Path, args, client_factory, mode: str, provider: str):
     duration = args.duration if args.duration is not None else recipe["args"]["duration"]
     slowdown = args.slowdown if args.slowdown is not None else float(recipe["args"].get("slowdown", 1))
-    system, _ = build_task(root, recipe, mode)
-    (out / "task-example.txt").write_text(build_task(root, recipe, mode)[1])
+    if slowdown != float(recipe["args"].get("slowdown", 1)):
+        recipe = {**recipe, "args": {**recipe["args"], "slowdown": slowdown}}  # the task text states the run's slowdown
+    system, task = build_task(root, recipe, mode)
+    delays = profile_delays(root, recipe)
+    (out / "task.txt").write_text(task)
     client = client_factory(output=out / "transport-worker", system=system)
     summaries = []
     try:
         for i, case in enumerate(episodes_from(recipe, args)):
             name = f"episode-{i:02d}-s{case['seed']}-l{case['level']}-p{case.get('prefix', 0)}"
             try:
-                summaries.append(run_episode(root, recipe, out / name, case, client, mode, provider, duration, slowdown))
+                summaries.append(run_episode(root, recipe, out / name, case, task, delays, client, mode, provider, duration, slowdown))
             except BaseException:
                 partial = out / name / "summary.json"
                 if partial.exists():
@@ -217,11 +218,13 @@ def run_recipe(root, recipe, out: Path, args, client_factory, mode: str, provide
         aggregate = {"episodes": n, "lines_mean": mean("lines"), "new_holes_mean": mean("new_holes"),
                      "height_delta_mean": mean("height_delta"), "pieces_mean": mean("pieces"),
                      "survived": sum(s["survived"] for s in summaries), "calls": sum(s["calls"] for s in summaries),
-                     "stale": sum(s["stale"] for s in summaries), "invalid": sum(s["invalid"] for s in summaries),
+                     "drops": sum(s["drops"] for s in summaries), "stale": sum(s["stale"] for s in summaries),
+                     "invalid": sum(s["invalid"] for s in summaries),
                      "capture_to_apply_game_s_median_of_medians": statistics.median(ages) if ages else None}
         (out / "summary.json").write_text(json.dumps({
             "mode": mode, "provider": provider, "clock": "virtual" if mode == "simulation" else "wall",
-            "duration_game_seconds": duration, "slowdown": slowdown, "aggregate": aggregate, "episodes": summaries,
+            "duration_game_seconds": duration, "slowdown": slowdown, "observation_stride_frames": recipe["args"]["observation_stride_frames"],
+            "aggregate": aggregate, "episodes": summaries,
             "status": "interrupted" if any(s.get("status") == "interrupted" for s in summaries) else "completed",
             "limitation": ("Sampled measured delays; actor computation pauses the virtual clock." if mode == "simulation"
                            else "Actual response latency on a continuously advancing clock."),
@@ -230,38 +233,39 @@ def run_recipe(root, recipe, out: Path, args, client_factory, mode: str, provide
 
 
 def verify_replay(root, recipe, episode_dir: Path) -> dict:
-    """Zero-model replay: rebuild the episode from its recorded answers and apply frames; check image hashes and outcome."""
+    """Zero-model replay: rebuild the episode from its recorded answers and delivery frames; check every issued image hash
+    and the final board. No model is called."""
     summary = json.loads((episode_dir / "summary.json").read_text())
     case = summary["case"]
-    requests = [json.loads(line) for line in (episode_dir / "requests.jsonl").read_text().splitlines()]
-    env = make_env(case["seed"], case["level"], case.get("prefix", 0))
-    executor = KeyExecutor()
-    executor.hover = bool(recipe["args"].get("hover", False))
-    by_capture = {r["capture_frame"]: r for r in requests}
-    by_apply = {r["apply_frame"]: r for r in requests if "apply_frame" in r and r.get("status") in ("applied", "stale", "late", "invalid")}
+    stride, window = int(recipe["args"]["observation_stride_frames"]), deque(maxlen=int(recipe["args"]["observation_window"]))
+    requests = [json.loads(line) for line in (episode_dir / "decisions.jsonl").read_text().splitlines()]
+    env, executor = make_env(case["seed"], case["level"], case.get("prefix", 0)), KeyExecutor()
+    by_obs = {r["obs_frame"]: r for r in requests}
+    by_delivery = {r["delivery_frame"]: r for r in requests if r.get("delivery_frame") is not None}
     checked = 0
     for frame in range(summary["frames"]):
         screen = render(env)
         executor.observe(screen)
-        if frame in by_capture:
-            digest = hashlib.sha256(png(screen)).hexdigest()
-            if digest != by_capture[frame]["image_sha256"]:
-                raise AssertionError(f"image mismatch at frame {frame}")
-            checked += 1
-        if frame in by_apply:
-            row = by_apply[frame]
-            if row["status"] != "invalid" and "statuses" in row:
-                statuses = executor.apply_many(parse_answers(row["answer"], len(row["statuses"])), row["target"], frame)
-                if statuses != row["statuses"]:
-                    raise AssertionError(f"executor statuses mismatch at frame {frame}: {statuses} vs {row['statuses']}")
-            elif row["status"] != "invalid":
+        if frame in by_delivery:
+            row = by_delivery[frame]
+            if row["status"] != "invalid":
                 status = executor.apply(parse_answer(row["answer"]), row["target"], frame)
                 if status != row["status"]:
                     raise AssertionError(f"executor status mismatch at frame {frame}: {status} vs {row['status']}")
+        if frame % stride == 0:
+            window.append((frame, png(screen)))
+            if frame in by_obs:
+                images = select_images(window)
+                hashes = [hashlib.sha256(im).hexdigest() for _, im in images]
+                if hashes != by_obs[frame]["image_sha256"]:
+                    raise AssertionError(f"image mismatch at frame {frame}")
+                checked += 1
         env.step(executor.action(env.prev_action))
     end = board_state(env)
     if end != summary["end"] or (not env.over) != summary["survived"]:
         raise AssertionError("final board state does not match the recorded summary")
+    if checked != len(requests):
+        raise AssertionError("not every issued request was checked")
     return {"episode": episode_dir.name, "verified_frames": summary["frames"], "verified_requests": checked,
             "lines": summary["lines"], "survived": summary["survived"], "model_calls": 0}
 
@@ -270,16 +274,17 @@ def profile_inputs(root, recipe, episode_dir: Path, output: Path, client_factory
     """Strictly serial latency measurement: resend retained request inputs one at a time; no gameplay."""
     calls = sorted(p for p in (episode_dir / "calls").glob("call-*") if (p / "prompt.txt").exists() and (p / "image_0.png").exists())
     if not calls:
-        raise ValueError("No retained request inputs (calls/*/prompt.txt + image_0.png) in " + str(episode_dir))
+        raise ValueError("No retained request inputs (calls/*/prompt.txt + image_*.png) in " + str(episode_dir))
     system, _ = build_task(root, recipe, "realtime")
     client = client_factory(output=output.with_suffix("") / "transport", system=system)
     rows = []
     try:
         for call in calls[:max_calls]:
-            text, image = (call / "prompt.txt").read_text(), (call / "image_0.png").read_bytes()
+            text = (call / "prompt.txt").read_text()
+            images = [p.read_bytes() for p in sorted(call.glob("image_*.png"))]
             started = time.monotonic()
             try:
-                answer, meta = client.act(text, [image], output.with_suffix("") / "transport" / call.name)
+                answer, meta = client.act(text, images, output.with_suffix("") / "transport" / call.name)
                 wall = time.monotonic() - started
                 parse_answer(answer)
                 rows.append({"input": call.name, "wall_seconds": wall, "valid": True, "output_tokens": meta.get("output_tokens")})
@@ -291,7 +296,7 @@ def profile_inputs(root, recipe, episode_dir: Path, output: Path, client_factory
     profile = {"capture_to_complete_seconds": valid, "provider": provider, "concurrency": 1,
                "source_episode": str(episode_dir), "attempted": len(rows), "valid_completed": len(valid),
                "median_s": statistics.median(valid) if valid else None, "rows": rows,
-               "definition": "wall seconds from sending the retained prompt+screenshot to receiving a complete, parseable answer"}
+               "definition": "wall seconds from sending the retained prompt+images to receiving a complete, parseable answer"}
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(profile, indent=1) + "\n")
     return {k: v for k, v in profile.items() if k != "rows"}

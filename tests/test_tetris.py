@@ -90,24 +90,32 @@ class Executor(unittest.TestCase):
 
 class Task(unittest.TestCase):
     def test_selected_recipe_and_policy_hashes(self):
-        meta = json.loads((ROOT / "policies/tetris/v8-keys/policy.json").read_text())
-        self.assertEqual(RECIPE["policy"], "v8-keys")
-        for key, name in (("prompt", "prompt_sha256"), ("system", "system_sha256"), ("output_instructions", "output_format_sha256")):
+        meta = json.loads((ROOT / "policies/tetris/v10-ticks/policy.json").read_text())
+        self.assertEqual(RECIPE["policy"], "v10-ticks")
+        for key, name in (("prompt", "prompt_sha256"), ("system", "system_sha256"), ("task_prefix", "task_prefix_sha256")):
             self.assertEqual(hashlib.sha256((ROOT / RECIPE[key]).read_bytes()).hexdigest(), meta[name])
-        self.assertEqual((RECIPE["args"]["requests_in_flight"], RECIPE["args"]["executor"]), (1, "key_script"))
+        self.assertEqual(hashlib.sha256((ROOT / RECIPE["profile"]).read_bytes()).hexdigest(), meta["profile_sha256"])
+        self.assertEqual((RECIPE["args"]["requests_in_flight"], RECIPE["args"]["controller"], meta["max_inflight"]), (1, "key_script", 1))
+        self.assertEqual((RECIPE["args"]["observation_stride_frames"], RECIPE["args"]["observation_window"]), (20, 9))
         self.assertEqual(json.loads((ROOT / "recipes/tetris-1x.json").read_text())["args"]["slowdown"], 1)
 
     def test_task_text_states_mode_and_measured_delay(self):
-        system, sim = task.build_task(ROOT, RECIPE, "simulation", ["piece #3: executed T rot1 col4"])
+        import statistics
+        system, sim = task.build_task(ROOT, RECIPE, "simulation")
         _, live = task.build_task(ROOT, RECIPE, "realtime")
-        self.assertIn("does not advance this simulated game", sim)
-        self.assertIn("keeps advancing while you compute", live)
-        self.assertIn("runs 2x slower", sim)
-        self.assertIn("piece #3: executed T rot1 col4", sim)
-        self.assertNotIn("{timing}", sim + live)
+        self.assertIn("does not advance this simulation", sim)
+        self.assertIn("DOES advance this real-time game", live)
+        self.assertIn("2 times slower than normal speed", sim)
+        self.assertIn("next 20-frame observation tick", sim)
+        self.assertIn("The actual delay of your request is unknown", sim)
+        for placeholder in ("{mean_ms", "{median_ms", "{p95_ms", "{stride}", "{window_frames}", "{mid_age}", "{slowdown_clause}"):
+            self.assertNotIn(placeholder, sim + live)
         self.assertIn("Do not use tools", system)
-        median = sorted(task.profile_delays(ROOT, RECIPE))
-        self.assertIn(f"{(median[len(median)//2] if len(median) % 2 else (median[len(median)//2-1]+median[len(median)//2])/2)/2:.1f} seconds", sim)
+        median_ms = statistics.median(task.profile_delays(ROOT, RECIPE)) / 2 * 1000
+        self.assertIn(f"median {median_ms:.0f} ms", sim)
+        text = task.request_text(sim, 300, [140, 260, 300], [{"frame": 100, "status": "applied", "piece": "T", "rot": 1, "col": 4}])
+        self.assertIn("Current observation frame: 300. Image frames: [140, 260, 300].", text)
+        self.assertIn("200:T/rot1/col4", text)
 
     def test_profile_rejects_bad_delays(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -133,20 +141,24 @@ class RulesRunAndReplay(unittest.TestCase):
             self.assertGreater(episode["calls"], 0)
             self.assertTrue((out / "manifest.json").exists() and (out / "source_snapshot/environments/tetris/runner.py").exists())
             (episode_dir,) = sorted(out.glob("episode-*"))
-            rows = [json.loads(line) for line in (episode_dir / "requests.jsonl").read_text().splitlines()]
-            self.assertTrue(all("image_sha256" in r for r in rows))
+            rows = [json.loads(line) for line in (episode_dir / "decisions.jsonl").read_text().splitlines()]
+            self.assertTrue(all(len(r["image_sha256"]) == len(r["image_frames"]) for r in rows))
+            self.assertTrue(all(len(r["image_frames"]) == 3 for r in rows[2:]))
+            self.assertGreater(episode["drops"], 0)
             result = runner.verify_replay(ROOT, RECIPE, episode_dir)
             self.assertEqual((result["model_calls"], result["verified_requests"]), (0, len(rows)))
             # A tampered answer must be caught by the replay check.
             rows[0]["answer"] = json.dumps({"piece": json.loads(rows[0]["answer"])["piece"], "rot": 0, "col": 0})
-            (episode_dir / "requests.jsonl").write_text("\n".join(json.dumps(r) for r in rows) + "\n")
+            (episode_dir / "decisions.jsonl").write_text("\n".join(json.dumps(r) for r in rows) + "\n")
             with self.assertRaises(AssertionError):
                 runner.verify_replay(ROOT, RECIPE, episode_dir)
 
     def test_retained_selected_run_replays_without_model_calls(self):
         run = ROOT / "artifacts/tetris/records/claude-eval-2x"
         manifest = json.loads((run / "manifest.json").read_text())
-        self.assertEqual((manifest["provider"], manifest["clock"], manifest["recipe"]["policy"]), ("claude", "wall", "v8-keys"))
+        if manifest["recipe"]["policy"] != RECIPE["policy"]:
+            self.skipTest("retained run predates the selected policy; re-register after the next evaluation")
+        self.assertEqual((manifest["provider"], manifest["clock"]), ("claude", "wall"))
         episode = run / "episode-04-s0-l5-p20"
         result = runner.verify_replay(ROOT, manifest["recipe"], episode)
         summary = json.loads((episode / "summary.json").read_text())

@@ -1,12 +1,12 @@
 {
-  "policy": "v9-two",
+  "policy": "v8-keys",
   "profile": "profiles/tetris/claude-opus-low-serial-v0.json",
-  "system": "policies/tetris/v9-two/system.txt",
-  "task_prefix": "policies/tetris/v9-two/task-prefix.txt",
-  "prompt": "policies/tetris/v9-two/prompt.txt",
-  "output_instructions": "policies/tetris/v9-two/output-format.txt",
-  "memory": "policies/tetris/v9-two/memory.md",
-  "output_format": "two_placements_reason",
+  "system": "policies/tetris/v8-keys/system.txt",
+  "task_prefix": "policies/tetris/v8-keys/task-prefix.txt",
+  "prompt": "policies/tetris/v8-keys/prompt.txt",
+  "output_instructions": "policies/tetris/v8-keys/output-format.txt",
+  "memory": "policies/tetris/v8-keys/memory.md",
+  "output_format": "placement_reason",
   "claude": {
     "model": "opus",
     "effort": "low"
@@ -100,9 +100,8 @@
     "requests_in_flight": 1,
     "latency_seed_offset": 91,
     "quota_stop_percent": 80,
-    "note": "Candidate: two placements per answer; a positioned piece hovers until the next piece's placement is known; a screenshot is sent whenever the NEXT piece has no plan.",
-    "answer_pieces": 2,
-    "capture": "next_unplanned",
-    "hover": true
+    "note": "Asterix-style fixed observation ticks every 15 frames (0.25 game s); one request in flight; capture at the first tick after the previous reply.",
+    "capture": "tick",
+    "observation_stride_frames": 15
   }
 }

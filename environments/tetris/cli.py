@@ -57,7 +57,7 @@ def client_factory(recipe, provider, mode):
     os.environ["SOL_QUOTA_STOP_PERCENT"] = str(min(int(os.environ.get("SOL_QUOTA_STOP_PERCENT", "80")),
                                                  int(recipe["args"].get("quota_stop_percent", 80))))
     return lambda output, system: SubscriptionClient(output=output, system=system, effort=settings.get("effort", "low"),
-                                                     service_tier=settings.get("service_tier"), prestart=bool(settings.get("prestart", True)))
+                                                     service_tier=settings.get("service_tier"), prestart=bool(settings.get("prestart", False)))
 
 
 def tetris(recipe, out, a):

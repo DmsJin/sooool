@@ -1,11 +1,11 @@
 {
-  "policy": "v8-keys",
+  "policy": "v10-ticks",
   "profile": "profiles/tetris/claude-opus-low-serial-v0.json",
-  "system": "policies/tetris/v8-keys/system.txt",
-  "task_prefix": "policies/tetris/v8-keys/task-prefix.txt",
-  "prompt": "policies/tetris/v8-keys/prompt.txt",
-  "output_instructions": "policies/tetris/v8-keys/output-format.txt",
-  "memory": "policies/tetris/v8-keys/memory.md",
+  "system": "policies/tetris/v10-ticks/system.txt",
+  "task_prefix": "policies/tetris/v10-ticks/task-prefix.txt",
+  "prompt": "policies/tetris/v10-ticks/prompt.txt",
+  "output_instructions": "policies/tetris/v10-ticks/output-format.txt",
+  "memory": "policies/tetris/v10-ticks/memory.md",
   "output_format": "placement_reason",
   "claude": {
     "model": "opus",
@@ -14,7 +14,7 @@
   "subscription": {
     "effort": "low",
     "service_tier": "priority",
-    "prestart": true
+    "prestart": false
   },
   "args": {
     "episodes": [
@@ -96,10 +96,12 @@
     ],
     "duration": 60,
     "slowdown": 1,
-    "executor": "key_script",
     "requests_in_flight": 1,
     "latency_seed_offset": 91,
     "quota_stop_percent": 80,
-    "note": "Normal-speed comparison condition."
+    "note": "Normal-speed comparison condition; otherwise identical to recipes/tetris.json.",
+    "controller": "key_script",
+    "observation_stride_frames": 20,
+    "observation_window": 9
   }
 }

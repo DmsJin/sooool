@@ -1,8 +1,0 @@
-{
-  "policy": "v9-two",
-  "parent": "v8-keys",
-  "change": "two placements per answer (piece in play + NEXT piece); screenshots captured continuously; newest observation wins for pieces that have not started moving",
-  "prompt_sha256": "5b326bcf4ebad006baa19f3fcf2e0090af7ee6c7d23507fc6bd602ae9677f3e7",
-  "system_sha256": "1fd336630c6d37cdb0c58cc02c5d4d8d29e317a0159b8238a9ba8772771dd11e",
-  "output_format_sha256": "dfc723ff6311503fad871bffc03429386fc9b03246cb299ec8c3f494d8b57bae"
-}

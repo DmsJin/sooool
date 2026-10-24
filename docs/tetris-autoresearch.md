@@ -114,27 +114,6 @@ and four answers arrived after their piece locked. At normal speed the same poli
 baseline all fail level 5 and clear almost nothing: the condition is latency-bound, not policy-bound. The wall
 delay of the portable transport (median 5.97 s) matches the profile it was told (5.9 s).
 
-## 7. Candidate after the fresh validation: plan the NEXT piece and hover
-
-Following the observation that strong players decide the preview piece while the current one is still falling, a
-candidate (`recipes/tetris-two.json`, policy `v9-two`) answers two placements per screenshot (piece in play, then
-NEXT) and lets a positioned piece fall by gravity until the next piece's placement is known, then hard-drops it.
-Spawn detection, stale rules and key scripts are unchanged; the rules baseline reaches identical placements through
-it. One real-clock episode (seed 0, start level 5) per condition, registered as diagnostics:
-
-| Condition | Lines | New holes | Pieces | Alive | Stale | Call wall median |
-|---|---:|---:|---:|---|---:|---:|
-| serial `v8-keys`, 2× (registered run) | 7 | 0 | 21 | yes | 0 | 6.0 s |
-| hover `v9-two`, 2× | 3 | 5 | 14 | yes | 0 | 8.6 s |
-| serial `v8-keys`, 1× (registered run) | 1 | 25 | 15 | **no** | 4 | 5.8 s |
-| hover `v9-two`, 1× | 1 | 9 | 10 | yes | 1 | 6.6 s |
-
-The hover rule buys latency tolerance (level 5 survives at normal speed where the serial policy died) but costs
-placement quality and answer time: the NEXT placement is decided on an imagined board, and two placements make
-the model reason longer. A first "continuous capture" variant without hovering was worse (22 new holes; half of
-its answers arrived after both pieces had been placed) and is retained in the development assessments. The
-candidate is a diagnostic, not a replacement for the selected serial condition.
-
 The next research questions are more seeds and repeats at 2×, a measured profile from `sol profile tetris` on the
 portable transport, long-tail sensitivity, and whether an executor that waits for the next answer before dropping
 can be justified without a second request in flight. Each belongs in a new evaluation record.
