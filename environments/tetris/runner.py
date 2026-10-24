@@ -19,6 +19,8 @@ import random
 import statistics
 import time
 
+import numpy as np
+
 from baseline import RulesActor, features
 from engine import NOOP, Tetris
 from executor import KeyExecutor, key_script, parse_answer
@@ -105,7 +107,11 @@ def run_episode(root, recipe, out: Path, case: dict, task: str, delays: list[flo
                     row, future = pending
                     available = frame >= row["action_ready_frame"] if mode == "simulation" else future.done()
                     if available:
-                        result = future.result()
+                        try:
+                            result = future.result()
+                        except Exception as exc:  # the transport failed: the row says so, then the episode is interrupted
+                            row.update(status="error", error_type=type(exc).__name__, error=str(exc)[:500])
+                            raise
                         row["delivery_frame"] = frame
                         row.update(answer=result["answer"], call_wall_seconds=result["meta"].get("wall_seconds"),
                                    output_tokens=result["meta"].get("output_tokens"))
@@ -124,7 +130,7 @@ def run_episode(root, recipe, out: Path, case: dict, task: str, delays: list[flo
                         drops += 1  # a tick while a request is in flight or its keys are still being pressed
                     else:
                         images = select_images(window)
-                        text = request_text(task, frame, [f for f, _ in images], executor.applied)
+                        text = request_text(task, frame, [f for f, _ in images], executor.applied) if provider != "rules" else None
                         sampled = rng.choice(delays) if mode == "simulation" else None
                         row = {"seq": len(requests), "obs_frame": frame, "target": executor.piece_index,
                                "image_frames": [f for f, _ in images], "image_sha256": [hashlib.sha256(im).hexdigest() for _, im in images],
@@ -132,6 +138,7 @@ def run_episode(root, recipe, out: Path, case: dict, task: str, delays: list[flo
                                "action_ready_frame": frame + delay_frames(sampled, slowdown) if sampled is not None else None,
                                "delivery_frame": None}
                         issued.write(json.dumps(row) + "\n"); issued.flush()
+                        requests.append(row)
                         call_dir = out / "calls" / f"call-{row['seq']:05d}"
                         if provider == "rules":
                             answer_text, meta = client.act_on_truth(env)
@@ -139,13 +146,16 @@ def run_episode(root, recipe, out: Path, case: dict, task: str, delays: list[flo
                             (call_dir / "result.json").write_text(json.dumps({"answer": answer_text, "meta": meta}))
                             future = pool.submit(lambda a=answer_text, m=meta: {"answer": a, "meta": m})
                         elif mode == "simulation":
-                            result = request(text, [im for _, im in images], call_dir)  # virtual clock waits for computation
+                            try:
+                                result = request(text, [im for _, im in images], call_dir)  # virtual clock waits for computation
+                            except Exception as exc:
+                                row.update(status="error", error_type=type(exc).__name__, error=str(exc)[:500])
+                                raise
                             future = pool.submit(lambda r=result: r)
                         else:
                             future = pool.submit(request, text, [im for _, im in images], call_dir)
-                        requests.append(row)
                         pending = (row, future)
-                action = executor.action(env.prev_action)
+                action = executor.action()
                 env.step(action)
                 steps.write(json.dumps({"frame": frame, "action": action, "lines": env.lines, "pieces": env.pieces}) + "\n")
                 frame += 1
@@ -163,7 +173,7 @@ def run_episode(root, recipe, out: Path, case: dict, task: str, delays: list[flo
         with (out / "decisions.jsonl").open("w") as log:
             for row in requests:
                 if row["delivery_frame"] is None:
-                    row["status"] = row.get("status", "unapplied_after_horizon")
+                    row["status"] = row.get("status") or ("interrupted" if status == "interrupted" else "unapplied_after_horizon")
                 log.write(json.dumps(row) + "\n")
         (out / "actions.json").write_text(json.dumps(executor.applied, indent=1) + "\n")
         (out / "deliveries.json").write_text(json.dumps(deliveries, indent=1) + "\n")
@@ -186,24 +196,59 @@ def run_episode(root, recipe, out: Path, case: dict, task: str, delays: list[flo
     return summary
 
 
-def episodes_from(recipe: dict, args) -> list[dict]:
-    if args.seed is not None:
-        return [{"seed": args.seed, "level": args.level or 1, "prefix": args.prefix or 0}]
-    return list(recipe["args"]["episodes"])
+def provenance(root) -> dict:
+    """Versions the retained evidence depends on: image hashes change with the renderer's Pillow build."""
+    import platform
+    import subprocess
+    import PIL
+    try:
+        commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True, timeout=10).stdout.strip() or None
+    except (OSError, subprocess.SubprocessError):
+        commit = None
+    return {"python": platform.python_version(), "pillow": PIL.__version__, "numpy": np.__version__, "source_commit": commit}
 
 
-def run_recipe(root, recipe, out: Path, args, client_factory, mode: str, provider: str):
-    duration = args.duration if args.duration is not None else recipe["args"]["duration"]
-    slowdown = args.slowdown if args.slowdown is not None else float(recipe["args"].get("slowdown", 1))
-    if slowdown != float(recipe["args"].get("slowdown", 1)):
-        recipe = {**recipe, "args": {**recipe["args"], "slowdown": slowdown}}  # the task text states the run's slowdown
+def validate_recipe(recipe: dict) -> dict:
+    """Reject a recipe this runner cannot honour before any run directory exists (Asterix checks its selected values)."""
+    args = recipe["args"]
+    checks = ((float(args.get("slowdown", 1)) >= 1, "slowdown must be >= 1 (1 = normal speed)"),
+              (int(args["observation_window"]) >= 3, "observation_window must hold at least the three images sent"),
+              (int(args["observation_stride_frames"]) >= 1, "observation_stride_frames must be >= 1"),
+              (int(args.get("image_scale", SCALE)) >= 1, "image_scale must be >= 1"),
+              (float(args["duration"]) > 0, "duration must be positive"),
+              (int(args.get("requests_in_flight", 1)) == 1, "this runner keeps exactly one request in flight"),
+              (args.get("controller", "key_script") == "key_script", "this runner executes answers as key scripts"),
+              (bool(args["episodes"]), "episodes must not be empty"))
+    for ok, message in checks:
+        if not ok:
+            raise ValueError(message)
+    for case in args["episodes"]:
+        if not {"seed", "level"} <= set(case) or case["level"] < 1 or case.get("prefix", 0) < 0:
+            raise ValueError(f"malformed episode {case}")
+    return recipe
+
+
+def apply_overrides(recipe: dict, args) -> dict:
+    """Return the recipe actually run: CLI overrides for duration, slowdown and a single episode are written into
+    ``args`` so the frozen manifest, the task text and the evaluation record all describe the same condition."""
+    overrides = {key: getattr(args, key) for key in ("duration", "slowdown") if getattr(args, key, None) is not None}
+    if getattr(args, "seed", None) is not None:
+        overrides["episodes"] = [{"seed": args.seed, "level": args.level if args.level is not None else 1, "prefix": args.prefix if args.prefix is not None else 0}]
+    if overrides:
+        recipe = {**recipe, "args": {**recipe["args"], **overrides}}
+    return validate_recipe(recipe)
+
+
+def run_recipe(root, recipe, out: Path, client_factory, mode: str, provider: str):
+    duration, slowdown = float(recipe["args"]["duration"]), float(recipe["args"].get("slowdown", 1))
     system, task = build_task(root, recipe, mode)
     delays = profile_delays(root, recipe)
     (out / "task.txt").write_text(task)
+    (out / "provenance.json").write_text(json.dumps(provenance(root), indent=2) + "\n")
     client = client_factory(output=out / "transport-worker", system=system)
     summaries = []
     try:
-        for i, case in enumerate(episodes_from(recipe, args)):
+        for i, case in enumerate(recipe["args"]["episodes"]):
             name = f"episode-{i:02d}-s{case['seed']}-l{case['level']}-p{case.get('prefix', 0)}"
             try:
                 summaries.append(run_episode(root, recipe, out / name, case, task, delays, client, mode, provider, duration, slowdown))
@@ -235,71 +280,87 @@ def run_recipe(root, recipe, out: Path, args, client_factory, mode: str, provide
 
 
 def verify_replay(root, recipe, episode_dir: Path) -> dict:
-    """Zero-model replay: rebuild the episode from its recorded answers and delivery frames; check every issued image hash
-    and the final board. No model is called."""
+    """Zero-model replay: rebuild the episode from its recorded answers and delivery frames and re-derive everything
+    else. Checked against the record: every issued image (frames and SHA-256s), the request target, the executor
+    status of every delivery, the sampled delay arithmetic of a simulation, the key scripts in ``actions.json``
+    when retained, the drop count, the horizon, and every number in the episode summary. No model is called."""
     summary = json.loads((episode_dir / "summary.json").read_text())
-    case = summary["case"]
-    stride, window = int(recipe["args"]["observation_stride_frames"]), deque(maxlen=int(recipe["args"]["observation_window"]))
-    scale = int(recipe["args"].get("image_scale", SCALE))
+    case, args = summary["case"], recipe["args"]
+    stride, window = int(args["observation_stride_frames"]), deque(maxlen=int(args["observation_window"]))
+    scale, slowdown = int(args.get("image_scale", SCALE)), float(summary["slowdown"])
+    horizon = round(float(args["duration"]) * FPS)
     requests = [json.loads(line) for line in (episode_dir / "decisions.jsonl").read_text().splitlines()]
+    if [r["seq"] for r in requests] != list(range(len(requests))):
+        raise AssertionError("request sequence numbers are not contiguous")
     env, executor = make_env(case["seed"], case["level"], case.get("prefix", 0)), KeyExecutor()
+    start = board_state(env)
     by_obs = {r["obs_frame"]: r for r in requests}
     by_delivery = {r["delivery_frame"]: r for r in requests if r.get("delivery_frame") is not None}
-    checked = 0
+    if len(by_obs) != len(requests) or len(by_delivery) != sum(r.get("delivery_frame") is not None for r in requests):
+        raise AssertionError("duplicate observation or delivery frames")
+    for row in requests:
+        delivered = row.get("delivery_frame")
+        if delivered is not None and delivered < row["obs_frame"]:
+            raise AssertionError(f"request {row['seq']} delivered before it was captured")
+        if summary["mode"] == "simulation":
+            ready = row["obs_frame"] + delay_frames(row["sampled_capture_to_complete_s"], slowdown)
+            if row["action_ready_frame"] != ready or (delivered is not None and delivered != ready):
+                raise AssertionError(f"request {row['seq']}: delivery does not match its sampled delay")
+    checked, drops, pending, statuses = 0, 0, None, {"applied": 0, "stale": 0, "invalid": 0}
+    if summary["frames"] > horizon:
+        raise AssertionError("episode ran past the recipe horizon")
     for frame in range(summary["frames"]):
+        if env.over:
+            raise AssertionError(f"game was over before the recorded end at frame {frame}")
         screen = render(env)
         executor.observe(screen)
         if frame in by_delivery:
             row = by_delivery[frame]
-            if row["status"] != "invalid":
+            if row["status"] == "invalid":
+                try:
+                    parse_answer(row["answer"])
+                except (ValueError, KeyError, TypeError, json.JSONDecodeError):
+                    pass
+                else:
+                    raise AssertionError(f"answer recorded as invalid parses at frame {frame}")
+            else:
                 status = executor.apply(parse_answer(row["answer"]), row["target"], frame)
                 if status != row["status"]:
                     raise AssertionError(f"executor status mismatch at frame {frame}: {status} vs {row['status']}")
+            statuses[row["status"]] += 1
+            pending = None
         if frame % stride == 0:
             window.append((frame, png(screen, scale)))
-            if frame in by_obs:
+            if pending is not None or executor.busy:
+                drops += 1
+                if frame in by_obs:
+                    raise AssertionError(f"request captured at frame {frame} while another was in flight")
+            elif frame in by_obs:
+                row = by_obs[frame]
                 images = select_images(window)
-                hashes = [hashlib.sha256(im).hexdigest() for _, im in images]
-                if hashes != by_obs[frame]["image_sha256"]:
+                if [f for f, _ in images] != row["image_frames"]:
+                    raise AssertionError(f"image frames mismatch at frame {frame}")
+                if [hashlib.sha256(im).hexdigest() for _, im in images] != row["image_sha256"]:
                     raise AssertionError(f"image mismatch at frame {frame}")
-                checked += 1
-        env.step(executor.action(env.prev_action))
-    end = board_state(env)
-    if end != summary["end"] or (not env.over) != summary["survived"]:
-        raise AssertionError("final board state does not match the recorded summary")
+                if row["target"] != executor.piece_index:
+                    raise AssertionError(f"request target mismatch at frame {frame}")
+                checked, pending = checked + 1, row
+        env.step(executor.action())
     if checked != len(requests):
         raise AssertionError("not every issued request was checked")
+    end = board_state(env)
+    derived = {"start": start, "end": end, "lines": end["lines"] - start["lines"], "pieces": end["pieces"] - start["pieces"],
+               "new_holes": end["holes"] - start["holes"], "height_delta": end["height_sum"] - start["height_sum"],
+               "survived": not env.over, "calls": len(requests), "drops": drops, **statuses,
+               "status": "natural_end" if env.over else "horizon"}
+    for key, value in derived.items():
+        if summary.get(key) != value:
+            raise AssertionError(f"summary {key!r} does not match the replay: {summary.get(key)!r} vs {value!r}")
+    if not env.over and summary["frames"] != horizon:
+        raise AssertionError("episode stopped before the horizon without a game over")
+    actions_file = episode_dir / "actions.json"
+    if actions_file.exists() and json.loads(actions_file.read_text()) != executor.applied:
+        raise AssertionError("retained key scripts do not match the replayed executor")
     return {"episode": episode_dir.name, "verified_frames": summary["frames"], "verified_requests": checked,
-            "lines": summary["lines"], "survived": summary["survived"], "model_calls": 0}
-
-
-def profile_inputs(root, recipe, episode_dir: Path, output: Path, client_factory, provider: str, max_calls: int) -> dict:
-    """Strictly serial latency measurement: resend retained request inputs one at a time; no gameplay."""
-    calls = sorted(p for p in (episode_dir / "calls").glob("call-*") if (p / "prompt.txt").exists() and (p / "image_0.png").exists())
-    if not calls:
-        raise ValueError("No retained request inputs (calls/*/prompt.txt + image_*.png) in " + str(episode_dir))
-    system, _ = build_task(root, recipe, "realtime")
-    client = client_factory(output=output.with_suffix("") / "transport", system=system)
-    rows = []
-    try:
-        for call in calls[:max_calls]:
-            text = (call / "prompt.txt").read_text()
-            images = [p.read_bytes() for p in sorted(call.glob("image_*.png"))]
-            started = time.monotonic()
-            try:
-                answer, meta = client.act(text, images, output.with_suffix("") / "transport" / call.name)
-                wall = time.monotonic() - started
-                parse_answer(answer)
-                rows.append({"input": call.name, "wall_seconds": wall, "valid": True, "output_tokens": meta.get("output_tokens")})
-            except Exception as exc:  # retained as an invalid sample, never used as a delay
-                rows.append({"input": call.name, "wall_seconds": time.monotonic() - started, "valid": False, "error": type(exc).__name__})
-    finally:
-        client.close()
-    valid = sorted(r["wall_seconds"] for r in rows if r["valid"])
-    profile = {"capture_to_complete_seconds": valid, "provider": provider, "concurrency": 1,
-               "source_episode": str(episode_dir), "attempted": len(rows), "valid_completed": len(valid),
-               "median_s": statistics.median(valid) if valid else None, "rows": rows,
-               "definition": "wall seconds from sending the retained prompt+images to receiving a complete, parseable answer"}
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(profile, indent=1) + "\n")
-    return {k: v for k, v in profile.items() if k != "rows"}
+            "verified_key_scripts": actions_file.exists(), "lines": summary["lines"], "survived": summary["survived"],
+            "model_calls": 0}

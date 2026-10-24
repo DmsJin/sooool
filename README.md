@@ -48,6 +48,7 @@ We computed the latency profiles below; timings may vary across API setups, and 
 | [Rhythm](profiles/rhythm/selected-native-joint.json) | 85 timing samples | Action ready | 1432.7 | 282.2 |
 | [Racing (proxy)](profiles/racing/profile.json) | 32 serial calls | Response complete | 1472.1 | 378.6 |
 | [PCBA (modeled)](profiles/pcba/ultrafast-modeled-v1.json) | 155 modeled replies | Capture to reply | 3871.9 | 831.3 |
+| [Tetris (Claude Opus, subscription CLI)](profiles/tetris/claude-opus-low-serial-v0.json) | 68 serial calls | Capture to apply | 6151.2 | 1254.0 |
 
 ### Build the simulator
 
@@ -59,7 +60,7 @@ This lets Codex compare strategies under the same delay conditions, even when th
 
 Fix the selected strategy and run it with actual response times. The game keeps running while the agent responds: a three-second response means the game also moves forward for three seconds.
 
-These commands cover Touhou, Rhythm, and Asterix; `sol profile` is available for Touhou and Rhythm:
+These commands cover Touhou, Rhythm, Asterix and Tetris; `sol profile` is available for Touhou and Rhythm:
 
 | Command | What happens | What it uses |
 |---|---|---|
@@ -103,11 +104,12 @@ An answer can take seconds. Sending requests while earlier ones are still waitin
 | **Touhou** | **Four requests per observation**; next group after the selected move finishes and slots are available. | Use the first valid answer; the other answers for that observation cannot replace it. |
 | **Asterix** | **One request at a time.** Observe again after the previous reply. | Hold the chosen direction until a new answer replaces it. |
 | **Rhythm** | Try a new screenshot **every 0.2 seconds**, with **up to 16 requests waiting**. Skip sending when full. | Execute the model's tap times, skip expired taps, and prevent duplicate presses using action IDs. |
+| **Tetris** | **One request at a time**, captured at the first one-second observation tick after the previous reply was executed. | Press the key script for the answered placement; discard a reply whose piece has already locked. |
 | **PCBA** | **Two staggered requests**: capture about one measured reply latency before the committed chunk ends; hold while a committed test result is still pending. | Run a reply only after its parent chunk ends and its declared start pose and sensor guards match; the newest valid reply wins, superseded ones are dropped. |
 
 More requests also mean more calls, cost, and potentially outdated answers. Asterix's serial setup followed limited trials in which overlapping requests appeared to encourage repeated movement. [Request ordering, capacity, and experiment details](docs/latency-aware-learning.md).
 
-A **recipe** is a JSON file selecting a policy, latency profile, and run settings. See the selected recipes: [Touhou simulation](recipes/touhou.json), [Touhou live run](recipes/touhou-realtime.json), [Rhythm](recipes/rhythm.json), and [Asterix](recipes/asterix.json).
+A **recipe** is a JSON file selecting a policy, latency profile, and run settings. See the selected recipes: [Touhou simulation](recipes/touhou.json), [Touhou live run](recipes/touhou-realtime.json), [Rhythm](recipes/rhythm.json), [Asterix](recipes/asterix.json), and [Tetris](recipes/tetris.json).
 
 ### Action example
 

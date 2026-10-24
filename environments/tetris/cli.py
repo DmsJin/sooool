@@ -1,4 +1,4 @@
-"""Command entrypoint: sol simulate|eval|profile|replay tetris."""
+"""Command entrypoint: sol simulate|eval|replay tetris."""
 from __future__ import annotations
 
 import argparse
@@ -24,16 +24,11 @@ def parser():
         child.add_argument("--level", type=int, default=None, help="Start level for --seed (default 1)")
         child.add_argument("--prefix", type=int, default=None, help="Pieces pre-placed by the rules baseline for --seed (default 0)")
         child.add_argument("--duration", type=positive_float, help="Episode length in game seconds")
-        child.add_argument("--slowdown", type=positive_float, help="Game slowdown factor (1 = normal speed)")
+        child.add_argument("--slowdown", type=positive_float, help="Game slowdown factor (>= 1; 1 = normal speed)")
         choices = PROVIDERS if command == "simulate" else PROVIDERS[:2]
         child.add_argument("--provider", choices=choices, default="claude",
-                           help="Decision source: claude (stateless Claude Code CLI), subscription (ChatGPT via Codex), rules (true-board baseline, simulate only)")
-    profile = commands.add_parser("profile", prog="sol profile tetris", help="Serial latency measurement on retained request inputs")
-    profile.add_argument("--episode", type=Path, required=True, help="An episode directory with calls/*/prompt.txt and image_0.png")
-    profile.add_argument("--output", type=Path, required=True)
-    profile.add_argument("--recipe", type=Path)
-    profile.add_argument("--provider", choices=PROVIDERS[:2], default="claude")
-    profile.add_argument("--max-calls", type=int, default=24)
+                           help="Decision source (default claude): claude (stateless Claude Code CLI), subscription (ChatGPT via Codex)"
+                                + (", rules (true-board baseline, simulate only)" if command == "simulate" else ""))
     replay = commands.add_parser("replay", prog="sol replay tetris", help="Zero-model replay check of a recorded run")
     replay.add_argument("run", type=Path)
     return p
@@ -63,14 +58,7 @@ def client_factory(recipe, provider, mode):
 def tetris(recipe, out, a):
     from runner import run_recipe
     mode = "realtime" if a.command == "eval" else "simulation"
-    return run_recipe(ROOT, recipe, out, a, client_factory(recipe, a.provider, mode), mode, a.provider)
-
-
-def run_profile(a):
-    from runner import profile_inputs
-    recipe = load_recipe(a)
-    result = profile_inputs(ROOT, recipe, a.episode, a.output, client_factory(recipe, a.provider, "realtime"), a.provider, a.max_calls)
-    print(json.dumps(result, indent=2))
+    return run_recipe(ROOT, recipe, out, client_factory(recipe, a.provider, mode), mode, a.provider)
 
 
 def run_replay(a):
@@ -86,11 +74,13 @@ def main(argv=None):
     a.game = "tetris"
     if a.command == "replay":
         return run_replay(a)
-    if a.command == "profile":
-        return run_profile(a)
     if (a.level is not None or a.prefix is not None) and a.seed is None:
         p.error("--level and --prefix require --seed")
-    recipe = load_recipe(a)
+    from runner import apply_overrides
+    try:
+        recipe = apply_overrides(load_recipe(a), a)
+    except (ValueError, KeyError, TypeError) as exc:
+        p.error(f"recipe: {exc}")
     mode = {"simulate": {"claude": "claude_with_simulated_profile", "subscription": "subscription_with_simulated_profile",
                          "rules": "rules_baseline_with_simulated_profile"},
             "eval": {"claude": "real_time_claude", "subscription": "real_time_subscription"}}[a.command][a.provider]

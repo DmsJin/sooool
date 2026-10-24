@@ -17,8 +17,8 @@ import numpy as np
 
 W, H, HIDDEN = 10, 22, 2
 KINDS = "IJLOSTZ"  # piece ids on the board are 1..7 in this order
+SPAWN_X = {kind: (4 if kind == "O" else 3) for kind in KINDS}  # published spawn column (left edge of the bounding box)
 NOOP, LEFT, RIGHT, CW, CCW, SOFT, HARD, HOLD = range(8)
-ACTION_NAMES = ["noop", "left", "right", "cw", "ccw", "soft", "hard", "hold"]
 
 _BASE = {
     "I": [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
@@ -98,7 +98,7 @@ class Tetris:
     # ---- geometry --------------------------------------------------------------------
     def _spawn(self, kind: str):
         self.kind, self.rot = kind, 0
-        self.x, self.y = (4 if kind == "O" else 3), 0
+        self.x, self.y = SPAWN_X[kind], 0
         self.ground_timer = self.lock_resets = 0
         self.grav_acc = 0.0
         if self._collides(self.kind, self.rot, self.x, self.y):
@@ -252,16 +252,3 @@ class Tetris:
     def info(self) -> dict:
         return {"score": self.score, "lines": self.lines, "level": self.level, "tick": self.tick,
                 "pieces": self.pieces, "over": self.over}
-
-    # ---- evaluator-only helpers (never shown to a visual actor) -------------------------
-    def placements(self):
-        """All (rot, x, landing_cells, cleared_lines) reachable by drop from the spawn row, ignoring tucks."""
-        out = []
-        for rot in range(1 if self.kind == "O" else 4):
-            for x in range(-2, W):
-                if self._collides(self.kind, rot, x, self.y):
-                    continue
-                y = self.drop_y(self.kind, rot, x, self.y)
-                cells = self.cells(self.kind, rot, x, y)
-                out.append((rot, x, cells))
-        return out

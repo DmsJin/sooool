@@ -16,10 +16,8 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from engine import CCW, CELLS, CW, HARD, LEFT, RIGHT, KINDS
-from render import BX, BY, CELL, COLORS, NEXT_BOX, SPAWN_BG, SPAWN_STRIP
-
-SPAWN_X = {kind: (4 if kind == "O" else 3) for kind in KINDS}
+from engine import CCW, CELLS, CW, HARD, LEFT, RIGHT, SPAWN_X
+from render import COLORS, NEXT_BOX, SPAWN_BG, SPAWN_STRIP
 
 
 def parse_answer(text: str) -> dict:
@@ -71,7 +69,7 @@ def piece_on_screen(frame) -> str | None:
 
 
 class KeyExecutor:
-    """Plays key scripts frame by frame with press/release edges. ``action(prev)`` returns this frame's key."""
+    """Plays key scripts frame by frame with press/release edges. ``action()`` returns this frame's key."""
 
     def __init__(self):
         self.script: list[int] = []
@@ -81,6 +79,7 @@ class KeyExecutor:
         self.dropped = False          # the executor pressed hard drop on the previous frame
         self.kind: str | None = None  # letter of the piece in play, read from the screen when it appeared
         self.applied: list[dict] = []
+        self._last_key = 0
 
     @property
     def busy(self) -> bool:
@@ -88,10 +87,16 @@ class KeyExecutor:
         return bool(self.script)
 
     def observe(self, screen) -> bool:
-        """Update the public piece counter from the screen. Returns True when a new piece was detected."""
+        """Update the public piece counter from the screen. Returns True when a new piece was detected.
+
+        A spawn is: the NEXT box changed, the executor pressed hard drop, or the spawn rows went from empty to
+        occupied. The last rule is suppressed while this executor's own keys are still being pressed and the
+        colour in the spawn rows is the piece it is moving: a rotation (or an upward SRS kick) can lift the piece
+        in play back into the spawn rows, and that is not a new piece.
+        """
         box, occupied = next_box(screen), spawn_strip_occupied(screen)
-        new = self._last_next is not None and (box != self._last_next or self.dropped
-                                                or (occupied and not self._strip_was_occupied))
+        appeared = occupied and not self._strip_was_occupied and (not self.script or piece_on_screen(screen) != self.kind)
+        new = self._last_next is not None and (box != self._last_next or self.dropped or appeared)
         self._last_next, self._strip_was_occupied, self.dropped = box, occupied, False
         if new:
             self.piece_index += 1
@@ -111,13 +116,14 @@ class KeyExecutor:
                              "keys": list(self.script), **{k: answer[k] for k in ("piece", "rot", "col")}})
         return "applied"
 
-    def action(self, prev_action: int) -> int:
-        if not self.script:
-            return 0
-        key = self.script[0]
-        if prev_action == key:
-            return 0  # release frame so the next press is an edge
-        self.script.pop(0)
-        if key == HARD:
-            self.dropped = True
+    def action(self) -> int:
+        """The key to hold this frame: the next script key, or a release frame when it was pressed last frame."""
+        key = self.script[0] if self.script else 0
+        if key and self._last_key == key:
+            key = 0  # release frame so the next press is an edge
+        elif key:
+            self.script.pop(0)
+            if key == HARD:
+                self.dropped = True
+        self._last_key = key
         return key

@@ -35,7 +35,7 @@ def _mini(d, kind: str, x: int, y: int, size: int = 12):
         _cell(d, ox + (c - min(cols)) * size, y + (r - min(rows)) * size, COLORS[kind], size)
 
 
-def render(env, ghost: bool = True, col_labels: bool = False, row_labels: bool = False) -> np.ndarray:
+def render(env, ghost: bool = True) -> np.ndarray:
     img = Image.new("RGB", (IMG_W, IMG_H), BG)
     d = ImageDraw.Draw(img)
     for r in range(H):
@@ -50,9 +50,6 @@ def render(env, ghost: bool = True, col_labels: bool = False, row_labels: bool =
                 d.rectangle([x, y, x + CELL - 1, y + CELL - 1], outline=GRID)
     d.rectangle([BX - 1, BY - 1, BX + W * CELL, BY + H * CELL], outline=(120, 120, 150))
     d.line([BX, BY + HIDDEN * CELL, BX + W * CELL - 1, BY + HIDDEN * CELL], fill=SPAWN_LINE)
-    if col_labels:  # public HUD: column numbers 0-9 over the board
-        for c in range(W):
-            d.text((BX + c * CELL + 6, BY - 13), str(c), fill=(150, 200, 255), font=_FONT)
     if not env.over:
         if ghost:
             for r, c in env.cells(y=env.drop_y()):
@@ -73,10 +70,4 @@ def render(env, ghost: bool = True, col_labels: bool = False, row_labels: bool =
     if env.over:
         d.rectangle([BX, BY + 170, BX + W * CELL, BY + 210], fill=(0, 0, 0))
         d.text((BX + 48, BY + 185), "GAME OVER", fill=(255, 80, 80), font=_FONT)
-    if row_labels:  # public HUD: height scale 1..20 counted from the floor, left of the board
-        pad = 20
-        wide = Image.new("RGB", (img.width + pad, img.height), BG); wide.paste(img, (pad, 0)); d2 = ImageDraw.Draw(wide)
-        for r in range(HIDDEN, H):
-            d2.text((2, BY + r * CELL + 4), f"{H - r:>2}", fill=(150, 200, 255), font=_FONT)
-        img = wide
     return np.asarray(img)

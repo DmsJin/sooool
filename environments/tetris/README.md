@@ -75,5 +75,8 @@ true board only after the fact.
 - The `claude` transport reports token counts and CLI timing; hidden reasoning is not archived.
 - Retained differences from Asterix: screenshots are 2× upscaled instead of 224×224 (cells must stay legible), the
   action is a placement executed as a key script instead of a held direction, episodes start from rules-placed
-  mid-game states instead of reset noops, and development fixed cases were scored by "fewest new holes" instead of
-  human annotations.
+  mid-game states instead of reset noops, the delay statement is given in game time (profile seconds divided by the
+  slowdown) rather than wall time, and development fixed cases were scored by "fewest new holes" instead of human
+  annotations.
+- Spawn detection can misidentify a piece that locks while part of it is still inside the spawn rows (a stack within
+  two rows of the top); the game is effectively lost at that point.

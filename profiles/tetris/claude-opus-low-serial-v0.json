@@ -75,5 +75,5 @@
  "concurrency": 1,
  "valid_completed": 68,
  "source": "development harness real-clock serial run (18 clips, 2026-10-24); capture-to-apply wall seconds",
- "limitation": "measured with the development harness before the portable runner existed; recalibrate with sol profile tetris"
+ "limitation": "measured with the development harness on an earlier, longer prompt of this lineage, before the portable runner existed; a new profile is the call_wall_seconds of a serial sol eval tetris run"
 }

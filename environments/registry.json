@@ -29,7 +29,7 @@
       "browser": false,
       "requirements": "environments/tetris/requirements.txt",
       "runner": "scripts/tetris.py",
-      "commands": ["simulate", "eval", "profile", "replay"]
+      "commands": ["simulate", "eval", "replay"]
     },
     "touhou": {
       "kind": "local",

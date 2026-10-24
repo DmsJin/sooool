@@ -1,0 +1,10 @@
+{
+  "python": "3.12.3",
+  "pillow": "12.1.1",
+  "numpy": "1.26.4",
+  "source_commit": "99ba6205f23e521afb2494d7d06d951a24343319",
+  "claude_cli_version": "2.1.310 (Claude Code)",
+  "model_alias": "opus",
+  "effort": "low",
+  "note": "Written when the record was retained: versions of the game venv that produced it and the branch commit whose environments/tetris matches the run's source_snapshot byte for byte. The transport did not record the resolved model id at the time; later runs record it in transport-worker/transport.json."
+}

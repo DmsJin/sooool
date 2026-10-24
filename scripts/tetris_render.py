@@ -55,7 +55,7 @@ def panel(episode: Path, title: str | None, fps: int) -> list[Image.Image]:
             canvas.paste(bar, (0, 0))
             canvas.paste(image, (0, BAR))
             frames.append(canvas)
-        env.step(executor.action(env.prev_action) if not env.over else NOOP)
+        env.step(executor.action() if not env.over else NOOP)
     if env.over:
         ImageDraw.Draw(frames[-1]).text((60, 250), "GAME OVER", fill=(255, 80, 80))
     return frames

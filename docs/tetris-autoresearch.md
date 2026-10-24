@@ -1,11 +1,17 @@
-# SOL researches a visual Tetris policy
+# A visual Tetris policy under response delay
 
 The working object is one placement per piece, read from the plain game screen at fixed observation ticks and
 executed by a key script that never looks at the board ([environment contract](../environments/tetris/README.md),
 [run and record](tetris.md)). The research question was the same as for the other games: can a frozen visual model
-keep a real-time game under control while its own answers are late. Development numbers below come from a scratch
-harness that preceded the portable runner (constant or assumed delays, other clip states); the registered numbers
-are the fresh portable runs in [`artifacts/tetris/evaluations.jsonl`](../artifacts/tetris/evaluations.jsonl).
+keep a real-time game under control while its own answers are late. Unlike the other games, the selected actor is
+Claude Opus through a stateless Claude Code CLI call, not SOL: GPT-6.1-sol was measured during development
+(section 1) and the repository's subscription transport is wired in as `--provider subscription`, but no GPT run is
+registered. Development numbers below (sections 1 and 2) come from a
+scratch harness that preceded the portable runner (constant or assumed delays, other clip states) and from fixed
+cases cut out of a development game; their inputs and scoring scripts are not retained in this repository, so they
+are development notes, not evidence. The registered numbers are the fresh portable runs in
+[`artifacts/tetris/evaluations.jsonl`](../artifacts/tetris/evaluations.jsonl), and only the selected run's decisions
+are retained; the "avoidable" column in section 3 was computed from the full run directories before retention.
 
 ## 1. How the selected policy was reached
 
@@ -92,18 +98,19 @@ What the comparison says:
   the true-board heuristic and leaves fewer holes; one of 55 applied decisions created a hole the baseline would
   have avoided. The side-by-side replay renderings (`scripts/tetris_render.py`) are the evidence to look at.
 - **The fixed-case gain did not transfer.** `v12c` made the well-filling decision in the live level-5 episode (one
-  vertical I, three rows) but its longer rule text lengthens every answer (median 416–443 output tokens against
-  279–368) and every call by 1–1.5 s. After that clear the level rose to 6 (0.26 s per row) and the next three
+  vertical I, three rows) but its longer rule text lengthens the answers (median 416–443 output tokens per episode against
+  279–368) and the calls (wall median per episode 6.2/6.5/5.7 s against 4.7/5.9/5.7 s; +1.5 s, +0.6 s and
+  +0.1 s). After that clear the level rose to 6 (0.26 s per row) and the next three
   answers, 6.9–8.9 s wall, arrived after their pieces had locked; the three untouched pieces produced 14 holes.
   The candidate is retained as rejected: in this loop a longer policy is a slower policy, and slower loses at the
   levels where it matters.
-- **The simulation is harsher than the live run** for the same policy: the registered profile (71 samples from the
-  earlier, longer prompt; median 5.9 s, p90 7.8 s) has a heavier tail than the current transport (live median
-  5.3 s), and its draws killed the level-5 episode of both Claude simulations after a four-row clear raised the
-  level to 6, while the rules baseline under the same draws survived with a lower stack. Re-measuring the profile
-  with `sol profile tetris` on the retained inputs is the first follow-up.
+- **The simulation is harsher than the live run** for the same policy: the registered profile (68 samples from the
+  earlier, longer prompt; median 5.9 s, p90 7.4 s, p95 9.0 s) has a heavier tail than the current transport (live median
+  5.3 s), and its draws killed the level-5 episode of the Claude simulation after a four-row clear raised the level
+  to 6, while the rules baseline under the same draws survived with a lower stack. Re-measuring the profile from a
+  serial `sol eval` run of the current prompt is the first follow-up.
 - **Normal speed is latency-bound**, for the baseline as much as for the model: at 1× both lose the level-5 episode
   and clear about one line per minute.
 
-Next: a re-measured profile for the current prompt, more seeds at 2× (three episodes are not a tight estimate),
+Next: a re-measured profile for the current prompt (from the wall times of a serial `sol eval` run), more seeds at 2× (three episodes are not a tight estimate),
 voting over repeated reads for the one-in-five height misreads, and a stronger reader at the same latency.

@@ -29,9 +29,16 @@ class ClaudeCliClient:
         self.output.mkdir(parents=True, exist_ok=True)
         self.system, self.model, self.effort, self.timeout = system, model, effort, float(timeout)
         self.counter = 0
-        (self.output / "transport.json").write_text(json.dumps({
-            "adapter": "claude code cli, stateless -p", "model": model, "effort": effort,
-            "tools": "none", "session_persistence": False}, indent=2))
+        try:
+            version = subprocess.run([self.executable, "--version"], capture_output=True, text=True, timeout=30).stdout.strip()
+        except (OSError, subprocess.SubprocessError):
+            version = None
+        self.transport = {"adapter": "claude code cli, stateless -p", "model_alias": model, "effort": effort,
+                          "cli_version": version, "resolved_models": {}, "tools": "none", "session_persistence": False}
+        self._write_transport()
+
+    def _write_transport(self):
+        (self.output / "transport.json").write_text(json.dumps(self.transport, indent=2))
 
     def act(self, prompt, images, directory=None):
         directory = Path(directory or self.output / f"call-{self.counter:05d}")
@@ -65,10 +72,16 @@ class ClaudeCliClient:
         final = result[-1]
         usage = final.get("usage") or {}
         answer = final.get("result") or ""
+        resolved = sorted((final.get("modelUsage") or {}).keys()) or [m for r in rows if r.get("type") == "assistant"
+                                                                      for m in [(r.get("message") or {}).get("model")] if m]
+        for name in resolved:  # the exact model id the CLI resolved the alias to, kept per run
+            self.transport["resolved_models"][name] = self.transport["resolved_models"].get(name, 0) + 1
+        self._write_transport()
         meta = {"wall_seconds": wall, "api_ms": final.get("duration_api_ms"), "turns": final.get("num_turns"),
                 "output_tokens": usage.get("output_tokens"),
                 "thinking_tokens": (usage.get("output_tokens_details") or {}).get("thinking_tokens"),
-                "model": self.model, "effort": self.effort, "auth": "claude-cli"}
+                "model": self.model, "resolved_model": resolved[0] if len(resolved) == 1 else resolved or None,
+                "effort": self.effort, "auth": "claude-cli"}
         (directory / "result.json").write_text(json.dumps({"answer": answer, "meta": meta}, indent=2))
         self.counter += 1
         return answer, meta
