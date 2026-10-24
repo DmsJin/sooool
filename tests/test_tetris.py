@@ -91,8 +91,8 @@ class Executor(unittest.TestCase):
 
 class Task(unittest.TestCase):
     def test_selected_recipe_and_policy_hashes(self):
-        meta = json.loads((ROOT / "policies/tetris/v11-short/policy.json").read_text())
-        self.assertEqual(RECIPE["policy"], "v11-short")
+        meta = json.loads((ROOT / "policies/tetris" / RECIPE["policy"] / "policy.json").read_text())
+        self.assertEqual(RECIPE["policy"], "v12c-tradeoff")
         for key, name in (("prompt", "prompt_sha256"), ("system", "system_sha256"), ("task_prefix", "task_prefix_sha256")):
             self.assertEqual(hashlib.sha256((ROOT / RECIPE[key]).read_bytes()).hexdigest(), meta[name])
         self.assertEqual(hashlib.sha256((ROOT / RECIPE["profile"]).read_bytes()).hexdigest(), meta["profile_sha256"])

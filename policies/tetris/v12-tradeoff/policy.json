@@ -15,7 +15,7 @@
   "profile": "profiles/tetris/claude-opus-low-serial-v0.json",
   "profile_sha256": "59732a5c336f658c7b4cc88155a9e19bd5b761a27f769daf82a79b536c84e973",
   "profile_scope": "71 serial real-clock capture-to-apply samples from the v7/v8 lineage; not current-prompt calibration",
-  "status": "selected_default",
+  "status": "rejected_candidate",
   "performance_evidence": "artifacts/tetris/records/",
   "output_format": "rot_col_reason",
   "max_inflight": 1,
