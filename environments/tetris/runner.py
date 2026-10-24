@@ -26,13 +26,14 @@ from render import render
 from task import build_task, profile_delays, request_text
 
 FPS = 60
-SCALE = 2  # screenshots are upscaled 2x (nearest) before they are sent; hashes are of the PNG bytes
+SCALE = 2  # default upscale (nearest) of sent screenshots; recipes may set args.image_scale; hashes are of the PNG bytes
 
 
-def png(screen) -> bytes:
+def png(screen, scale: int = SCALE) -> bytes:
     from PIL import Image
     image = Image.fromarray(screen)
-    image = image.resize((image.width * SCALE, image.height * SCALE), Image.Resampling.NEAREST)
+    if scale != 1:
+        image = image.resize((image.width * scale, image.height * scale), Image.Resampling.NEAREST)
     buffer = io.BytesIO()
     image.save(buffer, format="PNG")
     return buffer.getvalue()
@@ -76,6 +77,7 @@ def run_episode(root, recipe, out: Path, case: dict, task: str, delays: list[flo
     out.mkdir(parents=True, exist_ok=False)
     args = recipe["args"]
     stride, window = int(args["observation_stride_frames"]), deque(maxlen=int(args["observation_window"]))
+    scale = int(args.get("image_scale", SCALE))
     env = make_env(case["seed"], case["level"], case.get("prefix", 0))
     start = board_state(env)
     rng = random.Random(int(args.get("latency_seed_offset", 0)) + case.get("delay_seed", case["seed"]))
@@ -117,7 +119,7 @@ def run_episode(root, recipe, out: Path, case: dict, task: str, delays: list[flo
                                            "actual_capture_to_apply_s": time.monotonic() - started - row["capture_wall_seconds"]})
                         pending = None
                 if frame % stride == 0:
-                    window.append((frame, png(screen)))
+                    window.append((frame, png(screen, scale)))
                     if pending is not None or executor.busy:
                         drops += 1  # a tick while a request is in flight or its keys are still being pressed
                     else:
@@ -238,6 +240,7 @@ def verify_replay(root, recipe, episode_dir: Path) -> dict:
     summary = json.loads((episode_dir / "summary.json").read_text())
     case = summary["case"]
     stride, window = int(recipe["args"]["observation_stride_frames"]), deque(maxlen=int(recipe["args"]["observation_window"]))
+    scale = int(recipe["args"].get("image_scale", SCALE))
     requests = [json.loads(line) for line in (episode_dir / "decisions.jsonl").read_text().splitlines()]
     env, executor = make_env(case["seed"], case["level"], case.get("prefix", 0)), KeyExecutor()
     by_obs = {r["obs_frame"]: r for r in requests}
@@ -253,7 +256,7 @@ def verify_replay(root, recipe, episode_dir: Path) -> dict:
                 if status != row["status"]:
                     raise AssertionError(f"executor status mismatch at frame {frame}: {status} vs {row['status']}")
         if frame % stride == 0:
-            window.append((frame, png(screen)))
+            window.append((frame, png(screen, scale)))
             if frame in by_obs:
                 images = select_images(window)
                 hashes = [hashlib.sha256(im).hexdigest() for _, im in images]

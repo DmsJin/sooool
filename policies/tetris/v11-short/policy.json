@@ -10,7 +10,7 @@
   "system": "policies/tetris/v11-short/system.txt",
   "system_sha256": "520f5b66087a65db01822e640988df720bf6753c5ca3f544e6d9f15b03db9e49",
   "task_prefix": "policies/tetris/v11-short/task-prefix.txt",
-  "task_prefix_sha256": "6b36b6b4dcddf2951ab62cc0cfcb013a3e467d1c72416ad0e2118082ec932723",
+  "task_prefix_sha256": "eb72db44786e17bf83b8293f058c638677f56e82e8fdebd0a758cb4ed8aeb9e2",
   "controller": "KeyExecutor (key script from the answer; stale answers discarded)",
   "profile": "profiles/tetris/claude-opus-low-serial-v0.json",
   "profile_sha256": "59732a5c336f658c7b4cc88155a9e19bd5b761a27f769daf82a79b536c84e973",
