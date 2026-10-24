@@ -1,7 +1,8 @@
 """Declared executor: a model answer becomes a fixed key script, nothing else.
 
-The actor returns one placement for the piece in play: ``{"piece": "S", "rot": 1, "col": 3, "reason": "..."}``.
-The executor turns it into key presses computed ONLY from the answer and the published spawn rules:
+The actor returns one placement for the piece in play: ``{"rot": 1, "col": 3, "reason": "..."}``. The executor
+identifies the falling piece from the public screen (its colour in the spawn rows when it appears) and turns the
+answer into key presses computed ONLY from that letter, the answer and the published spawn rules:
 rotate clockwise ``rot`` times (three turns are pressed as one counter-clockwise turn), move left or right until
 the piece's left edge is at ``col``, hard drop. It never reads the board, the piece position or any other game
 internals, so the same script works on a real screen. Edge-triggered keys are separated by one released frame.
@@ -16,7 +17,7 @@ import json
 from typing import Any
 
 from engine import CCW, CELLS, CW, HARD, LEFT, RIGHT, KINDS
-from render import NEXT_BOX, SPAWN_BG, SPAWN_STRIP
+from render import BX, BY, CELL, COLORS, NEXT_BOX, SPAWN_BG, SPAWN_STRIP
 
 SPAWN_X = {kind: (4 if kind == "O" else 3) for kind in KINDS}
 
@@ -28,16 +29,13 @@ def parse_answer(text: str) -> dict:
     value = json.loads(text[text.index("{"):text.rindex("}") + 1])
     if not isinstance(value, dict):
         raise ValueError("answer is not a JSON object")
-    piece = str(value.get("piece", "")).upper()[:1]
-    if piece not in KINDS:
-        raise ValueError("piece letter missing or unknown")
     rot, col = int(value["rot"]), int(value["col"])
     if not 0 <= rot <= 3 or not 0 <= col <= 9:
         raise ValueError("rot must be 0-3 and col 0-9")
     reason = value.get("reason")
     if reason is not None and (not isinstance(reason, str) or len(reason) > 400):
         raise ValueError("reason must be a short string")
-    return {"piece": piece, "rot": rot, "col": col, "reason": reason}
+    return {"rot": rot, "col": col, "reason": reason}
 
 
 def key_script(answer: dict[str, Any]) -> list[int]:
@@ -63,6 +61,15 @@ def spawn_strip_occupied(frame) -> bool:
     return bool((frame[y0:y1, x0:x1] != SPAWN_BG).any())
 
 
+def piece_on_screen(frame) -> str | None:
+    """Letter of the piece drawn in the spawn rows, read from its colour (public screen pixels)."""
+    x0, y0, x1, y1 = SPAWN_STRIP
+    for kind, colour in COLORS.items():
+        if (frame[y0:y1, x0:x1] == colour).all(axis=2).any():
+            return kind
+    return None
+
+
 class KeyExecutor:
     """Plays key scripts frame by frame with press/release edges. ``action(prev)`` returns this frame's key."""
 
@@ -72,6 +79,7 @@ class KeyExecutor:
         self._last_next: bytes | None = None
         self._strip_was_occupied = True
         self.dropped = False          # the executor pressed hard drop on the previous frame
+        self.kind: str | None = None  # letter of the piece in play, read from the screen when it appeared
         self.applied: list[dict] = []
 
     @property
@@ -88,12 +96,16 @@ class KeyExecutor:
         if new:
             self.piece_index += 1
             self.script = []  # a script for a piece that is gone is never continued
+            self.kind = None
+        if self.kind is None:
+            self.kind = piece_on_screen(screen)
         return new
 
     def apply(self, answer: dict, target: int, frame: int) -> str:
-        if target != self.piece_index:
+        if target != self.piece_index or self.kind is None:
             self.applied.append({"frame": frame, "target": target, "piece_index": self.piece_index, "status": "stale"})
             return "stale"
+        answer = {**answer, "piece": self.kind}
         self.script = key_script(answer)
         self.applied.append({"frame": frame, "target": target, "piece_index": self.piece_index, "status": "applied",
                              "keys": list(self.script), **{k: answer[k] for k in ("piece", "rot", "col")}})

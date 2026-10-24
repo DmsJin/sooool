@@ -58,7 +58,7 @@ def make_env(seed: int, level: int, prefix: int) -> Tetris:
     for _ in range(prefix):
         if env.over:
             break
-        answer = json.loads(rules.act_on_truth(env)[0])
+        answer = {**json.loads(rules.act_on_truth(env)[0]), "piece": env.kind}
         for key in key_script(answer):  # press, release
             env.step(key)
             env.step(NOOP)

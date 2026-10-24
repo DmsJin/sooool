@@ -84,7 +84,7 @@ class RulesActor:
         self.counter += 1
         meta = {"wall_seconds": 0.0, "auth": "rules"}
         if count == 1:
-            return json.dumps({**placements[0], "reason": "rules baseline (true board)"}), meta
+            return json.dumps({"rot": placements[0]["rot"], "col": placements[0]["col"], "reason": "rules baseline (true board)"}), meta
         return json.dumps({"placements": placements, "reason": "rules baseline (true board)"}), meta
 
     def close(self):

@@ -70,7 +70,8 @@ class Executor(unittest.TestCase):
         ex.observe(render.render(env))
         for frame in range(1500):  # mix of executor drops and natural locks under fast gravity
             if frame % 90 == 0 and not ex.script:
-                ex.apply({"piece": env.kind, "rot": frame % 4, "col": (frame // 90) % 8}, ex.piece_index, frame)
+                self.assertEqual(ex.kind, env.kind)  # the piece letter is read from the public screen
+                ex.apply({"rot": frame % 4, "col": (frame // 90) % 8}, ex.piece_index, frame)
             env.step(ex.action(env.prev_action))
             ex.observe(render.render(env))
             if env.over:
@@ -80,18 +81,18 @@ class Executor(unittest.TestCase):
 
     def test_stale_and_invalid_answers(self):
         ex = executor.KeyExecutor()
-        self.assertEqual(ex.apply({"piece": "T", "rot": 0, "col": 3}, target=1, frame=0), "stale")
-        for text in ("no json", '{"piece":"X","rot":0,"col":1}', '{"piece":"T","rot":4,"col":1}', '{"piece":"T","rot":0,"col":10}'):
+        self.assertEqual(ex.apply({"rot": 0, "col": 3}, target=1, frame=0), "stale")
+        for text in ("no json", '{"rot":4,"col":1}', '{"rot":0,"col":10}', '{"col":1}'):
             with self.assertRaises((ValueError, KeyError)):
                 executor.parse_answer(text)
-        parsed = executor.parse_answer('text {"piece":"t","rot":1,"col":2,"reason":"ok"} more')
-        self.assertEqual((parsed["piece"], parsed["rot"], parsed["col"]), ("T", 1, 2))
+        parsed = executor.parse_answer('text {"rot":1,"col":2,"reason":"ok"} more')
+        self.assertEqual((parsed["rot"], parsed["col"]), (1, 2))
 
 
 class Task(unittest.TestCase):
     def test_selected_recipe_and_policy_hashes(self):
-        meta = json.loads((ROOT / "policies/tetris/v10-ticks/policy.json").read_text())
-        self.assertEqual(RECIPE["policy"], "v10-ticks")
+        meta = json.loads((ROOT / "policies/tetris/v11-short/policy.json").read_text())
+        self.assertEqual(RECIPE["policy"], "v11-short")
         for key, name in (("prompt", "prompt_sha256"), ("system", "system_sha256"), ("task_prefix", "task_prefix_sha256")):
             self.assertEqual(hashlib.sha256((ROOT / RECIPE[key]).read_bytes()).hexdigest(), meta[name])
         self.assertEqual(hashlib.sha256((ROOT / RECIPE["profile"]).read_bytes()).hexdigest(), meta["profile_sha256"])
@@ -110,7 +111,7 @@ class Task(unittest.TestCase):
         self.assertIn("The actual delay of your request is unknown", sim)
         for placeholder in ("{mean_ms", "{median_ms", "{p95_ms", "{stride}", "{window_frames}", "{mid_age}", "{slowdown_clause}"):
             self.assertNotIn(placeholder, sim + live)
-        self.assertIn("Do not use tools", system)
+        self.assertEqual(system, (ROOT / "policies/asterix/v28/system.txt").read_text().strip())  # same system text as Asterix
         median_ms = statistics.median(task.profile_delays(ROOT, RECIPE)) / 2 * 1000
         self.assertIn(f"median {median_ms:.0f} ms", sim)
         text = task.request_text(sim, 300, [140, 260, 300], [{"frame": 100, "status": "applied", "piece": "T", "rot": 1, "col": 4}])
@@ -148,7 +149,7 @@ class RulesRunAndReplay(unittest.TestCase):
             result = runner.verify_replay(ROOT, RECIPE, episode_dir)
             self.assertEqual((result["model_calls"], result["verified_requests"]), (0, len(rows)))
             # A tampered answer must be caught by the replay check.
-            rows[0]["answer"] = json.dumps({"piece": json.loads(rows[0]["answer"])["piece"], "rot": 0, "col": 0})
+            rows[0]["answer"] = json.dumps({"rot": 0, "col": 0})
             (episode_dir / "decisions.jsonl").write_text("\n".join(json.dumps(r) for r in rows) + "\n")
             with self.assertRaises(AssertionError):
                 runner.verify_replay(ROOT, RECIPE, episode_dir)
@@ -171,7 +172,7 @@ class RulesRunAndReplay(unittest.TestCase):
         env = engine.Tetris(seed=1)
         answer, meta = baseline.RulesActor().act_on_truth(env)
         self.assertEqual(meta["auth"], "rules")
-        self.assertEqual(executor.parse_answer(answer)["piece"], env.kind)
+        self.assertIn("rot", executor.parse_answer(answer))
         source = (ROOT / "environments/tetris/runner.py").read_text()
         self.assertNotIn("env.board", source.split("def run_episode")[1].split("def episodes_from")[0].replace("board_state(env)", ""))
 

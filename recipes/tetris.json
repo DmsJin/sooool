@@ -1,12 +1,12 @@
 {
-  "policy": "v10-ticks",
+  "policy": "v11-short",
   "profile": "profiles/tetris/claude-opus-low-serial-v0.json",
-  "system": "policies/tetris/v10-ticks/system.txt",
-  "task_prefix": "policies/tetris/v10-ticks/task-prefix.txt",
-  "prompt": "policies/tetris/v10-ticks/prompt.txt",
-  "output_instructions": "policies/tetris/v10-ticks/output-format.txt",
-  "memory": "policies/tetris/v10-ticks/memory.md",
-  "output_format": "placement_reason",
+  "system": "policies/tetris/v11-short/system.txt",
+  "task_prefix": "policies/tetris/v11-short/task-prefix.txt",
+  "prompt": "policies/tetris/v11-short/prompt.txt",
+  "output_instructions": "policies/tetris/v11-short/output-format.txt",
+  "memory": "policies/tetris/v11-short/memory.md",
+  "output_format": "rot_col_reason",
   "claude": {
     "model": "opus",
     "effort": "low"
