@@ -96,7 +96,7 @@ class Task(unittest.TestCase):
             self.assertEqual(hashlib.sha256((ROOT / RECIPE[key]).read_bytes()).hexdigest(), meta[name])
         self.assertEqual(hashlib.sha256((ROOT / RECIPE["profile"]).read_bytes()).hexdigest(), meta["profile_sha256"])
         self.assertEqual((RECIPE["args"]["requests_in_flight"], RECIPE["args"]["controller"], meta["max_inflight"]), (1, "key_script", 1))
-        self.assertEqual((RECIPE["args"]["observation_stride_frames"], RECIPE["args"]["observation_window"]), (20, 9))
+        self.assertEqual((RECIPE["args"]["observation_stride_frames"], RECIPE["args"]["observation_window"]), (60, 9))
         self.assertEqual(json.loads((ROOT / "recipes/tetris-1x.json").read_text())["args"]["slowdown"], 1)
 
     def test_task_text_states_mode_and_measured_delay(self):
@@ -106,7 +106,7 @@ class Task(unittest.TestCase):
         self.assertIn("does not advance this simulation", sim)
         self.assertIn("DOES advance this real-time game", live)
         self.assertIn("2 times slower than normal speed", sim)
-        self.assertIn("next 20-frame observation tick", sim)
+        self.assertIn("next 60-frame observation tick", sim)
         self.assertIn("The actual delay of your request is unknown", sim)
         for placeholder in ("{mean_ms", "{median_ms", "{p95_ms", "{stride}", "{window_frames}", "{mid_age}", "{slowdown_clause}"):
             self.assertNotIn(placeholder, sim + live)

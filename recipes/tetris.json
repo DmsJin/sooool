@@ -99,9 +99,9 @@
     "requests_in_flight": 1,
     "latency_seed_offset": 91,
     "quota_stop_percent": 80,
-    "note": "Selected development condition: Asterix-style loop (observation tick every 20 frames = 1/3 game s, 9-frame window, three images per request, one request in flight), 2x slowdown declared like Asterix's 5x; 15 mid-game episodes of 60 game seconds.",
+    "note": "Selected development condition: Asterix-style loop (observation tick every 60 frames = 1 game s, 9-frame window, three images per request, one request in flight), 2x slowdown declared like Asterix's 5x; 15 mid-game episodes of 60 game seconds.",
     "controller": "key_script",
-    "observation_stride_frames": 20,
+    "observation_stride_frames": 60,
     "observation_window": 9
   }
 }

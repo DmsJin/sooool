@@ -101,7 +101,7 @@
     "quota_stop_percent": 80,
     "note": "Normal-speed comparison condition; otherwise identical to recipes/tetris.json.",
     "controller": "key_script",
-    "observation_stride_frames": 20,
+    "observation_stride_frames": 60,
     "observation_window": 9
   }
 }
