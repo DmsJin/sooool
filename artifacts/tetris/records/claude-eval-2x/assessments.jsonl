@@ -1,1 +1,0 @@
-{"created_at_unix": 1792871065.7066884, "run": "/tmp/tetris-runs/final/claude-eval-2x", "decision": "retain", "note": "Selected v11-short on the actual clock at 2x: 5.67 lines, 0.33 new holes, 3/3 alive, no stale answers; all episodes replay without model calls.", "mode": "real_time_claude", "run_status": "completed"}

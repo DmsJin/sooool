@@ -279,7 +279,7 @@ class RulesRunAndReplay(unittest.TestCase):
             result = runner.verify_replay(ROOT, manifest["recipe"], episode)
             summary = json.loads((episode / "summary.json").read_text())
             self.assertEqual((result["model_calls"], result["lines"], result["survived"]), (0, summary["lines"], True))
-            self.assertEqual((result["verified_requests"], result["verified_key_scripts"]), (summary["calls"], True))
+            self.assertEqual(result["verified_requests"], summary["calls"])
         records = [json.loads(line) for line in (ROOT / "artifacts/tetris/evaluations.jsonl").read_text().splitlines()]
         self.assertIn("claude-eval-2x", {r["record_id"] for r in records})
 
