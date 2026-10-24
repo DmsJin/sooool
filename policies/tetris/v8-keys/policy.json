@@ -1,0 +1,12 @@
+{
+  "policy": "v8-keys",
+  "parent": "v7-keys (development lineage in docs/tetris-autoresearch.md)",
+  "change": "timing sentence is filled from the recipe profile and mode instead of a fixed 1.5 s; text otherwise identical to v7-keys",
+  "prompt_sha256": "1a53d41b2cbd0f72d7b65c9e1ddf22ee34ca791cec9d3612b396690dfddb7b3c",
+  "system_sha256": "1fd336630c6d37cdb0c58cc02c5d4d8d29e317a0159b8238a9ba8772771dd11e",
+  "output_format_sha256": "4b5cb45d2a32dfd09d7fe03d37d2840590dee32072d4c41216d01492bb68dc15",
+  "observation": "one plain game screenshot (board with ghost outline, HOLD, one NEXT piece, score/lines/level); no labels; executed-placement history text",
+  "action": "one placement {piece, rot, col} for the piece in play plus a one-sentence public reason",
+  "executor": "key script from the answer only: rotate, move, hard drop; stale answers discarded",
+  "memory": "empty; model-authored memory was tested and not retained"
+}

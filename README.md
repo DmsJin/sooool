@@ -129,6 +129,7 @@ The coding agent chooses button presses in screen-based games and tactical goals
 | [Touhou / Kaguya](docs/touhou-research-record.md) | Recent screenshots, frame times, prior controls | Direction, shooting, focus, bombs, duration | Apply chosen buttons for the specified duration |
 | [PingPong](docs/tabletennis.md) | Two camera views, feedback, opponent estimate | One of four return-placement plans | Track the ball, serve, plan contact, execute joint motion |
 | [Asterix](docs/asterix-autoresearch.md) | Three timestamped screenshots, action history | Joystick direction | Hold direction until replaced |
+| [Tetris](docs/tetris-autoresearch.md) | One plain game screenshot, executed-placement history | One placement: piece, rotation, column | Press the key script for that placement; discard stale answers |
 | [Badminton](docs/badminton.md) | Recent frames from two cameras, public feedback | Conditional shot goals, recovery position, goal duration | Plan contact and swing; execute stroke |
 | [Rhythm](docs/rhythm.md) | Screenshot, public clock, pending taps | DFJK keys, absolute tap times | Queue and execute specified taps |
 | [Racing](docs/racing.md) | Front-camera views, telemetry, visual road measurements | Speed, lane offset, lookahead | Steer toward goal, limit speed through bends |
@@ -342,6 +343,7 @@ uv run sol figures pcba --source runs/pcba-sim-new --output assets/pcba/steps
 | **Touhou / Kaguya** | Our simplified practice environment | [Touhou: Imperishable Night](https://www16.big.or.jp/~zun/html/th08top.html); original-game presentation assets |
 | **PingPong** | Upstream environment; our agent interface and controller adaptations | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) |
 | **Asterix** | Atari game through ALE; our agent runner | [Arcade Learning Environment](https://ale.farama.org/environments/asterix/) |
+| **Tetris** | Our deterministic single-player engine (classic one-piece preview); our agent runner | [Tetris Guideline](https://tetris.wiki/Tetris_Guideline) rules; original game by Alexey Pajitnov |
 | **Badminton** | Upstream environment; our agent interface and controller | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) |
 | **Rhythm** | Our four-lane browser game | Inspired by [Rhythm Master](https://apps.apple.com/cn/app/%E8%8A%82%E5%A5%8F%E5%A4%A7%E5%B8%88/id493901993) |
 | **Racing** | Upstream environment; our agent interface and steering controller | [Embodied Olympics Exam](https://olympics.embodied-first-exam.ai/) |
@@ -370,7 +372,7 @@ uv run sol eval touhou \
   --output runs/touhou-api-001
 ```
 
-Game setup: [Touhou](docs/realtime.md) · [PingPong](docs/tabletennis.md) · [Asterix](docs/release-guide.md) · [Badminton](docs/badminton.md) · [Rhythm](docs/rhythm.md) · [Racing](docs/racing.md) · [PCBA](docs/pcba.md)
+Game setup: [Touhou](docs/realtime.md) · [PingPong](docs/tabletennis.md) · [Asterix](docs/release-guide.md) · [Tetris](docs/tetris.md) · [Badminton](docs/badminton.md) · [Rhythm](docs/rhythm.md) · [Racing](docs/racing.md) · [PCBA](docs/pcba.md)
 
 Prepare each game with `uv run sol env setup <game>`. Registered experiment runners use `sol simulate` or `sol eval`. PvZ and Red Alert currently provide setup only. [Environment management](docs/environments.md).
 

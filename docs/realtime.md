@@ -64,6 +64,18 @@ A rendered replay reconstructs saved actions and checks every reward/life; it is
 not an original screen recording. Its added music and game-panel color adjustment
 are recorded in [video provenance](../assets/asterix/v28-api-60s.provenance.json).
 
+## Tetris
+
+```bash
+uv run sol eval tetris --provider claude --output runs/tetris-realtime
+```
+
+This uses stateless Claude Code CLI decisions and a continuously advancing clock at 30 frames per wall second
+(the selected recipe's 2× slowdown). One request is in flight; a completed answer becomes a key script on the
+frame it arrives, and an answer for a piece that already locked is discarded. `sol simulate tetris` uses the same
+policy, executor and spawn detection with delays sampled from the measured profile. `sol replay tetris RUN`
+rebuilds every episode without model calls. [Run and record](tetris.md).
+
 ## Touhou: actual realtime API evaluation
 
 The selected Touhou path is implemented in the portable CLI. Offline/browser contracts are checked; a fresh paid full-game run of this entrypoint is pending at the user’s request. Historical source-harness API wins are retained separately.

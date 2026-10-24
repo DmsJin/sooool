@@ -13,6 +13,7 @@ class GameRoutingTests(unittest.TestCase):
     def test_game_routes_preserve_arguments_and_exit_status(self):
         for game, commands, canonical in (
             ("asterix", ("simulate", "eval"), "asterix"),
+            ("tetris", ("simulate", "eval", "profile", "replay"), "tetris"),
             ("touhou", ("simulate", "eval", "profile"), "touhou"),
             ("rhythm", ("simulate", "eval", "profile"), "rhythm"),
             ("pcba", ("simulate", "eval", "report", "demo", "realtime-smoke", "view", "latency", "pipeline", "loop-demo", "export", "showcase", "figures", "clock-preflight"), "pcba"),
@@ -36,7 +37,7 @@ class GameRoutingTests(unittest.TestCase):
                                 cwd=root, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual({json.loads(line)['game'] for line in result.stdout.splitlines()},
-                         {'asterix', 'touhou', 'rhythm', 'pcba', 'racing', 'badminton', 'tabletennis', 'pvz', 'vera20k'})
+                         {'asterix', 'tetris', 'touhou', 'rhythm', 'pcba', 'racing', 'badminton', 'tabletennis', 'pvz', 'vera20k'})
         for game in ('pvz', 'vera20k'):
             result = subprocess.run([sys.executable, '-S', '-m', 'runtime.cli', 'simulate', game],
                                     cwd=root, capture_output=True, text=True)
@@ -48,7 +49,7 @@ class GameRoutingTests(unittest.TestCase):
         result = subprocess.run([sys.executable, '-S', '-m', 'runtime.cli', 'profile', '--help'],
                                 cwd=root, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn('{touhou,rhythm,racing,badminton}', result.stdout)
+        self.assertIn('{tetris,touhou,rhythm,racing,badminton}', result.stdout)
         self.assertNotIn('asterix', result.stdout)
         self.assertNotIn('pvz', result.stdout)
 

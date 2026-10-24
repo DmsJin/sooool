@@ -34,6 +34,10 @@ Start with `environments/touhou/research/run_episode.py`, `scheduler.py`, `polic
 
 Start with `environments/asterix/runner.py` (one shared serial development/evaluation loop), `direct_action_transport.py` (unchanged model commands), `simulate_5x.py` (pixels, clock quantization and replay), and `policies/asterix/v28/` (exact strategy, timing preamble and public output format). `sol simulate asterix` uses virtual sampled delay; `sol eval asterix` uses actual wall time. `runtime/evaluation.py` writes run records and appended researcher assessments. `docs/asterix-autoresearch.md` and `research/asterix/evaluation-history.jsonl` explain the selected path; inactive source lives at a fixed historical commit.
 
+## Tetris
+
+Start with [`tetris.md`](tetris.md), `environments/tetris/runner.py` (one serial placement loop for simulation, real-time evaluation, rules baselines and zero-model replay), `executor.py` (key scripts computed from the answer alone, public spawn detection, stale rule), `task.py` (exact actor text with the profile delay statement), `claude_cli.py` (stateless Claude Code CLI transport) and `policies/tetris/v8-keys/`. `baseline.py` is the evaluator-side rules comparison. [The research record](tetris-autoresearch.md) links development and fresh portable evidence; `artifacts/tetris/` holds registered runs and assessments.
+
 ## Racing
 
 Start with [`racing.md`](racing.md), [`scripts/racing.py`](../scripts/racing.py), [`recipes/racing.json`](../recipes/racing.json), and [`policies/racing/lane-commit-v14`](../policies/racing/lane-commit-v14/). `environments/racing/run.py` owns causal simulation and subscription/API transport; `live.py` owns continuous HTTP evaluation; `lane.py` is the coded visual tracker; `live_explained.py` adds the separately evaluated public-summary output. The iteration record is `research/racing/EVALUATION.md`. External roboolympics supplies the read-only game engine. Duplicate active Racing snapshots have been replaced by redirects.
