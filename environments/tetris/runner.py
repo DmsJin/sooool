@@ -18,7 +18,7 @@ import time
 
 from baseline import RulesActor, features
 from engine import NOOP, Tetris
-from executor import KeyExecutor, key_script, parse_answer
+from executor import KeyExecutor, key_script, parse_answer, parse_answers
 from render import render
 from task import build_task, profile_delays
 
@@ -69,6 +69,10 @@ def run_episode(root, recipe, out: Path, case: dict, client, mode: str, provider
     delays = profile_delays(root, recipe)
     rng = random.Random(1000 + case.get("delay_seed", case["seed"]) + int(recipe["args"].get("latency_seed_offset", 0)))
     executor, history, requests, pending, planned = KeyExecutor(), [], [], None, -1
+    answer_pieces = int(recipe["args"].get("answer_pieces", 1))
+    capture_rule = recipe["args"].get("capture", "on_demand")
+    continuous = capture_rule == "continuous"
+    executor.hover = bool(recipe["args"].get("hover", False))
     horizon = round(duration * FPS)
     frame, lag_max, started = 0, 0.0, time.monotonic()
     pool = ThreadPoolExecutor(1) if mode == "realtime" else None
@@ -79,24 +83,34 @@ def run_episode(root, recipe, out: Path, case: dict, client, mode: str, provider
         row.update(apply_frame=apply_frame, capture_to_apply_game_s=(apply_frame - row["capture_frame"]) / FPS,
                    call_wall_seconds=meta.get("wall_seconds"), output_tokens=meta.get("output_tokens"), answer=answer_text)
         try:
-            answer = parse_answer(answer_text)
+            answers = parse_answers(answer_text, answer_pieces)
         except (ValueError, KeyError, TypeError, json.JSONDecodeError) as exc:
             row.update(status="invalid", error=str(exc)[:200])
             planned = -1  # declared rule: an unusable answer is discarded and a fresh screenshot is sent
             history.append(f"piece #{row['target']}: answer unusable ({str(exc)[:60]}) -> ignored")
             return
-        row["status"] = executor.apply(answer, row["target"], apply_frame)
-        if row["status"] == "applied":
-            history.append(f"piece #{row['target']}: executed {answer['piece']} rot{answer['rot']} col{answer['col']}")
+        if answer_pieces == 1:
+            statuses = [executor.apply(answers[0], row["target"], apply_frame)]
         else:
-            history.append(f"piece #{row['target']}: answer arrived after it locked -> discarded")
+            statuses = executor.apply_many(answers, row["target"], apply_frame)
+            row["statuses"] = statuses
+        row["status"] = "applied" if "applied" in statuses else statuses[0]
+        for offset, (answer, state) in enumerate(zip(answers, statuses)):
+            target = row["target"] + offset
+            if state == "applied":
+                history.append(f"piece #{target}: planned {answer['piece']} rot{answer['rot']} col{answer['col']}")
+            elif state == "late":
+                history.append(f"piece #{target}: newer answer ignored, piece already being placed")
+            else:
+                history.append(f"piece #{target}: answer arrived after it locked -> discarded")
 
     try:
         with (out / "steps.jsonl").open("w") as steps:
             while frame < horizon and not env.over:
                 screen = render(env)
                 executor.observe(screen)
-                if pending is None and executor.piece_index != planned:
+                need_next = capture_rule == "next_unplanned" and (executor.piece_index + 1) not in executor.plans and executor.piece_index != planned
+                if pending is None and (continuous or need_next or (executor.piece_index != planned and executor.started_for != executor.piece_index)):
                     image = png(screen)
                     system, text = build_task(root, recipe, mode, history)
                     row = {"seq": len(requests), "capture_frame": frame, "target": executor.piece_index,
@@ -104,7 +118,7 @@ def run_episode(root, recipe, out: Path, case: dict, client, mode: str, provider
                     planned = executor.piece_index
                     call_dir = out / "calls" / f"call-{row['seq']:05d}"
                     if provider == "rules":
-                        answer_text, meta = client.act_on_truth(env)
+                        answer_text, meta = client.act_on_truth(env, answer_pieces)
                         call_dir.mkdir(parents=True); (call_dir / "result.json").write_text(json.dumps({"answer": answer_text, "meta": meta}))
                         future = None
                     elif mode == "simulation":
@@ -222,8 +236,9 @@ def verify_replay(root, recipe, episode_dir: Path) -> dict:
     requests = [json.loads(line) for line in (episode_dir / "requests.jsonl").read_text().splitlines()]
     env = make_env(case["seed"], case["level"], case.get("prefix", 0))
     executor = KeyExecutor()
+    executor.hover = bool(recipe["args"].get("hover", False))
     by_capture = {r["capture_frame"]: r for r in requests}
-    by_apply = {r["apply_frame"]: r for r in requests if "apply_frame" in r and r.get("status") in ("applied", "stale", "invalid")}
+    by_apply = {r["apply_frame"]: r for r in requests if "apply_frame" in r and r.get("status") in ("applied", "stale", "late", "invalid")}
     checked = 0
     for frame in range(summary["frames"]):
         screen = render(env)
@@ -235,7 +250,11 @@ def verify_replay(root, recipe, episode_dir: Path) -> dict:
             checked += 1
         if frame in by_apply:
             row = by_apply[frame]
-            if row["status"] != "invalid":
+            if row["status"] != "invalid" and "statuses" in row:
+                statuses = executor.apply_many(parse_answers(row["answer"], len(row["statuses"])), row["target"], frame)
+                if statuses != row["statuses"]:
+                    raise AssertionError(f"executor statuses mismatch at frame {frame}: {statuses} vs {row['statuses']}")
+            elif row["status"] != "invalid":
                 status = executor.apply(parse_answer(row["answer"]), row["target"], frame)
                 if status != row["status"]:
                     raise AssertionError(f"executor status mismatch at frame {frame}: {status} vs {row['status']}")

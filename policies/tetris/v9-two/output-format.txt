@@ -1,0 +1,1 @@
+Return exactly one JSON object with keys "placements" (a list of two objects, each with "piece", "rot" 0-3 and "col" 0-9: the piece in play first, then the NEXT piece) and "reason" (one short English sentence, at most 30 words). No markdown.

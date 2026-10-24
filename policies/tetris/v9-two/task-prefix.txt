@@ -1,0 +1,1 @@
+# Task: place the current Tetris piece and the NEXT piece. Independent request; no earlier conversation.

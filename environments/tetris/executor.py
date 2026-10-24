@@ -25,6 +25,25 @@ def parse_answer(text: str) -> dict:
     if not isinstance(text, str) or "{" not in text or "}" not in text:
         raise ValueError("no JSON object in answer")
     value = json.loads(text[text.index("{"):text.rindex("}") + 1])
+    return _placement(value)
+
+
+def parse_answers(text: str, count: int) -> list[dict]:
+    """``count`` placements (piece in play first, then the NEXT piece) from a ``{"placements": [...]}`` answer."""
+    if count == 1:
+        return [parse_answer(text)]
+    if not isinstance(text, str) or "{" not in text or "}" not in text:
+        raise ValueError("no JSON object in answer")
+    value = json.loads(text[text.index("{"):text.rindex("}") + 1])
+    items = value.get("placements") if isinstance(value, dict) else None
+    if not isinstance(items, list) or not items:
+        raise ValueError("placements list missing")
+    reason = value.get("reason")
+    out = [_placement(dict(item, reason=reason)) for item in items[:count]]
+    return out
+
+
+def _placement(value) -> dict:
     if not isinstance(value, dict):
         raise ValueError("answer is not a JSON object")
     piece = str(value.get("piece", "")).upper()[:1]
@@ -72,6 +91,9 @@ class KeyExecutor:
         self._strip_was_occupied = True
         self.dropped = False          # the executor pressed hard drop on the previous frame
         self.applied: list[dict] = []
+        self.plans: dict[int, dict] = {}   # placements received ahead of time, by public piece index
+        self.started_for = -1               # piece index whose key script has started
+        self.hover = False                  # position pieces but hard-drop only once the next piece's plan is known
 
     def observe(self, screen) -> bool:
         """Update the public piece counter from the screen. Returns True when a new piece was detected."""
@@ -82,19 +104,51 @@ class KeyExecutor:
         if new:
             self.piece_index += 1
             self.script = []  # a script for a piece that is gone is never continued
+            self._start_if_planned()
         return new
+
+    def _start_if_planned(self):
+        plan = self.plans.pop(self.piece_index, None)
+        if plan is not None and not self.script:
+            self.script, self.started_for = key_script(plan), self.piece_index
+            if self.hover:
+                self.script = self.script[:-1]  # rotate and move now; the hard drop waits for the successor's plan
+            self.applied.append({"piece_index": self.piece_index, "status": "started_from_plan", "keys": list(self.script),
+                                 **{k: plan[k] for k in ("piece", "rot", "col")}})
+
+    def apply_many(self, answers: list, first_target: int, frame: int) -> list[str]:
+        """Newest observation wins: later answers replace stored plans; a piece whose keys already started keeps them."""
+        statuses = []
+        for offset, answer in enumerate(answers):
+            target = first_target + offset
+            if target < self.piece_index:
+                statuses.append("stale")
+            elif target == self.piece_index and self.started_for == self.piece_index:
+                statuses.append("late")  # this piece is already being placed by an earlier answer
+            else:
+                self.plans[target] = answer
+                statuses.append("applied")
+            self.applied.append({"frame": frame, "target": target, "piece_index": self.piece_index, "status": statuses[-1],
+                                 **{k: answer[k] for k in ("piece", "rot", "col")}})
+        self._start_if_planned()
+        return statuses
 
     def apply(self, answer: dict, target: int, frame: int) -> str:
         if target != self.piece_index:
             self.applied.append({"frame": frame, "target": target, "piece_index": self.piece_index, "status": "stale"})
             return "stale"
-        self.script = key_script(answer)
+        self.script, self.started_for = key_script(answer), self.piece_index
         self.applied.append({"frame": frame, "target": target, "piece_index": self.piece_index, "status": "applied",
                              "keys": list(self.script), **{k: answer[k] for k in ("piece", "rot", "col")}})
         return "applied"
 
     def action(self, prev_action: int) -> int:
         if not self.script:
+            if self.hover and self.started_for == self.piece_index and (self.piece_index + 1) in self.plans:
+                if prev_action == HARD:
+                    return 0
+                self.dropped = True
+                return HARD  # declared rule: drop the positioned piece once the next piece's placement is known
             return 0
         key = self.script[0]
         if prev_action == key:

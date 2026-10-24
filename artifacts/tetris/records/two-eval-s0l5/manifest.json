@@ -1,0 +1,118 @@
+{
+  "game": "tetris",
+  "recipe": {
+    "policy": "v9-two",
+    "profile": "profiles/tetris/claude-opus-low-serial-v0.json",
+    "system": "policies/tetris/v9-two/system.txt",
+    "task_prefix": "policies/tetris/v9-two/task-prefix.txt",
+    "prompt": "policies/tetris/v9-two/prompt.txt",
+    "output_instructions": "policies/tetris/v9-two/output-format.txt",
+    "memory": "policies/tetris/v9-two/memory.md",
+    "output_format": "two_placements_reason",
+    "claude": {
+      "model": "opus",
+      "effort": "low"
+    },
+    "subscription": {
+      "effort": "low",
+      "service_tier": "priority",
+      "prestart": true
+    },
+    "args": {
+      "episodes": [
+        {
+          "seed": 0,
+          "level": 1,
+          "prefix": 20
+        },
+        {
+          "seed": 0,
+          "level": 2,
+          "prefix": 20
+        },
+        {
+          "seed": 0,
+          "level": 3,
+          "prefix": 20
+        },
+        {
+          "seed": 0,
+          "level": 4,
+          "prefix": 20
+        },
+        {
+          "seed": 0,
+          "level": 5,
+          "prefix": 20
+        },
+        {
+          "seed": 1,
+          "level": 1,
+          "prefix": 20
+        },
+        {
+          "seed": 1,
+          "level": 2,
+          "prefix": 20
+        },
+        {
+          "seed": 1,
+          "level": 3,
+          "prefix": 20
+        },
+        {
+          "seed": 1,
+          "level": 4,
+          "prefix": 20
+        },
+        {
+          "seed": 1,
+          "level": 5,
+          "prefix": 20
+        },
+        {
+          "seed": 2,
+          "level": 1,
+          "prefix": 20
+        },
+        {
+          "seed": 2,
+          "level": 2,
+          "prefix": 20
+        },
+        {
+          "seed": 2,
+          "level": 3,
+          "prefix": 20
+        },
+        {
+          "seed": 2,
+          "level": 4,
+          "prefix": 20
+        },
+        {
+          "seed": 2,
+          "level": 5,
+          "prefix": 20
+        }
+      ],
+      "duration": 60,
+      "slowdown": 2,
+      "executor": "key_script",
+      "requests_in_flight": 1,
+      "latency_seed_offset": 91,
+      "quota_stop_percent": 80,
+      "note": "Candidate: two placements per answer; a positioned piece hovers until the next piece's placement is known; a screenshot is sent whenever the NEXT piece has no plan.",
+      "answer_pieces": 2,
+      "capture": "next_unplanned",
+      "hover": true
+    }
+  },
+  "mode": "real_time_claude",
+  "real_time_api_acceptance": false,
+  "transport_adapter": "Transport is declared in the recipe and transport-specific run records",
+  "created_at_unix": 1792861941.5774431,
+  "command": "eval",
+  "provider": "claude",
+  "clock": "wall"
+}

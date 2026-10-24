@@ -1,0 +1,1 @@
+{"created_at_unix": 1792862214.0615265, "run": "/tmp/tetris-runs/two-eval-s0l5-1x", "decision": "diagnostic", "note": "Same candidate at normal speed (1x), one episode s0/l5: survived with 1 line and 9 new holes where serial v8 died with 25 holes. Latency tolerance improves; placement quality and answer latency worsen.", "mode": "real_time_claude", "run_status": "completed"}

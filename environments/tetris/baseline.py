@@ -72,11 +72,20 @@ class RulesActor:
     def __init__(self, *, output=None, **_):
         self.counter = 0
 
-    def act_on_truth(self, env):
-        pick = choose(env.board, env.kind)
-        rot, col = pick if pick else (0, 3)
+    def act_on_truth(self, env, count: int = 1):
+        board, placements = env.board, []
+        for kind in [env.kind, *env.upcoming(count - 1)][:count]:
+            pick = choose(board, kind)
+            rot, col = pick if pick else (0, 3)
+            placements.append({"piece": kind, "rot": rot, "col": col})
+            cells = landing(board, kind, rot, col)
+            if cells is not None:
+                board = apply(board, kind, cells)
         self.counter += 1
-        return json.dumps({"piece": env.kind, "rot": rot, "col": col, "reason": "rules baseline (true board)"}), {"wall_seconds": 0.0, "auth": "rules"}
+        meta = {"wall_seconds": 0.0, "auth": "rules"}
+        if count == 1:
+            return json.dumps({**placements[0], "reason": "rules baseline (true board)"}), meta
+        return json.dumps({"placements": placements, "reason": "rules baseline (true board)"}), meta
 
     def close(self):
         pass

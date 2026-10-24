@@ -1,0 +1,1 @@
+{"created_at_unix": 1792862214.1274152, "run": "/tmp/tetris-runs/two-rules-s0l5", "decision": "diagnostic", "note": "Rules baseline through the hover executor, same episode, 2x sampled delays: 8 lines, -1 holes, identical to serial; the executor adds no placement knowledge.", "mode": "rules_baseline_with_simulated_profile", "run_status": "completed"}
