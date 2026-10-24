@@ -1,1 +1,0 @@
-{"created_at_unix": 1792871065.931372, "run": "/tmp/tetris-runs/final/claude-eval-1x", "decision": "diagnostic", "note": "Normal-speed comparison on the actual clock: 1.67 lines, level-5 episode lost to stale answers; the condition is latency-bound.", "mode": "real_time_claude", "run_status": "completed"}

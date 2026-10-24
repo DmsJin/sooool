@@ -1,1 +1,0 @@
-{"created_at_unix": 1792871065.995538, "run": "/tmp/tetris-runs/final/rules-sim-1x", "decision": "diagnostic", "note": "Rules baseline at normal speed under sampled delays: 1.00 lines, level-5 episode lost; fails the same way as the model.", "mode": "rules_baseline_with_simulated_profile", "run_status": "completed"}

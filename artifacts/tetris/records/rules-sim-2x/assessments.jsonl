@@ -1,1 +1,0 @@
-{"created_at_unix": 1792871065.8623667, "run": "/tmp/tetris-runs/final/rules-sim-2x", "decision": "diagnostic", "note": "True-board rules baseline under the same sampled delays: 5.67 lines, 1.67 holes, 3/3 alive. Evaluator-side comparison, never an actor input.", "mode": "rules_baseline_with_simulated_profile", "run_status": "completed"}
