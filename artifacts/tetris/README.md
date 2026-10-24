@@ -4,7 +4,7 @@
   run with the run and per-episode summaries and the researcher decision: the selected `v11-short` policy on the
   actual clock at 2× (`claude-eval-2x`, retain), its simulation at 2× and evaluation at 1×, the rules baseline
   simulations at 2× and 1×, and the rejected `v12c-tradeoff` candidate on the actual clock at 2×
-  (`claude-eval-2x-v12c`, reject). [The research record](../../docs/tetris-autoresearch.md) reads these rows.
+  (`claude-eval-2x-v12c`, reject). [`docs/tetris.md`](../../docs/tetris.md) reads these rows.
 - `records/claude-eval-2x/`: what zero-model replay of the selected run needs: `manifest.json` (the frozen recipe)
   and, per episode, `summary.json` and `decisions.jsonl` (observation frame, target piece, image frames and
   SHA-256s, delivery frame, public answer, call timing, status). No screenshots are retained; replay re-renders

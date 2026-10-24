@@ -102,16 +102,11 @@ scripts and assets were not rebuilt for this launcher migration.
 
 ## Tetris environment (2026-10-24)
 
-The selected `v11-short` policy was run with `sol eval tetris` (actual clock, 2× slowdown, three 60-second
-episodes, serial Claude Code CLI calls, 57 model calls) and `sol simulate tetris` under the sampled profile; the
-true-board rules baseline and the normal-speed comparison were run the same way. All six runs are registered in
-[`artifacts/tetris/evaluations.jsonl`](../artifacts/tetris/evaluations.jsonl); the selected run's decisions are
-retained and replay from the repository copy with zero model calls, every issued screenshot hash, delivery, drop
-count and summary number re-derived ([record](../artifacts/tetris/README.md)). The runs used Python 3.12.3,
-Pillow 12.1.1, numpy 1.26.4 and Claude Code CLI 2.1.310.
-17 offline Tetris tests (engine determinism, key-script executor including its spawn-detection regression, task
-text, a rules run with manifest overrides, a 15-way replay tamper matrix, argument validation, transport failure
-records, the retained run) and `scripts/ci.py shared` / `environment tetris` pass. No GPT runs were made.
+Selected `v11-short` run with `sol eval tetris` (actual clock, 2× slowdown, three 60-second episodes, 57 serial
+Claude Code CLI calls), plus simulation, rules baseline and 1× comparison, all registered in
+[`artifacts/tetris/evaluations.jsonl`](../artifacts/tetris/evaluations.jsonl). The selected run replays from the
+repository copy with zero model calls (Python 3.12.3, Pillow 12.1.1, Claude Code CLI 2.1.310). 17 offline tests
+and the shared/environment CI checks pass; no GPT runs were made. [Details](tetris.md).
 
 ## Shared experiment workflows (2026-10-22)
 

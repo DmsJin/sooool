@@ -132,7 +132,7 @@ The coding agent chooses button presses in screen-based games and tactical goals
 | [Touhou / Kaguya](docs/touhou-research-record.md) | Recent screenshots, frame times, prior controls | Direction, shooting, focus, bombs, duration | Apply chosen buttons for the specified duration |
 | [PingPong](docs/tabletennis.md) | Two camera views, feedback, opponent estimate | One of four return-placement plans | Track the ball, serve, plan contact, execute joint motion |
 | [Asterix](docs/asterix-autoresearch.md) | Three timestamped screenshots, action history | Joystick direction | Hold direction until replaced |
-| [Tetris](docs/tetris-autoresearch.md) | Three timestamped plain game screenshots, applied-placement history | One placement: rotation, column | Press the key script for that placement; discard stale answers |
+| [Tetris](docs/tetris.md) | Three timestamped plain game screenshots, applied-placement history | One placement: rotation, column | Press the key script for that placement; discard stale answers |
 | [Badminton](docs/badminton.md) | Recent frames from two cameras, public feedback | Conditional shot goals, recovery position, goal duration | Plan contact and swing; execute stroke |
 | [Rhythm](docs/rhythm.md) | Screenshot, public clock, pending taps | DFJK keys, absolute tap times | Queue and execute specified taps |
 | [Racing](docs/racing.md) | Front-camera views, telemetry, visual road measurements | Speed, lane offset, lookahead | Steer toward goal, limit speed through bends |

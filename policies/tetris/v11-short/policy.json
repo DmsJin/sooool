@@ -19,6 +19,6 @@
   "performance_evidence": "artifacts/tetris/evaluations.jsonl",
   "output_format": "rot_col_reason",
   "max_inflight": 1,
-  "parent": "development lineage in docs/tetris-autoresearch.md",
+  "parent": "development lineage summarised in docs/tetris.md",
   "adaptation": "Generic game description removed (the model knows Tetris); only the action encoding, the retained gap-free-first rule, the fit table and the shape table remain. Hole definition corrected. The piece letter is no longer part of the answer: the executor reads it from the public screen. System text is Asterix's v28 system.txt verbatim."
 }
