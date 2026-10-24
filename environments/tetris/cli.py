@@ -5,7 +5,6 @@ import argparse
 import json
 import os
 from pathlib import Path
-import sys
 
 from runtime import experiment
 from runtime.options import positive_float
