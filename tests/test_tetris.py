@@ -143,6 +143,18 @@ class RulesRunAndReplay(unittest.TestCase):
             with self.assertRaises(AssertionError):
                 runner.verify_replay(ROOT, RECIPE, episode_dir)
 
+    def test_retained_selected_run_replays_without_model_calls(self):
+        run = ROOT / "artifacts/tetris/runs/claude-eval-2x"
+        manifest = json.loads((run / "manifest.json").read_text())
+        self.assertEqual((manifest["provider"], manifest["clock"], manifest["recipe"]["policy"]), ("claude", "wall", "v8-keys"))
+        episode = run / "episode-04-s0-l5-p20"
+        result = runner.verify_replay(ROOT, manifest["recipe"], episode)
+        summary = json.loads((episode / "summary.json").read_text())
+        self.assertEqual((result["model_calls"], result["lines"], result["survived"]), (0, summary["lines"], True))
+        self.assertEqual(result["verified_requests"], summary["calls"])
+        records = [json.loads(line) for line in (ROOT / "artifacts/tetris/evaluations.jsonl").read_text().splitlines()]
+        self.assertIn("claude-eval-2x", {r["record_id"] for r in records})
+
     def test_rules_baseline_never_sees_pixels_but_actors_never_see_truth(self):
         env = engine.Tetris(seed=1)
         answer, meta = baseline.RulesActor().act_on_truth(env)

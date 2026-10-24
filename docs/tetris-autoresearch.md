@@ -97,7 +97,22 @@ this repository were frozen and run with `sol simulate tetris` and `sol eval tet
 60-second episodes (three seeds × start levels 1–5, 20 rules-placed pieces before the clip). These are the registered
 numbers; see [`artifacts/tetris/README.md`](../artifacts/tetris/README.md) for the run directories and replay checks.
 
-FRESH_PORTABLE_TABLE
+| Run | Provider | Clock | Slowdown | Lines | New holes | Height Δ | Alive | Stale | Capture→apply (game s) |
+|---|---|---|---|---:|---:|---:|---|---:|---:|
+| `claude-eval-2x` **(selected)** | Claude Opus low, stateless CLI | wall | 2× | 4.73 | 3.33 | +28.8 | 14/15 (one level-5 death) | 4 | 3.0 (wall median 5.97 s, p90 7.94 s) |
+| `claude-sim-2x` | Claude Opus low | virtual, sampled profile | 2× | 4.87 | 1.33 | +26.0 | 15/15 | 0 | 3.0 |
+| `rules-sim-2x` | rules baseline (true board) | virtual, sampled profile | 2× | 6.00 | 1.33 | +14.7 | 15/15 | 0 | 3.0 |
+| `claude-eval-1x` | Claude Opus low | wall | 1× | 0.93 | 5.47 | +36.4 | 12/15 (three level-5 deaths) | 17 | 5.8 |
+| `claude-sim-1x` | Claude Opus low | virtual | 1× | 1.27 | 6.40 | +32.1 | 11/15 | 25 | 5.9 |
+| `rules-sim-1x` | rules baseline | virtual | 1× | 1.80 | 4.67 | +23.7 | 12/15 | 21 | 5.9 |
+
+Means over the 15 episodes (60 game seconds each). All six runs replay without model calls (`sol replay tetris`),
+with every captured screenshot hash and final board matching. Reading: at 2× the selected transport keeps every
+start level under control and clears lines at about 80% of the true-board baseline's rate; on the actual clock it
+leaves more holes than in simulation (3.3 vs 1.3) because real delays cluster differently from the sampled ones
+and four answers arrived after their piece locked. At normal speed the same policy, the simulation and the rules
+baseline all fail level 5 and clear almost nothing: the condition is latency-bound, not policy-bound. The wall
+delay of the portable transport (median 5.97 s) matches the profile it was told (5.9 s).
 
 The next research questions are more seeds and repeats at 2×, a measured profile from `sol profile tetris` on the
 portable transport, long-tail sensitivity, and whether an executor that waits for the next answer before dropping
