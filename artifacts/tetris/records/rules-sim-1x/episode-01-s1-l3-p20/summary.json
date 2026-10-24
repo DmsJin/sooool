@@ -1,0 +1,49 @@
+{
+  "case": {
+    "seed": 1,
+    "level": 3,
+    "prefix": 20
+  },
+  "mode": "simulation",
+  "provider": "rules",
+  "slowdown": 1.0,
+  "frames": 3600,
+  "game_seconds": 60.0,
+  "environment_wall_seconds": 6.723216940000043,
+  "virtual_wall_seconds": 60.0,
+  "start": {
+    "lines": 5,
+    "pieces": 20,
+    "score": 2214,
+    "level": 3,
+    "holes": 2,
+    "height_sum": 32,
+    "bumpiness": 12
+  },
+  "end": {
+    "lines": 6,
+    "pieces": 28,
+    "score": 2580,
+    "level": 3,
+    "holes": 8,
+    "height_sum": 60,
+    "bumpiness": 15
+  },
+  "lines": 1,
+  "pieces": 8,
+  "new_holes": 6,
+  "height_delta": 28,
+  "survived": true,
+  "calls": 8,
+  "drops": 52,
+  "peak_inflight": 1,
+  "applied": 7,
+  "stale": 1,
+  "invalid": 0,
+  "capture_to_apply_game_s_median": 6.425000000000001,
+  "capture_to_apply_game_s_max": 9.466666666666667,
+  "max_frame_lag_seconds": null,
+  "status": "horizon",
+  "error": null,
+  "limitation": "Sampled measured delays; actor computation pauses the virtual clock."
+}

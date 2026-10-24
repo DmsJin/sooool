@@ -1,11 +1,11 @@
 {
-  "policy": "v12c-tradeoff",
+  "policy": "v11-short",
   "profile": "profiles/tetris/claude-opus-low-serial-v0.json",
-  "system": "policies/tetris/v12c-tradeoff/system.txt",
-  "task_prefix": "policies/tetris/v12c-tradeoff/task-prefix.txt",
-  "prompt": "policies/tetris/v12c-tradeoff/prompt.txt",
-  "output_instructions": "policies/tetris/v12c-tradeoff/output-format.txt",
-  "memory": "policies/tetris/v12c-tradeoff/memory.md",
+  "system": "policies/tetris/v11-short/system.txt",
+  "task_prefix": "policies/tetris/v11-short/task-prefix.txt",
+  "prompt": "policies/tetris/v11-short/prompt.txt",
+  "output_instructions": "policies/tetris/v11-short/output-format.txt",
+  "memory": "policies/tetris/v11-short/memory.md",
   "output_format": "rot_col_reason",
   "claude": {
     "model": "opus",

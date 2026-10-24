@@ -1,0 +1,66 @@
+[
+ {
+  "frame": 274,
+  "seq": 0,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 4.566666666666666,
+  "actual_capture_to_apply_s": 4.5563195909999195
+ },
+ {
+  "frame": 597,
+  "seq": 1,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 4.95,
+  "actual_capture_to_apply_s": 4.939695979000021
+ },
+ {
+  "frame": 994,
+  "seq": 2,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 6.566666666666666,
+  "actual_capture_to_apply_s": 6.550389981999956
+ },
+ {
+  "frame": 1377,
+  "seq": 3,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 5.95,
+  "actual_capture_to_apply_s": 5.940695137000034
+ },
+ {
+  "frame": 1836,
+  "seq": 4,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 6.6,
+  "actual_capture_to_apply_s": 6.586577528000021
+ },
+ {
+  "frame": 2283,
+  "seq": 5,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 7.05,
+  "actual_capture_to_apply_s": 7.039856921000023
+ },
+ {
+  "frame": 2672,
+  "seq": 6,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 5.533333333333333,
+  "actual_capture_to_apply_s": 5.522887050999998
+ },
+ {
+  "frame": 3179,
+  "seq": 7,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 7.983333333333333,
+  "actual_capture_to_apply_s": 7.973911391999991
+ }
+]

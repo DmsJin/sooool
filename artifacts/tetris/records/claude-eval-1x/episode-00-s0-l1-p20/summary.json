@@ -9,7 +9,8 @@
   "slowdown": 1.0,
   "frames": 3600,
   "game_seconds": 60.0,
-  "wall_seconds": 65.14080653400015,
+  "environment_wall_seconds": 60.24450004100004,
+  "virtual_wall_seconds": 60.0,
   "start": {
     "lines": 6,
     "pieces": 20,
@@ -20,26 +21,29 @@
     "bumpiness": 7
   },
   "end": {
-    "lines": 8,
+    "lines": 9,
     "pieces": 30,
-    "score": 1774,
+    "score": 1908,
     "level": 1,
-    "holes": 2,
-    "height_sum": 42,
-    "bumpiness": 12
+    "holes": 0,
+    "height_sum": 30,
+    "bumpiness": 11
   },
-  "lines": 2,
+  "lines": 3,
   "pieces": 10,
-  "new_holes": 1,
-  "height_delta": 21,
+  "new_holes": -1,
+  "height_delta": 9,
   "survived": true,
   "calls": 11,
+  "drops": 49,
+  "peak_inflight": 1,
   "applied": 10,
   "stale": 0,
   "invalid": 0,
-  "capture_to_apply_game_s_median": 5.933333333333334,
-  "capture_to_apply_game_s_max": 9.466666666666667,
-  "max_frame_lag_seconds": 0.019996941335193696,
-  "status": "natural_end",
-  "error": null
+  "capture_to_apply_game_s_median": 4.858333333333333,
+  "capture_to_apply_game_s_max": 6.183333333333334,
+  "max_frame_lag_seconds": 0.06010610433337149,
+  "status": "horizon",
+  "error": null,
+  "limitation": "Actual response latency on a continuously advancing clock."
 }

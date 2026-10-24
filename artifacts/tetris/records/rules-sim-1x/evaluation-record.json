@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "record_id": "rules-sim-1x",
-  "run": "/tmp/tetris-runs/rules-sim-1x",
-  "created_at_unix": 1792835197.5958323,
+  "run": "/tmp/tetris-runs/final/rules-sim-1x",
+  "created_at_unix": 1792869435.0250382,
   "game": "tetris",
   "command": "simulate",
   "provider": "rules",
@@ -14,17 +14,19 @@
     "clock": "virtual",
     "duration_game_seconds": 60,
     "slowdown": 1.0,
+    "observation_stride_frames": 60,
     "aggregate": {
-      "episodes": 15,
-      "lines_mean": 1.8,
-      "new_holes_mean": 4.666666666666667,
-      "height_delta_mean": 23.733333333333334,
-      "pieces_mean": 9.266666666666667,
-      "survived": 12,
-      "calls": 139,
-      "stale": 21,
+      "episodes": 3,
+      "lines_mean": 1.0,
+      "new_holes_mean": 8.333333333333334,
+      "height_delta_mean": 35.666666666666664,
+      "pieces_mean": 9.333333333333334,
+      "survived": 2,
+      "calls": 24,
+      "drops": 142,
+      "stale": 7,
       "invalid": 0,
-      "capture_to_apply_game_s_median_of_medians": 5.933333333333334
+      "capture_to_apply_game_s_median_of_medians": 6.425000000000001
     },
     "episodes": [
       {
@@ -38,7 +40,8 @@
         "slowdown": 1.0,
         "frames": 3600,
         "game_seconds": 60.0,
-        "wall_seconds": 7.82690532900051,
+        "environment_wall_seconds": 7.4085606120000875,
+        "virtual_wall_seconds": 60.0,
         "start": {
           "lines": 6,
           "pieces": 20,
@@ -49,298 +52,31 @@
           "bumpiness": 7
         },
         "end": {
-          "lines": 9,
-          "pieces": 29,
-          "score": 1858,
+          "lines": 8,
+          "pieces": 28,
+          "score": 1716,
           "level": 1,
-          "holes": 2,
-          "height_sum": 28,
-          "bumpiness": 3
-        },
-        "lines": 3,
-        "pieces": 9,
-        "new_holes": 1,
-        "height_delta": 7,
-        "survived": true,
-        "calls": 10,
-        "applied": 9,
-        "stale": 0,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 5.933333333333334,
-        "capture_to_apply_game_s_max": 9.066666666666666,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 0,
-          "level": 2,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 3600,
-        "game_seconds": 60.0,
-        "wall_seconds": 8.993755442001202,
-        "start": {
-          "lines": 6,
-          "pieces": 20,
-          "score": 1940,
-          "level": 2,
           "holes": 1,
-          "height_sum": 21,
+          "height_sum": 33,
           "bumpiness": 7
         },
-        "end": {
-          "lines": 9,
-          "pieces": 29,
-          "score": 2728,
-          "level": 2,
-          "holes": 2,
-          "height_sum": 28,
-          "bumpiness": 3
-        },
-        "lines": 3,
-        "pieces": 9,
-        "new_holes": 1,
-        "height_delta": 7,
+        "lines": 2,
+        "pieces": 8,
+        "new_holes": 0,
+        "height_delta": 12,
         "survived": true,
-        "calls": 10,
-        "applied": 9,
-        "stale": 0,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 5.933333333333334,
-        "capture_to_apply_game_s_max": 9.066666666666666,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 0,
-          "level": 3,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 3600,
-        "game_seconds": 60.0,
-        "wall_seconds": 8.018315319000976,
-        "start": {
-          "lines": 6,
-          "pieces": 20,
-          "score": 2540,
-          "level": 3,
-          "holes": 1,
-          "height_sum": 21,
-          "bumpiness": 7
-        },
-        "end": {
-          "lines": 9,
-          "pieces": 29,
-          "score": 3590,
-          "level": 3,
-          "holes": 2,
-          "height_sum": 28,
-          "bumpiness": 3
-        },
-        "lines": 3,
-        "pieces": 9,
-        "new_holes": 1,
-        "height_delta": 7,
-        "survived": true,
-        "calls": 10,
-        "applied": 9,
-        "stale": 0,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 5.933333333333334,
-        "capture_to_apply_game_s_max": 9.066666666666666,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 0,
-          "level": 4,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 3600,
-        "game_seconds": 60.0,
-        "wall_seconds": 8.052847005999865,
-        "start": {
-          "lines": 6,
-          "pieces": 20,
-          "score": 3140,
-          "level": 4,
-          "holes": 1,
-          "height_sum": 21,
-          "bumpiness": 7
-        },
-        "end": {
-          "lines": 9,
-          "pieces": 29,
-          "score": 4436,
-          "level": 4,
-          "holes": 2,
-          "height_sum": 28,
-          "bumpiness": 3
-        },
-        "lines": 3,
-        "pieces": 9,
-        "new_holes": 1,
-        "height_delta": 7,
-        "survived": true,
-        "calls": 10,
-        "applied": 8,
-        "stale": 1,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 5.933333333333334,
-        "capture_to_apply_game_s_max": 9.066666666666666,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 0,
-          "level": 5,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 2973,
-        "game_seconds": 49.55,
-        "wall_seconds": 7.516132370999912,
-        "start": {
-          "lines": 6,
-          "pieces": 20,
-          "score": 3740,
-          "level": 5,
-          "holes": 1,
-          "height_sum": 21,
-          "bumpiness": 7
-        },
-        "end": {
-          "lines": 7,
-          "pieces": 33,
-          "score": 4262,
-          "level": 5,
-          "holes": 16,
-          "height_sum": 78,
-          "bumpiness": 45
-        },
-        "lines": 1,
-        "pieces": 13,
-        "new_holes": 15,
-        "height_delta": 57,
-        "survived": false,
         "calls": 9,
-        "applied": 3,
-        "stale": 5,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 5.825,
-        "capture_to_apply_game_s_max": 6.566666666666666,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 1,
-          "level": 1,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 3600,
-        "game_seconds": 60.0,
-        "wall_seconds": 7.712096249000751,
-        "start": {
-          "lines": 5,
-          "pieces": 20,
-          "score": 1214,
-          "level": 1,
-          "holes": 2,
-          "height_sum": 32,
-          "bumpiness": 12
-        },
-        "end": {
-          "lines": 8,
-          "pieces": 29,
-          "score": 1710,
-          "level": 1,
-          "holes": 4,
-          "height_sum": 40,
-          "bumpiness": 5
-        },
-        "lines": 3,
-        "pieces": 9,
-        "new_holes": 2,
-        "height_delta": 8,
-        "survived": true,
-        "calls": 10,
-        "applied": 9,
+        "drops": 51,
+        "peak_inflight": 1,
+        "applied": 8,
         "stale": 0,
         "invalid": 0,
-        "capture_to_apply_game_s_median": 5.916666666666667,
-        "capture_to_apply_game_s_max": 8.95,
+        "capture_to_apply_game_s_median": 6.983333333333333,
+        "capture_to_apply_game_s_max": 7.3,
         "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 1,
-          "level": 2,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 3600,
-        "game_seconds": 60.0,
-        "wall_seconds": 8.626904968999952,
-        "start": {
-          "lines": 5,
-          "pieces": 20,
-          "score": 1714,
-          "level": 2,
-          "holes": 2,
-          "height_sum": 32,
-          "bumpiness": 12
-        },
-        "end": {
-          "lines": 8,
-          "pieces": 29,
-          "score": 2482,
-          "level": 2,
-          "holes": 4,
-          "height_sum": 40,
-          "bumpiness": 5
-        },
-        "lines": 3,
-        "pieces": 9,
-        "new_holes": 2,
-        "height_delta": 8,
-        "survived": true,
-        "calls": 10,
-        "applied": 9,
-        "stale": 0,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 5.916666666666667,
-        "capture_to_apply_game_s_max": 8.95,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
+        "status": "horizon",
+        "error": null,
+        "limitation": "Sampled measured delays; actor computation pauses the virtual clock."
       },
       {
         "case": {
@@ -353,7 +89,8 @@
         "slowdown": 1.0,
         "frames": 3600,
         "game_seconds": 60.0,
-        "wall_seconds": 8.557406476000324,
+        "environment_wall_seconds": 6.723216940000043,
+        "virtual_wall_seconds": 60.0,
         "start": {
           "lines": 5,
           "pieces": 20,
@@ -364,298 +101,31 @@
           "bumpiness": 12
         },
         "end": {
-          "lines": 8,
-          "pieces": 29,
-          "score": 3238,
-          "level": 3,
-          "holes": 4,
-          "height_sum": 40,
-          "bumpiness": 5
-        },
-        "lines": 3,
-        "pieces": 9,
-        "new_holes": 2,
-        "height_delta": 8,
-        "survived": true,
-        "calls": 10,
-        "applied": 9,
-        "stale": 0,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 5.916666666666667,
-        "capture_to_apply_game_s_max": 8.95,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 1,
-          "level": 4,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 3600,
-        "game_seconds": 60.0,
-        "wall_seconds": 9.266935775998718,
-        "start": {
-          "lines": 5,
-          "pieces": 20,
-          "score": 2714,
-          "level": 4,
-          "holes": 2,
-          "height_sum": 32,
-          "bumpiness": 12
-        },
-        "end": {
           "lines": 6,
-          "pieces": 29,
-          "score": 3168,
-          "level": 4,
-          "holes": 9,
-          "height_sum": 65,
-          "bumpiness": 9
-        },
-        "lines": 1,
-        "pieces": 9,
-        "new_holes": 7,
-        "height_delta": 33,
-        "survived": true,
-        "calls": 10,
-        "applied": 6,
-        "stale": 3,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 5.916666666666667,
-        "capture_to_apply_game_s_max": 8.95,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 1,
-          "level": 5,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 2170,
-        "game_seconds": 36.166666666666664,
-        "wall_seconds": 5.239837869999974,
-        "start": {
-          "lines": 5,
-          "pieces": 20,
-          "score": 3214,
-          "level": 5,
-          "holes": 2,
-          "height_sum": 32,
-          "bumpiness": 12
-        },
-        "end": {
-          "lines": 5,
-          "pieces": 30,
-          "score": 3214,
-          "level": 5,
-          "holes": 19,
-          "height_sum": 89,
-          "bumpiness": 42
-        },
-        "lines": 0,
-        "pieces": 10,
-        "new_holes": 17,
-        "height_delta": 57,
-        "survived": false,
-        "calls": 6,
-        "applied": 0,
-        "stale": 5,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 5.816666666666666,
-        "capture_to_apply_game_s_max": 8.95,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 2,
-          "level": 1,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 3600,
-        "game_seconds": 60.0,
-        "wall_seconds": 8.065602479999143,
-        "start": {
-          "lines": 7,
-          "pieces": 20,
-          "score": 1456,
-          "level": 1,
-          "holes": 0,
-          "height_sum": 10,
-          "bumpiness": 12
-        },
-        "end": {
-          "lines": 8,
           "pieces": 28,
-          "score": 1750,
-          "level": 1,
-          "holes": 1,
-          "height_sum": 33,
-          "bumpiness": 9
-        },
-        "lines": 1,
-        "pieces": 8,
-        "new_holes": 1,
-        "height_delta": 23,
-        "survived": true,
-        "calls": 9,
-        "applied": 8,
-        "stale": 0,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 6.699999999999999,
-        "capture_to_apply_game_s_max": 9.716666666666667,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 2,
-          "level": 2,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 3600,
-        "game_seconds": 60.0,
-        "wall_seconds": 7.976466187999904,
-        "start": {
-          "lines": 7,
-          "pieces": 20,
-          "score": 2156,
-          "level": 2,
-          "holes": 0,
-          "height_sum": 10,
-          "bumpiness": 12
-        },
-        "end": {
-          "lines": 8,
-          "pieces": 28,
-          "score": 2518,
-          "level": 2,
-          "holes": 1,
-          "height_sum": 33,
-          "bumpiness": 9
-        },
-        "lines": 1,
-        "pieces": 8,
-        "new_holes": 1,
-        "height_delta": 23,
-        "survived": true,
-        "calls": 9,
-        "applied": 8,
-        "stale": 0,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 6.699999999999999,
-        "capture_to_apply_game_s_max": 9.716666666666667,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 2,
+          "score": 2580,
           "level": 3,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 3600,
-        "game_seconds": 60.0,
-        "wall_seconds": 8.09322399300072,
-        "start": {
-          "lines": 7,
-          "pieces": 20,
-          "score": 2856,
-          "level": 3,
-          "holes": 0,
-          "height_sum": 10,
-          "bumpiness": 12
-        },
-        "end": {
-          "lines": 8,
-          "pieces": 28,
-          "score": 3280,
-          "level": 3,
-          "holes": 1,
-          "height_sum": 33,
-          "bumpiness": 9
+          "holes": 8,
+          "height_sum": 60,
+          "bumpiness": 15
         },
         "lines": 1,
         "pieces": 8,
-        "new_holes": 1,
-        "height_delta": 23,
+        "new_holes": 6,
+        "height_delta": 28,
         "survived": true,
-        "calls": 9,
-        "applied": 8,
-        "stale": 0,
-        "invalid": 0,
-        "capture_to_apply_game_s_median": 6.699999999999999,
-        "capture_to_apply_game_s_max": 9.716666666666667,
-        "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
-      },
-      {
-        "case": {
-          "seed": 2,
-          "level": 4,
-          "prefix": 20
-        },
-        "mode": "simulation",
-        "provider": "rules",
-        "slowdown": 1.0,
-        "frames": 3600,
-        "game_seconds": 60.0,
-        "wall_seconds": 8.724143970999648,
-        "start": {
-          "lines": 7,
-          "pieces": 20,
-          "score": 3556,
-          "level": 4,
-          "holes": 0,
-          "height_sum": 10,
-          "bumpiness": 12
-        },
-        "end": {
-          "lines": 8,
-          "pieces": 28,
-          "score": 4032,
-          "level": 4,
-          "holes": 1,
-          "height_sum": 33,
-          "bumpiness": 9
-        },
-        "lines": 1,
-        "pieces": 8,
-        "new_holes": 1,
-        "height_delta": 23,
-        "survived": true,
-        "calls": 9,
+        "calls": 8,
+        "drops": 52,
+        "peak_inflight": 1,
         "applied": 7,
         "stale": 1,
         "invalid": 0,
-        "capture_to_apply_game_s_median": 6.699999999999999,
-        "capture_to_apply_game_s_max": 9.716666666666667,
+        "capture_to_apply_game_s_median": 6.425000000000001,
+        "capture_to_apply_game_s_max": 9.466666666666667,
         "max_frame_lag_seconds": null,
-        "status": "natural_end",
-        "error": null
+        "status": "horizon",
+        "error": null,
+        "limitation": "Sampled measured delays; actor computation pauses the virtual clock."
       },
       {
         "case": {
@@ -666,9 +136,10 @@
         "mode": "simulation",
         "provider": "rules",
         "slowdown": 1.0,
-        "frames": 2929,
-        "game_seconds": 48.81666666666667,
-        "wall_seconds": 6.560144144999867,
+        "frames": 2718,
+        "game_seconds": 45.3,
+        "environment_wall_seconds": 5.201333226999964,
+        "virtual_wall_seconds": 45.3,
         "start": {
           "lines": 7,
           "pieces": 20,
@@ -681,26 +152,29 @@
         "end": {
           "lines": 7,
           "pieces": 32,
-          "score": 4258,
+          "score": 4256,
           "level": 5,
-          "holes": 17,
-          "height_sum": 75,
-          "bumpiness": 40
+          "holes": 19,
+          "height_sum": 77,
+          "bumpiness": 46
         },
         "lines": 0,
         "pieces": 12,
-        "new_holes": 17,
-        "height_delta": 65,
+        "new_holes": 19,
+        "height_delta": 67,
         "survived": false,
-        "calls": 8,
-        "applied": 1,
+        "calls": 7,
+        "drops": 39,
+        "peak_inflight": 1,
+        "applied": 0,
         "stale": 6,
         "invalid": 0,
-        "capture_to_apply_game_s_median": 6.6,
-        "capture_to_apply_game_s_max": 8.316666666666666,
+        "capture_to_apply_game_s_median": 6.0,
+        "capture_to_apply_game_s_max": 8.533333333333333,
         "max_frame_lag_seconds": null,
         "status": "natural_end",
-        "error": null
+        "error": null,
+        "limitation": "Sampled measured delays; actor computation pauses the virtual clock."
       }
     ],
     "status": "completed",
@@ -713,14 +187,14 @@
   },
   "performance_is_independently_confirmed": false,
   "recipe": {
-    "policy": "v8-keys",
+    "policy": "v11-short",
     "profile": "profiles/tetris/claude-opus-low-serial-v0.json",
-    "system": "policies/tetris/v8-keys/system.txt",
-    "task_prefix": "policies/tetris/v8-keys/task-prefix.txt",
-    "prompt": "policies/tetris/v8-keys/prompt.txt",
-    "output_instructions": "policies/tetris/v8-keys/output-format.txt",
-    "memory": "policies/tetris/v8-keys/memory.md",
-    "output_format": "placement_reason",
+    "system": "policies/tetris/v11-short/system.txt",
+    "task_prefix": "policies/tetris/v11-short/task-prefix.txt",
+    "prompt": "policies/tetris/v11-short/prompt.txt",
+    "output_instructions": "policies/tetris/v11-short/output-format.txt",
+    "memory": "policies/tetris/v11-short/memory.md",
+    "output_format": "rot_col_reason",
     "claude": {
       "model": "opus",
       "effort": "low"
@@ -728,7 +202,7 @@
     "subscription": {
       "effort": "low",
       "service_tier": "priority",
-      "prestart": true
+      "prestart": false
     },
     "args": {
       "episodes": [
@@ -738,68 +212,8 @@
           "prefix": 20
         },
         {
-          "seed": 0,
-          "level": 2,
-          "prefix": 20
-        },
-        {
-          "seed": 0,
-          "level": 3,
-          "prefix": 20
-        },
-        {
-          "seed": 0,
-          "level": 4,
-          "prefix": 20
-        },
-        {
-          "seed": 0,
-          "level": 5,
-          "prefix": 20
-        },
-        {
-          "seed": 1,
-          "level": 1,
-          "prefix": 20
-        },
-        {
-          "seed": 1,
-          "level": 2,
-          "prefix": 20
-        },
-        {
           "seed": 1,
           "level": 3,
-          "prefix": 20
-        },
-        {
-          "seed": 1,
-          "level": 4,
-          "prefix": 20
-        },
-        {
-          "seed": 1,
-          "level": 5,
-          "prefix": 20
-        },
-        {
-          "seed": 2,
-          "level": 1,
-          "prefix": 20
-        },
-        {
-          "seed": 2,
-          "level": 2,
-          "prefix": 20
-        },
-        {
-          "seed": 2,
-          "level": 3,
-          "prefix": 20
-        },
-        {
-          "seed": 2,
-          "level": 4,
           "prefix": 20
         },
         {
@@ -810,11 +224,13 @@
       ],
       "duration": 60,
       "slowdown": 1,
-      "executor": "key_script",
       "requests_in_flight": 1,
       "latency_seed_offset": 91,
       "quota_stop_percent": 80,
-      "note": "Normal-speed comparison condition."
+      "note": "Normal-speed comparison condition; otherwise identical to recipes/tetris.json.",
+      "controller": "key_script",
+      "observation_stride_frames": 60,
+      "observation_window": 9
     }
   }
 }

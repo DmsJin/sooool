@@ -1,6 +1,6 @@
 [
  {
-  "frame": 219,
+  "frame": 285,
   "target": 0,
   "piece_index": 0,
   "status": "applied",
@@ -13,126 +13,124 @@
   "col": 2
  },
  {
-  "frame": 618,
+  "frame": 609,
   "target": 1,
   "piece_index": 1,
-  "status": "applied",
-  "keys": [
-   1,
-   1,
-   1,
-   6
-  ],
-  "piece": "L",
-  "rot": 0,
-  "col": 0
- },
- {
-  "frame": 959,
-  "target": 2,
-  "piece_index": 2,
-  "status": "applied",
-  "keys": [
-   3,
-   2,
-   2,
-   6
-  ],
-  "piece": "I",
-  "rot": 1,
-  "col": 7
- },
- {
-  "frame": 1220,
-  "target": 3,
-  "piece_index": 3,
-  "status": "applied",
-  "keys": [
-   2,
-   6
-  ],
-  "piece": "O",
-  "rot": 0,
-  "col": 5
- },
- {
-  "frame": 1621,
-  "target": 4,
-  "piece_index": 4,
-  "status": "applied",
-  "keys": [
-   2,
-   2,
-   6
-  ],
-  "piece": "J",
-  "rot": 0,
-  "col": 5
- },
- {
-  "frame": 1890,
-  "target": 5,
-  "piece_index": 5,
-  "status": "applied",
-  "keys": [
-   1,
-   6
-  ],
-  "piece": "Z",
-  "rot": 0,
-  "col": 2
- },
- {
-  "frame": 2182,
-  "target": 6,
-  "piece_index": 6,
-  "status": "applied",
-  "keys": [
-   3,
-   3,
-   6
-  ],
-  "piece": "T",
-  "rot": 2,
-  "col": 3
- },
- {
-  "frame": 2754,
-  "target": 7,
-  "piece_index": 7,
-  "status": "applied",
-  "keys": [
-   3,
-   1,
-   1,
-   1,
-   1,
-   6
-  ],
-  "piece": "S",
-  "rot": 1,
-  "col": 0
- },
- {
-  "frame": 3160,
-  "target": 8,
-  "piece_index": 8,
   "status": "applied",
   "keys": [
    4,
    2,
    2,
    2,
+   6
+  ],
+  "piece": "L",
+  "rot": 3,
+  "col": 6
+ },
+ {
+  "frame": 1031,
+  "target": 2,
+  "piece_index": 2,
+  "status": "applied",
+  "keys": [
+   3,
+   6
+  ],
+  "piece": "I",
+  "rot": 1,
+  "col": 5
+ },
+ {
+  "frame": 1342,
+  "target": 3,
+  "piece_index": 3,
+  "status": "applied",
+  "keys": [
+   2,
+   2,
+   2,
+   2,
+   6
+  ],
+  "piece": "O",
+  "rot": 0,
+  "col": 8
+ },
+ {
+  "frame": 1693,
+  "target": 4,
+  "piece_index": 4,
+  "status": "applied",
+  "keys": [
+   3,
+   1,
+   1,
+   6
+  ],
+  "piece": "J",
+  "rot": 1,
+  "col": 2
+ },
+ {
+  "frame": 2002,
+  "target": 5,
+  "piece_index": 5,
+  "status": "applied",
+  "keys": [
+   3,
+   2,
+   2,
+   2,
+   6
+  ],
+  "piece": "Z",
+  "rot": 1,
+  "col": 7
+ },
+ {
+  "frame": 2338,
+  "target": 6,
+  "piece_index": 6,
+  "status": "applied",
+  "keys": [
+   4,
+   6
+  ],
+  "piece": "T",
+  "rot": 3,
+  "col": 3
+ },
+ {
+  "frame": 2572,
+  "target": 7,
+  "piece_index": 7,
+  "status": "applied",
+  "keys": [
+   3,
+   6
+  ],
+  "piece": "S",
+  "rot": 1,
+  "col": 4
+ },
+ {
+  "frame": 2894,
+  "target": 8,
+  "piece_index": 8,
+  "status": "applied",
+  "keys": [
+   3,
    2,
    2,
    6
   ],
   "piece": "J",
-  "rot": 3,
-  "col": 8
+  "rot": 1,
+  "col": 6
  },
  {
-  "frame": 3548,
+  "frame": 3188,
   "target": 9,
   "piece_index": 9,
   "status": "applied",

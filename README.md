@@ -22,7 +22,7 @@ Sooool! uses an autoresearch loop to get GPT-6 Sol to play real-time games, with
 <td width="50%" align="center"><a href="assets/gameplay/badminton.mp4"><img src="assets/gameplay/badminton.gif" alt="The coding agent playing badminton: opening serve and rally, with both camera views and original English decision summaries" width="390"></a><br><b>Badminton</b> · Live API run</td>
 </tr>
 <tr>
-<td width="50%" align="center"><img src="assets/tetris/claude-eval-2x-episode-04.gif" alt="Claude Opus playing Tetris at start level 5 on the actual clock: one placement per piece, key-script execution, seven lines cleared; deterministic replay rendering" width="240"><br><b>Tetris</b> · Actual-clock replay rendering</td>
+<td width="50%" align="center"><img src="assets/tetris/claude-eval-2x-level5.gif" alt="Claude Opus playing Tetris at start level 5 on the actual clock beside the true-board rules baseline: one placement per piece from three timestamped screenshots, key-script execution; deterministic replay rendering" width="390"><br><b>Tetris</b> · Actual-clock replay rendering beside the rules baseline</td>
 <td width="50%" align="center"><a href="assets/pcba/timed-v2-s0-ls0-showcase.mp4"><img src="assets/gameplay/pcba.gif" alt="GPT-6.1 Sol driving a robot PCBA test cell: a board is clamped, tested FAIL and sorted, with the executing reply's raw JSON output" width="390"></a><br><b>PCBA test cell</b> · Subscription simulation (virtual clock) · <a href="#pcba-test-cell-belt-to-magazine">task flow and metrics</a></td>
 </tr>
 </table>
@@ -130,7 +130,7 @@ The coding agent chooses button presses in screen-based games and tactical goals
 | [Touhou / Kaguya](docs/touhou-research-record.md) | Recent screenshots, frame times, prior controls | Direction, shooting, focus, bombs, duration | Apply chosen buttons for the specified duration |
 | [PingPong](docs/tabletennis.md) | Two camera views, feedback, opponent estimate | One of four return-placement plans | Track the ball, serve, plan contact, execute joint motion |
 | [Asterix](docs/asterix-autoresearch.md) | Three timestamped screenshots, action history | Joystick direction | Hold direction until replaced |
-| [Tetris](docs/tetris-autoresearch.md) | One plain game screenshot, executed-placement history | One placement: piece, rotation, column | Press the key script for that placement; discard stale answers |
+| [Tetris](docs/tetris-autoresearch.md) | Three timestamped plain game screenshots, applied-placement history | One placement: rotation, column | Press the key script for that placement; discard stale answers |
 | [Badminton](docs/badminton.md) | Recent frames from two cameras, public feedback | Conditional shot goals, recovery position, goal duration | Plan contact and swing; execute stroke |
 | [Rhythm](docs/rhythm.md) | Screenshot, public clock, pending taps | DFJK keys, absolute tap times | Queue and execute specified taps |
 | [Racing](docs/racing.md) | Front-camera views, telemetry, visual road measurements | Speed, lane offset, lookahead | Steer toward goal, limit speed through bends |

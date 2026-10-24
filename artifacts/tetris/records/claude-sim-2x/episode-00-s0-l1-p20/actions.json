@@ -1,6 +1,6 @@
 [
  {
-  "frame": 197,
+  "frame": 152,
   "target": 0,
   "piece_index": 0,
   "status": "applied",
@@ -13,55 +13,117 @@
   "col": 2
  },
  {
-  "frame": 328,
+  "frame": 347,
   "target": 1,
   "piece_index": 1,
   "status": "applied",
   "keys": [
-   3,
-   3,
-   1,
+   4,
+   2,
+   2,
+   2,
    6
   ],
   "piece": "L",
-  "rot": 2,
-  "col": 2
+  "rot": 3,
+  "col": 6
  },
  {
-  "frame": 511,
+  "frame": 526,
   "target": 2,
   "piece_index": 2,
   "status": "applied",
   "keys": [
    3,
-   2,
-   2,
    6
   ],
   "piece": "I",
   "rot": 1,
+  "col": 5
+ },
+ {
+  "frame": 745,
+  "target": 3,
+  "piece_index": 3,
+  "status": "applied",
+  "keys": [
+   2,
+   2,
+   2,
+   2,
+   6
+  ],
+  "piece": "O",
+  "rot": 0,
+  "col": 8
+ },
+ {
+  "frame": 996,
+  "target": 4,
+  "piece_index": 4,
+  "status": "applied",
+  "keys": [
+   3,
+   3,
+   1,
+   1,
+   1,
+   6
+  ],
+  "piece": "J",
+  "rot": 2,
+  "col": 0
+ },
+ {
+  "frame": 1234,
+  "target": 5,
+  "piece_index": 5,
+  "status": "applied",
+  "keys": [
+   3,
+   2,
+   2,
+   2,
+   6
+  ],
+  "piece": "Z",
+  "rot": 1,
   "col": 7
  },
  {
-  "frame": 654,
-  "target": 3,
-  "piece_index": 3,
+  "frame": 1479,
+  "target": 6,
+  "piece_index": 6,
   "status": "applied",
   "keys": [
    1,
    1,
    1,
-   1,
    6
   ],
-  "piece": "O",
+  "piece": "T",
   "rot": 0,
   "col": 0
  },
  {
-  "frame": 859,
-  "target": 4,
-  "piece_index": 4,
+  "frame": 1716,
+  "target": 7,
+  "piece_index": 7,
+  "status": "applied",
+  "keys": [
+   3,
+   1,
+   1,
+   6
+  ],
+  "piece": "S",
+  "rot": 1,
+  "col": 2
+ },
+ {
+  "frame": 1915,
+  "target": 8,
+  "piece_index": 8,
   "status": "applied",
   "keys": [
    3,
@@ -74,73 +136,7 @@
   "col": 6
  },
  {
-  "frame": 1032,
-  "target": 5,
-  "piece_index": 5,
-  "status": "applied",
-  "keys": [
-   3,
-   2,
-   2,
-   2,
-   2,
-   6
-  ],
-  "piece": "Z",
-  "rot": 1,
-  "col": 8
- },
- {
-  "frame": 1213,
-  "target": 6,
-  "piece_index": 6,
-  "status": "applied",
-  "keys": [
-   3,
-   3,
-   2,
-   2,
-   2,
-   2,
-   6
-  ],
-  "piece": "T",
-  "rot": 2,
-  "col": 7
- },
- {
-  "frame": 1417,
-  "target": 7,
-  "piece_index": 7,
-  "status": "applied",
-  "keys": [
-   1,
-   1,
-   1,
-   6
-  ],
-  "piece": "S",
-  "rot": 0,
-  "col": 0
- },
- {
-  "frame": 1695,
-  "target": 8,
-  "piece_index": 8,
-  "status": "applied",
-  "keys": [
-   2,
-   2,
-   2,
-   2,
-   6
-  ],
-  "piece": "J",
-  "rot": 0,
-  "col": 7
- },
- {
-  "frame": 1975,
+  "frame": 2094,
   "target": 9,
   "piece_index": 9,
   "status": "applied",
@@ -157,21 +153,22 @@
   "col": 0
  },
  {
-  "frame": 2163,
+  "frame": 2328,
   "target": 10,
   "piece_index": 10,
   "status": "applied",
   "keys": [
    3,
    1,
+   1,
    6
   ],
   "piece": "S",
   "rot": 1,
-  "col": 3
+  "col": 2
  },
  {
-  "frame": 2327,
+  "frame": 2538,
   "target": 11,
   "piece_index": 11,
   "status": "applied",
@@ -179,100 +176,75 @@
    2,
    2,
    2,
-   2,
    6
   ],
   "piece": "O",
   "rot": 0,
-  "col": 8
+  "col": 7
  },
  {
-  "frame": 2551,
+  "frame": 2830,
   "target": 12,
   "piece_index": 12,
   "status": "applied",
   "keys": [
-   4,
-   1,
-   1,
+   3,
+   3,
+   2,
+   2,
+   2,
    6
   ],
   "piece": "L",
-  "rot": 3,
-  "col": 1
+  "rot": 2,
+  "col": 6
  },
  {
-  "frame": 2742,
+  "frame": 3051,
   "target": 13,
   "piece_index": 13,
   "status": "applied",
   "keys": [
    3,
+   1,
    6
   ],
   "piece": "I",
   "rot": 1,
-  "col": 5
+  "col": 4
  },
  {
-  "frame": 2906,
+  "frame": 3231,
   "target": 14,
   "piece_index": 14,
   "status": "applied",
   "keys": [
-   4,
-   2,
-   2,
+   3,
+   1,
+   1,
+   1,
+   1,
    6
   ],
   "piece": "T",
-  "rot": 3,
-  "col": 5
+  "rot": 1,
+  "col": 0
  },
  {
-  "frame": 3037,
+  "frame": 3443,
   "target": 15,
   "piece_index": 15,
   "status": "applied",
   "keys": [
    3,
-   1,
-   1,
-   1,
-   1,
-   1,
+   2,
+   2,
+   2,
+   2,
    6
   ],
   "piece": "I",
   "rot": 1,
-  "col": 0
- },
- {
-  "frame": 3244,
-  "target": 16,
-  "piece_index": 16,
-  "status": "applied",
-  "keys": [
-   3,
-   2,
-   6
-  ],
-  "piece": "T",
-  "rot": 1,
-  "col": 5
- },
- {
-  "frame": 3405,
-  "target": 17,
-  "piece_index": 17,
-  "status": "applied",
-  "keys": [
-   3,
-   1,
-   6
-  ],
-  "piece": "S",
-  "rot": 1,
-  "col": 3
+  "col": 9
  }
 ]

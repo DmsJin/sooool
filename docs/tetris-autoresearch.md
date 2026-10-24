@@ -90,30 +90,86 @@ With a declared 2× slowdown the same transport recovers: Opus low, 18 clips, re
 17/18 alive, capture→apply 3.1 game seconds; the rules baseline under the sampled profile at 2× leaves 1.1 holes
 with 18/18 alive. A 3× slowdown added nothing over 2×.
 
-## 6. Fresh portable validation
+## 6. Aligning the loop with Asterix
 
-The runner, policy `v8-keys` (v7 with the timing sentence filled from the profile and mode), profile and recipes in
-this repository were frozen and run with `sol simulate tetris` and `sol eval tetris` on the recipe's fifteen
-60-second episodes (three seeds × start levels 1–5, 20 rules-placed pieces before the clip). These are the registered
-numbers; see [`artifacts/tetris/README.md`](../artifacts/tetris/README.md) for the run directories and replay checks.
+A first portable version (`v8-keys`) captured a screenshot whenever a piece spawned and sent one image per request.
+That is not how the other games in this repository observe, so it was replaced before registering results, and the
+old runs were discarded rather than kept beside incomparable ones:
 
-| Run | Provider | Clock | Slowdown | Lines | New holes | Height Δ | Alive | Stale | Capture→apply (game s) |
-|---|---|---|---|---:|---:|---:|---|---:|---:|
-| `claude-eval-2x` **(selected)** | Claude Opus low, stateless CLI | wall | 2× | 4.73 | 3.33 | +28.8 | 14/15 (one level-5 death) | 4 | 3.0 (wall median 5.97 s, p90 7.94 s) |
-| `claude-sim-2x` | Claude Opus low | virtual, sampled profile | 2× | 4.87 | 1.33 | +26.0 | 15/15 | 0 | 3.0 |
-| `rules-sim-2x` | rules baseline (true board) | virtual, sampled profile | 2× | 6.00 | 1.33 | +14.7 | 15/15 | 0 | 3.0 |
-| `claude-eval-1x` | Claude Opus low | wall | 1× | 0.93 | 5.47 | +36.4 | 12/15 (three level-5 deaths) | 17 | 5.8 |
-| `claude-sim-1x` | Claude Opus low | virtual | 1× | 1.27 | 6.40 | +32.1 | 11/15 | 25 | 5.9 |
-| `rules-sim-1x` | rules baseline | virtual | 1× | 1.80 | 4.67 | +23.7 | 12/15 | 21 | 5.9 |
+- **Fixed observation ticks**, as in Asterix: the screen is sampled every 60 frames (one game second) into a 9-tick
+  window; a request is captured at the first tick after the previous reply arrived and its keys were pressed; the
+  other ticks are counted as drops. The piece in play is therefore photographed mid-fall, not at spawn.
+- **Three timestamped images** per request (oldest, middle, newest of the window) with their frame numbers, and the
+  actor's own applied placements with ages in frames, in Asterix's request form.
+- **Asterix's system text verbatim** and its task-prefix form: protocol, the profile's mean/median/P95 delay in game
+  time, "the actual delay of your request is unknown", the simulation/real-time sentence swap.
+- **No labels on the screen** (column numbers had been drawn on the screenshots) and **no piece letter in the
+  answer**: the executor reads the falling piece's colour from the public spawn rows; the actor answers only
+  `{"rot", "col", "reason"}`.
+- **A one-line game description instead of a page**: `v11-short` keeps the action encoding, the gap-free-first rule
+  with a corrected definition of a hole (an empty cell under a filled one is unusable *until the rows above it are
+  cleared*, not forever), the fit table and the shape table, and nothing else.
 
-Means over the 15 episodes (60 game seconds each). All six runs replay without model calls (`sol replay tetris`),
-with every captured screenshot hash and final board matching. Reading: at 2× the selected transport keeps every
-start level under control and clears lines at about 80% of the true-board baseline's rate; on the actual clock it
-leaves more holes than in simulation (3.3 vs 1.3) because real delays cluster differently from the sampled ones
-and four answers arrived after their piece locked. At normal speed the same policy, the simulation and the rules
-baseline all fail level 5 and clear almost nothing: the condition is latency-bound, not policy-bound. The wall
-delay of the portable transport (median 5.97 s) matches the profile it was told (5.9 s).
+Single episodes were run after each change until the scheme was fixed; the 3-episode validation below is the only
+multi-episode evidence of this lineage.
 
-The next research questions are more seeds and repeats at 2×, a measured profile from `sol profile tetris` on the
-portable transport, long-tail sensitivity, and whether an executor that waits for the next answer before dropping
-can be justified without a second request in flight. Each belongs in a new evaluation record.
+## 7. Two decisions the model gets wrong, on fixed screenshots
+
+Watching the selected policy's full game (seed 0, level 1, from an empty board) showed two recurring misplacements.
+Both were cut out as fixed cases (the exact request text and three images of that moment) and re-asked five times
+per prompt variant; scoring is new holes and rows completed by the answered placement on the true board.
+
+| Case | True heights | Rules baseline | `v11-short` | `v12-tradeoff` | `v12b-tradeoff` | `v12c-tradeoff` |
+|---|---|---|---|---|---|---|
+| 15: O, stack 1-3-4-7-7-8-8-8-7-8 | misread the 3/4 step | O on 0-1 (one hole) | 5/5 gap-free on 3-4 | 4/5 (one misread) | 5/5 | 4/5 (one misread) |
+| 28: J, well in column 3 beside 5-high stack | fill the well | vertical J in the well: one hole, two rows | 1/5 fill the well, 4/5 play safe | 3/5 fill (two illegal reads) | 0/5 fill | 4/5 fill, 1/5 safe |
+
+Case 15 is a reading error: about one answer in five mis-counts a column height by one, with every prompt, and the
+answer is then internally consistent with the wrong reading. No prompt changes this; only repeated reads (voting)
+or a stronger reader would. Case 28 is a rule the prompt imposed: `v11-short`'s "accept a gap only when no gap-free
+spot exists" forbids the well fill that completes two rows. `v12c-tradeoff` adds the one exception (two or more
+completed rows are worth one hole; check the deepest well first; do not hold a well open beside a five-high stack)
+and fixes the decision four times in five without hurting case 15. `v12` (a longer rewrite) and `v12b` (the
+exception without the well check) did not.
+
+## 8. Fresh portable validation (three episodes)
+
+Both prompts were then run on the recipe's three 60-second episodes (seeds 0/1/2 at start levels 1/3/5, 20
+rules-placed pieces before the clip) with the actual clock at the declared 2× slowdown, serially, plus the
+simulation, the true-board baseline and the normal-speed comparison. Means over three episodes; "avoidable" counts
+applied decisions that created a hole where the rules baseline had a gap-free placement for the same piece.
+
+| Run | Policy | Provider | Clock | Slowdown | Lines | New holes | Alive | Stale | Avoidable | Capture→apply (game s) |
+|---|---|---|---|---|---:|---:|---|---:|---:|---:|
+| `claude-eval-2x` **(selected)** | `v11-short` | Claude Opus low, stateless CLI | wall | 2× | 5.67 | 0.33 | 3/3 | 0 | 1/55 | 2.85 (wall median 5.3 s) |
+| `claude-eval-2x-v12c` (rejected) | `v12c-tradeoff` | Claude Opus low | wall | 2× | 3.67 | 5.33 | 3/3 | 3 | 0/45 | 3.12 (wall median 6.2 s) |
+| `claude-sim-2x` | `v11-short` | Claude Opus low | virtual, sampled profile | 2× | 3.67 | 8.67 | 2/3 | 3 | — | 2.77 |
+| `rules-sim-2x` | — | rules baseline (true board) | virtual, sampled profile | 2× | 5.67 | 1.67 | 3/3 | 0 | — | 2.77 |
+| `claude-eval-1x` | `v11-short` | Claude Opus low | wall | 1× | 1.67 | 5.67 | 2/3 | 5 | — | 6.26 |
+| `rules-sim-1x` | — | rules baseline | virtual | 1× | 1.00 | 8.33 | 2/3 | 7 | — | 6.43 |
+
+Per episode (lines / new holes), selected policy vs baseline at 2× on the actual clock: level 1 7/−1 vs 8/−1,
+level 3 4/1 vs 6/2, level 5 6/1 vs 3/4. All runs replay without model calls (`sol replay tetris`) with every
+issued screenshot hash and final board matching.
+
+What the comparison says:
+
+- **Placement quality is at the baseline's level.** On the actual clock the selected policy clears as many lines as
+  the true-board heuristic and leaves fewer holes; one of 55 applied decisions created a hole the baseline would
+  have avoided. The side-by-side replay renderings (`scripts/tetris_render.py`) are the evidence to look at.
+- **The fixed-case gain did not transfer.** `v12c` made the well-filling decision in the live level-5 episode (one
+  vertical I, three rows) but its longer rule text lengthens every answer (median 416–443 output tokens against
+  279–368) and every call by 1–1.5 s. After that clear the level rose to 6 (0.26 s per row) and the next three
+  answers, 6.9–8.9 s wall, arrived after their pieces had locked; the three untouched pieces produced 14 holes.
+  The candidate is retained as rejected: in this loop a longer policy is a slower policy, and slower loses at the
+  levels where it matters.
+- **The simulation is harsher than the live run** for the same policy: the registered profile (71 samples from the
+  earlier, longer prompt; median 5.9 s, p90 7.8 s) has a heavier tail than the current transport (live median
+  5.3 s), and its draws killed the level-5 episode of both Claude simulations after a four-row clear raised the
+  level to 6, while the rules baseline under the same draws survived with a lower stack. Re-measuring the profile
+  with `sol profile tetris` on the retained inputs is the first follow-up.
+- **Normal speed is latency-bound**, for the baseline as much as for the model: at 1× both lose the level-5 episode
+  and clear about one line per minute.
+
+Next: a re-measured profile for the current prompt, more seeds at 2× (three episodes are not a tight estimate),
+voting over repeated reads for the one-in-five height misreads, and a stronger reader at the same latency.

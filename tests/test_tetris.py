@@ -92,7 +92,7 @@ class Executor(unittest.TestCase):
 class Task(unittest.TestCase):
     def test_selected_recipe_and_policy_hashes(self):
         meta = json.loads((ROOT / "policies/tetris" / RECIPE["policy"] / "policy.json").read_text())
-        self.assertEqual(RECIPE["policy"], "v12c-tradeoff")
+        self.assertEqual(RECIPE["policy"], "v11-short")
         for key, name in (("prompt", "prompt_sha256"), ("system", "system_sha256"), ("task_prefix", "task_prefix_sha256")):
             self.assertEqual(hashlib.sha256((ROOT / RECIPE[key]).read_bytes()).hexdigest(), meta[name])
         self.assertEqual(hashlib.sha256((ROOT / RECIPE["profile"]).read_bytes()).hexdigest(), meta["profile_sha256"])
@@ -157,10 +157,9 @@ class RulesRunAndReplay(unittest.TestCase):
     def test_retained_selected_run_replays_without_model_calls(self):
         run = ROOT / "artifacts/tetris/records/claude-eval-2x"
         manifest = json.loads((run / "manifest.json").read_text())
-        if manifest["recipe"]["policy"] != RECIPE["policy"]:
-            self.skipTest("retained run predates the selected policy; re-register after the next evaluation")
+        self.assertEqual(manifest["recipe"]["policy"], RECIPE["policy"])
         self.assertEqual((manifest["provider"], manifest["clock"]), ("claude", "wall"))
-        episode = run / "episode-04-s0-l5-p20"
+        episode = run / "episode-02-s2-l5-p20"
         result = runner.verify_replay(ROOT, manifest["recipe"], episode)
         summary = json.loads((episode / "summary.json").read_text())
         self.assertEqual((result["model_calls"], result["lines"], result["survived"]), (0, summary["lines"], True))

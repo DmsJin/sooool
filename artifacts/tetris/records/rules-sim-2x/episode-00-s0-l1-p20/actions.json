@@ -1,6 +1,6 @@
 [
  {
-  "frame": 197,
+  "frame": 152,
   "target": 0,
   "piece_index": 0,
   "status": "applied",
@@ -15,7 +15,7 @@
   "col": 6
  },
  {
-  "frame": 331,
+  "frame": 347,
   "target": 1,
   "piece_index": 1,
   "status": "applied",
@@ -30,7 +30,7 @@
   "col": 1
  },
  {
-  "frame": 514,
+  "frame": 526,
   "target": 2,
   "piece_index": 2,
   "status": "applied",
@@ -48,7 +48,7 @@
   "col": 0
  },
  {
-  "frame": 663,
+  "frame": 745,
   "target": 3,
   "piece_index": 3,
   "status": "applied",
@@ -63,7 +63,7 @@
   "col": 1
  },
  {
-  "frame": 866,
+  "frame": 996,
   "target": 4,
   "piece_index": 4,
   "status": "applied",
@@ -77,7 +77,7 @@
   "col": 3
  },
  {
-  "frame": 1038,
+  "frame": 1234,
   "target": 5,
   "piece_index": 5,
   "status": "applied",
@@ -93,7 +93,7 @@
   "col": 7
  },
  {
-  "frame": 1218,
+  "frame": 1479,
   "target": 6,
   "piece_index": 6,
   "status": "applied",
@@ -111,7 +111,7 @@
   "col": 8
  },
  {
-  "frame": 1422,
+  "frame": 1716,
   "target": 7,
   "piece_index": 7,
   "status": "applied",
@@ -126,7 +126,7 @@
   "col": 6
  },
  {
-  "frame": 1700,
+  "frame": 1915,
   "target": 8,
   "piece_index": 8,
   "status": "applied",
@@ -138,7 +138,7 @@
   "col": 3
  },
  {
-  "frame": 1973,
+  "frame": 2094,
   "target": 9,
   "piece_index": 9,
   "status": "applied",
@@ -153,7 +153,7 @@
   "col": 0
  },
  {
-  "frame": 2158,
+  "frame": 2268,
   "target": 10,
   "piece_index": 10,
   "status": "applied",
@@ -167,7 +167,7 @@
   "col": 5
  },
  {
-  "frame": 2323,
+  "frame": 2478,
   "target": 11,
   "piece_index": 11,
   "status": "applied",
@@ -183,7 +183,7 @@
   "col": 8
  },
  {
-  "frame": 2547,
+  "frame": 2770,
   "target": 12,
   "piece_index": 12,
   "status": "applied",
@@ -195,7 +195,7 @@
   "col": 3
  },
  {
-  "frame": 2734,
+  "frame": 2991,
   "target": 13,
   "piece_index": 13,
   "status": "applied",
@@ -209,7 +209,7 @@
   "col": 4
  },
  {
-  "frame": 2899,
+  "frame": 3171,
   "target": 14,
   "piece_index": 14,
   "status": "applied",
@@ -223,7 +223,7 @@
   "col": 2
  },
  {
-  "frame": 3028,
+  "frame": 3383,
   "target": 15,
   "piece_index": 15,
   "status": "applied",
@@ -238,7 +238,7 @@
   "col": 7
  },
  {
-  "frame": 3229,
+  "frame": 3578,
   "target": 16,
   "piece_index": 16,
   "status": "applied",
@@ -251,19 +251,5 @@
   "piece": "T",
   "rot": 3,
   "col": 5
- },
- {
-  "frame": 3392,
-  "target": 17,
-  "piece_index": 17,
-  "status": "applied",
-  "keys": [
-   1,
-   1,
-   6
-  ],
-  "piece": "S",
-  "rot": 0,
-  "col": 1
  }
 ]

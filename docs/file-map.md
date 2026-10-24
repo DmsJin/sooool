@@ -36,7 +36,7 @@ Start with `environments/asterix/runner.py` (one shared serial development/evalu
 
 ## Tetris
 
-Start with [`tetris.md`](tetris.md), `environments/tetris/runner.py` (one serial placement loop for simulation, real-time evaluation, rules baselines and zero-model replay), `executor.py` (key scripts computed from the answer alone, public spawn detection, stale rule), `task.py` (exact actor text with the profile delay statement), `claude_cli.py` (stateless Claude Code CLI transport) and `policies/tetris/v8-keys/`. `baseline.py` is the evaluator-side rules comparison. [The research record](tetris-autoresearch.md) links development and fresh portable evidence; `artifacts/tetris/` holds registered runs and assessments.
+Start with [`tetris.md`](tetris.md), `environments/tetris/runner.py` (one serial placement loop for simulation, real-time evaluation, rules baselines and zero-model replay), `executor.py` (key scripts computed from the answer alone, public spawn detection, stale rule), `task.py` (exact actor text with the profile delay statement), `claude_cli.py` (stateless Claude Code CLI transport) and `policies/tetris/v12c-tradeoff/`. `baseline.py` is the evaluator-side rules comparison. [The research record](tetris-autoresearch.md) links development and fresh portable evidence; `artifacts/tetris/` holds registered runs and assessments.
 
 ## Racing
 

@@ -1,0 +1,130 @@
+[
+ {
+  "frame": 121,
+  "seq": 0,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 2.0166666666666666,
+  "actual_capture_to_apply_s": 4.016304825000134
+ },
+ {
+  "frame": 367,
+  "seq": 1,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 3.1166666666666667,
+  "actual_capture_to_apply_s": 6.223107534000064
+ },
+ {
+  "frame": 650,
+  "seq": 2,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 3.8333333333333335,
+  "actual_capture_to_apply_s": 7.652169957000069
+ },
+ {
+  "frame": 805,
+  "seq": 3,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 2.4166666666666665,
+  "actual_capture_to_apply_s": 4.819790496999985
+ },
+ {
+  "frame": 1038,
+  "seq": 4,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 3.3,
+  "actual_capture_to_apply_s": 6.584326456999861
+ },
+ {
+  "frame": 1252,
+  "seq": 5,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 2.8666666666666667,
+  "actual_capture_to_apply_s": 5.719739299000139
+ },
+ {
+  "frame": 1450,
+  "seq": 6,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 3.1666666666666665,
+  "actual_capture_to_apply_s": 6.3228521199998795
+ },
+ {
+  "frame": 1678,
+  "seq": 7,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 2.966666666666667,
+  "actual_capture_to_apply_s": 5.916872343000023
+ },
+ {
+  "frame": 1867,
+  "seq": 8,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 3.1166666666666667,
+  "actual_capture_to_apply_s": 6.214177691000032
+ },
+ {
+  "frame": 2063,
+  "seq": 9,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 2.3833333333333333,
+  "actual_capture_to_apply_s": 4.755398924000019
+ },
+ {
+  "frame": 2347,
+  "seq": 10,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 4.116666666666666,
+  "actual_capture_to_apply_s": 8.215338011999847
+ },
+ {
+  "frame": 2653,
+  "seq": 11,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 4.216666666666667,
+  "actual_capture_to_apply_s": 8.422986864000222
+ },
+ {
+  "frame": 2897,
+  "seq": 12,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 3.283333333333333,
+  "actual_capture_to_apply_s": 6.554356117999987
+ },
+ {
+  "frame": 3101,
+  "seq": 13,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 2.683333333333333,
+  "actual_capture_to_apply_s": 5.357833750000054
+ },
+ {
+  "frame": 3295,
+  "seq": 14,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 2.9166666666666665,
+  "actual_capture_to_apply_s": 5.823581259999855
+ },
+ {
+  "frame": 3599,
+  "seq": 15,
+  "mode": "realtime",
+  "status": "applied",
+  "capture_to_apply_s": 3.9833333333333334,
+  "actual_capture_to_apply_s": 7.955848749000097
+ }
+]

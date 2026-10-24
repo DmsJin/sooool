@@ -1,0 +1,42 @@
+[
+ {
+  "frame": 546,
+  "seq": 0,
+  "mode": "realtime",
+  "status": "stale",
+  "capture_to_apply_s": 9.1,
+  "actual_capture_to_apply_s": 9.090594498999963
+ },
+ {
+  "frame": 948,
+  "seq": 1,
+  "mode": "realtime",
+  "status": "stale",
+  "capture_to_apply_s": 5.8,
+  "actual_capture_to_apply_s": 5.7837136960000635
+ },
+ {
+  "frame": 1400,
+  "seq": 2,
+  "mode": "realtime",
+  "status": "stale",
+  "capture_to_apply_s": 7.333333333333333,
+  "actual_capture_to_apply_s": 7.323589846999994
+ },
+ {
+  "frame": 1838,
+  "seq": 3,
+  "mode": "realtime",
+  "status": "stale",
+  "capture_to_apply_s": 6.633333333333334,
+  "actual_capture_to_apply_s": 6.623021069999936
+ },
+ {
+  "frame": 2288,
+  "seq": 4,
+  "mode": "realtime",
+  "status": "stale",
+  "capture_to_apply_s": 7.133333333333334,
+  "actual_capture_to_apply_s": 7.117657717000043
+ }
+]

@@ -1,0 +1,130 @@
+[
+ {
+  "frame": 208,
+  "seq": 0,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 3.466666666666667,
+  "actual_capture_to_apply_s": 0.3838336100000106
+ },
+ {
+  "frame": 524,
+  "seq": 1,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 4.733333333333333,
+  "actual_capture_to_apply_s": 0.5562927260000379
+ },
+ {
+  "frame": 718,
+  "seq": 2,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 2.966666666666667,
+  "actual_capture_to_apply_s": 0.38115677600001163
+ },
+ {
+  "frame": 938,
+  "seq": 3,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 2.6333333333333333,
+  "actual_capture_to_apply_s": 0.3409609919999639
+ },
+ {
+  "frame": 1244,
+  "seq": 4,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 4.733333333333333,
+  "actual_capture_to_apply_s": 0.5212799859999677
+ },
+ {
+  "frame": 1481,
+  "seq": 5,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 3.683333333333333,
+  "actual_capture_to_apply_s": 0.41654490299993086
+ },
+ {
+  "frame": 1666,
+  "seq": 6,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 2.7666666666666666,
+  "actual_capture_to_apply_s": 0.29836218299999473
+ },
+ {
+  "frame": 1831,
+  "seq": 7,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 2.5166666666666666,
+  "actual_capture_to_apply_s": 0.304470699000035
+ },
+ {
+  "frame": 2053,
+  "seq": 8,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 3.216666666666667,
+  "actual_capture_to_apply_s": 0.37860963200000697
+ },
+ {
+  "frame": 2245,
+  "seq": 9,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 2.4166666666666665,
+  "actual_capture_to_apply_s": 0.3032782779999934
+ },
+ {
+  "frame": 2418,
+  "seq": 10,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 2.3,
+  "actual_capture_to_apply_s": 0.28381247099991924
+ },
+ {
+  "frame": 2586,
+  "seq": 11,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 2.1,
+  "actual_capture_to_apply_s": 0.25049109999997654
+ },
+ {
+  "frame": 2806,
+  "seq": 12,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 2.7666666666666666,
+  "actual_capture_to_apply_s": 0.34185504599997785
+ },
+ {
+  "frame": 2986,
+  "seq": 13,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 2.7666666666666666,
+  "actual_capture_to_apply_s": 0.42173782899999424
+ },
+ {
+  "frame": 3166,
+  "seq": 14,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 2.7666666666666666,
+  "actual_capture_to_apply_s": 0.49331704099995477
+ },
+ {
+  "frame": 3387,
+  "seq": 15,
+  "mode": "simulation",
+  "status": "applied",
+  "capture_to_apply_s": 3.45,
+  "actual_capture_to_apply_s": 0.5161374870000373
+ }
+]
